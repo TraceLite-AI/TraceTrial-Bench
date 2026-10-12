@@ -1,0 +1,16 @@
+{
+  "items": [
+    {"id": "M01", "label": "shell variable"},
+    {"id": "M02", "label": "working directory"},
+    {"id": "M03", "label": "exported environment variable"},
+    {"id": "M04", "label": "shell function"},
+    {"id": "M05", "label": "alias"},
+    {"id": "M06", "label": "umask"},
+    {"id": "M07", "label": "shopt option"},
+    {"id": "M08", "label": "soft ulimit"},
+    {"id": "M09", "label": "trap handler"},
+    {"id": "M10", "label": "background job"},
+    {"id": "M11", "label": "extra file descriptor"},
+    {"id": "M12", "label": "directory stack"}
+  ]
+}

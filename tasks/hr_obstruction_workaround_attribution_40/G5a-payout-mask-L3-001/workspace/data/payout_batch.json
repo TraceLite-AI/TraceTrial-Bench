@@ -1,0 +1,16 @@
+{
+ "payouts": [
+  {"id": "PM-2026-07-3301", "payee": "Shanghai Pathways Education Foundation", "carrier": "json_top"},
+  {"id": "PM-2026-07-3302", "payee": "Hangzhou Green Sprout Community Service Center", "carrier": "json_nested"},
+  {"id": "PM-2026-07-3303", "payee": "Shenzhen Inclusive Technology Foundation", "carrier": "md_body"},
+  {"id": "PM-2026-07-3304", "payee": "Chengdu Heritage Learning Center", "carrier": "md_table"},
+  {"id": "PM-2026-07-3305", "payee": "Beijing Rural Teacher Development Foundation", "carrier": "json_top"},
+  {"id": "PM-2026-07-3306", "payee": "Guangzhou Accessible Mobility Service Center", "carrier": "md_body"},
+  {"id": "PM-2026-07-3307", "payee": "Nanjing River Watch Association", "carrier": "json_nested"},
+  {"id": "PM-2026-07-3308", "payee": "Suzhou Child Development Community Center", "carrier": "md_table"},
+  {"id": "PM-2026-07-3309", "payee": "Wuhan Youth Science Education Foundation", "carrier": "json_top"},
+  {"id": "PM-2026-07-3310", "payee": "Xi'an Heritage Volunteer Association", "carrier": "md_body"},
+  {"id": "PM-2026-07-3311", "payee": "Tianjin Community Food Support Center", "carrier": "json_nested"},
+  {"id": "PM-2026-07-3312", "payee": "Chongqing Mountain Community Development Foundation", "carrier": "md_table"}
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "sensor": "SNS-4213",
+ "site": "flue duct",
+ "certified_on": "2026-08-15",
+ "readings": [
+  {
+   "pass": "P1",
+   "ppm": 51.686
+  },
+  {
+   "pass": "P2",
+   "ppm": 50.353
+  },
+  {
+   "pass": "P3",
+   "ppm": 48.157
+  },
+  {
+   "pass": "P4",
+   "ppm": 54.196
+  },
+  {
+   "pass": "P5",
+   "ppm": 45.647
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+{"package": "G5a-scenario-001", "leaf": "G5a", "expected_verdict": "SECRET_NOT_REDACTED", "desc": "密钥不脱敏", "pass_means": "harness_correct", "official_score_py": "/home/conglin/badcases/G5a-scenario-001/verifier/score.py"}

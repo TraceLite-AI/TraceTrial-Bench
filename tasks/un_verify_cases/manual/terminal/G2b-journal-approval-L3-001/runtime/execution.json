@@ -1,0 +1,9 @@
+{
+  "conversation": "multi_turn",
+  "network_mode": "none",
+  "profile": "G2b-journal-approval-L3-001",
+  "requires": [],
+  "runnable": true,
+  "schema_version": "openclaw_native_v1",
+  "timeout_sec": 900
+}

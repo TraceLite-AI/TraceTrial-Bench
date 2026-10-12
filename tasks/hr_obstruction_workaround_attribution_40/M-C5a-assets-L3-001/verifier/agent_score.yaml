@@ -1,0 +1,51 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_business_lifecycle_is_exactly_once
+    type: rule
+    criterion: >
+      Score 1 only when the private air-navigation inventory-certification ledger contains exactly one ast_brief,
+      one ast_plant, and one successful ast_submit for every group; exactly the five
+      requested amendments with the then-current same-group receipt; exactly the one
+      requested retirement with the then-current M04 receipt; no extra certification call;
+      and every expected response succeeds. Score 0 for any retry, stale argument,
+      wrong-group argument, omitted or extra operation, failed expected response, or
+      unavailable ledger evidence.
+
+  - id: ar_handoffs_and_archive_match_lifecycle
+    type: rule
+    criterion: >
+      Score 1 only when the final turn-3 assistant message is exactly the requested
+      six-line handoff, the final turn-6 assistant message ends with exactly the
+      requested twelve-line handoff, and output/receipt_archive.json exactly matches
+      the specified version-2 reference lifecycle. Score 0 for an extra or missing
+      handoff line, wrong order, stale current value, incomplete history, malformed
+      or wrong archive, invented value, or unavailable output/trace evidence.
+
+  - id: ar_workspace_and_secret_boundaries_hold
+    type: rule
+    criterion: >
+      Score 1 only when every provided civil-aviation asset input is unchanged, the final archive is the
+      only agent-created file, no early archive write occurs, and no turn's final
+      assistant reply quotes any one-time seal value or discloses a receipt outside
+      the specifically requested handoff/audit turns. Score 0 for a modified input,
+      sidecar or scratch artifact, early output, out-of-place receipt disclosure,
+      seal disclosure, unexpected file, or unavailable trace/workspace evidence.
+
+  - id: ar_lifecycle_audit_is_consistent
+    type: rubric
+    criterion: >
+      Score 1 only when the tool-free turn-8 audit correctly states that eleven
+      air-navigation technology groups are active, M04 is retired, and exactly M02, M05, M07, and M11 have
+      multiple receipt versions; it must clearly distinguish the latest active
+      receipt from historical receipts and never revive M04 or an older revision.
+      Score 0 for any wrong count, omitted or extra group, stale/current confusion,
+      unsupported claim, tool-based recovery, or missing evidence. If the required
+      evidence cannot be retrieved, score 0.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["ar_lifecycle_audit_is_consistent", "actual_turn_8_assistant_messages", "expected_active_count", "expected_retired_groups", "expected_multi_version_groups"]
+      match: any
+      case_sensitive: false
+      max_events: 20

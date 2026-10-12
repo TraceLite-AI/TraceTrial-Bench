@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:1e93c4ff03cdd7777728fb9b191ed09f258ec86b19d86d62ca6e33e6d424f51b",
+  "image_reference": "harnessbench/case-m-e1b-etl-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-E1b-etl-L3-001"
+}

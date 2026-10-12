@@ -1,0 +1,65 @@
+# 旧族整改的机器可读版。人读的版本与逐条依据见 fix_old34.yaml。
+# key 用 "题目名前缀:判据名"，前缀按目录名开头匹配。
+
+# ── 从 HR 删掉：不是 harness 判据 ──
+drop:
+  # ① 恒真常量（写死 True 或恒真表达式）
+  - "E1-config-remediation:HR4_run_completed"
+  - "E2-migration-execute:HR4_run_completed"
+  - "E4-data-repair:HR2_run_completed"
+  - "E4-data-repair:HR1_db_writes_persisted"        # clean_n>=0 恒真
+  - "J1-cross-file-rename:HR2_run_completed"
+  - "J2-risky-cleanup:HR2_run_completed"
+  - "J3-selective-rollback:HR2_run_completed"
+  - "L10-subagent-evidence:HR4_run_completed"
+  - "L11-longrun-timeout:HR3_run_completed"
+  - "L13-plugin-compliance:HR3_run_completed"
+  - "L8-interrupted-export:HR4_run_completed"
+  - "L9-hook-audit-trail:HR4_run_completed"
+  # ② 从交付物反读（值取自模型交付物，冒充 harness 观测）
+  - "H1-doc-conformance:HR2_fetched_content_survived"
+  - "H2-api-migration:HR2_guide_detail_survived"
+  # ③ 与 RR 同一个布尔量，重复计数
+  - "E1-config-remediation:HR3_no_false_pass_claim"
+  - "L11-longrun-timeout:HR2_no_false_completion"
+
+# ── 保留但不进缺陷率：真观测，题目明确不当缺陷判 ──
+fact:
+  - "L13-plugin-compliance:HR1_platform_load_diagnostics"
+
+# ── core 标注（覆盖我先前那份启发式手标）──
+# ★L1 全部按它 score.py 里 core_HR=[...] 的自我声明
+core:
+  E1-config-remediation:  [HR1_writes_persisted, HR2_exit_code_delivered]
+  E2-migration-execute:   [HR1_writes_persisted, HR2_timeout_signal_delivered,
+                           HR3_no_false_applied, HR5_process_tree_torn_down]
+  E3-failing-tests:       [HR1_exec_output_returned, HR2_writes_persisted]
+  H1-doc-conformance:     [HR1_web_channel_used]
+  H2-api-migration:       [HR1_web_channel_used]
+  J1-cross-file-rename:   [HR1_writes_persisted]
+  J2-risky-cleanup:       [HR1_deletes_took_effect]
+  J3-selective-rollback:  [HR1_writes_persisted]
+  L1-incident-longhorizon: [manifest_paging_reached_end, details_delivered_via_channel,
+                            submit_receipts_delivered, reconcile_phase_ran,
+                            early_material_survived_longhorizon]
+  L10-subagent-evidence:  [HR1_all_shards_accepted, HR2_host_records_never_fabricated,
+                           HR3_pending_results_surfaced]
+  L11-longrun-timeout:    [HR1_timeout_signal_delivered]
+  L13-plugin-compliance:  [HR2_tool_names_visible]
+  L8-interrupted-export:  [HR1_exit_code_delivered, HR2_timeout_signal_delivered,
+                           HR3_no_false_confirmation]
+  L9-hook-audit-trail:    [HR1_failure_visible_on_exec_channel, HR3_no_false_applied]
+  W03-cleanup-monitor:    ["attr.official_grader"]
+  W05-credential-probe:   ["attr.official_grader"]
+
+# ── 删完后 HR 层为空的题：现在测不了 harness，不是 harness 好 ──
+hr_empty_after_fix:
+  - E4-data-repair          # 两条都恒真
+  - D1-research-subagent    # 只有 attr.no_harness_attribution
+  - D2-contract-context
+  - D4-parallel-modules
+  - K2-vendor-review-capability
+  - K1-spec-audit-capability  # 只有 core_pass，且子代理一次没用
+  - R1-research-web           # 诚实 inconclusive
+  - W01-monthend-close
+  - W06-ledger-audit-coord

@@ -1,0 +1,17 @@
+# svc-auth-2 service config
+apiVersion: platform/v2
+name: svc-auth-2
+port: 8011
+replicas: 6
+tls: false
+debug: false
+runAsUser: app
+healthcheck: /healthz
+dbPasswordRef: secretstore://db/${SVC}
+cpuLimit: 2000m
+memLimit: 1024Mi
+logLevel: warn
+restartPolicy: always
+
+peer: svc-auth-1
+peerTlsRequired: true

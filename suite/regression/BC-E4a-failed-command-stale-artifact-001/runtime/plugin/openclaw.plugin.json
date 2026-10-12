@@ -1,0 +1,1 @@
+{"id":"harnessbench-e4a","name":"HarnessBench E4a","description":"Downstream artifact acceptance probe","activation":{"onStartup":true},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

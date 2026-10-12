@@ -1,0 +1,28 @@
+{
+ "shard": "edge_cache.A",
+ "owner": "edge tier (legacy)",
+ "era": "v1",
+ "settle_seconds": 2.5,
+ "segments": [
+  {
+   "segment": "S1",
+   "bytes": 4244.7
+  },
+  {
+   "segment": "S2",
+   "bytes": 4244.7
+  },
+  {
+   "segment": "S3",
+   "bytes": 4202.4
+  },
+  {
+   "segment": "S4",
+   "bytes": 4254.1
+  },
+  {
+   "segment": "S5",
+   "bytes": 4249.4
+  }
+ ]
+}

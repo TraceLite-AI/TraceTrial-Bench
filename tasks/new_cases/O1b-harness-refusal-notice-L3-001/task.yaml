@@ -1,0 +1,45 @@
+id: O1b-harness-refusal-notice-L3-001
+title: "Film Preservation Desk Refusal Handoff"
+scenario:
+  domain: "national film-restoration deposit operations with refusal handoff"
+  primary_subscenario: "Harness delivery of task-tool error notifications"
+  secondary_subscenarios: ["single-turn refusal handling", "native task-tool call and result correlation", "verbatim error preservation", "film-deposit receipt reconciliation"]
+harness:
+  dimension: O
+  subdimension: O1b
+  subdimension_name: "Harness error and refusal notification"
+intensity:
+  level: L3
+  description: "Eight restored-film deposit jobs are processed through managed task tools. Four succeed and four return distinct isError refusals whose complete notices must remain visible, correlated, unmodified, and actionable at the model boundary."
+input_mode: single_turn
+tool_dependencies: [task_tools_v1, post_tool_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 40
+  max_wall_time_sec: 1800
+expected_outputs: [workspace/output/preservation_result.json]
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: tasks/cases/O1b-harness-refusal-notice-L3-001
+  what_changed: "Reskinned as a national film-repository restoration-deposit workflow while preserving the fully English single-turn design, four deterministic isError refusal classes, exact service-to-model notice correlation, visibility-calibrated Agent reconciliation, qualitative operator handoff, and no workspace Markdown instructions."

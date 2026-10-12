@@ -1,0 +1,61 @@
+id: M-L1a-shards-L3-001
+title: "Shard Queue: Provider-Request Budget Landing"
+scenario:
+  domain: "shardal operations batch processing"
+  primary_subscenario: "proactive landing before the real model-call budget is exhausted"
+  secondary_subscenarios:
+    - adaptive budget monitoring
+    - prioritized partial delivery
+    - durable incremental receipts
+harness:
+  dimension: L
+  subdimension: L1a
+  subdimension_name: "model-call budget landing"
+intensity:
+  level: L3
+  description: >
+    One user input starts a nonce-gated shard queue behind a runner-enforced
+    provider-request budget. The Agent must spend real model continuations on
+    work and monitoring, recognize the protected landing window, stop starting
+    shards, finalize durable partial output, and answer before the hard cap.
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, business_cli_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 80
+  max_wall_time_sec: 2400
+model_call_budget:
+  version: provider_requests_v1
+  limit: 18
+  finalization_reserve: 5
+expected_outputs:
+  - workspace/output/shard_receipts.json
+  - workspace/output/budget_plan.md
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-L1a-regions-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same eight queue entries with the same
+    priorities and estimated volumes, the same provider-request budget landing
+    mechanism through the same budgetctl channel, the same budget triple, both
+    score rubrics, and score.py rule logic.
+    Only the skin changes: the regional order queue becomes a test shard queue; the eight regions become eight shards and the estimated orders become estimated cases."

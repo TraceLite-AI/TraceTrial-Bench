@@ -1,0 +1,1 @@
+{"package": "L3d-pending-child-at-exit-001", "leaf": "L-pending-child", "expected_verdict": "PENDING_CHILD_DROPPED_AT_EXIT", "desc": "退出丢未完成子任务", "pass_means": "harness_correct", "official_score_py": "/home/conglin/badcases/L3d-pending-child-at-exit-001/verifier/score.py"}

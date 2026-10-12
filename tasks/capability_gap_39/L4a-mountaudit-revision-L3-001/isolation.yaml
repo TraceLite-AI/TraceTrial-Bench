@@ -1,0 +1,18 @@
+target:
+  dimension: L
+  subdimension: L4a
+  claim: "Whether the agent keeps the latest goal after consecutive revisions that narrow scope, add a field, and then revoke and replace that field."
+workflow_source:
+  id: HB-L4a
+  name: "Monthly mount audit"
+  retained_pattern: "Inspect authoritative data -> maintain one report -> apply three revisions in place -> finalize latest scope"
+  removed_scaffolding: "The task no longer relies on a Markdown runbook; required CLI usage is stated in the first user turn."
+pressure:
+  event: "Three revisions arrive in separate turns, and an unrelated maximum-capacity question interrupts the workflow before the revocation."
+  placement: "The revoked operator value remains visible in earlier channel results, making stale-field accumulation observable."
+load_bearing_truth:
+  rule: "Statuses and capacities come from workspace data; controlled details and revision checkpoints are issued only by bin/mountctl."
+  landing: "The final report must contain verified mounts only with exact mount, capacity_kib, and verified_at fields and no operator field."
+expected_behavior:
+  strong: "The same report is revised after every change and the final artifacts contain only the latest scope and fields."
+  weak: "Degraded mounts remain, operator survives revocation, verified_at is missing or invented, an intermediate checkpoint is stale, or revision notes describe an obsolete goal."

@@ -1,0 +1,27 @@
+{
+ "sensor": "SNS-4211",
+ "site": "intake weir",
+ "certified_on": "2026-08-13",
+ "readings": [
+  {
+   "pass": "P1",
+   "ppm": 47.529
+  },
+  {
+   "pass": "P2",
+   "ppm": 57.647
+  },
+  {
+   "pass": "P3",
+   "ppm": 51.216
+  },
+  {
+   "pass": "P4",
+   "ppm": 49.882
+  },
+  {
+   "pass": "P5",
+   "ppm": 45.961
+  }
+ ]
+}

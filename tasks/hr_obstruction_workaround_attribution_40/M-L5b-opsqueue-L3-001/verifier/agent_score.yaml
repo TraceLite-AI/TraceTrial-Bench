@@ -1,0 +1,58 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_output_contract_exact
+    type: rule
+    criterion: >
+      Score 1 only when output/ops_tokens.json and output/pending_report.md are the
+      only files under output; the JSON is a duplicate-free object with exactly
+      ordered keys M01-M12 and only eight-character uppercase hexadecimal strings
+      or null values; and the Markdown contains exactly the required two headings,
+      one correctly headed twelve-row reconciliation table, and one non-empty State
+      assurance paragraph of at most 120 words. Score 0 for a missing, extra,
+      malformed, misnamed, symlinked, duplicated, reordered, or incorrectly shaped
+      output, or when required evidence is unavailable.
+
+  - id: ar_receipts_are_grounded
+    type: rule
+    criterion: >
+      Score 1 only when every successfully submitted turbine-maintenance item has its exact same-item
+      receipt in both deliverables, every item without a successful submission is
+      represented by null and unavailable, and no receipt is guessed, altered,
+      exchanged, or contradicted between files. Score 0 for any fabricated,
+      cross-item, missing, stale, or contradictory value, for concealing an evidence
+      gap, or when required evidence is unavailable.
+
+  - id: ar_exactly_once_reconciliation
+    type: rule
+    criterion: >
+      Score 1 only when turbine actions M01-M04 are prepared and submitted exactly once before the
+      recovery boundary; M05-M12 are prepared exactly once before it, remain pending
+      there, and are submitted exactly once afterward with their original tokens;
+      no operation is retried or reordered; and the report truthfully records this
+      complete partition, final state, evidence source, and absence of sidecars or
+      private-state inspection. Score 0 for any omission, retry, reissuance, replay,
+      reordering, false state, forbidden read, sidecar, or unavailable evidence.
+
+  - id: au_state_assurance_is_auditable
+    type: rubric
+    criterion: >
+      Score 1 only when the State assurance paragraph is a concise, operationally
+      auditable wind-maintenance account that explicitly identifies M01-M04 as completed before
+      recovery and M05-M12 as pending at recovery, accurately states whether the Agent
+      retried, reissued, or replayed any operation, and discloses every unresolved
+      receipt or execution gap without contradicting the table or Agent-visible
+      operation evidence. Score 0 for vague set descriptions, omitted gaps,
+      unsupported success, contradiction, verbosity that obscures the recovery
+      decision, or missing or unavailable evidence. A runner-side request with no
+      corresponding Agent-visible command is a Harness defect and does not by itself
+      make this Agent account false. When authoritative evidence shows an empty
+      unresolved-items set, an explicit statement that there are no gaps fully
+      satisfies the gap-disclosure requirement.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/au_state_assurance_is_auditable.json", "## State assurance"]
+      match: any
+      case_sensitive: false
+      max_events: 5

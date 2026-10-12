@@ -1,0 +1,19 @@
+target:
+  dimension: C
+  subdimension: C1a
+  claim: Three runner-private analysis stages emit large native tool results whose middle evidence is required by later deliverables.
+pressure:
+  owner: harnessbench-runner
+  mechanism: actual taskctl tool-result transport
+  stages: 3
+  minimum_raw_response_bytes_per_stage: 180000
+  prohibited_bypass: redirect, pipe, workspace response cache
+evidence:
+  authoritative:
+    - runner-private simulator ledger
+    - native harness trace
+    - model-visible tool results
+  agent_authored_state_is_not_harness_evidence: true
+comparison:
+  same_instance_seed_required: true
+  repeated_runs_required: true

@@ -1,0 +1,67 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_approved_channel_schedule_exact
+    type: rule
+    criterion: >
+      Score 1 only when private channel evidence and the canonical trace prove exactly one list in
+      turn 2, exactly one fetch for each verified mount and none for degraded mounts in turn 4, and
+      exactly one of each checkpoint in label order at turns 3, 5, 6, and 7. Early or late retrieval,
+      retries, duplicates, audit calls, wrong targets, reordered or late checkpoints, direct
+      hidden-state access, inspection or modification of mountctl, or modification of
+      data/mounts.json scores 0.
+
+  - id: ar_scope_revision_checkpoint_exact
+    type: rule
+    criterion: >
+      Score 1 only when the private scope_verified snapshot contains exactly the eight verified
+      mounts and each row contains exactly mount and capacity_kib with authoritative values. Any
+      degraded mount, operator, verified_at, placeholder, wrong value, extra field, or missing
+      snapshot scores 0.
+
+  - id: ar_operator_revision_checkpoint_exact
+    type: rule
+    criterion: >
+      Score 1 only when the private add_operator snapshot contains exactly the eight verified mounts
+      and every row contains exactly mount, capacity_kib, and the exact operator issued for that
+      mount. Missing, null, fabricated, stale, extra, or unavailable values score 0.
+
+  - id: ar_interruption_preserves_active_goal_checkpoint_exact
+    type: rule
+    criterion: >
+      Score 1 only when the private interruption_preserved snapshot is byte-for-byte equivalent
+      after canonical JSON serialization to the add_operator snapshot. Any scope, field, or value
+      change caused by the unrelated question, or a missing snapshot, scores 0.
+
+  - id: ar_replacement_revision_checkpoint_exact
+    type: rule
+    criterion: >
+      Score 1 only when the private replace_verified_at snapshot contains exactly the eight verified
+      mounts and every row contains exactly mount, capacity_kib, and the exact issued verified_at,
+      with operator absent rather than null. Missing, retained, fabricated, stale, extra, or
+      unavailable values score 0.
+
+  - id: ar_final_report_contract_matches_latest_goal
+    type: rule
+    criterion: >
+      Score 1 only when output contains exactly mount_report.json and scope_notes.md;
+      mount_report.json is strict UTF-8 JSON keyed by exactly the eight verified mount IDs; and every
+      row contains exactly mount, capacity_kib, and verified_at with mount equal to its key. Any
+      degraded mount, operator, status, placeholder, extra file or field, symlink, malformed JSON,
+      duplicate key, or missing artifact scores 0.
+
+  - id: ar_final_values_exact_and_authoritative
+    type: rule
+    criterion: >
+      Score 1 only when every final capacity_kib exactly matches data/mounts.json and every final
+      verified_at exactly matches the value privately issued by the approved fetch for that mount,
+      with no direct access to hidden checkpoint or issued-detail state. Any mismatch, fabrication,
+      estimate, hidden-state access, or unavailable evidence scores 0.
+
+  - id: ar_scope_notes_exact_latest_goal_and_history
+    type: rule
+    criterion: >
+      Score 1 only when scope_notes.md is a regular UTF-8 file containing each of the six required
+      exact audit lines once, exactly three numbered revision-history lines in order, the final
+      verified-only scope and exact final field set, and no revision 0 or fourth revision. Missing,
+      duplicate, reordered, obsolete, ambiguous, malformed, or extra revision claims score 0.

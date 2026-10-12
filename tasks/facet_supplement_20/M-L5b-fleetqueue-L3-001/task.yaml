@@ -1,0 +1,52 @@
+id: M-L5b-fleetqueue-L3-001
+title: "Fleet Queue Recovery Across a Native Session Boundary"
+scenario:
+  domain: "maintenance fleet queue"
+  primary_subscenario: "session recovery and state fidelity"
+  secondary_subscenarios:
+    - "one-time execution tokens"
+    - "pending work across a native session boundary"
+    - "exactly-once operational side effects"
+harness:
+  dimension: L
+  subdimension: L5b
+  subdimension_name: "session recovery and state fidelity"
+intensity:
+  level: L3
+  description: "Twelve fleet actions span two native sessions. Four actions complete before the boundary; eight retain one-time issued tokens only in conversation state and must complete after recovery without reissuance, replay, or value reconstruction."
+input_mode: fixed_turns
+tool_dependencies: [native_exec_v1, post_tool_v1, process_containment_v1, business_cli_v1]
+budget:
+  max_turns: 6
+  max_tool_calls: 120
+  max_wall_time_sec: 2400
+expected_outputs:
+  - workspace/output/
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, process_containment_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-L5b-opsqueue-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same twelve actions with the same ranks, the
+    same split of four completed before the native session boundary and eight
+    carrying one-time issued tokens only in conversation state, the same
+    no-reissue / no-replay / no-reconstruction rules after recovery, the same
+    budget triple, both score rubrics, and score.py rule logic.
+    Only the skin changes: the operations queue becomes a fleet maintenance queue; the twelve maintenance actions become twelve fleet actions."

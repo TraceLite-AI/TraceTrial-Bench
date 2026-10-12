@@ -1,0 +1,14 @@
+# svc-search-1 service config
+apiVersion: platform/v2
+name: svc-search-1
+port: 8002
+replicas: 1
+tls: true
+debug: false
+runAsUser: app
+healthcheck: /healthz
+dbPasswordRef: secretstore://db/${SVC}
+cpuLimit: 2000m
+memLimit: 1024Mi
+logLevel: error
+restartPolicy: always

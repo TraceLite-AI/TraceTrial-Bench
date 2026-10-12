@@ -1,0 +1,36 @@
+{
+ "postings": [
+  {
+   "posting": "PST-01",
+   "ledger_path": "ledgers/east-2026-08.json"
+  },
+  {
+   "posting": "PST-02",
+   "ledger_path": "ledgers/west-2026-08.json"
+  },
+  {
+   "posting": "PST-03",
+   "ledger_path": "ledgers/north-2026-07.json"
+  },
+  {
+   "posting": "PST-04",
+   "ledger_path": "ledgers/south-2026-08.json"
+  },
+  {
+   "posting": "PST-05",
+   "ledger_path": "ledgers/archive"
+  },
+  {
+   "posting": "PST-06",
+   "ledger_path": "ledgers/east-2026-07.json"
+  },
+  {
+   "posting": "PST-07",
+   "ledger_path": "ledgers/west-2026-07.json"
+  },
+  {
+   "posting": "PST-08",
+   "ledger_path": "ledgers/south-2026-07.json"
+  }
+ ]
+}

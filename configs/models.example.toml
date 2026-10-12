@@ -1,0 +1,33 @@
+# This file stores plaintext credentials. Keep the copied registry private
+# with chmod 600 and never commit it.
+
+[container_build]
+debian_mirror = "https://mirrors.aliyun.com/debian"
+debian_security_mirror = "https://mirrors.aliyun.com/debian-security"
+npm_registry = "https://registry.npmmirror.com"
+
+[models.deepseek]
+provider = "myprovider"
+model = "deepseek-v4-flash"
+base_url = "https://api.example.com/v1"
+api_mode = "chat_completions"
+api_key = "replace-with-api-key"
+openclaw_model = "myprovider/deepseek-v4-flash"
+hermes_provider = "custom:myprovider"
+hermes_model = "deepseek-v4-flash"
+# Set only when this model's OpenAI-compatible route rejects the web-search
+# option derived by the Codex Responses bridge.
+# litellm_disable_web_search = true
+
+# [models.deepseek.pricing]
+# currency = "USD"
+# uncached_input_per_million = "0.00"
+# cache_read_input_per_million = "0.00"
+# Omit this field when cache creation is billed like ordinary input.
+# cache_write_input_per_million = "0.00"
+# Optional label retained with every calculated result.
+# effective_at = "YYYY-MM-DD"
+
+# Add more [models.<alias>] tables to run model matrices. Provider and model
+# identifiers may contain vendor-qualified path segments. Replace all zero prices
+# above with the provider's versioned rates before interpreting monetary savings.

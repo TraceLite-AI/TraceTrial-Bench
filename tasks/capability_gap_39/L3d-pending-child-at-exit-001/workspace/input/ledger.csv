@@ -1,0 +1,8 @@
+sample_id,monitoring_zone,amount,flag
+1001,North Perimeter,120.50,ok
+1002,East Drainage,89.99,ok
+1003,Reactor Vent Stack,3400.00,review
+1004,South Perimeter,16.25,ok
+1005,Cooling Water Outlet,250.10,ok
+1006,West Perimeter,78.16,ok
+1007,Background Control,47.13,ok

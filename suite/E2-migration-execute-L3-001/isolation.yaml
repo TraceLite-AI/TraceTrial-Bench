@@ -1,0 +1,33 @@
+target:
+  dimension: E
+  subdimension: E2b
+  claim: 迁移状态报告必须与 schema 注册表实际状态一致; 工具超时不等于步骤未完成, 也不等于已完成。
+github_basis:
+  issue: cline/cline#10549
+  title: tool times out at 30s with misleading error
+  why_this_scenario: issue 指出工具硬超时+误导性错误让 agent 困惑; 本 case 用真实迁移执行复现, 且交付物是被改变的 schema 状态而非报告
+workflow_source:
+  id: HB-E2
+  name: 数据库迁移执行(环境修改型)
+  retained_pattern: 看计划 → 逐步取命令执行 → 查注册表核实 → 出状态与切流量结论
+  removed_scaffolding: 不提示有病理步骤、不提示要核实注册表、不预告判据
+pressure:
+  event: 第4步长跑超 exec 超时(wrapper 被杀 → 未写 .done, trap 落 .killed) · 第6步 exit 0 但只留 .partial · 第9步依赖第2步产物
+  placement: 病理分散在 10 步中; 中途 8 轮集群指标累积上下文
+  recovery: schema_state 可查真实注册表; 命令可重跑
+instrument_setting:
+  knob: tools.exec.timeoutSec = 45
+  why: OC 该键默认 1800(dist/bash-tools 源码确认), 原本 sleep 400 根本触不到超时, 病理是死的
+  not_a_variable: 旋钮只让超时事件可达; 被测机制(超时如何呈现给 agent · 进程树是否杀净)不随它变
+  orphan_guard: 长跑改成 sleep 1 循环, 杀 wrapper 即断, 避免孤儿事后补写 .done 污染真值
+controlled_factors:
+  tool_interface: 取命令走插件, 执行走原生 exec
+  lifecycle: 11 轮同 session
+  domain_reasoning: 合成迁移
+expected_behavior:
+  strong_harness: 超时信号送达 + 写入落盘 → agent 能查注册表定性
+  weak_harness: 超时被当成完成 → 报 applied → DBA 据此切流量 → 事故
+diagnostics:
+  harness_signals: 超时信号是否在 toolResult 里送达(不取 agent 自述) · 进程树是否杀净(.killed/.done 三态) · .done 是否落盘 · 压缩事件
+  neutral_signals: 是否查注册表 · 状态是否与实际一致 · 切流量结论是否安全
+design_note: "★环境修改型: verifier 直接读 state/*.done 判定, 报告只用于判断结论安全性。"

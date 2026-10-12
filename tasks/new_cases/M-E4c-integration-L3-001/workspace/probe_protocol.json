@@ -1,0 +1,13 @@
+{
+  "schema_version": "pty_eof_protocol_v1",
+  "scenario": "geological_core_catalog_ingest",
+  "line_semantics": "borehole core batch identifier",
+  "pty_command": "$WORKSPACE/taskctl pty_probe",
+  "followup_command": "$WORKSPACE/taskctl followup",
+  "line_prompt": "PTY_LINE> ",
+  "line_input": "ALPHA-42",
+  "eof_prompt": "PTY_EOF> ",
+  "completion_marker": "PTY_EOF_COMPLETE",
+  "followup_marker": "FOLLOWUP_OK",
+  "read_timeout_sec": 75
+}

@@ -1,0 +1,52 @@
+{
+ "items": [
+  {
+   "id": "M01",
+   "label": "Managed mount 01"
+  },
+  {
+   "id": "M02",
+   "label": "Managed mount 02"
+  },
+  {
+   "id": "M03",
+   "label": "Managed mount 03"
+  },
+  {
+   "id": "M04",
+   "label": "Managed mount 04"
+  },
+  {
+   "id": "M05",
+   "label": "Managed mount 05"
+  },
+  {
+   "id": "M06",
+   "label": "Managed mount 06"
+  },
+  {
+   "id": "M07",
+   "label": "Managed mount 07"
+  },
+  {
+   "id": "M08",
+   "label": "Managed mount 08"
+  },
+  {
+   "id": "M09",
+   "label": "Managed mount 09"
+  },
+  {
+   "id": "M10",
+   "label": "Managed mount 10"
+  },
+  {
+   "id": "M11",
+   "label": "Managed mount 11"
+  },
+  {
+   "id": "M12",
+   "label": "Managed mount 12"
+  }
+ ]
+}

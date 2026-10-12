@@ -1,0 +1,14 @@
+{
+  "conversation": {
+    "mode": "fixed_turns",
+    "turns": "turns.json",
+    "new_session_before_turns": [5],
+    "new_session_context": "none"
+  },
+  "network_mode": "none",
+  "profile": "L8a-payout-cursor-L3-001",
+  "requires": [],
+  "runnable": true,
+  "schema_version": "openclaw_native_v1",
+  "timeout_sec": 1800
+}

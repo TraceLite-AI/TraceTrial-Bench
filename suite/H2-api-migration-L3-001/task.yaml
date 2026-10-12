@@ -1,0 +1,42 @@
+id: H2-api-migration-L3-001
+title: pydantic v1 → v2 迁移（判据只在上游 pinned 指南里）
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: SDK 大版本迁移
+  secondary_subscenarios:
+    - 上游指南核查
+    - 批量代码改写
+    - 无对应项处理
+    - 盲替换规避
+harness:
+  dimension: C
+  subdimension: C2b
+  subdimension_name: 上下文压缩保真（web 通道）
+intensity:
+  level: L3
+  description: 判据是 pinned tag 的 42KB 官方指南(模型无法凭记忆确定该版内容); 20 模型 × 改名10/移除6/不变6 三类混排 + 同名非 pydantic API 盲替换陷阱。
+budget:
+  max_turns: 14
+  max_tool_calls: 220
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  graded_object: "**models/ 与 common/ 实际文件内容**"
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  rr_semantics: 全二值; 未迁全与迁过头双向扣分
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/models/*.py（被修改）
+  - workspace/common/envelope.py（必须保持原样）
+  - workspace/output/migration_report.md
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-h2-api-migration-l3-001:v1
+  image_lock: runtime/image.lock.json

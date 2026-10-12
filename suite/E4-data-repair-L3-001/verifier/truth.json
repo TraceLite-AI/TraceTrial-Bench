@@ -1,0 +1,43 @@
+{
+ "keep": [
+  {
+   "txn_id": "B-04-ADJ01",
+   "legs": 3
+  },
+  {
+   "txn_id": "B-06-REF07",
+   "legs": 2
+  }
+ ],
+ "clean_entry_count": 96,
+ "account_count": 14,
+ "damage": {
+  "orphan": [
+   "B-01-ORPH0",
+   "B-02-ORPH1",
+   "B-03-ORPH2",
+   "B-04-ORPH3"
+  ],
+  "dup": [
+   "B-01-T000",
+   "B-01-T005",
+   "B-02-T005"
+  ],
+  "sign": [
+   "B-01-SGN0",
+   "B-02-SGN1",
+   "B-03-SGN2",
+   "B-04-SGN3"
+  ],
+  "unbalanced": [
+   "B-01-HALF0",
+   "B-02-HALF1",
+   "B-03-HALF2"
+  ],
+  "null_ts": [
+   "B-02-NTS0",
+   "B-03-NTS1",
+   "B-04-NTS2"
+  ]
+ }
+}

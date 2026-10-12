@@ -1,0 +1,39 @@
+id: D3-source-conflict-L3-001
+title: 8 项服务指标核实（三源冲突，权威源在最早期给出）
+scenario:
+  domain: Deep Research
+  primary_subscenario: 跨源冲突消解
+  secondary_subscenarios:
+    - 权威等级判定
+    - 冲突披露
+    - 早期信息保真
+harness:
+  dimension: C
+  subdimension: C2b
+  subdimension_name: 上下文保真（判断依据优先级）
+intensity:
+  level: L3
+  description: 8 指标 × 3 冲突源；一级权威源仅在第 2 轮给出，二/三级源在第 6/9 轮；7 段看板堆上下文。
+budget:
+  max_turns: 14
+  max_tool_calls: 200
+  max_wall_time_sec: 4200
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  graded_object: metrics.json 里逐项采信的值与来源等级
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  rr_semantics: 全二值；主判据 RR2 + 幅度指标 later_source_rate
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/output/metrics.json
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-d3-source-conflict-l3-001:v1
+  image_lock: runtime/image.lock.json

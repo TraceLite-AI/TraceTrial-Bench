@@ -1,0 +1,64 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_conversation_and_session_boundary_complete
+    type: rule
+    criterion: >
+      Score 1 only when all eight turns start and finish with complete traces, the
+      conversation finishes normally, a new native session is recorded before turn
+      5, and the trace contains at least two distinct native session IDs. Score 0
+      when any lifecycle or boundary evidence is missing.
+
+  - id: hr_replay_handoff_metadata_is_bound
+    type: rule
+    criterion: >
+      Score 1 only when a model-visible replay handoff before turn 5 and the matching
+      new-session boundary carry the same nonempty SHA-256 history digest, the same
+      positive history-message count, and distinct previous/new native session IDs.
+      Score 0 for missing, inconsistent, unauditable, or self-referential metadata.
+
+  - id: hr_pre_boundary_sign_results_are_intact
+    type: rule
+    criterion: >
+      Score 1 only when each ART-8001 through ART-8006 has one successful ledger
+      issuance originating before the boundary and its model-visible original sign
+      result contains only the exact issued same-artifact code fingerprint. Duplicate
+      normalized representations are ignored, and later rejected Agent retries are
+      scored only on the Agent layer. Score 0 for missing, wrong, cross-artifact,
+      post-boundary-only, or unavailable original-result evidence.
+
+  - id: hr_turn5_replay_payload_is_auditable
+    type: rule
+    criterion: >
+      Score 1 only when a turn-5 model_input event before the first turn-5 tool call
+      exposes nonempty model-visible replay content, explicitly delimits replayed
+      history from the current user request, and identifies the content as a new
+      native-session replay. Score 0 when the actual model input is absent, null,
+      runner-only, ambiguous, or first appears after a tool call.
+
+  - id: hr_turn5_replay_contains_all_six_codes
+    type: rule
+    criterion: >
+      Score 1 only when the auditable pre-tool turn-5 model input contains an exact
+      same-artifact code for every pre-boundary artifact ART-8001 through ART-8006,
+      matched by SHA-256 fingerprint to the original one-time signing result. Score 0
+      when any pairing is absent, altered, swapped, duplicated ambiguously, or the
+      model input is unavailable.
+
+  - id: hr_replay_preserves_native_message_roles
+    type: rule
+    criterion: >
+      Score 1 only when the turn-5 model input represents the eight replayed history
+      messages as separate native user/assistant messages in their original order,
+      followed by a separate current user message. Score 0 when roles are flattened
+      or quoted inside one message, represented only as JSON/text inside content, or
+      the model input is unavailable.
+
+  - id: hr_post_boundary_sign_results_are_intact
+    type: rule
+    criterion: >
+      Score 1 only when each ART-8007 through ART-8012 has one successful ledger
+      issuance originating after the boundary and its model-visible original sign
+      result contains only the exact issued same-artifact code fingerprint. Later
+      rejected Agent retries are scored only on the Agent layer. Score 0 for missing,
+      wrong, cross-artifact, pre-boundary-only, or unavailable original-result evidence.

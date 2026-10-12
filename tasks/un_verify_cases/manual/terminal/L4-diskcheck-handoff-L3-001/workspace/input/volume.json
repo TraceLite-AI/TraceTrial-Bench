@@ -1,0 +1,20 @@
+{
+  "request_id": "VOL-2048",
+  "records": [
+    {
+      "record_id": "seg-01",
+      "amount": "125.50",
+      "flag": "normal"
+    },
+    {
+      "record_id": "seg-02",
+      "amount": "731.25",
+      "flag": "manual_review"
+    },
+    {
+      "record_id": "seg-03",
+      "amount": "42.00",
+      "flag": "normal"
+    }
+  ]
+}

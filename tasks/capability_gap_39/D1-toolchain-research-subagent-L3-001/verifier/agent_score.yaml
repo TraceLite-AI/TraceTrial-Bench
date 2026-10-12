@@ -1,0 +1,138 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_exact_native_dispatch_set
+    type: rule
+    criterion: >
+      Score 1 only when the Agent issues exactly five native child dispatches in turn 1, covering
+      A1 through A5 exactly once, with no replacement or later dispatch. Score 0 for emulation,
+      combined, missing, duplicate, or extra assignments. This metric is always binary.
+
+  - id: ar_child_assignments_isolated
+    type: rule
+    criterion: >
+      Score 1 only when every child prompt contains exactly its five fact IDs, one canonical URL,
+      the exact four-field schema and compact local budget, with no other angle, URL, prior result,
+      or oversized parent context. Score 0 for any contamination or missing prompt evidence.
+
+  - id: ar_initial_handoffs_well_formed
+    type: rule
+    criterion: >
+      Score 1 only when the five initial child completions each contain exactly the assigned five
+      keys and four required string fields. Score 0 for malformed, incomplete, duplicate,
+      conflicting, or parent-authored handoffs. Native delivery itself is scored in the Harness layer.
+
+  - id: ar_native_handoffs_compact
+    type: rule
+    criterion: >
+      Score 1 only when all five initial handoffs and the one-fact updated handoff are clean JSON
+      envelopes, each at most 60,000 UTF-8 bytes. Score 0 for a missing/oversized handoff or text
+      outside the JSON envelope. This prevents source or transcript dumps from masquerading as a
+      successful compact handoff.
+
+  - id: ar_same_child_reverification_requested
+    type: rule
+    criterion: >
+      Score 1 only when turn 2 contains exactly one native continuation request to one original
+      child for exactly one fact from that child's angle, without a sixth or replacement child.
+      Score 0 for a missing, wrong-child, cross-angle, or multi-fact request.
+
+  - id: ar_updated_handoff_well_formed
+    type: rule
+    criterion: >
+      Score 1 only when the post-continuation completion from the same child contains exactly the
+      requested one fact with the four required string fields. The request itself never counts as
+      a returned handoff. Score 0 for missing, malformed, stale, or wrong-child data.
+
+  - id: ar_parent_did_not_research_sources
+    type: rule
+    criterion: >
+      Score 1 only when the parent performs no web/search/source retrieval or angle-specific fact
+      repair. Child-attributed access to its assigned source is allowed. Score 0 for any parent-side
+      research or missing actor attribution.
+
+  - id: ar_no_history_or_file_recovery
+    type: rule
+    criterion: >
+      Score 1 only when the parent does not inspect child transcripts/history, recover results from
+      files, or emulate subagents with nested CLI/shell processes. Status-only coordination cannot
+      count as a handoff but does not itself fail this check. Score 0 for prohibited recovery.
+
+  - id: ar_turn_protocol_and_finalization_order
+    type: rule
+    criterion: >
+      Score 1 only when no deliverable is written in turns 1 or 2, turn 3 performs no wait/yield,
+      and the first research.json write follows all five initial handoffs and the updated handoff.
+      Score 0 for premature writing, final-turn waiting, or incomplete prerequisites.
+
+  - id: ar_final_output_derived_from_handoffs
+    type: rule
+    criterion: >
+      Score 1 only when research.json exactly equals the five initial native JSON handoffs with the
+      same-child updated fact applied last. Score 0 for invention, repair, omission, stale update,
+      or substitution from history/files.
+
+  - id: ar_exact_single_json_contract
+    type: rule
+    criterion: >
+      Score 1 only when output/research.json is the sole regular file under output, is duplicate-free
+      UTF-8 JSON, contains exactly A1-1 through A5-5, and every entry has exactly the four required
+      string fields with the correct angle prefix. Score 0 for any violation or missing evidence.
+
+  - id: ar_A1_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A1 values match the pinned answers. Score 0 if any A1 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+  - id: ar_A2_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A2 values match the pinned answers. Score 0 if any A2 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+  - id: ar_A3_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A3 values match the pinned answers. Score 0 if any A3 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+  - id: ar_A4_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A4 values match the pinned answers. Score 0 if any A4 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+  - id: ar_A5_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A5 values match the pinned answers. Score 0 if any A5 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+
+  - id: ar_A1_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A1 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Score 0 for any unsupported A1 citation or missing evidence.
+  - id: ar_A2_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A2 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Score 0 for any unsupported A2 citation or missing evidence.
+  - id: ar_A3_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A3 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Score 0 for any unsupported A3 citation or missing evidence.
+  - id: ar_A4_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A4 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Rendered reStructuredText ignores section-adornment lines. Score 0 for any unsupported A4
+      citation or missing evidence.
+  - id: ar_A5_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A5 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Score 0 for any unsupported A5 citation or missing evidence.

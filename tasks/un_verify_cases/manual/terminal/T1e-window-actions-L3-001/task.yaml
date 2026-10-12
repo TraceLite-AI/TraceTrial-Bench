@@ -1,0 +1,62 @@
+id: T1e-window-actions-L3-001
+title: "Maintenance Window Actions: Dense Native Tool Surface and Exact Routing"
+scenario:
+  domain: "maintenance window business action execution"
+  primary_subscenario: "large near-duplicate native tool surface"
+  secondary_subscenarios:
+    - "request-time tool-list capacity and truncation"
+    - "exact routing among near-duplicate names"
+    - "stateful no-effect and audit-block signals"
+    - "multi-turn receipt retention"
+harness:
+  dimension: T
+  subdimension: T1e
+  subdimension_name: "tool-surface explosion and exact routing"
+intensity:
+  level: L3
+  description: "Fifty task-scoped native tools are exposed together: twelve action families each have one effective unsuffixed form and three non-effective near-duplicates, plus two process tools. A controlled calibration triggers NO_EFFECT and AUDIT_BLOCK, while twelve business items require exact one-shot routing across ten turns."
+budget:
+  max_turns: 10
+  max_tool_calls: 140
+  max_wall_time_sec: 2400
+model_call_budget:
+  version: provider_requests_v1
+  limit: 120
+  finalization_reserve: 10
+expected_outputs:
+  - workspace/output/month_end_receipts.json
+  - workspace/output/action_notes.md
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: T1e-monthend-actions-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain. The mechanism layer is unchanged: same
+    dimension/subdimension, the same fifty task-scoped tools (twelve action families exposed
+    four times each as unsuffixed plus _draft, _dry_run and _legacy, plus proc_brief and
+    proc_submit), the same calibration reference that deliberately hits one _draft, one
+    _dry_run and one _legacy to yield two NO_EFFECT results then one AUDIT_BLOCK, the same
+    twelve items mapped one-to-one onto the twelve unsuffixed forms, the same
+    EFFECTIVE/ACCEPTED receipt protocol with the same eight-hex receipt shape, the same
+    one-action-per-item and no-retry rules, the same recall turns, the same two deliverables,
+    the same budget triple, both score rubrics, and score.py rule logic.
+    Only the skin changes: the month-end financial actions become maintenance-window operations actions: twelve action families over nodes, volumes, snapshots, certificates, journals, queues, mounts, firewalls, quotas, indexes, images, and hosts."

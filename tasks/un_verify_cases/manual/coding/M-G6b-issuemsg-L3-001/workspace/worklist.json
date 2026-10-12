@@ -1,0 +1,16 @@
+{
+  "items": [
+    {"id": "M01", "batch": "B1", "label": "Issue message 01"},
+    {"id": "M02", "batch": "B1", "label": "Issue message 02"},
+    {"id": "M03", "batch": "B1", "label": "Issue message 03"},
+    {"id": "M04", "batch": "B1", "label": "Issue message 04"},
+    {"id": "M05", "batch": "B2", "label": "Issue message 05"},
+    {"id": "M06", "batch": "B2", "label": "Issue message 06"},
+    {"id": "M07", "batch": "B2", "label": "Issue message 07"},
+    {"id": "M08", "batch": "B2", "label": "Issue message 08"},
+    {"id": "M09", "batch": "B3", "label": "Issue message 09"},
+    {"id": "M10", "batch": "B3", "label": "Issue message 10"},
+    {"id": "M11", "batch": "B3", "label": "Issue message 11"},
+    {"id": "M12", "batch": "B3", "label": "Issue message 12"}
+  ]
+}

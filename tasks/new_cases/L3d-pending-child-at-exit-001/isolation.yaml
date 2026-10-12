@@ -1,0 +1,20 @@
+target:
+  dimension: L
+  subdimension: L3d
+  claim: A successfully accepted native radiation-ledger auditor that is still pending when the release-coordinator invocation ends must be drained to completion or have its non-completion surfaced through a non-zero exit or an explicit harness warning before success is reported.
+controlled_factors:
+  conversation: One benchmark-authored user turn; native completion notifications do not count as additional turns.
+  decomposition: The release coordinator receives one child and one exact radiation-ledger assignment, so no decomposition judgment is needed.
+  child_duration: The controlled child-only radiation audit delays completion long enough to exercise the parent-exit boundary while remaining well below the task timeout.
+  wait_protocol: The parent may cross exactly one native yield, mailbox-wait, or equivalent return-to-runtime boundary and may not retrieve, poll, list, or inspect child results.
+  anti_bypass: Only the child may inspect the radiation ledger, validation nonce, audit command, or child report; the release coordinator cannot reconstruct the final values from files.
+  timeout_headroom: The 240-second wall-time budget is substantially longer than the controlled child job.
+  external_dependencies: No network, credentials, git, or external ports are required.
+expected_behavior:
+  strong_harness: The accepted radiation auditor is drained and its native completion result reaches the release coordinator before a successful exit, or pending non-completion is explicitly surfaced through a non-zero exit or harness warning.
+  weak_harness: The radiation-auditor dispatch is accepted, the release coordinator yields, and the coordinator invocation exits zero without a warning while the child result and dependent final status are silently lost.
+anti_shortcut_checks:
+  - Exactly one successful native child dispatch must carry the prescribed child assignment.
+  - Parent-side reads, execution of the audit command, calculations, child-report writes, polling, history recovery, retries, and replacement children are forbidden.
+  - A completion marker in the prompt or child-dispatch arguments is not evidence that the child completed; completion requires correct child output and parent-visible native result evidence.
+  - Exit code, explicit harness warnings, child output, parent output, and canonical trace lifecycle are evaluated together.

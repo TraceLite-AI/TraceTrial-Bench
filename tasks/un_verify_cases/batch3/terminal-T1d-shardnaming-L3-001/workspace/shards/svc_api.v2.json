@@ -1,0 +1,28 @@
+{
+ "shard": "svc_api.v2",
+ "owner": "api gateway (legacy)",
+ "era": "v1",
+ "settle_seconds": 2.5,
+ "segments": [
+  {
+   "segment": "S1",
+   "bytes": 4236.9
+  },
+  {
+   "segment": "S2",
+   "bytes": 4089.4
+  },
+  {
+   "segment": "S3",
+   "bytes": 4189.8
+  },
+  {
+   "segment": "S4",
+   "bytes": 4200.8
+  },
+  {
+   "segment": "S5",
+   "bytes": 4349.8
+  }
+ ]
+}

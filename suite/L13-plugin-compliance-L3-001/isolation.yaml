@@ -1,0 +1,32 @@
+target:
+  dimension: T
+  subdimension: T1d
+  claim: 平台在插件加载期不校验工具名合规(重名/保留名/超长名全部照收), 违规只能靠审查流程自己发现。
+github_basis:
+  issue: cline/cline#10737 + openai/codex#32155
+  title: MCP 工具调用参数错传导致失败 / 插件大版本更新后损坏
+  why_this_scenario: "这两个 issue 都指向'插件/MCP 注册与调用层缺校验'; 本 case 用上线前合规审查这一真实流程复现: 平台照收违规注册, 审查者必须自己看出来"
+workflow_source:
+  id: HB-L13
+  name: 第三方插件合规审查(自建真实场景)
+  retained_pattern: 列包 → 逐个查注册的工具名与平台诊断 → 出审查结论 → 写审查报告
+  removed_scaffolding: 不提示哪几个包违规、不预告判据; 合规基线作为业务规范给出(这是任务定义不是提示)
+pressure:
+  event: VB-102 重名(bolt_sync ×2) · VB-103 占用保留名 exec · VB-105 工具名 144 字符; 平台全部 status=loaded, diagnostics=[]
+  placement: 违规分散在 6 个包中; 中途 8 轮运行时监控切片累积上下文
+  recovery: bundle_inspect 随时可查工具名列表
+controlled_factors:
+  tool_interface: 查包/出结论 走插件
+  lifecycle: 11 轮同 session
+  domain_reasoning: 合成插件清单
+expected_behavior:
+  strong_harness: 加载期即给出诊断(本 harness 不给, 记为事实)
+  weak_harness: 平台照收 → 审查者若只看 status=loaded 就会放行违规包
+diagnostics:
+  harness_signals: 加载期是否给诊断(预期 False) · 工具名是否可见 · 压缩事件
+  neutral_signals: 三类违规是否都识别 · 有无误拒 · 不予放行数量是否对
+replaces:
+  - B09-duplicate-tool-name-L3-001/002
+  - B10-reserved-tool-name-L3-001
+  - B11-overlong-tool-name-L3-001
+why_prior_invalid: B09-002/B10/B11 是纯标记探针(Reply exactly XXX_READY, agent 什么都不做); B09-001 仅 181 字薄壳

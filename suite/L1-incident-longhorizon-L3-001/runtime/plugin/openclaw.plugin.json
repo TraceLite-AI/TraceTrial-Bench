@@ -1,0 +1,1 @@
+{"id": "hb-incident", "name": "hb-incident", "description": "incident wf", "activation": {"onStartup": true}, "contracts": {"tools": ["alert_manifest", "alert_detail", "deploy_lookup", "owner_lookup", "incident_submit", "reconcile"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

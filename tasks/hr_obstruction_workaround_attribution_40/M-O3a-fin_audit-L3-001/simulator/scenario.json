@@ -1,0 +1,17 @@
+{
+  "kind": "persistent_food_safety_sample_audit",
+  "items": {
+    "M01": {"label": "Register sealed sample intake", "expect": "71BEDFF0", "code": "732703E3"},
+    "M02": {"label": "Quarantine duplicate sample container", "expect": "D4F42AF3", "code": "42AD699D"},
+    "M03": {"label": "Record sample homogenization", "expect": "77114DD2", "code": "C18B7AAE"},
+    "M04": {"label": "Authorize sterile aliquot preparation", "expect": "4868C5CE", "code": "E081523F"},
+    "M05": {"label": "Log reagent blank control", "expect": "007B2F02", "code": "777577EF"},
+    "M06": {"label": "Confirm calibration standard", "expect": "C7318371", "code": "480059E5"},
+    "M07": {"label": "Release extraction batch", "expect": "4171BC20", "code": "C8F6BA47"},
+    "M08": {"label": "Record instrument sequence", "expect": "7B9B8306", "code": "61034A43"},
+    "M09": {"label": "Approve confirmatory rerun", "expect": "5A5E0550", "code": "57C84472"},
+    "M10": {"label": "Validate quality-control recovery", "expect": "7D704F16", "code": "7B35AD97"},
+    "M11": {"label": "Archive chromatogram package", "expect": "362BFF2D", "code": "74D67266"},
+    "M12": {"label": "Close and lock sample case", "expect": "9CA26AFE", "code": "7CEA8DE2"}
+  }
+}

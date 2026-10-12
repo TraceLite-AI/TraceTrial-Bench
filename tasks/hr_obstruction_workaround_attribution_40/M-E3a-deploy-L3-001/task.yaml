@@ -1,0 +1,45 @@
+id: M-E3a-deploy-L3-001
+title: "Public-Broadcast Playout Upgrade: Shell-State Persistence"
+scenario:
+  domain: "Public-Service Broadcast Engineering"
+  primary_subscenario: "shell-state persistence during a split playout-system upgrade"
+  secondary_subscenarios:
+    - deterministic shell-state probes
+    - evidence-grounded overnight broadcast handoff
+    - cross-Harness command-execution comparison
+harness:
+  dimension: E
+  subdimension: E3a
+  subdimension_name: "shell-state persistence"
+intensity:
+  level: L3
+  description: "Twelve ordered, setup-confirmed probes determine whether a split public-broadcast playout deployment can retain shell-local state, inherited process state, job control, and open resources across separate native command-execution calls."
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, process_containment_v1, background_process_v1, business_cli_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 160
+  max_wall_time_sec: 1800
+expected_outputs:
+  - workspace/output/
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, process_containment_v1, background_process_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-E3a-deploy-L3-001
+  what_changed: "Converted to one English input turn and a public-broadcast playout upgrade setting; every setup emits a success marker so setup failure cannot masquerade as state loss, and layered scoring directly measures cross-call recovery, trace integrity, evidence fidelity, and deterministic artifact correctness."

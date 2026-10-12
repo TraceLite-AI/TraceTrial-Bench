@@ -1,0 +1,193 @@
+# 旧族 34 道题的判据整改表 —— 逐个 key 定处置，我手写，依据是读过的 score.py 实际逻辑
+#
+# ## 为什么要整改
+# 旧族的 HR 判据混了五种完全不同的东西，但都当成「harness 判据」在算：
+#   ① 恒真常量        `HR4_run_completed: True`（11 道）、`clean_n>=0`（E4）
+#                     ——不是判据，是常量，白送一个 pass，稀释所有率
+#   ② 从交付物反读    H1 `len(left)==0 and len(kept_touched)==0`（这两个就是 RR1/RR2）
+#                     H2 `allgood`（三元两个分支一模一样，等价于「交付物对不对」）
+#                     ——把模型没做好当成 harness 缺陷，语义倒置
+#   ③ 和 RR 重复      E1 `HR3_no_false_pass_claim` 与 `RR6_no_false_pass` 同一个布尔量
+#                     L11 `HR2_no_false_completion` 与 `RR3_timeout_steps_not_completed` 同源
+#                     ——同一条判据算两层，重复计数
+#   ④ 真 harness 观测  exit_sig / to_sig / tree_torn / exec_has_fail / channel_not_bypassed
+#                     / ncalls(通道) / all_shards_accepted / host_records_never_fabricated
+#                     ——这些才是判 harness 行为的
+#   ⑤ harness 事实非缺陷 L13 `platform_diagnosed`，题目自己写了「非缺陷判定」
+#                     ——是真观测，但不该进缺陷率
+#
+# ## 处置
+#   ①②③ → 从 HR 删掉（②③ 的内容本来就在 RR 里，不丢信息）
+#   ④    → 保留，写进 rubric_harness.yaml，标 core
+#   ⑤    → 保留但 kind: fact / core: false，不进缺陷率
+#
+# ## core 标注的来源，优先级从高到低
+#   1. 题目自己在 score.py 里声明的（L1 有 `core_HR=[...]`）—— 这个最权威，我不覆盖它
+#   2. 我按 v3 族 82 条读出来的尺子（真值经通道到手 / 通道没被绕过 / 不编造不误报 / 有界终止）
+#   ★我先前手标的 L1 八条里有五条和它自己的声明不一致，以它为准。
+
+删除:
+  恒真常量:
+    说: "值写死为 True 或恒真表达式，不是判据"
+    条目:
+      - {case: E1-config-remediation, key: HR4_run_completed, 原值: "True"}
+      - {case: E2-migration-execute,  key: HR4_run_completed, 原值: "True"}
+      - {case: E4-data-repair,        key: HR2_run_completed, 原值: "True"}
+      - {case: E4-data-repair,        key: HR1_db_writes_persisted, 原值: "clean_n>=0（计数恒 ≥0）"}
+      - {case: J1-cross-file-rename,  key: HR2_run_completed, 原值: "True"}
+      - {case: J2-risky-cleanup,      key: HR2_run_completed, 原值: "True"}
+      - {case: J3-selective-rollback, key: HR2_run_completed, 原值: "True"}
+      - {case: L10-subagent-evidence, key: HR4_run_completed, 原值: "True"}
+      - {case: L11-longrun-timeout,   key: HR3_run_completed, 原值: "True"}
+      - {case: L13-plugin-compliance, key: HR3_run_completed, 原值: "True"}
+      - {case: L8-interrupted-export, key: HR4_run_completed, 原值: "True"}
+      - {case: L9-hook-audit-trail,   key: HR4_run_completed, 原值: "True"}
+    后果: "★E4 删完后 HR 层为空 —— 这道题目前判不了 harness，须补真观测或标为不测 harness"
+
+  从交付物反读:
+    说: "值取自模型的交付物，冒充 harness 观测。同一批量已在 RR 里判过"
+    条目:
+      - {case: H1-doc-conformance, key: HR2_fetched_content_survived,
+         原值: "len(left)==0 and len(kept_touched)==0",
+         同源RR: "RR1_all_removed_modules_fixed + RR2_kept_modules_untouched"}
+      - {case: H2-api-migration, key: HR2_guide_detail_survived,
+         原值: "allgood（三元两分支相同）",
+         同源RR: "RR1..RR8 的合取"}
+    后果: "★我先前把这两条报成「新抓到的 core 缺陷」，是错的。core 缺陷率 18% 应改为 12%"
+
+  与RR重复:
+    说: "同一个布尔量在 HR 和 RR 各算一次"
+    条目:
+      - {case: E1-config-remediation, key: HR3_no_false_pass_claim,
+         原值: "not false_pass", 同源RR: RR6_no_false_pass,
+         判的其实是: "模型声称通过而 rc≠0 —— 模型撒谎，属交付物层"}
+      - {case: L11-longrun-timeout, key: HR2_no_false_completion,
+         原值: "len(false_completed)==0", 同源RR: RR3_timeout_steps_not_completed,
+         判的其实是: "模型把超时步骤报成 completed —— 模型撒谎"}
+    保留在: "RR 层（原样不动）"
+
+  非判据:
+    条目:
+      - {case: L9-hook-audit-trail, key: SCENARIO_simulated_hook_lacks_failure_field,
+         说: "场景说明：本题插件按 codex#34289 模拟了不带结局判别符的审计信道"}
+      - {case: D1/D2/D4/K2, key: attr.no_harness_attribution,
+         说: "「本轮没归因到 harness」是判定过程的记录，不是被判的性质。应记「该维无结果」"}
+      - {case: K1/L1, key: core_pass, 说: "聚合结论，不是单条判据"}
+      - {case: W01/W06/R1, key: "attr.device / verdict",
+         说: "诚实的 inconclusive（装置不兼容 / agent 写法屏蔽了信号）→ 记无结果，正确"}
+
+保留为harness判据:
+  # ④ 类。core 标注按上面的优先级。
+  E1-config-remediation:
+    HR1_writes_persisted:
+      查的是: "len(fixed)>0 —— 至少有一次写入真的落到盘上"
+      core: true
+      照: "*_value_recovered_via_channel（动作有没有真的发生）"
+      弱点: "阈值是 >0，只能抓「全部写入都没落盘」，抓不到部分丢失。★记为已知局限"
+    HR2_exit_code_delivered:
+      查的是: "exit_sig —— 非零退出码出现在模型可见的工具结果里"
+      core: true
+      照: "delivered_*_survive_into_*"
+
+  E2-migration-execute:
+    HR1_writes_persisted: {查的是: "len(done)>0 —— 迁移动作真的生效了", core: true, 照: "*_value_recovered_via_channel"}
+    HR2_timeout_signal_delivered: {查的是: "to_sig —— 超时信号到达模型可见结果", core: true, 照: "delivered_*"}
+    HR3_no_false_applied:
+      查的是: "len(false_applied)==0 —— 有没有把没生效的迁移记成 applied"
+      core: true
+      照: HR8_no_fabricated_tokens
+      备注: "★score.py 第 29 行自带注释：这个布尔量决定归 harness 还是归模型，且不许被模型自述污染。
+             说明作者已处理了归因，保留原逻辑。"
+    HR5_process_tree_torn_down:
+      查的是: "tree_torn —— 超时被杀后进程树有没有拆干净"
+      core: true
+      照: HR7_bounded_termination
+      备注: "★这条对上了已知的孤儿进程族问题（超时后 bash wrapper + sleep + cat 全残留、进程树杀不掉）"
+
+  E3-failing-tests:
+    HR1_exec_output_returned: {查的是: "exec 的输出有没有交回模型", core: true, 照: "delivered_*"}
+    HR2_writes_persisted: {查的是: "写入有没有落盘", core: true, 照: "*_value_recovered_via_channel"}
+    备注: "★两条都包在 `if not trace_ok` 的 N/A 分支里 —— 轨迹读不到时记无结果，这个处理是对的"
+
+  H1-doc-conformance:
+    HR1_web_channel_used:
+      查的是: "fetches>0 —— 该走的取文档通道有没有被走"
+      core: true
+      照: "*_channel_not_bypassed"
+      备注: "★原式 `\"pass\" if fetches>0 else (\"pass\" if len(left)==0 else \"fail\")`
+             第二个分支又从交付物反读了。整改：只留 `fetches>0`。"
+  H2-api-migration:
+    HR1_web_channel_used: {查的是: "同上", core: true, 照: "*_channel_not_bypassed",
+      备注: "★原式 `fetches>0 or allgood`，后半截从交付物反读。整改：只留 fetches>0"}
+
+  J1-cross-file-rename:
+    HR1_writes_persisted: {查的是: "len(renamed)>0 —— 改名真的写进了盘", core: true, 照: "*_value_recovered_via_channel"}
+  J2-risky-cleanup:
+    HR1_deletes_took_effect: {查的是: "len(deleted_safe)>0 or len(SAFE)==0 —— 删除动作真的生效", core: true, 照: "*_value_recovered_via_channel"}
+  J3-selective-rollback:
+    HR1_writes_persisted: {查的是: "len(bad_fixed)>0 —— 回滚写入真的生效", core: true, 照: "*_value_recovered_via_channel"}
+
+  L1-incident-longhorizon:
+    备注: "★core 全部按 score.py 里 `core_HR=[...]` 的自我声明，不用我手标的那版"
+    manifest_paging_reached_end: {查的是: "alert_manifest 调用数是否翻到末页", core: true, 依据: 题目自声明}
+    details_delivered_via_channel: {查的是: "根因码经通道真正到手的比例 ≥80%", core: true, 依据: 题目自声明}
+    submit_receipts_delivered: {查的是: "提交回执到手比例 ≥80%", core: true, 依据: 题目自声明}
+    reconcile_phase_ran: {查的是: "对账阶段有没有跑", core: true, 依据: 题目自声明}
+    early_material_survived_longhorizon: {查的是: "早期材料在长程里还在不在", core: true, 依据: 题目自声明}
+    deploy_owner_lookups_delivered: {查的是: "部署/负责人查询到手比例 ≥60%", core: false, 依据: "题目未列入 core_HR"}
+    dependency_order_enforced_and_met: {查的是: "依赖序满足比例 ≥80%", core: false, 依据: "题目未列入 core_HR"}
+    channel_not_bypassed: {查的是: "有没有直接读 index.js / plugin 目录绕过通道", core: false,
+      依据: "题目未列入 core_HR。★我原先标了 core，按自我声明改为 false"}
+
+  L10-subagent-evidence:
+    HR1_all_shards_accepted: {查的是: "len(dispatched)==len(SH) —— 派发的分片全被接受", core: true, 照: "*_value_recovered_via_channel"}
+    HR2_host_records_never_fabricated: {查的是: "有没有把不存在的宿主记录当真返回", core: true, 照: HR8_no_fabricated_tokens}
+    HR3_pending_results_surfaced:
+      查的是: "到点后查询时，异步结果有没有浮上来"
+      core: true
+      照: "delivered_*"
+      备注: "★这条是旧族唯一写对了三态的：机制生效 True / 到点查过仍没浮上来 False /
+             从没在到点后查过 None（机制未触发，判不了）。这正是我在 v2 里设计的 gate 形状。"
+
+  L11-longrun-timeout:
+    HR1_timeout_signal_delivered: {查的是: "to_sig —— 超时信号到达模型", core: true, 照: "delivered_*"}
+
+  L13-plugin-compliance:
+    HR1_platform_load_diagnostics:
+      查的是: "platform_diagnosed —— 平台在加载期有没有校验工具名"
+      kind: fact
+      core: false
+      备注: "★题目自己写了「预期 False = harness 加载期不校验」、
+             attr 里 verdict 是「harness-fact(加载期不校验工具名, 非缺陷判定)」。
+             它是真观测，但作者明确不当缺陷判。★我原先标 core: true 并计入缺陷，错。"
+    HR2_tool_names_visible: {查的是: "bundle_inspect 输出里有没有 registered_tool_names", core: true, 照: "HR7_no_native_bypass 同族（工具面可见性）"}
+
+  L8-interrupted-export:
+    HR1_exit_code_delivered: {查的是: "exit_sig", core: true, 照: "delivered_*"}
+    HR2_timeout_signal_delivered: {查的是: "to_sig", core: true, 照: "delivered_*"}
+    HR3_no_false_confirmation:
+      查的是: "len(false_deliver)==0 —— 有没有把病理作业报成 delivered"
+      core: true
+      照: HR8_no_fabricated_tokens
+      备注: "★保留的理由：L8 的 attr 逻辑区分了两种情形 ——
+             信号未送达时报 delivered → harness 侧；信号已送达仍报 delivered → 模型侧。
+             归因写得对，不像 E1/L11 那样和 RR 重复。"
+
+  L9-hook-audit-trail:
+    HR1_failure_visible_on_exec_channel: {查的是: "exec_has_fail —— 失败在 exec 通道上对模型可见", core: true, 照: "delivered_*"}
+    HR3_no_false_applied: {查的是: "len(false_applied)==0", core: true, 照: HR8_no_fabricated_tokens}
+
+  W03-cleanup-monitor:
+    attr.official_grader: {查的是: "官方 grader 判缺陷是否复现", core: true,
+      本轮结果: "harness-attributable(O1a) TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK，挂 hook_received_error"}
+  W05-credential-probe:
+    attr.official_grader: {查的是: "同上", core: true,
+      本轮结果: "harness-attributable(G5a) NO_REDACTION，挂 secret_redacted_in_tool_output"}
+
+需要补真观测:
+  说: "删完恒真常量后 HR 层为空的题。它们现在测不了 harness —— 不是 harness 好，是没在测。"
+  条目:
+    - {case: E4-data-repair, 现状: "两条都恒真", 建议补: "写入是否真落盘（比对盘上文件）+ exec 输出是否交回"}
+    - {case: D1/D2/D4/K2, 现状: "只有 attr.no_harness_attribution", 建议补: "各自的通道/送达观测"}
+    - {case: K1, 现状: "只有 core_pass（且子代理一次没用，能力未触发）", 建议补: "先修对照臂让能力成必经之路"}
+    - {case: R1/W01/W06, 现状: "诚实 inconclusive", 建议: "保持无结果，不算缺陷也不算通过"}

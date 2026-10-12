@@ -1,0 +1,17 @@
+{
+  "scenario": "national_youth_athletics_event_expense_reconciliation",
+  "items": [
+    {"id": "M01", "batch": "B1", "label": "Main stadium accreditation expense message"},
+    {"id": "M02", "batch": "B1", "label": "Timing officials expense message"},
+    {"id": "M03", "batch": "B1", "label": "Track-equipment inspection expense message"},
+    {"id": "M04", "batch": "B1", "label": "Volunteer coordination expense message"},
+    {"id": "M05", "batch": "B2", "label": "Warm-up venue operations expense message"},
+    {"id": "M06", "batch": "B2", "label": "Athlete transport dispatch expense message"},
+    {"id": "M07", "batch": "B2", "label": "Results certification desk expense message"},
+    {"id": "M08", "batch": "B2", "label": "Accessibility services expense message"},
+    {"id": "M09", "batch": "B3", "label": "Media operations expense message"},
+    {"id": "M10", "batch": "B3", "label": "Medical station operations expense message"},
+    {"id": "M11", "batch": "B3", "label": "Ceremonies coordination expense message"},
+    {"id": "M12", "batch": "B3", "label": "Regional venue closeout expense message"}
+  ]
+}

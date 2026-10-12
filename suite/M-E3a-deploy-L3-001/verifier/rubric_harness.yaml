@@ -1,0 +1,65 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: dep_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: E3a
+    dim: procedural
+    layer: HR
+    criterion: "12 个shell状态是否**全部**经 `dep` 工具通道真正恢复（12 类 shell 状态中真正跨 exec 调用存活的比例（trace 直读））"
+  - id: dep_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: E3a
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的shell状态（rank>50%）是否全部经通道恢复（脆弱类（trap/后台作业/额外fd/目录栈）的存活比例）"
+  - id: dep_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: E1a
+    dim: procedural
+    layer: HR
+    criterion: "`dep_submit` 回执是否全部经工具通道送达模型"
+  - id: dep_no_hard_wall
+    kind: gate
+    core: false
+    axis: E3a
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某shell状态难度之后全部不可达的硬墙
+  - id: dep_failure_observable
+    kind: gate
+    core: false
+    axis: E3a
+    dim: procedural
+    layer: HR
+    criterion: shell状态失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: dep_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: O1a
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `dep` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_two_step_respected
+    kind: gate
+    core: false
+    axis: E3a
+    dim: procedural
+    layer: HR
+    criterion: 确实分成两次 exec 调用，未被合并成一条命令
+  - id: HR8_findings_match_trace
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: V1a
+    dim: procedural
+    layer: HR
+    criterion: 模型给运维的结论与 trace 实际存活情况一致

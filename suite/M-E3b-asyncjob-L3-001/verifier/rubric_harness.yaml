@@ -1,0 +1,58 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: e3_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: E3b
+    dim: procedural
+    layer: HR
+    criterion: "12 个后台分片作业是否**全部**经 `e3` 工具通道真正恢复（12 档中后台作业全部完成并聚合成功的比例（监督宽度曲线））"
+  - id: e3_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: E3b
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的后台分片作业（rank>50%）是否全部经通道恢复（高并发档（≥6 个后台作业）的成功比例）"
+  - id: e3_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: T4c
+    dim: procedural
+    layer: HR
+    criterion: "`e3_submit` 回执是否全部经工具通道送达模型"
+  - id: e3_no_hard_wall
+    kind: gate
+    core: false
+    axis: E3b
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某后台分片作业难度之后全部不可达的硬墙
+  - id: e3_failure_observable
+    kind: gate
+    core: false
+    axis: E3b
+    dim: procedural
+    layer: HR
+    criterion: 后台分片作业失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: e3_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: L3a
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `e3` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_wait_semantics
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: E3b
+    dim: procedural
+    layer: HR
+    criterion: 使用了 wait/轮询确保完成（非裸读半成品）的档比例

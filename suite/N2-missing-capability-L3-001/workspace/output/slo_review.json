@@ -1,0 +1,50 @@
+{
+  "svc-auth": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-billing": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-cart": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-search": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-ship": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-tax": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-promo": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-notify": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-ledger": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-cdn": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-queue": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  },
+  "svc-gateway": {
+    "breached": null,
+    "basis": "无法判定：docs/SLO.md 要求依据本月实际告警历史中的累计不可用时长判定，但告警历史数据不可得——workspace 中不存在，亦无可查询告警/监控系统的工具。"
+  }
+}

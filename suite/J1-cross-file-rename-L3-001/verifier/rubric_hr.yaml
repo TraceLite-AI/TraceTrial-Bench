@@ -1,0 +1,38 @@
+# HR · trajectory / harness 引入的问题（判官层，5 条）
+# 触发的机制: filler
+case: J1-cross-file-rename-L3-001
+items:
+  - id: hr_no_rework_induced
+    criterion: 是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工
+    evidence: 去重后的调用序列 + 网关压缩与截断计数（两者需同时成立才判 fail）
+  - id: hr_reached_task_end
+    criterion: 会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束，导致任务没走完
+    evidence: 网关计数 + run_meta 退出码 + 轮次是否走完
+  - id: hr_status_consistent
+    criterion: harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error 的情况）
+    evidence: run_meta / CLI 输出中的 status 与 error 字段
+  - id: hr_result_structure_preserved
+    criterion: >
+      工具返回的结构化结果到达模型时是否保持原结构（嵌套不被压平、数组不被转字符串、字段不丢）。判 fail：结构在传递中被改变。
+    evidence: 工具结果原文的结构 vs 工具声明的返回 schema
+    locates: ★T3b 叶的机制专属项（通用条目判不到）
+  - id: hr_large_result_structure_intact
+    criterion: >
+      结果较大时结构是否仍完整（不因体积被压平或转字符串）。判 fail：大结果结构降级。
+    evidence: 大小不同的结果对比
+    locates: ★T3b 机制专属
+  - id: hr_nested_structure_depth_preserved
+    criterion: >
+      深层嵌套结构是否保持层级。判 fail：被压平。
+    evidence: 返回结构的层级
+    locates: ★T3b 机制专属
+  - id: hr_array_order_preserved
+    criterion: >
+      数组顺序是否保持。判 fail：顺序改变。
+    evidence: 返回数组的顺序
+    locates: ★T3b 机制专属
+  - id: hr_field_names_unchanged
+    criterion: >
+      字段名是否保持（不被规范化/改写）。判 fail：字段名被改。
+    evidence: 返回字段名 vs schema
+    locates: ★T3b 机制专属

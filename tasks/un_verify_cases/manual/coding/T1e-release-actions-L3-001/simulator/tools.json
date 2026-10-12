@@ -1,0 +1,809 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "proc_brief",
+      "description": "Return the process brief for one released item.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "item"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "proc_submit",
+      "description": "Validate one item's receipt through the process channel.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string"
+          },
+          "receipt_code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "item",
+          "receipt_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "release_cut_final_tag",
+      "description": "Cut the final release tag for this component. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "release_cut_final_tag_draft",
+      "description": "Cut the final release tag for this component. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "release_cut_final_tag_dry_run",
+      "description": "Cut the final release tag for this component. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "release_cut_final_tag_legacy",
+      "description": "Cut the final release tag for this component. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "package_publish_registry",
+      "description": "Publish the built package to the registry. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "package_publish_registry_draft",
+      "description": "Publish the built package to the registry. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "package_publish_registry_dry_run",
+      "description": "Publish the built package to the registry. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "package_publish_registry_legacy",
+      "description": "Publish the built package to the registry. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "migration_apply_forward",
+      "description": "Apply the forward migration to production. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "migration_apply_forward_draft",
+      "description": "Apply the forward migration to production. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "migration_apply_forward_dry_run",
+      "description": "Apply the forward migration to production. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "migration_apply_forward_legacy",
+      "description": "Apply the forward migration to production. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "feature_enable_ga",
+      "description": "Enable the feature flag for general availability. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "feature_enable_ga_draft",
+      "description": "Enable the feature flag for general availability. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "feature_enable_ga_dry_run",
+      "description": "Enable the feature flag for general availability. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "feature_enable_ga_legacy",
+      "description": "Enable the feature flag for general availability. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "changelog_seal_version",
+      "description": "Seal the changelog for this version. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "changelog_seal_version_draft",
+      "description": "Seal the changelog for this version. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "changelog_seal_version_dry_run",
+      "description": "Seal the changelog for this version. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "changelog_seal_version_legacy",
+      "description": "Seal the changelog for this version. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "rollout_release_held",
+      "description": "Release the held rollout to the remaining fleet. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "rollout_release_held_draft",
+      "description": "Release the held rollout to the remaining fleet. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "rollout_release_held_dry_run",
+      "description": "Release the held rollout to the remaining fleet. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "rollout_release_held_legacy",
+      "description": "Release the held rollout to the remaining fleet. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "branch_protect_final",
+      "description": "Apply final branch protection to the release branch. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "branch_protect_final_draft",
+      "description": "Apply final branch protection to the release branch. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "branch_protect_final_dry_run",
+      "description": "Apply final branch protection to the release branch. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "branch_protect_final_legacy",
+      "description": "Apply final branch protection to the release branch. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "policy_commit_ruleset",
+      "description": "Commit the staged review policy ruleset. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "policy_commit_ruleset_draft",
+      "description": "Commit the staged review policy ruleset. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "policy_commit_ruleset_dry_run",
+      "description": "Commit the staged review policy ruleset. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "policy_commit_ruleset_legacy",
+      "description": "Commit the staged review policy ruleset. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "quota_raise_approved",
+      "description": "Raise the approved CI quota for this team. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "quota_raise_approved_draft",
+      "description": "Raise the approved CI quota for this team. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "quota_raise_approved_dry_run",
+      "description": "Raise the approved CI quota for this team. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "quota_raise_approved_legacy",
+      "description": "Raise the approved CI quota for this team. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cache_rebuild_catchup",
+      "description": "Run the catch-up build-cache rebuild. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cache_rebuild_catchup_draft",
+      "description": "Run the catch-up build-cache rebuild. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cache_rebuild_catchup_dry_run",
+      "description": "Run the catch-up build-cache rebuild. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cache_rebuild_catchup_legacy",
+      "description": "Run the catch-up build-cache rebuild. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "artifact_publish_confirm",
+      "description": "Confirm publication of the signed artifact. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "artifact_publish_confirm_draft",
+      "description": "Confirm publication of the signed artifact. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "artifact_publish_confirm_dry_run",
+      "description": "Confirm publication of the signed artifact. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "artifact_publish_confirm_legacy",
+      "description": "Confirm publication of the signed artifact. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "service_onboard_final_review",
+      "description": "Complete the final onboarding review for this service. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "service_onboard_final_review_draft",
+      "description": "Complete the final onboarding review for this service. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "service_onboard_final_review_dry_run",
+      "description": "Complete the final onboarding review for this service. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "service_onboard_final_review_legacy",
+      "description": "Complete the final onboarding review for this service. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

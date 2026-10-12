@@ -1,0 +1,11 @@
+{
+  "schema_version": "pty_eof_scenario_v1",
+  "token": "PTY-E4C-SESSION-001",
+  "receipt": "6F3A91CE",
+  "read_timeout_sec": 75,
+  "line_prompt": "PTY_LINE> ",
+  "line_input": "VOLUME-42",
+  "eof_prompt": "PTY_EOF> ",
+  "completion_marker": "PTY_EOF_COMPLETE",
+  "followup_marker": "FOLLOWUP_OK"
+}

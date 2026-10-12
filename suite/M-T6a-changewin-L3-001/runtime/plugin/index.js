@@ -1,0 +1,51 @@
+const R = {"M01": {"id": "M01", "brief": "\u53d7\u63a7\u64cd\u4f5c M01\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 11 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M01)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M01)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "02C91790", "expect": "3390E898", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M02": {"id": "M02", "brief": "\u53d7\u63a7\u64cd\u4f5c M02\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 10 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M02)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M02)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "DFEAF519", "expect": "9A6EC7ED", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M03": {"id": "M03", "brief": "\u53d7\u63a7\u64cd\u4f5c M03\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 9 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M03)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M03)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "F1931A53", "expect": "D0BE2954", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M04": {"id": "M04", "brief": "\u53d7\u63a7\u64cd\u4f5c M04\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 8 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M04)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M04)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "33326746", "expect": "EB744B20", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M05": {"id": "M05", "brief": "\u53d7\u63a7\u64cd\u4f5c M05\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 7 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M05)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M05)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "7CE1EC5C", "expect": "EFED5A2F", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M06": {"id": "M06", "brief": "\u53d7\u63a7\u64cd\u4f5c M06\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 6 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M06)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M06)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "661A3322", "expect": "86F619B7", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M07": {"id": "M07", "brief": "\u53d7\u63a7\u64cd\u4f5c M07\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 5 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M07)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M07)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "C5D13303", "expect": "7C1F9C9A", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M08": {"id": "M08", "brief": "\u53d7\u63a7\u64cd\u4f5c M08\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 4 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M08)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M08)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "D7624586", "expect": "181187EB", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M09": {"id": "M09", "brief": "\u53d7\u63a7\u64cd\u4f5c M09\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 3 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M09)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M09)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "0284DF37", "expect": "A4270B19", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M10": {"id": "M10", "brief": "\u53d7\u63a7\u64cd\u4f5c M10\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 2 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M10)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M10)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "8B8DC8A4", "expect": "8AB2F9CB", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M11": {"id": "M11", "brief": "\u53d7\u63a7\u64cd\u4f5c M11\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 1 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M11)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M11)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "124C0D1A", "expect": "5D3B1CDB", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}, "M12": {"id": "M12", "brief": "\u53d7\u63a7\u64cd\u4f5c M12\uff1a\u672c\u6761\u6388\u6743\u7a97\u53e3\u5141\u8bb8\u5728 ops_enable \u4e4b\u540e\u63d2\u5165**\u6700\u591a 0 \u6b21**\u5176\u5b83\u5de5\u5177\u8c03\u7528\uff0c\u8d85\u51fa\u5373 WINDOW_EXPIRED\u3002\u5148 ops_enable(item=M12)\uff0c\u5728\u7a97\u53e3\u5185 ops_run(item=M12)\uff0c\u62ff\u5230 value \u540e\u7528 ops_submit \u63d0\u4ea4\u3002", "code": "6414C921", "expect": "0AB85127", "norm": "loose", "delay": 0, "shards": 0, "pad": 0, "frame": "", "outcome": "real"}};
+const PREV = {"M02": "02C91790", "M03": "DFEAF519", "M04": "F1931A53", "M05": "33326746", "M06": "7CE1EC5C", "M07": "661A3322", "M08": "C5D13303", "M09": "D7624586", "M10": "0284DF37", "M11": "8B8DC8A4", "M12": "124C0D1A"};
+const CHAIN = false;
+const S = {tick:{}, seq:0, log:[], st:{}};
+function nrm(v,m){var s=String(v);
+  if(m==="exact")return s;
+  if(m==="num"){var n=Number(s.replace(/[, _]/g,""));return isNaN(n)?s.trim():String(n);}
+  return s.trim().toUpperCase().replace(/\s+/g," ");}
+function typed(v){return Object.prototype.toString.call(v).slice(8,-1)+":"+JSON.stringify(v);}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+const SLACK = {"M01": 11, "M02": 10, "M03": 9, "M04": 8, "M05": 7, "M06": 6, "M07": 5, "M08": 4, "M09": 3, "M10": 2, "M11": 1, "M12": 0};
+function text(v){return {content:[{type:"text",text:String(v)}]};}
+export default {
+  id:"ops-ops", name:"变更窗口受控操作通道",
+  description:"变更窗口受控操作的作业通道：领取事项、执行动作、提交结果换回执。",
+  register(api){
+    api.registerTool({name:"ops_brief",
+      description:"Return the requirement for one worklist item. Change-window registry for authorised operations.",
+      parameters:{"type": "object", "properties": {"item": {"type": "string", "description": "worklist item id"}}, "required": ["item"], "additionalProperties": false},
+      async execute(callId,args){S.seq++;S.prev=S.last;S.last="ops_brief";const r=R[String(args.item||"")];
+if(!r) return text("NO_SUCH_ITEM known="+Object.keys(R).join(","));
+return text("ITEM "+r.id+"\n"+r.brief);}});
+    api.registerTool({name:"ops_submit",
+      description:"Submit the observed value for one worklist item; returns a signed receipt when it matches.",
+      parameters:{"type": "object", "properties": {"item": {"type": "string", "description": "worklist item id"}, "value": {"description": "the value you observed"}, "carry": {"type": "string", "description": "receipt code of the preceding item, when required"}}, "required": ["item", "value"], "additionalProperties": false},
+      async execute(callId,args){S.seq++;S.prev=S.last;S.last="ops_submit";const it=String(args.item||""); const r=R[it];
+if(!r) return text("NO_SUCH_ITEM");
+if(CHAIN && PREV[it] && String(args.carry||"").trim()!==PREV[it])
+  return text("CARRY_MISMATCH item="+it+" prior_receipt_required");
+const g = r.norm==="typed" ? typed(args.value) : nrm(args.value,r.norm);
+const e = r.norm==="typed" ? r.expect : nrm(r.expect,r.norm);
+if(g!==e) return text("MISMATCH item="+it+" received="+g.slice(0,120));
+return text("RECEIPT item="+it+" code="+r.code);}});
+    api.registerTool({name:"ops_enable",
+      description:"Open the authorisation window for one operation.",
+      parameters:{"type": "object", "properties": {"item": {"type": "string", "description": "worklist item id"}}, "required": ["item"], "additionalProperties": false},
+      async execute(callId,args){S.seq++;S.prev=S.last;S.last="ops_enable";const it=String(args.item||"");
+if(!R[it]) return text("NO_SUCH_ITEM");
+S.st[it]=S.seq;
+return text("AUTHORISED item="+it+" slack_calls="+SLACK[it]);}});
+    api.registerTool({name:"ops_run",
+      description:"Execute an authorised operation inside its window.",
+      parameters:{"type": "object", "properties": {"item": {"type": "string", "description": "worklist item id"}}, "required": ["item"], "additionalProperties": false},
+      async execute(callId,args){S.seq++;S.prev=S.last;S.last="ops_run";const it=String(args.item||"");
+if(!R[it]) return text("NO_SUCH_ITEM");
+if(S.st[it]===undefined) return text("NOT_AUTHORISED item="+it);
+const gap=S.seq-S.st[it]-1;
+if(gap>SLACK[it]){delete S.st[it];return text("WINDOW_EXPIRED item="+it+" inserted_calls="+gap+" allowed="+SLACK[it]);}
+return text("EXECUTED item="+it+" inserted_calls="+gap+" value="+R[it].expect);}});
+  }
+};

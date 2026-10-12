@@ -1,0 +1,19 @@
+{
+  "schema_version": "harnessbench_ranger_routing_dense_tools_scenario_v1",
+  "calibration_ref": "CAL-RANGER-001",
+  "max_candidates": 2,
+  "assignments": {
+    "NP-2026-08-5101": {"skill": "skill_research_permit_pdf_issue", "brief": "The approved alpine-plant survey needs a downloadable PDF permit certificate; no replacement field-access badge is requested.", "receipt": "8F509B67"},
+    "NP-2026-08-5106": {"skill": "skill_trail_closure_activate", "brief": "Close the storm-damaged Ridge Loop to visitor entry; do not keep it open through a marked detour.", "receipt": "F67CE030"},
+    "NP-2026-08-5112": {"skill": "skill_trail_detour_activate", "brief": "Keep the Ridge Loop open but divert visitors onto the marked creek bypass; do not close the entire trail.", "receipt": "3CD0A8BA"},
+    "NP-2026-08-5117": {"skill": "skill_field_access_badge_reissue", "brief": "The botany team's gate credential was rejected; issue a replacement field-access badge, not another research-permit certificate.", "receipt": "1E2C8499"},
+    "NP-2026-08-5123": {"skill": "skill_species_identity_review", "brief": "Specimen intake is blocked pending taxonomic review of the camera image and diagnostic markings; no observation-data export is requested.", "receipt": "9029239C"},
+    "NP-2026-08-5128": {"skill": "skill_observation_data_export", "brief": "The wetland team needs a portable copy of all stored observation records for Heron Marsh; do not make a taxonomic identity decision.", "receipt": "E3F5FBD1"},
+    "NP-2026-08-5134": {"skill": "skill_wayfinding_page_publish", "brief": "Publish a browsable Ridge Loop wayfinding page from the supplied map stills and safety copy; no motion, narration, or video is requested.", "receipt": "94E31263"},
+    "NP-2026-08-5139": {"skill": "skill_wayfinding_video_render", "brief": "Turn the route maps and ranger narration into a moving trail-safety briefing; do not publish another browsable wayfinding page.", "receipt": "3A4EE948", "outcome": "truncated_execution"},
+    "NP-2026-08-5145": {"skill": "skill_ranger_shift_roster", "brief": "Distribute the August ranger shift roster to North District patrol teams; do not inspect patrol-log compliance.", "receipt": "69F9B158"},
+    "NP-2026-08-5150": {"skill": "skill_patrol_log_audit", "brief": "Review North District patrol logs for missed checkpoints and duplicate entries; do not distribute a shift roster.", "receipt": "37BD18DC"},
+    "NP-2026-08-5156": {"skill": "skill_wildlife_incident_triage", "brief": "Assess the urgency of the injured-takin report and assign a wildlife response unit; it is not a completed research permit for archiving.", "receipt": "B3D25631"},
+    "NP-2026-08-5161": {"skill": "skill_research_permit_archive", "brief": "Archive the completed signed cave-survey permit and return a filing reference; no wildlife-incident severity or response-unit assignment is needed.", "receipt": "6B7CA30E", "outcome": "validation_unavailable"}
+  }
+}

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Artifact signing channel
+set -uo pipefail
+WS="$(cd "$(dirname "$0")/.." && pwd)"; mkdir -p "$WS/state"
+cmd="${1:-}"; shift || true
+case "$cmd" in
+sign)
+  art=""
+  while [ $# -gt 0 ]; do case "$1" in --artifact) art="$2"; shift 2;; *) printf '{"error":"unknown_option"}\n'; exit 2;; esac; done
+  [ -n "$art" ] || { printf '{"error":"missing_required_option","required":["--artifact"]}\n'; exit 2; }
+  [ -f "$WS/artifacts/$art.md" ] || { printf '{"error":"unknown_artifact","artifact":"%s"}\n' "$art"; exit 2; }
+  ART="$art" WSP="$WS" python3 - <<'PY'
+import hashlib, json, os, sys, datetime
+import secrets
+ws=os.environ["WSP"]; art=os.environ["ART"]
+p=f"{ws}/state/sign_log.jsonl"; seen=set()
+if os.path.exists(p):
+    for ln in open(p,encoding="utf-8"):
+        try: seen.add(json.loads(ln).get("artifact"))
+        except Exception: pass
+ts=datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+if art in seen:
+    print(json.dumps({"state":"already_signed","artifact":art,
+                      "note":"This artifact has already been signed; the sign code will not be reissued"})); sys.exit(3)
+# Random issuance: there is no reversible formula, and the code appears only once on stdout.
+code="SG-"+"".join(secrets.choice("0123456789ABCDEF") for _ in range(10))
+fp=hashlib.sha256(code.encode()).hexdigest()[:16].upper()   # Only the fingerprint is persisted.
+print(json.dumps({"state":"signed","artifact":art,"sign_code":code,
+                  "note":"The sign code is generated only for this signing and will not be reissued"}))
+open(p,"a",encoding="utf-8").write(json.dumps({"_writer":"sign-cli","ts":ts,"artifact":art,"fp":fp},ensure_ascii=False)+"\n")
+PY
+  exit $?;;
+audit)
+  # Audit returns only the artifact ID and timestamp, never the sign code.
+  if [ -f "$WS/state/sign_log.jsonl" ]; then python3 -c "
+import json,sys
+for ln in open('$WS/state/sign_log.jsonl',encoding='utf-8'):
+    try: r=json.loads(ln)
+    except Exception: continue
+    print(json.dumps({'artifact':r.get('artifact'),'ts':r.get('ts')},ensure_ascii=False))
+"; fi; exit 0;;
+*) printf '{"error":"usage","usage":"signctl sign|audit"}\n'; exit 2;;
+esac

@@ -1,0 +1,8 @@
+{
+  "base_image": "harnessbench/openclaw-native-base:2026.6.9",
+  "base_image_policy": "local_harness_image_first",
+  "local_base_reference_pattern": "harnessbench/openclaw:2026.6.9-*",
+  "local_base_identity_evidence": "artifacts/task_image_build.log",
+  "case_image": "harnessbench/case-c1a-academic-l3-001-native:v2",
+  "network": "none"
+}

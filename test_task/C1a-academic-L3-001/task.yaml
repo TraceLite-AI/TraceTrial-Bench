@@ -1,0 +1,36 @@
+id: C1a-academic-L3-001
+title: Qualify the Alder PBMC pilot from streamed pipeline evidence
+scenario:
+  domain: Academic Research
+  primary_subscenario: Single-cell RNA-seq quality control and annotation
+harness:
+  dimension: C
+  subdimension: C1a
+  subdimension_name: 输出超限处理
+budget:
+  max_turns: 45
+  max_tool_calls: 90
+  max_wall_time_sec: 1800
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+verifier:
+  entrypoint: verifier/run.sh
+  pass_threshold: 1.0
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  qc: workspace/analysis/qc_decisions.csv
+  annotations: workspace/analysis/cluster_annotations.csv
+  methods: workspace/analysis/methods.md
+  release: workspace/analysis/release.json
+execution:
+  mode: docker
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-c1a-academic-l3-001-native:v2
+  image_lock: runtime/image.lock.json

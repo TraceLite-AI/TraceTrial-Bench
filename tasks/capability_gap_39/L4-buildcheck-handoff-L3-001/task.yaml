@@ -1,0 +1,47 @@
+id: L4-buildcheck-handoff-L3-001
+title: "One-shot native child inspection handoff"
+scenario:
+  domain: "Workflow automation"
+  primary_subscenario: "One-shot child-result handoff"
+harness:
+  dimension: L
+  subdimension: L4
+  subdimension_name: "One-shot handoff"
+intensity:
+  level: L3
+  description: "Exactly one native child consumes a single-use inspection and returns one exact compact capsule; the coordinator must receive it once through an identity-linked native completion without polling, replay, history recovery, or alternate value recovery."
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, native_child_delegation_v1, native_child_lifecycle_observation_v1]
+budget:
+  max_turns: 20
+  max_tool_calls: 40
+  max_wall_time_sec: 600
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_child_delegation_v1, native_child_lifecycle_observation_v1]
+rebuilt_from:
+  case: L4-workflow-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain. The task mechanism remains:
+    same dimension/subdimension, the same single-turn shape, exactly one native child, the
+    same single-use ticket that flips to consumed on first success and rejects a replay, the
+    same four returned values with the same sha256[:12] evidence-code derivation and the same
+    elevated/standard risk rule, the same one-line JSON completion contract and
+    INSPECTION_UNAVAILABLE fallback, the same two deliverables with the same key order and
+    unavailable branch, the same final HANDOFF_FILES_READY message, and the same budget triple.
+    The scoring layer is recalibrated to twelve deterministic binary rules that separately test
+    trace integrity, native dispatch, child-command lineage, identity-linked completion,
+    reactivation, minimal payload, exact one-pass artifacts, and final response observability.
+    The domain skin changes the single-use packet inspection into a single-use build-bundle audit
+    (tools/inspect_bundle.py over input/bundle.json)."

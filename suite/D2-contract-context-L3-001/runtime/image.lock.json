@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:55b6d3a8882afb8c600ec29a892dc5343fdb99c77bf2b721d229bed4ff751f9d",
+  "image_reference": "harnessbench/case-d2-contract-context-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "D2-contract-context-L3-001"
+}

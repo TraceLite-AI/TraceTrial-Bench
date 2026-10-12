@@ -1,0 +1,181 @@
+asset_tag,asset_name,model,asset_group,registered_location,physical_location,activation_date,original_cost_cents,depreciation_years,custodian,notes
+FA-01-0000,Fiber distribution frame,M702-Y,G01,New data center floor 2,New data center floor 2,2020-01-10,2118463,3,Han Qing,
+FA-01-0001,KVM switch,M550-X,G01,New data center floor 2,New data center floor 2,2023-09-21,4014305,5,Gao Yang,
+FA-01-0002,Rack server,M821-Y,G01,New data center floor 3,New data center floor 3,2021-04-09,2245371,8,Su He,
+FA-01-0003,Rack server,M648-Y,G01,Old data center zone B,Old data center zone B,2023-10-05,210679,5,Su He,
+FA-01-0004,UPS,M582-X,G01,Old data center zone B,Old data center zone B,2025-03-02,3422390,8,Zheng Yan,
+FA-01-0005,UPS,M215-X,G01,Temporary storage area,Temporary storage area,2022-06-12,4079243,8,Wu Tong,
+FA-01-0006,KVM switch,M437-Z,G01,Old data center zone A,Old data center zone A,2021-03-13,284978,8,Gao Yang,
+FA-01-0007,UPS,M441-X,G01,Old data center zone B,Old data center zone B,2024-12-12,486458,8,Gao Yang,
+FA-01-0008,Network switch,M327-Z,G01,New data center floor 1,New data center floor 1,2020-12-23,1410236,5,Wu Tong,
+FA-01-0009,Rack server,M124-X,G01,New data center floor 3,Old data center zone A,2024-04-19,1519061,8,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0010,KVM switch,M145-Y,G01,Old data center zone A,New data center floor 2,2020-07-09,1346968,5,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0011,Fiber distribution frame,M974-X,G01,Temporary storage area,Temporary storage area,2022-06-06,3754052,3,Zheng Yan,
+FA-01-0012,Network switch,M341-Z,G01,Old data center zone B,Old data center zone B,2022-10-06,3326369,5,Gao Yang,
+FA-01-0013,KVM switch,M833-Y,G01,Old data center zone A,Old data center zone B,2025-08-01,2849862,5,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0014,UPS,M997-Y,G01,Temporary storage area,Old data center zone B,2022-02-08,3219433,3,Han Qing,Registered and physical locations differ; register not updated after relocation
+FA-01-0015,UPS,M307-Z,G01,Old data center zone A,Old data center zone A,2025-01-28,1196770,8,Wu Tong,
+FA-01-0016,KVM switch,M319-X,G01,Old data center zone A,Old data center zone A,2020-01-07,3628236,3,Wu Tong,
+FA-01-0017,Network switch,M421-Z,G01,Old data center zone B,Old data center zone B,2024-03-21,3385456,5,Han Qing,
+FA-01-0018,UPS,M725-Y,G01,New data center floor 3,Temporary storage area,2024-04-07,3974524,3,Su He,Registered and physical locations differ; register not updated after relocation
+FA-01-0019,Fiber distribution frame,M465-Z,G01,Temporary storage area,Temporary storage area,2023-04-22,3296739,3,Wu Tong,
+FA-01-0020,Storage array,M634-X,G01,New data center floor 1,New data center floor 1,2023-02-13,1413443,8,Gao Yang,
+FA-01-0021,Storage array,M958-X,G01,Old data center zone A,Old data center zone A,2021-10-18,3104525,5,Gao Yang,
+FA-01-0022,Network switch,M703-Y,G01,New data center floor 3,New data center floor 3,2021-11-15,1911074,3,Su He,
+FA-01-0023,Network switch,M789-Z,G01,Temporary storage area,New data center floor 2,2021-09-03,1962846,8,Han Qing,Registered and physical locations differ; register not updated after relocation
+FA-01-0024,UPS,M493-Y,G01,New data center floor 3,Old data center zone B,2025-06-09,1248848,3,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0025,Fiber distribution frame,M456-Y,G01,Temporary storage area,Temporary storage area,2020-03-05,3510004,5,Zheng Yan,
+FA-01-0026,UPS,M268-Y,G01,New data center floor 1,New data center floor 1,2023-12-26,1889168,5,Zheng Yan,
+FA-01-0027,Fiber distribution frame,M836-Z,G01,New data center floor 1,New data center floor 1,2023-03-17,2091865,5,Han Qing,
+FA-01-0028,UPS,M674-Z,G01,New data center floor 3,New data center floor 3,2024-09-03,2073242,3,Su He,
+FA-01-0029,Rack server,M357-X,G01,Old data center zone B,Old data center zone A,2025-05-03,237306,3,Su He,Registered and physical locations differ; register not updated after relocation
+FA-01-0030,Rack server,M242-Y,G01,Temporary storage area,New data center floor 1,2020-09-26,2983296,5,Han Qing,Registered and physical locations differ; register not updated after relocation
+FA-01-0031,UPS,M353-Y,G01,Temporary storage area,Temporary storage area,2023-03-25,3798101,8,Zheng Yan,
+FA-01-0032,Storage array,M565-X,G01,New data center floor 3,Old data center zone B,2021-12-08,4140451,5,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0033,Storage array,M493-Z,G01,New data center floor 2,New data center floor 1,2021-12-01,3652295,5,Wu Tong,Registered and physical locations differ; register not updated after relocation
+FA-01-0034,Network switch,M540-X,G01,New data center floor 1,New data center floor 1,2021-05-10,2545102,5,Han Qing,
+FA-01-0035,Fiber distribution frame,M241-Y,G01,New data center floor 3,New data center floor 3,2023-07-18,3105974,8,Han Qing,
+FA-01-0036,Blade server,M889-Z,G01,Old data center zone B,New data center floor 3,2023-04-05,2727759,3,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0037,Storage array,M235-Y,G01,Temporary storage area,Temporary storage area,2020-12-22,2713061,3,Zheng Yan,
+FA-01-0038,Firewall,M684-X,G01,Old data center zone B,Old data center zone B,2023-11-24,3463069,8,Wu Tong,
+FA-01-0039,Network switch,M280-Y,G01,New data center floor 1,New data center floor 1,2022-09-02,2886220,3,Zheng Yan,
+FA-01-0040,Network switch,M544-X,G01,Old data center zone B,Old data center zone B,2020-12-28,2066021,3,Wu Tong,
+FA-01-0041,Network switch,M313-Y,G01,New data center floor 3,New data center floor 3,2024-07-09,2597368,3,Gao Yang,
+FA-01-0042,Rack server,M118-Y,G01,New data center floor 2,Old data center zone B,2022-08-22,3051257,8,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0043,Storage array,M183-X,G01,Temporary storage area,Temporary storage area,2021-06-18,3767061,3,Zheng Yan,
+FA-01-0044,Blade server,M442-Z,G01,Old data center zone A,New data center floor 1,2020-06-14,951315,5,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0045,Storage array,M483-X,G01,New data center floor 1,Old data center zone B,2025-10-01,3378195,3,Wu Tong,Registered and physical locations differ; register not updated after relocation
+FA-01-0046,Firewall,M319-Z,G01,Old data center zone B,Old data center zone B,2025-04-24,1027681,3,Wu Tong,
+FA-01-0047,Rack server,M308-X,G01,New data center floor 3,Old data center zone A,2022-10-24,940612,8,Su He,Registered and physical locations differ; register not updated after relocation
+FA-01-0048,Storage array,M836-Y,G01,New data center floor 3,New data center floor 3,2022-01-24,666827,8,Gao Yang,
+FA-01-0049,Storage array,M976-X,G01,Temporary storage area,Temporary storage area,2020-04-03,3747199,8,Zheng Yan,
+FA-01-0050,Rack server,M440-Y,G01,New data center floor 3,New data center floor 3,2022-03-26,723522,3,Su He,
+FA-01-0051,UPS,M324-X,G01,New data center floor 1,New data center floor 1,2023-11-02,1242549,3,Wu Tong,
+FA-01-0052,UPS,M824-Z,G01,New data center floor 3,Old data center zone A,2025-07-10,2440755,3,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0053,UPS,M299-Y,G01,New data center floor 1,New data center floor 1,2025-04-27,2814119,8,Su He,
+FA-01-0054,Storage array,M473-Z,G01,Old data center zone B,Old data center zone B,2022-10-27,4033625,8,Zheng Yan,
+FA-01-0055,Storage array,M551-Z,G01,Temporary storage area,Temporary storage area,2021-03-06,1478373,3,Zheng Yan,
+FA-01-0056,Network switch,M436-Z,G01,New data center floor 3,New data center floor 3,2025-05-17,3185155,3,Gao Yang,
+FA-01-0057,KVM switch,M833-X,G01,Old data center zone A,Old data center zone A,2023-01-21,1906572,8,Han Qing,
+FA-01-0058,KVM switch,M755-Z,G01,New data center floor 3,New data center floor 3,2024-12-16,3957597,5,Gao Yang,
+FA-01-0059,KVM switch,M269-Y,G01,New data center floor 1,New data center floor 1,2023-03-07,752344,5,Gao Yang,
+FA-01-0060,Blade server,M848-Z,G01,New data center floor 1,New data center floor 1,2025-01-11,3454270,3,Gao Yang,
+FA-01-0061,Blade server,M727-X,G01,Old data center zone A,Old data center zone A,2024-11-08,2894010,5,Zheng Yan,
+FA-01-0062,Network switch,M791-X,G01,New data center floor 2,New data center floor 2,2023-06-26,266796,8,Zheng Yan,
+FA-01-0063,KVM switch,M829-Z,G01,Temporary storage area,Temporary storage area,2025-01-19,2424634,8,Zheng Yan,
+FA-01-0064,Rack server,M202-Y,G01,New data center floor 3,Old data center zone B,2021-05-13,3149781,8,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0065,Network switch,M941-Z,G01,New data center floor 2,New data center floor 2,2025-06-27,1331318,5,Wu Tong,
+FA-01-0066,KVM switch,M305-Y,G01,New data center floor 3,New data center floor 3,2020-03-09,1944794,3,Han Qing,
+FA-01-0067,Rack server,M296-Z,G01,New data center floor 3,New data center floor 3,2024-08-06,3037374,5,Su He,
+FA-01-0068,Network switch,M418-Y,G01,New data center floor 2,New data center floor 2,2020-06-05,1061124,3,Su He,
+FA-01-0069,Rack server,M519-Z,G01,New data center floor 2,New data center floor 2,2020-07-10,3303101,5,Han Qing,
+FA-01-0070,Firewall,M393-X,G01,Old data center zone A,Temporary storage area,2023-08-04,190692,8,Su He,Registered and physical locations differ; register not updated after relocation
+FA-01-0071,KVM switch,M795-Y,G01,Old data center zone B,Old data center zone B,2024-09-14,1080080,3,Han Qing,
+FA-01-0072,KVM switch,M177-X,G01,New data center floor 1,New data center floor 1,2021-03-27,685908,8,Zheng Yan,
+FA-01-0073,Rack server,M327-Z,G01,New data center floor 3,Old data center zone A,2021-05-25,284441,5,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0074,Fiber distribution frame,M198-Y,G01,Temporary storage area,Temporary storage area,2022-10-25,4191805,5,Han Qing,
+FA-01-0075,UPS,M992-X,G01,New data center floor 3,New data center floor 3,2024-08-27,2931463,5,Wu Tong,
+FA-01-0076,KVM switch,M197-Z,G01,Old data center zone B,New data center floor 3,2021-05-09,1657465,5,Han Qing,Registered and physical locations differ; register not updated after relocation
+FA-01-0077,Network switch,M820-X,G01,Old data center zone A,Old data center zone A,2021-08-17,4180581,3,Zheng Yan,
+FA-01-0078,Rack server,M297-Y,G01,New data center floor 3,Old data center zone A,2025-11-04,3200805,8,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0079,Network switch,M957-Y,G01,Temporary storage area,Old data center zone A,2023-05-24,3581862,3,Su He,Registered and physical locations differ; register not updated after relocation
+FA-01-0080,UPS,M231-X,G01,New data center floor 2,New data center floor 2,2023-01-18,2420135,3,Han Qing,
+FA-01-0081,UPS,M768-Z,G01,New data center floor 3,Old data center zone A,2020-04-10,4073486,8,Han Qing,Registered and physical locations differ; register not updated after relocation
+FA-01-0082,Fiber distribution frame,M405-Z,G01,Temporary storage area,Temporary storage area,2025-02-22,2031038,5,Zheng Yan,
+FA-01-0083,UPS,M443-Y,G01,Old data center zone B,Old data center zone B,2023-05-19,1498105,5,Wu Tong,
+FA-01-0084,Blade server,M748-X,G01,Temporary storage area,Temporary storage area,2024-11-22,632755,5,Wu Tong,
+FA-01-0085,Storage array,M183-Y,G01,Temporary storage area,Temporary storage area,2020-09-21,2067617,3,Wu Tong,
+FA-01-0086,Blade server,M816-Y,G01,New data center floor 3,New data center floor 3,2020-10-08,1335732,5,Wu Tong,
+FA-01-0087,UPS,M588-X,G01,New data center floor 3,New data center floor 3,2020-09-01,222322,8,Su He,
+FA-01-0088,Blade server,M819-Y,G01,New data center floor 2,New data center floor 2,2022-08-16,3576039,3,Gao Yang,
+FA-01-0089,Blade server,M496-Z,G01,New data center floor 2,Temporary storage area,2020-03-17,3294215,3,Han Qing,Registered and physical locations differ; register not updated after relocation
+FA-01-0090,Firewall,M610-X,G01,Temporary storage area,Temporary storage area,2025-05-24,985718,5,Wu Tong,
+FA-01-0091,Blade server,M617-Y,G01,Temporary storage area,Temporary storage area,2020-10-19,2214666,8,Gao Yang,
+FA-01-0092,Firewall,M296-X,G01,Old data center zone B,Old data center zone B,2021-03-14,1828218,3,Zheng Yan,
+FA-01-0093,Blade server,M224-X,G01,Old data center zone A,Old data center zone A,2022-07-13,683546,8,Han Qing,
+FA-01-0094,UPS,M629-X,G01,Temporary storage area,Temporary storage area,2020-03-06,555003,8,Wu Tong,
+FA-01-0095,Network switch,M264-Y,G01,New data center floor 2,New data center floor 2,2023-03-24,2710393,3,Zheng Yan,
+FA-01-0096,Fiber distribution frame,M660-X,G01,New data center floor 3,New data center floor 3,2021-02-15,4097575,3,Zheng Yan,
+FA-01-0097,Firewall,M504-Y,G01,Temporary storage area,Old data center zone A,2020-08-09,568349,3,Wu Tong,Registered and physical locations differ; register not updated after relocation
+FA-01-0098,Blade server,M222-Z,G01,Old data center zone A,Old data center zone A,2021-07-22,3352311,8,Zheng Yan,
+FA-01-0099,Blade server,M505-Z,G01,New data center floor 3,New data center floor 3,2020-02-07,3654785,8,Han Qing,
+FA-01-0100,Network switch,M735-Z,G01,Temporary storage area,Temporary storage area,2020-02-25,301884,3,Han Qing,
+FA-01-0101,Storage array,M198-Y,G01,Temporary storage area,Old data center zone B,2021-05-01,1592130,3,Wu Tong,Registered and physical locations differ; register not updated after relocation
+FA-01-0102,Rack server,M305-Z,G01,New data center floor 2,New data center floor 2,2024-03-28,2977584,3,Zheng Yan,
+FA-01-0103,Network switch,M985-Y,G01,New data center floor 1,New data center floor 1,2020-04-03,3949438,8,Su He,
+FA-01-0104,Storage array,M406-Y,G01,New data center floor 1,New data center floor 1,2022-07-25,2567138,3,Han Qing,
+FA-01-0105,Rack server,M264-Y,G01,New data center floor 2,New data center floor 2,2021-10-17,3894985,8,Han Qing,
+FA-01-0106,Blade server,M658-Y,G01,New data center floor 2,New data center floor 2,2023-03-25,575508,5,Han Qing,
+FA-01-0107,Fiber distribution frame,M261-X,G01,New data center floor 1,New data center floor 1,2022-02-22,2376579,8,Wu Tong,
+FA-01-0108,Network switch,M503-Y,G01,Old data center zone A,Old data center zone A,2021-01-20,2877305,8,Han Qing,
+FA-01-0109,Network switch,M847-Z,G01,New data center floor 2,New data center floor 2,2023-01-11,1293806,5,Han Qing,
+FA-01-0110,Network switch,M630-Y,G01,New data center floor 3,New data center floor 3,2023-09-26,3210938,5,Gao Yang,
+FA-01-0111,Blade server,M251-X,G01,Temporary storage area,Temporary storage area,2020-07-15,2416577,8,Wu Tong,
+FA-01-0112,Network switch,M870-Z,G01,New data center floor 2,New data center floor 2,2025-03-06,2130900,5,Wu Tong,
+FA-01-0113,Firewall,M378-X,G01,Old data center zone A,Old data center zone A,2025-09-22,2289807,8,Su He,
+FA-01-0114,Firewall,M386-Z,G01,New data center floor 3,New data center floor 3,2024-08-17,3275401,3,Su He,
+FA-01-0115,Fiber distribution frame,M249-Z,G01,New data center floor 2,New data center floor 2,2024-10-23,2825413,3,Gao Yang,
+FA-01-0116,Network switch,M588-X,G01,Temporary storage area,Temporary storage area,2023-06-15,3650440,3,Han Qing,
+FA-01-0117,Storage array,M316-X,G01,New data center floor 3,New data center floor 3,2021-08-18,686973,5,Zheng Yan,
+FA-01-0118,KVM switch,M982-Y,G01,Temporary storage area,Temporary storage area,2020-04-24,1089747,5,Zheng Yan,
+FA-01-0119,UPS,M655-Y,G01,New data center floor 3,New data center floor 3,2021-07-01,1474152,5,Wu Tong,
+FA-01-0120,KVM switch,M459-X,G01,New data center floor 3,New data center floor 3,2023-06-20,2195296,8,Gao Yang,
+FA-01-0121,KVM switch,M458-X,G01,Old data center zone B,Old data center zone B,2021-08-27,3253112,3,Han Qing,
+FA-01-0122,KVM switch,M895-Y,G01,New data center floor 3,New data center floor 3,2022-01-21,3296439,5,Su He,
+FA-01-0123,Storage array,M198-Y,G01,New data center floor 1,New data center floor 1,2024-02-01,1153797,5,Zheng Yan,
+FA-01-0124,Network switch,M562-Z,G01,Old data center zone B,Old data center zone B,2025-07-19,2443157,5,Zheng Yan,
+FA-01-0125,Network switch,M898-X,G01,New data center floor 3,New data center floor 3,2022-10-05,1944288,5,Han Qing,
+FA-01-0126,KVM switch,M287-Z,G01,New data center floor 2,New data center floor 2,2023-02-17,3052944,5,Zheng Yan,
+FA-01-0127,Network switch,M460-Z,G01,Old data center zone B,Old data center zone B,2022-06-06,3223387,5,Wu Tong,
+FA-01-0128,UPS,M351-Z,G01,New data center floor 1,New data center floor 3,2025-01-13,2401228,8,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0129,Network switch,M996-Y,G01,Old data center zone B,Old data center zone B,2025-04-24,2382298,3,Zheng Yan,
+FA-01-0130,UPS,M218-Y,G01,Old data center zone B,Old data center zone B,2020-09-12,970586,8,Wu Tong,
+FA-01-0131,KVM switch,M766-Y,G01,Old data center zone A,Old data center zone A,2025-01-16,3226755,5,Su He,
+FA-01-0132,UPS,M518-X,G01,Old data center zone B,Old data center zone B,2023-01-23,3735384,8,Wu Tong,
+FA-01-0133,KVM switch,M786-Y,G01,Old data center zone B,Old data center zone B,2024-02-11,2525453,5,Wu Tong,
+FA-01-0134,Storage array,M182-X,G01,Old data center zone B,Old data center zone A,2020-03-09,3163767,5,Wu Tong,Registered and physical locations differ; register not updated after relocation
+FA-01-0135,Storage array,M795-Y,G01,Temporary storage area,Temporary storage area,2024-08-10,2184833,8,Han Qing,
+FA-01-0136,Storage array,M746-Z,G01,Temporary storage area,Temporary storage area,2020-06-23,744658,8,Wu Tong,
+FA-01-0137,Blade server,M144-Z,G01,Old data center zone B,Old data center zone B,2025-12-21,3978454,5,Han Qing,
+FA-01-0138,Storage array,M891-X,G01,New data center floor 1,New data center floor 1,2025-02-23,3186272,8,Wu Tong,
+FA-01-0139,Storage array,M980-Y,G01,New data center floor 1,New data center floor 1,2025-05-19,231680,3,Han Qing,
+FA-01-0140,Fiber distribution frame,M295-Z,G01,Old data center zone B,Old data center zone B,2023-01-12,3590211,8,Zheng Yan,
+FA-01-0141,UPS,M307-Y,G01,New data center floor 3,New data center floor 3,2022-12-19,3213667,8,Han Qing,
+FA-01-0142,Firewall,M674-X,G01,New data center floor 2,New data center floor 2,2023-01-16,2206208,3,Su He,
+FA-01-0143,KVM switch,M253-X,G01,Old data center zone A,Old data center zone A,2025-05-24,347698,5,Han Qing,
+FA-01-0144,KVM switch,M100-Z,G01,New data center floor 2,New data center floor 2,2023-04-09,432605,5,Zheng Yan,
+FA-01-0145,Storage array,M310-X,G01,Temporary storage area,Temporary storage area,2020-06-14,3477193,5,Wu Tong,
+FA-01-0146,Rack server,M232-X,G01,Temporary storage area,Temporary storage area,2022-10-15,1570417,5,Wu Tong,
+FA-01-0147,UPS,M762-Y,G01,New data center floor 3,New data center floor 3,2020-10-26,3809639,3,Gao Yang,
+FA-01-0148,UPS,M321-Z,G01,New data center floor 1,New data center floor 1,2022-08-14,2583183,3,Han Qing,
+FA-01-0149,Firewall,M171-Z,G01,Temporary storage area,New data center floor 3,2023-02-09,520474,5,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0150,Storage array,M115-Y,G01,New data center floor 1,Old data center zone B,2020-03-06,1847762,8,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0151,Network switch,M266-Z,G01,New data center floor 3,New data center floor 1,2023-11-02,2576292,5,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0152,Firewall,M497-Y,G01,Temporary storage area,Temporary storage area,2022-11-21,832391,5,Han Qing,
+FA-01-0153,Firewall,M713-Z,G01,Old data center zone A,Old data center zone A,2020-11-15,616634,5,Zheng Yan,
+FA-01-0154,UPS,M716-X,G01,Old data center zone A,Old data center zone A,2020-08-08,3326713,8,Su He,
+FA-01-0155,Blade server,M795-Z,G01,New data center floor 3,New data center floor 3,2021-04-15,4002270,8,Su He,
+FA-01-0156,KVM switch,M525-Z,G01,Old data center zone A,Old data center zone A,2021-01-12,3586296,3,Wu Tong,
+FA-01-0157,KVM switch,M736-Z,G01,New data center floor 2,New data center floor 2,2023-11-05,221912,8,Wu Tong,
+FA-01-0158,UPS,M753-X,G01,Temporary storage area,Temporary storage area,2024-10-23,876989,8,Gao Yang,
+FA-01-0159,Rack server,M815-X,G01,Temporary storage area,Temporary storage area,2022-09-16,1320682,3,Wu Tong,
+FA-01-0160,KVM switch,M497-X,G01,Old data center zone B,New data center floor 3,2021-07-06,352832,5,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0161,KVM switch,M144-Z,G01,New data center floor 2,New data center floor 2,2024-09-18,1716898,8,Gao Yang,
+FA-01-0162,Network switch,M926-Z,G01,Temporary storage area,Old data center zone A,2023-09-10,382378,8,Han Qing,Registered and physical locations differ; register not updated after relocation
+FA-01-0163,Firewall,M144-X,G01,New data center floor 1,New data center floor 1,2025-06-15,1514715,3,Gao Yang,
+FA-01-0164,Network switch,M314-Z,G01,Old data center zone A,Old data center zone A,2021-10-14,2185637,8,Zheng Yan,
+FA-01-0165,Fiber distribution frame,M401-Z,G01,New data center floor 3,New data center floor 3,2023-09-09,1611469,8,Wu Tong,
+FA-01-0166,KVM switch,M849-X,G01,Old data center zone A,Old data center zone A,2024-03-27,624108,5,Gao Yang,
+FA-01-0167,UPS,M133-Z,G01,Old data center zone A,Old data center zone B,2021-03-02,3122640,3,Han Qing,Registered and physical locations differ; register not updated after relocation
+FA-01-0168,UPS,M227-X,G01,Temporary storage area,Temporary storage area,2022-03-11,1995614,5,Han Qing,
+FA-01-0169,KVM switch,M393-X,G01,New data center floor 1,New data center floor 1,2023-12-10,2243030,3,Su He,
+FA-01-0170,KVM switch,M693-Y,G01,New data center floor 1,New data center floor 1,2025-01-26,2349750,5,Zheng Yan,
+FA-01-0171,UPS,M374-Y,G01,Old data center zone B,Old data center zone B,2022-05-06,731032,5,Wu Tong,
+FA-01-0172,UPS,M851-Z,G01,New data center floor 1,Old data center zone A,2021-12-07,3626420,3,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0173,Rack server,M836-Z,G01,Old data center zone B,Temporary storage area,2023-11-09,3055262,8,Zheng Yan,Registered and physical locations differ; register not updated after relocation
+FA-01-0174,Rack server,M909-X,G01,Old data center zone B,New data center floor 2,2021-02-17,3582211,8,Gao Yang,Registered and physical locations differ; register not updated after relocation
+FA-01-0175,Blade server,M109-Z,G01,Temporary storage area,Temporary storage area,2020-10-08,3814193,5,Wu Tong,
+FA-01-0176,Firewall,M410-Z,G01,New data center floor 3,New data center floor 3,2024-07-01,577820,5,Zheng Yan,
+FA-01-0177,Firewall,M477-X,G01,Old data center zone B,Old data center zone B,2021-12-02,1109249,5,Su He,
+FA-01-0178,Network switch,M175-X,G01,New data center floor 1,New data center floor 1,2021-01-28,2410284,3,Han Qing,
+FA-01-0179,Firewall,M748-X,G01,New data center floor 3,Old data center zone B,2024-09-12,3231583,5,Wu Tong,Registered and physical locations differ; register not updated after relocation

@@ -1,0 +1,27 @@
+{
+ "sensor": "SNS-4209",
+ "site": "north stack",
+ "certified_on": "2026-08-11",
+ "readings": [
+  {
+   "pass": "P1",
+   "ppm": 59.137
+  },
+  {
+   "pass": "P2",
+   "ppm": 52.941
+  },
+  {
+   "pass": "P3",
+   "ppm": 46.275
+  },
+  {
+   "pass": "P4",
+   "ppm": 56.863
+  },
+  {
+   "pass": "P5",
+   "ppm": 42.902
+  }
+ ]
+}

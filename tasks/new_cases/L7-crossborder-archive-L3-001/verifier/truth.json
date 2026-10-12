@@ -1,0 +1,691 @@
+{
+  "batch_code": "CBC-7E91-Q4MX",
+  "filing_permit": "CFP-2048-NOVA",
+  "route_map": {
+    "DE": "RTE-CENTRAL-17",
+    "AT": "RTE-CENTRAL-17",
+    "FR": "RTE-WEST-42",
+    "BE": "RTE-WEST-42",
+    "NL": "RTE-WEST-42",
+    "DK": "RTE-NORTH-08",
+    "SE": "RTE-NORTH-08",
+    "FI": "RTE-NORTH-08",
+    "PL": "RTE-EAST-31",
+    "CZ": "RTE-EAST-31",
+    "IT": "RTE-SOUTH-56",
+    "ES": "RTE-SOUTH-56",
+    "PT": "RTE-SOUTH-56",
+    "IE": "RTE-ATLANTIC-24"
+  },
+  "eligibility": {
+    "declared_value_min": 2000.0,
+    "incoterm": "DDP",
+    "screening": "CLEAR"
+  },
+  "preview_markers": [
+    "PREVIEW-01-BEGIN-01EEF",
+    "PREVIEW-01-END-019919",
+    "PREVIEW-02-BEGIN-03DDE",
+    "PREVIEW-02-END-033232",
+    "PREVIEW-03-BEGIN-05CCD",
+    "PREVIEW-03-END-04CB4B",
+    "PREVIEW-04-BEGIN-07BBC",
+    "PREVIEW-04-END-066464",
+    "PREVIEW-05-BEGIN-09AAB",
+    "PREVIEW-05-END-07FD7D",
+    "PREVIEW-06-BEGIN-0B99A",
+    "PREVIEW-06-END-099696",
+    "PREVIEW-07-BEGIN-0D889",
+    "PREVIEW-07-END-0B2FAF",
+    "PREVIEW-08-BEGIN-0F778",
+    "PREVIEW-08-END-0CC8C8"
+  ],
+  "release_marker": "RELEASED-MANIFESTS-END-7AC91D",
+  "orders": {
+    "REL-A-001": {
+      "order_id": "REL-A-001",
+      "released_batch": "RELEASE-A",
+      "dest": "DE",
+      "hs_code": "6109.10",
+      "declared_value": 2000.0,
+      "currency": "EUR",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-002": {
+      "order_id": "REL-A-002",
+      "released_batch": "RELEASE-A",
+      "dest": "DE",
+      "hs_code": "8471.30",
+      "declared_value": 1999.99,
+      "currency": "GBP",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-003": {
+      "order_id": "REL-A-003",
+      "released_batch": "RELEASE-A",
+      "dest": "DE",
+      "hs_code": "8517.62",
+      "declared_value": 2450.0,
+      "currency": "CHF",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-A-004": {
+      "order_id": "REL-A-004",
+      "released_batch": "RELEASE-A",
+      "dest": "DE",
+      "hs_code": "4202.22",
+      "declared_value": 2750.0,
+      "currency": "SEK",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-A-005": {
+      "order_id": "REL-A-005",
+      "released_batch": "RELEASE-A",
+      "dest": "FR",
+      "hs_code": "8471.30",
+      "declared_value": 2137.25,
+      "currency": "CHF",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-006": {
+      "order_id": "REL-A-006",
+      "released_batch": "RELEASE-A",
+      "dest": "FR",
+      "hs_code": "8517.62",
+      "declared_value": 1988.88,
+      "currency": "SEK",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-007": {
+      "order_id": "REL-A-007",
+      "released_batch": "RELEASE-A",
+      "dest": "FR",
+      "hs_code": "4202.22",
+      "declared_value": 2521.33,
+      "currency": "PLN",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-A-008": {
+      "order_id": "REL-A-008",
+      "released_batch": "RELEASE-A",
+      "dest": "FR",
+      "hs_code": "9503.00",
+      "declared_value": 2833.17,
+      "currency": "DKK",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-A-009": {
+      "order_id": "REL-A-009",
+      "released_batch": "RELEASE-A",
+      "dest": "DK",
+      "hs_code": "8517.62",
+      "declared_value": 2274.5,
+      "currency": "PLN",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-010": {
+      "order_id": "REL-A-010",
+      "released_batch": "RELEASE-A",
+      "dest": "DK",
+      "hs_code": "4202.22",
+      "declared_value": 1977.77,
+      "currency": "DKK",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-011": {
+      "order_id": "REL-A-011",
+      "released_batch": "RELEASE-A",
+      "dest": "DK",
+      "hs_code": "9503.00",
+      "declared_value": 2592.66,
+      "currency": "EUR",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-A-012": {
+      "order_id": "REL-A-012",
+      "released_batch": "RELEASE-A",
+      "dest": "DK",
+      "hs_code": "3304.99",
+      "declared_value": 2916.34,
+      "currency": "GBP",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-A-013": {
+      "order_id": "REL-A-013",
+      "released_batch": "RELEASE-A",
+      "dest": "PL",
+      "hs_code": "4202.22",
+      "declared_value": 2411.75,
+      "currency": "EUR",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-014": {
+      "order_id": "REL-A-014",
+      "released_batch": "RELEASE-A",
+      "dest": "PL",
+      "hs_code": "9503.00",
+      "declared_value": 1966.66,
+      "currency": "GBP",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-015": {
+      "order_id": "REL-A-015",
+      "released_batch": "RELEASE-A",
+      "dest": "PL",
+      "hs_code": "3304.99",
+      "declared_value": 2663.99,
+      "currency": "CHF",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-A-016": {
+      "order_id": "REL-A-016",
+      "released_batch": "RELEASE-A",
+      "dest": "PL",
+      "hs_code": "6109.10",
+      "declared_value": 2999.51,
+      "currency": "SEK",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-A-017": {
+      "order_id": "REL-A-017",
+      "released_batch": "RELEASE-A",
+      "dest": "IT",
+      "hs_code": "9503.00",
+      "declared_value": 2549.0,
+      "currency": "CHF",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-018": {
+      "order_id": "REL-A-018",
+      "released_batch": "RELEASE-A",
+      "dest": "IT",
+      "hs_code": "3304.99",
+      "declared_value": 1955.55,
+      "currency": "SEK",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-019": {
+      "order_id": "REL-A-019",
+      "released_batch": "RELEASE-A",
+      "dest": "IT",
+      "hs_code": "6109.10",
+      "declared_value": 2735.32,
+      "currency": "PLN",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-A-020": {
+      "order_id": "REL-A-020",
+      "released_batch": "RELEASE-A",
+      "dest": "IT",
+      "hs_code": "8471.30",
+      "declared_value": 3082.68,
+      "currency": "DKK",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-A-021": {
+      "order_id": "REL-A-021",
+      "released_batch": "RELEASE-A",
+      "dest": "IE",
+      "hs_code": "3304.99",
+      "declared_value": 2686.25,
+      "currency": "PLN",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-022": {
+      "order_id": "REL-A-022",
+      "released_batch": "RELEASE-A",
+      "dest": "IE",
+      "hs_code": "6109.10",
+      "declared_value": 1944.44,
+      "currency": "DKK",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-A-023": {
+      "order_id": "REL-A-023",
+      "released_batch": "RELEASE-A",
+      "dest": "IE",
+      "hs_code": "8471.30",
+      "declared_value": 2806.65,
+      "currency": "EUR",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-A-024": {
+      "order_id": "REL-A-024",
+      "released_batch": "RELEASE-A",
+      "dest": "IE",
+      "hs_code": "8517.62",
+      "declared_value": 3165.85,
+      "currency": "GBP",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-B-001": {
+      "order_id": "REL-B-001",
+      "released_batch": "RELEASE-B",
+      "dest": "AT",
+      "hs_code": "8471.30",
+      "declared_value": 2023.5,
+      "currency": "GBP",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-002": {
+      "order_id": "REL-B-002",
+      "released_batch": "RELEASE-B",
+      "dest": "AT",
+      "hs_code": "8517.62",
+      "declared_value": 1999.99,
+      "currency": "CHF",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-003": {
+      "order_id": "REL-B-003",
+      "released_batch": "RELEASE-B",
+      "dest": "AT",
+      "hs_code": "4202.22",
+      "declared_value": 2450.0,
+      "currency": "SEK",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-B-004": {
+      "order_id": "REL-B-004",
+      "released_batch": "RELEASE-B",
+      "dest": "AT",
+      "hs_code": "9503.00",
+      "declared_value": 2750.0,
+      "currency": "PLN",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-B-005": {
+      "order_id": "REL-B-005",
+      "released_batch": "RELEASE-B",
+      "dest": "BE",
+      "hs_code": "8517.62",
+      "declared_value": 2160.75,
+      "currency": "SEK",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-006": {
+      "order_id": "REL-B-006",
+      "released_batch": "RELEASE-B",
+      "dest": "BE",
+      "hs_code": "4202.22",
+      "declared_value": 1988.88,
+      "currency": "PLN",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-007": {
+      "order_id": "REL-B-007",
+      "released_batch": "RELEASE-B",
+      "dest": "BE",
+      "hs_code": "9503.00",
+      "declared_value": 2521.33,
+      "currency": "DKK",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-B-008": {
+      "order_id": "REL-B-008",
+      "released_batch": "RELEASE-B",
+      "dest": "BE",
+      "hs_code": "3304.99",
+      "declared_value": 2833.17,
+      "currency": "EUR",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-B-009": {
+      "order_id": "REL-B-009",
+      "released_batch": "RELEASE-B",
+      "dest": "SE",
+      "hs_code": "4202.22",
+      "declared_value": 2298.0,
+      "currency": "DKK",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-010": {
+      "order_id": "REL-B-010",
+      "released_batch": "RELEASE-B",
+      "dest": "SE",
+      "hs_code": "9503.00",
+      "declared_value": 1977.77,
+      "currency": "EUR",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-011": {
+      "order_id": "REL-B-011",
+      "released_batch": "RELEASE-B",
+      "dest": "SE",
+      "hs_code": "3304.99",
+      "declared_value": 2592.66,
+      "currency": "GBP",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-B-012": {
+      "order_id": "REL-B-012",
+      "released_batch": "RELEASE-B",
+      "dest": "SE",
+      "hs_code": "6109.10",
+      "declared_value": 2916.34,
+      "currency": "CHF",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-B-013": {
+      "order_id": "REL-B-013",
+      "released_batch": "RELEASE-B",
+      "dest": "CZ",
+      "hs_code": "9503.00",
+      "declared_value": 2435.25,
+      "currency": "GBP",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-014": {
+      "order_id": "REL-B-014",
+      "released_batch": "RELEASE-B",
+      "dest": "CZ",
+      "hs_code": "3304.99",
+      "declared_value": 1966.66,
+      "currency": "CHF",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-015": {
+      "order_id": "REL-B-015",
+      "released_batch": "RELEASE-B",
+      "dest": "CZ",
+      "hs_code": "6109.10",
+      "declared_value": 2663.99,
+      "currency": "SEK",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-B-016": {
+      "order_id": "REL-B-016",
+      "released_batch": "RELEASE-B",
+      "dest": "CZ",
+      "hs_code": "8471.30",
+      "declared_value": 2999.51,
+      "currency": "PLN",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-B-017": {
+      "order_id": "REL-B-017",
+      "released_batch": "RELEASE-B",
+      "dest": "ES",
+      "hs_code": "3304.99",
+      "declared_value": 2572.5,
+      "currency": "SEK",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-018": {
+      "order_id": "REL-B-018",
+      "released_batch": "RELEASE-B",
+      "dest": "ES",
+      "hs_code": "6109.10",
+      "declared_value": 1955.55,
+      "currency": "PLN",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-019": {
+      "order_id": "REL-B-019",
+      "released_batch": "RELEASE-B",
+      "dest": "ES",
+      "hs_code": "8471.30",
+      "declared_value": 2735.32,
+      "currency": "DKK",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-B-020": {
+      "order_id": "REL-B-020",
+      "released_batch": "RELEASE-B",
+      "dest": "ES",
+      "hs_code": "8517.62",
+      "declared_value": 3082.68,
+      "currency": "EUR",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    },
+    "REL-B-021": {
+      "order_id": "REL-B-021",
+      "released_batch": "RELEASE-B",
+      "dest": "IE",
+      "hs_code": "6109.10",
+      "declared_value": 2709.75,
+      "currency": "DKK",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-022": {
+      "order_id": "REL-B-022",
+      "released_batch": "RELEASE-B",
+      "dest": "IE",
+      "hs_code": "8471.30",
+      "declared_value": 1944.44,
+      "currency": "EUR",
+      "incoterm": "DDP",
+      "screening": "CLEAR"
+    },
+    "REL-B-023": {
+      "order_id": "REL-B-023",
+      "released_batch": "RELEASE-B",
+      "dest": "IE",
+      "hs_code": "8517.62",
+      "declared_value": 2806.65,
+      "currency": "GBP",
+      "incoterm": "DAP",
+      "screening": "CLEAR"
+    },
+    "REL-B-024": {
+      "order_id": "REL-B-024",
+      "released_batch": "RELEASE-B",
+      "dest": "IE",
+      "hs_code": "4202.22",
+      "declared_value": 3165.85,
+      "currency": "CHF",
+      "incoterm": "DDP",
+      "screening": "HOLD"
+    }
+  },
+  "qualifying": [
+    "REL-A-001",
+    "REL-A-005",
+    "REL-A-009",
+    "REL-A-013",
+    "REL-A-017",
+    "REL-A-021",
+    "REL-B-001",
+    "REL-B-005",
+    "REL-B-009",
+    "REL-B-013",
+    "REL-B-017",
+    "REL-B-021"
+  ],
+  "expected_records": [
+    {
+      "order_id": "REL-A-001",
+      "released_batch": "RELEASE-A",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-CENTRAL-17",
+      "dest": "DE",
+      "hs_code": "6109.10",
+      "declared_value": 2000.0,
+      "currency": "EUR"
+    },
+    {
+      "order_id": "REL-A-005",
+      "released_batch": "RELEASE-A",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-WEST-42",
+      "dest": "FR",
+      "hs_code": "8471.30",
+      "declared_value": 2137.25,
+      "currency": "CHF"
+    },
+    {
+      "order_id": "REL-A-009",
+      "released_batch": "RELEASE-A",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-NORTH-08",
+      "dest": "DK",
+      "hs_code": "8517.62",
+      "declared_value": 2274.5,
+      "currency": "PLN"
+    },
+    {
+      "order_id": "REL-A-013",
+      "released_batch": "RELEASE-A",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-EAST-31",
+      "dest": "PL",
+      "hs_code": "4202.22",
+      "declared_value": 2411.75,
+      "currency": "EUR"
+    },
+    {
+      "order_id": "REL-A-017",
+      "released_batch": "RELEASE-A",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-SOUTH-56",
+      "dest": "IT",
+      "hs_code": "9503.00",
+      "declared_value": 2549.0,
+      "currency": "CHF"
+    },
+    {
+      "order_id": "REL-A-021",
+      "released_batch": "RELEASE-A",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-ATLANTIC-24",
+      "dest": "IE",
+      "hs_code": "3304.99",
+      "declared_value": 2686.25,
+      "currency": "PLN"
+    },
+    {
+      "order_id": "REL-B-001",
+      "released_batch": "RELEASE-B",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-CENTRAL-17",
+      "dest": "AT",
+      "hs_code": "8471.30",
+      "declared_value": 2023.5,
+      "currency": "GBP"
+    },
+    {
+      "order_id": "REL-B-005",
+      "released_batch": "RELEASE-B",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-WEST-42",
+      "dest": "BE",
+      "hs_code": "8517.62",
+      "declared_value": 2160.75,
+      "currency": "SEK"
+    },
+    {
+      "order_id": "REL-B-009",
+      "released_batch": "RELEASE-B",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-NORTH-08",
+      "dest": "SE",
+      "hs_code": "4202.22",
+      "declared_value": 2298.0,
+      "currency": "DKK"
+    },
+    {
+      "order_id": "REL-B-013",
+      "released_batch": "RELEASE-B",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-EAST-31",
+      "dest": "CZ",
+      "hs_code": "9503.00",
+      "declared_value": 2435.25,
+      "currency": "GBP"
+    },
+    {
+      "order_id": "REL-B-017",
+      "released_batch": "RELEASE-B",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-SOUTH-56",
+      "dest": "ES",
+      "hs_code": "3304.99",
+      "declared_value": 2572.5,
+      "currency": "SEK"
+    },
+    {
+      "order_id": "REL-B-021",
+      "released_batch": "RELEASE-B",
+      "batch_code": "CBC-7E91-Q4MX",
+      "filing_permit": "CFP-2048-NOVA",
+      "route_code": "RTE-ATLANTIC-24",
+      "dest": "IE",
+      "hs_code": "6109.10",
+      "declared_value": 2709.75,
+      "currency": "DKK"
+    }
+  ],
+  "counts": {
+    "RELEASE-A": {
+      "received": 24,
+      "archived": 6,
+      "excluded": 18
+    },
+    "RELEASE-B": {
+      "received": 24,
+      "archived": 6,
+      "excluded": 18
+    },
+    "TOTAL": {
+      "received": 48,
+      "archived": 12,
+      "excluded": 36
+    }
+  }
+}

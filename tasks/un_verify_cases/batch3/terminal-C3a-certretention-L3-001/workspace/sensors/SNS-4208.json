@@ -1,0 +1,27 @@
+{
+ "sensor": "SNS-4208",
+ "site": "condenser bay",
+ "certified_on": "2026-08-10",
+ "readings": [
+  {
+   "pass": "P1",
+   "ppm": 44.863
+  },
+  {
+   "pass": "P2",
+   "ppm": 48.784
+  },
+  {
+   "pass": "P3",
+   "ppm": 41.333
+  },
+  {
+   "pass": "P4",
+   "ppm": 41.176
+  },
+  {
+   "pass": "P5",
+   "ppm": 44.235
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "t1f_banding_observations_v1",
+  "processing_order": [
+    "BR-7001",
+    "BR-7002",
+    "BR-7003",
+    "BR-7004",
+    "BR-7005",
+    "BR-7006",
+    "BR-7007",
+    "BR-7008",
+    "BR-7009",
+    "BR-7010"
+  ],
+  "observations": {
+    "BR-7001": {"argument_pairs": [["observer", "Qiao Lin"], ["observer", "Mei Zhou"]]},
+    "BR-7002": {"argument_pairs": [["observer", "Han Yu"]]},
+    "BR-7003": {"argument_pairs": [["observer", "Ari Chen"], ["observer", "Rui Tang"], ["observer", "Bo Xu"]]},
+    "BR-7004": {"argument_pairs": [["band_ref", "BAND-CN-088"], ["band_ref-check", "BAND-CN-088-CHK"]]},
+    "BR-7005": {"argument_pairs": [["band_ref", "BAND-CN-091"]]},
+    "BR-7006": {"argument_pairs": [["band_ref", "BAND-CN-093"], ["band_ref-check", "BAND-CN-093-CHK"], ["observer", "Ning Guo"], ["observer", "Jia Wen"]]},
+    "BR-7007": {"argument_pairs": [["observer", "Tao Sun"]]},
+    "BR-7008": {"argument_pairs": [["band_ref", "BAND-CN-097"], ["band_ref-check", "BAND-CN-097-CHK"]]},
+    "BR-7009": {"argument_pairs": [["observer", "Le Qi"], ["observer", "Ming He"], ["band_ref", "BAND-CN-099"], ["band_ref-check", "BAND-CN-099-CHK"]]},
+    "BR-7010": {"argument_pairs": [["observer", "Yan Luo"]]}
+  }
+}

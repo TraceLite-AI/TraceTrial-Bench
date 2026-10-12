@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:7007a97d17f3f657836d68cb0cfdb941fae4d0938d544d89c343594286e0f405",
+  "image_reference": "harnessbench/case-h2-api-migration-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "H2-api-migration-L3-001"
+}

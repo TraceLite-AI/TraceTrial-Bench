@@ -1,0 +1,52 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_delivery_contract
+    type: rule
+    criterion: >
+      Score 1 only when the final output contains exactly ranger_routing.json and ranger_routing_notes.md as regular
+      UTF-8 files; ranger_routing.json has exactly the twelve queue IDs in order and exactly state, receipt,
+      and skill per assignment; and ranger_routing_notes.md has the required title, two sections, three calibration
+      bullets, exact table header, and twelve ordered five-cell rows. Score 0 when any required file,
+      field, row, order, encoding, or format condition is missing or extra, or evidence is unavailable.
+
+  - id: ar_exact_validated_routing
+    type: rule
+    criterion: >
+      Score 1 only when every ranger_routing.json record matches the protected reference and committed channel
+      evidence: ordinary ranger assignments record the single applicable unsuffixed skill, exact assignment-bound receipt,
+      executed state, and ACCEPTED validation, while an incomplete execution or unavailable validation
+      is recorded as unavailable with null receipt and the exact called skill. Score 0 for any wrong
+      family or form, altered or borrowed receipt, unsupported executed state, retry-based recovery,
+      fabricated success, mishandled degraded signal, missing assignment, or unavailable evidence.
+
+  - id: ar_exact_evidence_log
+    type: rule
+    criterion: >
+      Score 1 only when the three calibration bullets preserve their exact direct NO_EFFECT,
+      NO_EFFECT, and ROUTING_AUDIT results in call order; ordinary assignment rows preserve the exact called
+      skill, EXECUTED, and ACCEPTED lines; the truncated-execution row records execution and submission
+      evidence as unavailable; and the validation-outage row preserves its complete EXECUTED line but
+      records submission evidence as unavailable. Score 0 for any omission, alteration, cross-assignment
+      substitution, leaked partial receipt, unsupported success, extra or duplicate row, or unavailable
+      evidence.
+
+  - id: ar_decision_basis_quality
+    type: rubric
+    criterion: >
+      Score 1 only when all twelve Decision basis cells faithfully preserve the decisive intent from
+      that assignment's authoritative ranger_brief request, name the protected-reference closest sibling
+      production skill, and give a specific reason that sibling does not apply. The distinctions must
+      correctly resolve research-permit PDF versus field-access badge, trail closure versus trail detour,
+      species identity review versus observation-data export, wayfinding page versus wayfinding video,
+      ranger roster distribution versus patrol-log audit, and wildlife-incident triage versus research-permit
+      archiving. Score 0 when any row is generic,
+      semantically inaccurate, missing the required sibling or exclusion reason, contradicts the
+      selected skill, invents unsupported facts, or lacks usable evidence.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["ar_decision_basis_quality", "EVIDENCE_END"]
+      match: all
+      case_sensitive: true
+      max_events: 3

@@ -1,0 +1,14 @@
+{
+  "M01": {"code": "B263C52E", "label": "Notice title contains no more than 20 characters", "expect": "NoticeTitle=Meet Nori"},
+  "M02": {"code": "973CE558", "label": "Notice body ends with the exact adoption-guidance tag", "expect": "Nori is ready for a calm home. [Adoption Guidance]"},
+  "M03": {"code": "F6E40F33", "label": "Photo attachment contains exactly three animal-photo IDs", "expect": "PETIMG-003,PETIMG-004,PETIMG-005"},
+  "M04": {"code": "A0760180", "label": "Adoption fee includes the CNY currency prefix", "expect": "CNY 104.00"},
+  "M05": {"code": "33EC9FFD", "label": "Notice quotes the veterinary record exactly", "expect": "Veterinary record: \"Vaccinated, microchipped, and cleared for adoption.\""},
+  "M06": {"code": "204CD7DC", "label": "NoticeText field uses Simplified Chinese", "expect": "NoticeText=本条为收容中心第06号领养公告"},
+  "M07": {"code": "3621A21E", "label": "Public profile excludes internal kennel codenames LYNX and OTTER", "expect": "Public adoption profile cleared for release."},
+  "M08": {"code": "FB4C3A6F", "label": "Notice contains the specified adoption-appointment action", "expect": "Request an adoption appointment."},
+  "M09": {"code": "461E3533", "label": "Shelter visit time uses ISO 8601 format", "expect": "2026-06-10T10:00:00+08:00"},
+  "M10": {"code": "FC684AB0", "label": "Shelter contact number masks the middle four digits", "expect": "138****1010"},
+  "M11": {"code": "44918CA8", "label": "Notice contains no more than one emoji", "expect": "Gentle companion seeking a home 🐾"},
+  "M12": {"code": "7FA3F7A7", "label": "Notice satisfies all eleven preceding publication constraints simultaneously", "expect": "NoticeTitle=Meet Nori; Photos=PETIMG-012,PETIMG-013,PETIMG-014; Fee=CNY 112.00; Veterinary record: \"Vaccinated, microchipped, and cleared for adoption.\"; NoticeText=本条为收容中心第12号领养公告; Public profile only; Action=Request an adoption appointment.; VisitTime=2026-06-10T10:00:00+08:00; Contact=138****1012; 🐾 [Adoption Guidance]"}
+}

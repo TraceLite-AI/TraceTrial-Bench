@@ -1,0 +1,15 @@
+/.venv/
+/model.toml
+/outputs/
+/output/
+/website/index.html
+/.pytest_cache/
+/build/
+/dist/
+/*.egg-info/
+docs/superpowers
+__pycache__/
+*.py[cod]
+.DS_Store
+AGENTS.md
+run/

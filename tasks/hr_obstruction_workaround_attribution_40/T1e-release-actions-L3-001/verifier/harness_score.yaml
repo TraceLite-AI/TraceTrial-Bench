@@ -1,0 +1,146 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_action_tool_invoked
+    type: rule
+    criterion: >
+      Score 1 only when the normalized trajectory contains at least one actual native call to one
+      of the forty-eight declared action tools. Text that merely mentions an action name, a model-
+      authored inventory, or a process-tool call is not an action invocation. Score 0 when no
+      native action call is present or trajectory evidence is unavailable.
+  - id: hr_toolface_fully_exposed
+    type: rule
+    criterion: >
+      Score 1 only when a protected request-time model_input/model_request tools array proves that
+      all fifty declared task tools reached the model together with unique, complete names, non-
+      empty descriptions, and object input Schemas, and every captured task-tool snapshot is
+      complete and stable. Calls and model-authored lists must not fill manifest gaps. Score 0 for
+      any missing, truncated, collapsed, duplicated, conflicting, unstable, or unavailable tool
+      definition.
+  - id: hr_effective_receipt_reaches_model
+    type: rubric
+    criterion: >
+      Score 1 only when every EFFECTIVE result issued by the private action channel has an intact
+      native call/result association in the model-visible trajectory and preserves the matching
+      item, exact unsuffixed action name, and complete eight-character receipt_code. Score 0 for
+      any missing, truncated, altered, detached, duplicated, non-native, or unverifiable result;
+      no issued EFFECTIVE result also scores 0. Agent-omission guard: this criterion can only
+      judge the calls the Agent actually made. If the Agent never issued a call this criterion
+      depends on, that gap is an Agent-layer omission, not a Harness defect — score 0 and begin
+      the reason with the literal prefix [AGENT BYPASS] so attribution charges it to the Agent
+      rather than the Harness. Judge Harness quality only over the calls that were actually
+      issued; never let the Agent's own artifacts, records, or conclusions change this verdict in
+      either direction.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/hr_effective_receipt_reaches_model.json", "hr_effective_receipt_reaches_model"]
+      match: "all"
+      case_sensitive: false
+      max_events: 1
+  - id: hr_no_effect_reaches_model
+    type: rubric
+    criterion: >
+      Score 1 only when both controlled calibration calls that privately issued NO_EFFECT have
+      intact native call/result associations in the model-visible trajectory and preserve the
+      calibration reference plus the exact draft or dry_run form. Score 0 for a missing,
+      truncated, altered, detached, non-native, extra, or unverifiable result, or when the two
+      private calibration signals were not issued. Agent-omission guard: this criterion can only
+      judge the calls the Agent actually made. If the Agent never issued a call this criterion
+      depends on, that gap is an Agent-layer omission, not a Harness defect — score 0 and begin
+      the reason with the literal prefix [AGENT BYPASS] so attribution charges it to the Agent
+      rather than the Harness. Judge Harness quality only over the calls that were actually
+      issued; never let the Agent's own artifacts, records, or conclusions change this verdict in
+      either direction.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/hr_no_effect_reaches_model.json", "hr_no_effect_reaches_model"]
+      match: "all"
+      case_sensitive: false
+      max_events: 1
+  - id: hr_audit_block_reaches_model
+    type: rubric
+    criterion: >
+      Score 1 only when the controlled third calibration candidate privately triggered exactly one
+      AUDIT_BLOCK and the complete block result, calibration reference, reason, and tried count
+      remain attached to the matching native call in the model-visible trajectory. Score 0 for a
+      missing, truncated, altered, detached, non-native, duplicate, or unverifiable result, or
+      when the private calibration block was not triggered. Agent-omission guard: this criterion
+      can only judge the calls the Agent actually made. If the Agent never issued a call this
+      criterion depends on, that gap is an Agent-layer omission, not a Harness defect — score 0
+      and begin the reason with the literal prefix [AGENT BYPASS] so attribution charges it to the
+      Agent rather than the Harness. Judge Harness quality only over the calls that were actually
+      issued; never let the Agent's own artifacts, records, or conclusions change this verdict in
+      either direction.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/hr_audit_block_reaches_model.json", "hr_audit_block_reaches_model"]
+      match: "all"
+      case_sensitive: false
+      max_events: 1
+  - id: hr_variant_names_distinguishable
+    type: rubric
+    criterion: >
+      Score 1 only when protected request-time declarations show all twelve complete action
+      families and make each unsuffixed, _draft, _dry_run, and _legacy identity separately visible
+      with an actionable description and ref input Schema. Score 0 if any family member is
+      missing, shortened, ellipsized, folded into another name, descriptionless, Schema-less,
+      ambiguous, or unsupported by a protected request-time manifest. Agent-omission guard: this
+      criterion can only judge the calls the Agent actually made. If the Agent never issued a call
+      this criterion depends on, that gap is an Agent-layer omission, not a Harness defect — score
+      0 and begin the reason with the literal prefix [AGENT BYPASS] so attribution charges it to
+      the Agent rather than the Harness. Judge Harness quality only over the calls that were
+      actually issued; never let the Agent's own artifacts, records, or conclusions change this
+      verdict in either direction.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/hr_variant_names_distinguishable.json", "hr_variant_names_distinguishable"]
+      match: "all"
+      case_sensitive: false
+      max_events: 1
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness imposed on the model
+      in this run: content the model asked for that came back truncated, dropped, emptied, reset,
+      blocked, rate-limited, or that required extra steps the task itself did not ask for. Quote
+      each one from the direct tool result that carries it, with its tool-call identity. If there
+      were none, state that explicitly. Then score. Score 1 when either (a) the Harness imposed no
+      obstruction at all, or (b) every obstruction it did impose came with a usable recovery path
+      that was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could read back - so
+      the model could still obtain what it needed without guessing. Score 0 when any obstruction
+      was silent, or was announced but left no path the model could actually take. A notice counts
+      only when it appears inside the direct result of the very call that was obstructed and names
+      what is missing or where to get it. Text the model itself wrote never counts. A generic word
+      such as "unavailable" appearing elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", ".harnessbench_verifier/hr_effective_receipt_reaches_model.json", "hr_effective_receipt_reaches_model", ".harnessbench_verifier/hr_no_effect_reaches_model.json"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a specific Harness
+      obstruction. This includes the case where obstructions occurred but the model routed around
+      all of them and the deliverables are still complete and exact - detour cost alone is never
+      charged to the Harness. Score 0 only when all three hold together: (i) the Harness
+      obstructed at least one call, (ii) at least one delivered item is missing, null-where-a-
+      value was obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity. Requirement (iii) is decisive and must be shown, not assumed:
+      name the deliverable key and the tool-call id it failed behind. If the model failed for an
+      unrelated reason, or the link cannot be shown from the trajectory, score 1 and say so - that
+      failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", ".harnessbench_verifier/hr_effective_receipt_reaches_model.json", "hr_effective_receipt_reaches_model", ".harnessbench_verifier/hr_no_effect_reaches_model.json"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100

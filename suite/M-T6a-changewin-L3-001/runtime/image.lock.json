@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:1c5014d6a5b28f8ea0e5a0c92193e7a0d4c1eb71096685e0cf18fdea3a225787",
+  "image_reference": "harnessbench/case-m-t6a-changewin-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-T6a-changewin-L3-001"
+}

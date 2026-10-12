@@ -1,0 +1,55 @@
+id: E3d-suite-timeout-channel-001
+title: Timed-out integration-suite errors must reach post-tool observers
+scenario:
+  domain: Execution
+  primary_subscenario: Timeout error propagation
+  secondary_subscenarios:
+    - Unresponsive integration-suite worker
+    - Native timeout evidence preservation
+    - Audit-observer status propagation
+harness:
+  dimension: E
+  subdimension: E3d
+  subdimension_name: Timeout propagation to post-tool observers
+intensity:
+  level: L3
+  description: A timed-out native execution must independently preserve timeout and failure state in both the initial model-visible result and the correlated native post-tool result event, without inferring either state from missing output.
+budget:
+  max_turns: 6
+  max_tool_calls: 6
+  max_wall_time_sec: 120
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, timeout_observation_v1, process_containment_v1]
+input:
+  mode: single_turn
+  turns: turns.json
+dependencies:
+  workspace_tools:
+    - tools/run_integration_suite.sh
+  native_tools:
+    - native command execution with per-call timeout
+  mechanisms:
+    - model_visible_timeout_and_failure
+    - correlated_native_post_tool_timeout_and_failure
+    - process_containment
+    - partial_output_preservation
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: E3d-timeout-error-channel-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "The coding skin and prompt remain unchanged. The verifier is
+    strengthened to score the initial model-visible result and correlated raw native
+    post-tool result as independent channels; split timeout from failure propagation;
+    reject wrappers, stale call ids, string-valued pseudo-booleans, and inferred
+    timeout; verify immutable-fixture, trace, and process-containment health; and emit
+    only deterministic binary Harness and Agent criteria."

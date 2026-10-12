@@ -1,0 +1,9 @@
+{
+  "conversation": "single_turn",
+  "network_mode": "none",
+  "profile": "L3d-pending-child-at-exit-001",
+  "requires": [],
+  "runnable": true,
+  "schema_version": "openclaw_native_v1",
+  "timeout_sec": 240
+}

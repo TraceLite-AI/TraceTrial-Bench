@@ -1,0 +1,65 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: proc_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: T1e
+    dim: procedural
+    layer: HR
+    criterion: "12 个月结动作是否**全部**经 `proc` 工具通道真正恢复（12 个动作中一次选对并生效的比例（选择精度曲线））"
+  - id: proc_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: T1e
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的月结动作（rank>50%）是否全部经通道恢复（清单后半段（上下文已被 48 个 schema 占据后）的选对比例）"
+  - id: proc_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: T3b
+    dim: procedural
+    layer: HR
+    criterion: "`proc_submit` 回执是否全部经工具通道送达模型"
+  - id: proc_no_hard_wall
+    kind: gate
+    core: false
+    axis: T1e
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某月结动作难度之后全部不可达的硬墙
+  - id: proc_failure_observable
+    kind: gate
+    core: false
+    axis: T1e
+    dim: procedural
+    layer: HR
+    criterion: 月结动作失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: proc_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: G3a
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `proc` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_selection_economy
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: T1e
+    dim: procedural
+    layer: HR
+    criterion: 平均候选尝试次数 ≤2 的条目比例（未靠试遍取胜）
+  - id: HR8_full_schema_surfaced
+    kind: gate
+    core: false
+    axis: T1e
+    dim: procedural
+    layer: HR
+    criterion: 48 个工具的描述均被交给模型（未被裁剪/压缩）

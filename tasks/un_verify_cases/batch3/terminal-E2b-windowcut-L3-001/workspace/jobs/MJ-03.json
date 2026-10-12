@@ -1,0 +1,7 @@
+{
+ "job": "MJ-03",
+ "task": "cold-tier compact",
+ "runtime_seconds": 48,
+ "steps": 8,
+ "owner": "platform ops"
+}

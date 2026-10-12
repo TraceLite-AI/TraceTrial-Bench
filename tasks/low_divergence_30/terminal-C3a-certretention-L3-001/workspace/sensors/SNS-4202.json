@@ -1,0 +1,27 @@
+{
+ "sensor": "SNS-4202",
+ "site": "turbine hall",
+ "certified_on": "2026-08-04",
+ "readings": [
+  {
+   "pass": "P1",
+   "ppm": 54.118
+  },
+  {
+   "pass": "P2",
+   "ppm": 46.745
+  },
+  {
+   "pass": "P3",
+   "ppm": 51.765
+  },
+  {
+   "pass": "P4",
+   "ppm": 42.51
+  },
+  {
+   "pass": "P5",
+   "ppm": 58.431
+  }
+ ]
+}

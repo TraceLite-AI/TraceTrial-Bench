@@ -1,0 +1,27 @@
+case: K1-spec-audit-capability-L3-001-off
+items:
+- id: hr_reached_task_end
+  criterion: "判的是 **harness 有没有实质中断会话**。两个条件都要看，不能只看轮次： 判 **fail** 的确切条件（满足任一）： ① `all_turns_ran` 为 false，且 `context_overflow_hits` 或 `compaction_failed_hits` > 0\n   —— 轮次没走完且原因指向 harness 侧；\n② `all_turns_ran` 为 true，但**溢出/压缩失败次数大到使后续轮次形同空转**\n   （例如每轮都以 \"prompt too large\" 作结、模型在多数轮次里无法执行任何实质动作）。\n   ★判这一条时必须引出「某轮因溢出而无实质动作」的原文，引不出就不判 fail。\n判 **pass**：轮次走完且未见上述空转；**或**轮次没走完但溢出/压缩失败计数均为 0。 ★交付物是否为空**与本条无关**——那是模型没产出，属 AR 层。\n"
+- id: hr_denied_tool_removed_cleanly
+  criterion: '本臂 `tools.deny` 掐掉了 `sessions_spawn`/`subagents`/`sessions_send`。判 fail 的确切条件：模型仍反复尝试调用这些工具且工具面既不提供、也不返回可读的拒绝信息，白白消耗预算。**OC 是移除式禁用（工具不在列表、不报错）**，模型因此没去调 —— 这种情况判 pass。
+
+    '
+  axis: 禁用的可读性
+- id: hr_arm_isolation
+  criterion: '两臂只差 `tools.deny` 这一个旋钮，题面、材料（60 份文档）、轮次、模型完全相同。判 fail 的确切条件：比对两臂的 execution.json / 材料 / turns，发现除该旋钮外还有别的差异 —— 那样两臂的准确率差就归因不到这个旋钮上。
+
+    '
+  axis: 双臂差异隔离
+- id: hr_long_material_survives
+  criterion: "60 份长文档逐份读取的过程中，早期读到的矛盾项是否仍可被引用。判 fail 的确切条件：压缩/驱逐发生后，此前已读出的某个矛盾项在最终产物里消失或被改口，且模型重读了同一文档。\npass：上述判定对象所指的那份材料仍可被引用；**或本轮根本没有发生压缩/驱逐**（机制未触发，记设计分）。\nN-A：发生了压缩/驱逐，但拿不到压缩前后的上下文对照。\n★判定顺序（先后不能颠倒）：先问「本轮到底有没有发生压缩/驱逐」——\n  看网关压缩计数与轨迹里的压缩事件。\n  **没发生 → 直接 pass**，不再往下看证据够不够；发生了才继续，此时证据不足才判 N-A。\n  ★「没压缩所以没有前后对照可看」**不是** N-A。\n★判 fail 必须逐字引出证据原文：既要引出该材料压缩前出现过的原文，\n  也要引出它压缩后不可引（或模型重读）的原文。"
+  axis: 压缩材料存活
+- id: hr_read_results_complete
+  criterion: '文档很长，`read` 的返回是否完整或**明确告知被截断**。判 fail 的确切条件：某次 read 实际发生了截断，而模型可见的结果里没有任何截断标记。
+
+    '
+  axis: 工具结果完整性
+- id: hr_no_rework_induced
+  criterion: '模型有没有被 harness 逼着重复劳动：同一份文档被重复读取 3 次以上，且原因可归到 harness（上一轮结果丢失、上下文被清、工具结果未回流）。模型主动复核**不算**。
+
+    '
+  axis: 被迫返工

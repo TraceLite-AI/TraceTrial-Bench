@@ -1,0 +1,54 @@
+id: L4b-probe-replan-L3-001
+title: "Goal persistence across turns with an isolated audit handoff"
+scenario:
+  domain: "Workflow automation"
+  primary_subscenario: "Native goal lifecycle tracking"
+  secondary_subscenarios:
+    - "Unfinished-goal singleton enforcement"
+    - "Task-thread isolation"
+    - "Contract invalidation and rework"
+harness:
+  dimension: L
+  subdimension: L4b
+  subdimension_name: "Goal state tracking across turns"
+intensity:
+  level: L3
+  description: "Three fixed turns use one native task thread for turns 1-2 and a fresh audit thread for turn 3. The primary goal must remain active across the first boundary, reject a competing unfinished goal, complete atomically after validated delivery, and then be absent from the isolated audit thread."
+input_mode: fixed_turns
+tool_dependencies: [native_exec_v1, post_tool_v1, native_goal_tracking_v1, native_session_boundary_v1]
+budget:
+  max_turns: 3
+  max_tool_calls: 80
+  max_wall_time_sec: 1200
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  - workspace/src/codes.py
+  - workspace/output/refactor_summary.json
+  - workspace/output/plan_log.md
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: L4b-plan-replan-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain and minimally corrected to exercise
+    L4b directly: the same primary native goal now persists from turn 1 into turn 2 in one
+    task thread, is completed after validated delivery, and is absent only after the fresh
+    audit boundary before turn 3. It retains the same singleton-goal probe and tuple-then-
+    dict contract revision, the same three operation modules plus orchestrator plus four
+    retained legacy exception classes, the same protected three-assertion suite and bin/check
+    channel with its raises-left and result-shape greps, the same two deliverables with the
+    same four summary fields, the same budget triple, both score rubrics, and score.py rule
+    logic.
+    Only the skin changes: the order service becomes a host probe service (src/mountpt.py, src/service.py, src/endpoint.py behind src/orchestrator.py's run_probe) and the four error codes become UNKNOWN, MOUNT_UNAVAILABLE, SERVICE_UNREACHABLE, and ENDPOINT_INVALID.
+    The corpus was regenerated so bin/check passes three assertions on the untouched baseline
+    and reports five remaining raises before the migration."

@@ -1,0 +1,28 @@
+{
+ "lane": "LN-82",
+ "dock": "quarantine",
+ "manifest_date": "2026-08-15",
+ "settle_seconds": 2.2,
+ "pallets": [
+  {
+   "pallet": "PL-1",
+   "units": 187.15
+  },
+  {
+   "pallet": "PL-2",
+   "units": 189.13
+  },
+  {
+   "pallet": "PL-3",
+   "units": 182.35
+  },
+  {
+   "pallet": "PL-4",
+   "units": 180.09
+  },
+  {
+   "pallet": "PL-5",
+   "units": 186.02
+  }
+ ]
+}

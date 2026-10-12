@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:3390d73ded2137567453bc7c877b609c17e7f2dbe26740f140644090d5db36ab",
+  "image_reference": "harnessbench/case-m-t1e-monthend-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-T1e-monthend-L3-001"
+}

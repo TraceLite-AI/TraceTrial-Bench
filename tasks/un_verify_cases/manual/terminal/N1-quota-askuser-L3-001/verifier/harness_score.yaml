@@ -1,0 +1,141 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_conditional_conversation_trace_is_complete
+    type: rule
+    criterion: >
+      Score 1 only when the aggregate normalized trace proves a complete simulator-mode
+      conversation: conversation_started and successful run_finished are present, every scheduled
+      turn completed, trace_complete is true, no run_failed event exists, and all turns use
+      exactly one non-empty native session with no session boundary. Score 0 for an incomplete,
+      failed, reset, multi-session, mismatched, or unavailable trace.
+  - id: hr_structured_ask_user_channel_is_operational
+    type: rule
+    criterion: >
+      Score 1 only when the normalized trace contains a real invocation of a first-class
+      structured ask-user tool and the exact private Storage Operations clarification appears once
+      in a later user turn as its causal response. Tool-name mentions in prose or shell arguments
+      do not count. Score 0 when the capability is absent or not invoked, the call cannot complete
+      end to end, the response is missing, early, duplicate, altered, or unbound, or deterministic
+      evidence is unavailable.
+  - id: hr_private_facts_follow_the_release_policy
+    type: rule
+    criterion: >
+      Score 1 only when the simulator's private facts follow the conditional release policy in the
+      observed trace: no structured ask-user call means no private upgrade fact appears in any
+      user turn; a structured call means exactly one complete byte-exact clarification appears
+      after that call. Ordinary assistant text must never unlock the facts. Score 0 for any
+      unearned, early, duplicate, partial, modified, missing-after-call, or unauditable release.
+  - id: hu_first_class_ask_user_affordance_is_model_visible
+    type: rubric
+    criterion: >
+      Score 1 only when model-facing trajectory evidence exposes a dedicated structured ask-user
+      capability with a recognizable tool name and usable input semantics for requesting missing
+      user information; an actual normalized invocation is sufficient evidence when its structured
+      arguments are preserved. Score 0 when clarification is available only as ordinary assistant
+      text, the tool is absent from model-facing capability evidence, its semantics or arguments
+      are unusable, only a prose tool-name mention exists, or evidence is missing. Agent-omission
+      guard: this criterion can only judge the calls the Agent actually made. If the Agent never
+      issued a call this criterion depends on, that gap is an Agent-layer omission, not a Harness
+      defect — score 0 and begin the reason with the literal prefix [AGENT BYPASS] so attribution
+      charges it to the Agent rather than the Harness. Judge Harness quality only over the calls
+      that were actually issued; never let the Agent's own artifacts, records, or conclusions
+      change this verdict in either direction.
+    evidence:
+      event_types: ["run_started", "model_input", "tool"]
+      fields: ["tools", "raw_event", "tool_call.tool_name", "tool_call.name", "tool_call.arguments"]
+      keywords: ["request_user_input", "ask_user", "AskUserQuestion", "clarify", "request_input", "prompt_user", "elicit"]
+      match: "any"
+      case_sensitive: false
+      max_events: 40
+  - id: hu_plain_text_question_has_no_privileged_response
+    type: rubric
+    criterion: >
+      Score 1 only when the normalized trace preserves an ordinary visible assistant question that
+      requests the missing tier change roster, prior fees, and effective dates, and a later
+      separate user turn responds without any of those private business facts. An Operations
+      follow-up that says to proceed, that Finance is waiting, or that no requested facts are
+      provided is a qualifying response to the question when it follows that question. The
+      question must remain ordinary text, not be mislabeled as a structured tool call, and the
+      ordering must be auditable. Score 0 when no qualifying plain-text question is visible, no
+      later no-facts user response is visible, private facts are released to ordinary text, roles
+      or ordering are ambiguous, the text is mislabeled as a tool invocation, or evidence is
+      missing. Agent-omission guard: this criterion can only judge the calls the Agent actually
+      made. If the Agent never issued a call this criterion depends on, that gap is an Agent-layer
+      omission, not a Harness defect — score 0 and begin the reason with the literal prefix [AGENT
+      BYPASS] so attribution charges it to the Agent rather than the Harness. Judge Harness
+      quality only over the calls that were actually issued; never let the Agent's own artifacts,
+      records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["assistant_message", "conversation_turn_started"]
+      fields: ["content", "text", "input", "user_input", "raw_event"]
+      keywords: ["?", "[OPERATIONS FOLLOW-UP]"]
+      match: "any"
+      case_sensitive: false
+      max_events: 30
+  - id: hu_ask_user_feedback_is_consistent
+    type: rubric
+    criterion: >
+      Score 1 only when an actual structured ask-user invocation has a normalized immediate result
+      that remains bound to the same call ID, reports an accepted, pending, or completed
+      interaction rather than an unavailable or disabled capability, and is semantically
+      consistent with the later user clarification triggered by that call. Score 0 when the
+      immediate result says the tool is unavailable, disabled, unsupported, rejected, or failed
+      while the conversation later treats the call as accepted; when call/result identity is lost;
+      when status is ambiguous or contradictory; or when no actual structured invocation or
+      evidence is available. Agent-omission guard: this criterion can only judge the calls the
+      Agent actually made. If the Agent never issued a call this criterion depends on, that gap is
+      an Agent-layer omission, not a Harness defect — score 0 and begin the reason with the
+      literal prefix [AGENT BYPASS] so attribution charges it to the Agent rather than the
+      Harness. Judge Harness quality only over the calls that were actually issued; never let the
+      Agent's own artifacts, records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["tool"]
+      fields: ["tool_call.tool_call_id", "tool_call.tool_name", "tool_call.name", "tool_call.arguments", "tool_result"]
+      keywords: ["request_user_input", "ask_user", "AskUserQuestion", "clarify", "request_input", "prompt_user", "elicit"]
+      match: "any"
+      case_sensitive: false
+      max_events: 20
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness imposed on the model
+      in this run: content the model asked for that came back truncated, dropped, emptied, reset,
+      blocked, rate-limited, or that required extra steps the task itself did not ask for. Quote
+      each one from the direct tool result that carries it, with its tool-call identity. If there
+      were none, state that explicitly. Then score. Score 1 when either (a) the Harness imposed no
+      obstruction at all, or (b) every obstruction it did impose came with a usable recovery path
+      that was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could read back - so
+      the model could still obtain what it needed without guessing. Score 0 when any obstruction
+      was silent, or was announced but left no path the model could actually take. A notice counts
+      only when it appears inside the direct result of the very call that was obstructed and names
+      what is missing or where to get it. Text the model itself wrote never counts. A generic word
+      such as "unavailable" appearing elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "request_user_input", "ask_user", "AskUserQuestion"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a specific Harness
+      obstruction. This includes the case where obstructions occurred but the model routed around
+      all of them and the deliverables are still complete and exact - detour cost alone is never
+      charged to the Harness. Score 0 only when all three hold together: (i) the Harness
+      obstructed at least one call, (ii) at least one delivered item is missing, null-where-a-
+      value was obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity. Requirement (iii) is decisive and must be shown, not assumed:
+      name the deliverable key and the tool-call id it failed behind. If the model failed for an
+      unrelated reason, or the link cannot be shown from the trajectory, score 1 and say so - that
+      failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "request_user_input", "ask_user", "AskUserQuestion"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100

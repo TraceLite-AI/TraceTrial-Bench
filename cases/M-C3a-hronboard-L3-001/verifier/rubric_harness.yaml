@@ -1,0 +1,64 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: vnd_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: C3a
+    dim: procedural
+    layer: HR
+    criterion: "12 个准入编号是否**全部**经 `vnd` 工具通道真正恢复（12 个准入编号跨 21 轮后仍正确提交的比例（跨轮保持曲线））"
+  - id: vnd_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: C3a
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的准入编号（rank>50%）是否全部经通道恢复（前半段（最早领取、被最多干扰轮覆盖）的保持比例）"
+  - id: vnd_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: C2b
+    dim: procedural
+    layer: HR
+    criterion: "`vnd_submit` 回执是否全部经工具通道送达模型"
+  - id: vnd_no_hard_wall
+    kind: gate
+    core: false
+    axis: C3a
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某准入编号难度之后全部不可达的硬墙
+  - id: vnd_failure_observable
+    kind: gate
+    core: false
+    axis: C3a
+    dim: procedural
+    layer: HR
+    criterion: 准入编号失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: vnd_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: L4b
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `vnd` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_no_reissue_needed
+    kind: gate
+    core: false
+    axis: V1a
+    dim: procedural
+    layer: HR
+    criterion: 未试图重新领取已一次性下发的值（未靠重取绕过留存）
+  - id: HR8_loss_is_harness_side
+    kind: gate
+    core: false
+    axis: C2b
+    dim: procedural
+    layer: HR
+    criterion: "丢失发生在模型**没有**自行落盘留存的情况下（归因指向 harness 侧驱逐）"

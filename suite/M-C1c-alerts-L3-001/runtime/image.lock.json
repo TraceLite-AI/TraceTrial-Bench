@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:7293df6760b8525826ceae052428b52408d1b0ec02f63f110fbe954cc537701e",
+  "image_reference": "harnessbench/case-m-c1c-alerts-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-C1c-alerts-L3-001"
+}

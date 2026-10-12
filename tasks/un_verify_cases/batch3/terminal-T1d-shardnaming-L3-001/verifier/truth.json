@@ -1,0 +1,26 @@
+{
+ "shards": [
+  "svc-api.v2",
+  "svc_api.v2",
+  "db-01.eu",
+  "DB-01.EU",
+  "edge-cache.a",
+  "edge_cache.A"
+ ],
+ "mean_bytes": {
+  "svc-api.v2": "4140.3",
+  "svc_api.v2": "4213.3",
+  "db-01.eu": "4169.7",
+  "DB-01.EU": "4265.1",
+  "edge-cache.a": "4191.1",
+  "edge_cache.A": "4239.1"
+ },
+ "settle_seconds": {
+  "svc-api.v2": 1.0,
+  "svc_api.v2": 2.5,
+  "db-01.eu": 2.0,
+  "DB-01.EU": 1.5,
+  "edge-cache.a": 1.0,
+  "edge_cache.A": 2.5
+ }
+}

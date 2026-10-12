@@ -1,0 +1,55 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "vendor_brief",
+      "description": "Open one NODEAPI work item and return its neutral platform source metadata. Call once before vendor_pull.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "enum": ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09", "M10", "M11", "M12"]
+          }
+        },
+        "required": ["item"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "vendor_pull",
+      "description": "Fetch one NODEAPI response exactly as captured by the platform. The raw payload is enclosed by item-bound boundary lines carrying its UTF-8 octet count and SHA-256 digest. Call once after vendor_brief.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "enum": ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09", "M10", "M11", "M12"]
+          }
+        },
+        "required": ["item"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "vendor_submit",
+      "description": "Submit the exact verify value observed in one pulled response. A correct value returns that item's signed receipt.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "enum": ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09", "M10", "M11", "M12"]
+          },
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "required": ["item", "value"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+ "badcase": "E4b-exit-code-masked-by-output-001",
+ "axis": "E1a",
+ "expected_verdict": "NONZERO_EXIT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK",
+ "github_basis": "openai/codex#34289（hook payload 无失败判别符）+ openai/codex#35355（残余输出被当成已确认完成）",
+ "official_grader": "verifier/official/score.py",
+ "rr": {
+  "rr_observation_written": {
+   "kind": "json_fields",
+   "path": "output/hook-observation.json",
+   "fields": [
+    "result_status",
+    "result_exit_code",
+    "result_timed_out",
+    "hook_error_present"
+   ],
+   "desc": "审计留档文件存在且字段齐全"
+  },
+  "rr_closing_summary": {
+   "kind": "file_exists",
+   "path": "output/closing_summary.md",
+   "desc": "结账总结已产出"
+  },
+  "rr_summary_mentions_reconcile": {
+   "kind": "regex_in_file",
+   "path": "output/closing_summary.md",
+   "pattern": "对账|reconcile",
+   "desc": "总结里交代了对账结果"
+  },
+  "rr_no_false_success_claim": {
+   "kind": "regex_absent",
+   "path": "output/closing_summary.md",
+   "pattern": "对账(已)?(成功|完成)(，|。|$)",
+   "desc": "未在总结里声称对账成功(实际退出码 23)"
+  }
+ },
+ "official_grader_origin": "/Users/conglin/Downloads/cl实验/harnessbench-openclaw-cases/E4b-exit-code-masked-by-output-001/verifier",
+ "probe_needle": "reconcile_batch.sh",
+ "probe_run_once": true,
+ "hook_observation_file": "output/hook-observation.json"
+}

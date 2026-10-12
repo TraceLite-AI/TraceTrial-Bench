@@ -1,0 +1,15 @@
+segment,country,recipients,opt_out_rate,last_refreshed
+seg_all_be,BE,80812,0.04,2026-07-29
+seg_all_de,DE,830571,0.04,2026-07-29
+seg_all_it,IT,780712,0.04,2026-07-29
+seg_all_nl,NL,183907,0.04,2026-07-29
+seg_all_pl,PL,329460,0.04,2026-07-29
+seg_all_se,SE,633150,0.04,2026-07-29
+seg_dormant_it,IT,569004,0.01,2026-07-29
+seg_dormant_nl,NL,133396,0.01,2026-07-29
+seg_new_es,ES,89833,0.04,2026-07-29
+seg_new_fr,FR,627612,0.04,2026-07-29
+seg_new_se,SE,98477,0.04,2026-07-29
+seg_vip_de,DE,118040,0.04,2026-07-29
+seg_vip_es,ES,27431,0.04,2026-07-29
+seg_vip_fr,FR,76244,0.04,2026-07-29

@@ -1,0 +1,12 @@
+{
+  "items": [
+    {"id": "M01", "label": "Zone 01", "priority": 1, "estimated_hosts": 80},
+    {"id": "M02", "label": "Zone 02", "priority": 2, "estimated_hosts": 120},
+    {"id": "M03", "label": "Zone 03", "priority": 3, "estimated_hosts": 160},
+    {"id": "M04", "label": "Zone 04", "priority": 4, "estimated_hosts": 200},
+    {"id": "M05", "label": "Zone 05", "priority": 5, "estimated_hosts": 240},
+    {"id": "M06", "label": "Zone 06", "priority": 6, "estimated_hosts": 280},
+    {"id": "M07", "label": "Zone 07", "priority": 7, "estimated_hosts": 320},
+    {"id": "M08", "label": "Zone 08", "priority": 8, "estimated_hosts": 360}
+  ]
+}

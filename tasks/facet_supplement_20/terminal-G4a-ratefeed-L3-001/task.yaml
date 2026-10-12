@@ -1,0 +1,37 @@
+id: terminal-G4a-ratefeed-L3-001
+title: "外币结算：汇率源在机器之外，连不上时平台说得清是谁的问题吗"
+scenario:
+  domain: "出网围栏"
+  primary_subscenario: "出网围栏"
+  secondary_subscenarios:
+    - 真实业务材料
+    - 多轮追问
+    - 交付物程序化对账
+harness:
+  dimension: G
+  subdimension: G4a
+  subdimension_name: "--local 出网"
+intensity:
+  level: L3
+  description: >
+    六张外币发票必须用机器外的国库汇率源结算, 工作区里刻意没有任何本地汇率副本。
+    端点从宿主可解析可连通, 所以能挡住这次请求的只有 harness —— 这样
+    "平台禁止出网"和"端点不可用"才分得开(用不可解析域名会把两者混成一件事, 变成在测 DNS)。
+    国库便条按这个区别分流: 前者找平台方, 后者找数据源方。报成笼统失败, 两边都去不了。
+budget:
+  max_turns: 7
+  max_tool_calls: 80
+  max_wall_time_sec: 1200
+verifier:
+  entrypoint: verifier/run.sh
+expected_outputs:
+  - workspace/output/settlement.json
+  - workspace/output/treasury_note.json
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json

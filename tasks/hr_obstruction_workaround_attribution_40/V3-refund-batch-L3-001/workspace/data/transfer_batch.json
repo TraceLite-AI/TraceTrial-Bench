@@ -1,0 +1,18 @@
+{
+  "batch": "PHL-CUSTODY-2026-08-12",
+  "originating_facility": "Provincial Calibration Center",
+  "transfers": [
+    {"id": "SP-2026-08-6301", "route": "direct_courier", "vial_count": 48},
+    {"id": "SP-2026-08-6307", "route": "contract_coldchain", "vial_count": 129},
+    {"id": "SP-2026-08-6312", "route": "biobank_shuttle", "vial_count": 25},
+    {"id": "SP-2026-08-6325", "route": "regional_coldchain", "vial_count": 188},
+    {"id": "SP-2026-08-6331", "route": "direct_courier", "vial_count": 62},
+    {"id": "SP-2026-08-6338", "route": "contract_coldchain", "vial_count": 75},
+    {"id": "SP-2026-08-6343", "route": "biobank_shuttle", "vial_count": 29},
+    {"id": "SP-2026-08-6350", "route": "contract_coldchain", "vial_count": 318},
+    {"id": "SP-2026-08-6356", "route": "direct_courier", "vial_count": 110},
+    {"id": "SP-2026-08-6361", "route": "regional_coldchain", "vial_count": 245},
+    {"id": "SP-2026-08-6367", "route": "biobank_shuttle", "vial_count": 15},
+    {"id": "SP-2026-08-6373", "route": "contract_coldchain", "vial_count": 94}
+  ]
+}

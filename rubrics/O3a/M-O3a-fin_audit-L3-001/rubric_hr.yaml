@@ -1,0 +1,44 @@
+case: M-O3a-fin_audit-L3-001
+items:
+- id: hr_step_log_persisted
+  criterion: '每一步动作是否在 harness 侧留下了可回放的记录（顺序、参数、结果）。判 fail：轨迹里缺失某些已执行动作的记录。
+
+    '
+  evidence: 轨迹的工具调用序列完整性 vs 交付物声称执行的动作数
+- id: hr_failure_signal_delivered
+  criterion: '**读事实, 不要自己在轨迹里找。** 事实见证据包「HR 事实提取」段的 `hr_failure_signal_delivered`： - `marked_error` 为 0（本题没有任何失败的工具调用，机制未被触发）→ **pass**（记设计分） - `error_without_readable_signal` > 0（确有失败调用，但结果正文里读不出任何失败迹象）→ **fail** - `error_without_readable_signal` 为 0 且 `marked_error` > 0 → **pass** - `available` 为 false → **N-A** 引用时逐字复制 `marked_error` / `error_without_readable_signal` 的值；判 fail 时另引 `silent_failure_samples` 里的一条原文。
+
+    '
+- id: hr_no_rework_induced
+  criterion: '是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。
+
+    '
+  evidence: 去重后的调用序列 + 网关压缩与截断计数（两者需同时成立才判 fail）
+- id: hr_reached_task_end
+  criterion: "判的是 **harness 有没有实质中断会话**。两个条件都要看，不能只看轮次： 判 **fail** 的确切条件（满足任一）： ① `all_turns_ran` 为 false，且 `context_overflow_hits` 或 `compaction_failed_hits` > 0\n   —— 轮次没走完且原因指向 harness 侧；\n② `all_turns_ran` 为 true，但**溢出/压缩失败次数大到使后续轮次形同空转**\n   （例如每轮都以 \"prompt too large\" 作结、模型在多数轮次里无法执行任何实质动作）。\n   ★判这一条时必须引出「某轮因溢出而无实质动作」的原文，引不出就不判 fail。\n判 **pass**：轮次走完且未见上述空转；**或**轮次没走完但溢出/压缩失败计数均为 0。 ★交付物是否为空**与本条无关**——那是模型没产出，属 AR 层。\n"
+- id: hr_status_consistent
+  criterion: '**读事实, 不要自己在轨迹里找。** 事实见证据包「HR 事实提取」段的 `hr_status_consistent`： - `inconsistent` 为 true（即 `ok_count` > 0 且 `error_count` > 0，harness 对上层报 ok 却在内部记了 error）→ **fail** - `inconsistent` 为 false → **pass** - `available` 为 false（拿不到 run/cli_output.log）→ **N-A** 引用时请逐字复制该段里的 `top_level_status` / `internal_error_kinds` 两个字段值。
+
+    '
+- id: hr_step_log_complete_and_ordered
+  criterion: '每步动作在 harness 侧的记录是否**完整且有序**：轨迹里的调用序列必须能覆盖交付物声称执行过的全部动作，且顺序一致。判 fail：存在声称执行但轨迹无记录的动作，或顺序不符。
+
+    '
+  evidence: 轨迹调用序列 vs 交付物里声称的动作清单
+  locates: ★O3a 叶的机制专属项（通用条目判不到）
+- id: hr_log_survives_compaction
+  criterion: "步骤日志是否在压缩后仍可查（不随上下文被摘除）。判 fail：压缩后此前步骤无迹可寻。\npass：上述 fail 条件不成立；**或本轮根本没有出现压缩**（机制未触发，记设计分）。\nN-A：压缩确实出现了，但拿不到判断所需的记录。\n★判定顺序（先后不能颠倒）：先问「机制触发了吗」——网关压缩计数与轨迹里的压缩事件。\n  **没触发 → 直接 pass**，不再往下看证据够不够；触发了才继续，此时证据不足才判 N-A。\n  ★「没出现压缩所以没有东西可看」**不是** N-A。\n★判 fail 必须逐字引出证据原文。"
+  evidence: 压缩前后步骤记录的可见性
+  locates: ★O3a 机制专属
+- id: hr_log_includes_params
+  criterion: '步骤日志是否含调用参数（而非只有工具名）。判 fail：无参数，无法回放。
+
+    '
+  evidence: 轨迹里 toolCall 的参数完整性
+  locates: ★O3a 机制专属
+- id: hr_log_timestamps_present
+  criterion: '记录是否带时间戳，可还原时序。判 fail：无时间信息。
+
+    '
+  evidence: 轨迹条目的时间字段
+  locates: ★O3a 机制专属

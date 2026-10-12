@@ -1,0 +1,18 @@
+{
+  "conversation": {
+    "mode": "fixed_turns",
+    "turns": "turns.json",
+    "new_session_before_turns": [
+      4
+    ],
+    "new_session_context": "replay"
+  },
+  "network_mode": "none",
+  "profile": "M-L5b-fleetqueue-L3-001",
+  "requires": [
+    "gateway"
+  ],
+  "runnable": true,
+  "schema_version": "openclaw_native_v1",
+  "timeout_sec": 1800
+}

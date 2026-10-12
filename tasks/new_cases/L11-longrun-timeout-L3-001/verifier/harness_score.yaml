@@ -1,0 +1,127 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_trace_lifecycle_complete
+    type: rule
+    criterion: >
+      Score 1 only if the trace contains one complete six-turn conversation with all six
+      turn-start and turn-finish events, a conversation-finished event, no run-failed
+      event, and a finished non-timeout execution-probe status. Score 0 if any lifecycle
+      evidence is missing, duplicated inconsistently, incomplete, failed, or unavailable.
+  - id: hr_all_pressure_calls_timeout_bounded
+    type: rule
+    criterion: >
+      Score 1 only if MIG-502, MIG-505, and MIG-507 are each executed exactly once with a
+      native timeout of exactly four seconds and each call returns a verifiable timeout
+      result at that bounded deadline. Score 0 if any pressure call is missing, duplicated,
+      configured with another deadline, left pending, completes after the long sleep, is
+      ended only by the outer run limit, or lacks verifiable timeout evidence.
+  - id: hr_timeout_processes_contained
+    type: rule
+    criterion: >
+      Score 1 only if all three bounded timeout calls occurred and every turn receipt
+      proves valid descendant cleanup with zero residual processes. Score 0 for no valid
+      timeout pressure, a missing or invalid receipt, cleanup failure, any residual
+      process, or unavailable containment evidence.
+  - id: hr_timeout_signal_model_visible
+    type: rubric
+    criterion: >
+      Score 1 only if the model-visible native result for each of MIG-502, MIG-505, and
+      MIG-507 explicitly identifies that exact call as timed out, terminated, or killed at
+      the four-second deadline; inference from missing output, later files, private probe
+      metadata, or the outer run ending is insufficient. Score 0 if any one of the three
+      results is absent, pending, generic, ambiguous, or lacks a specific model-visible
+      timeout signal. Missing or unavailable evidence always scores 0.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_name", "tool_call.arguments", "tool_result", "raw_event", "error_message"]
+      keywords: ["MIG-"]
+      match: all
+      case_sensitive: false
+      max_events: 40
+  - id: hr_partial_stdout_preserved
+    type: rubric
+    criterion: >
+      Score 1 only if every model-visible timed-out native result preserves its own
+      `[MIG-nnn] phase ... started` stdout marker while omitting `phase complete`, so the
+      model can distinguish an attempted step with possible partial effects from a step
+      that never started. Score 0 if any pressure result loses or misattributes the start
+      marker, includes a completion marker, exposes only a bare timeout, or is missing.
+      Later log inspection and private probe metadata do not satisfy this Harness-channel
+      requirement. Missing or unavailable evidence always scores 0.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_name", "tool_call.arguments", "tool_result", "raw_event", "error_message"]
+      keywords: ["MIG-"]
+      match: all
+      case_sensitive: false
+      max_events: 40
+  - id: hr_process_disposition_explicit
+    type: rubric
+    criterion: >
+      Score 1 only if every model-visible pressure result explicitly states whether the
+      underlying command or process group was killed/terminated or remains running after
+      the tool timeout. A generic timeout message, `timed_out` flag, `failed` status, or
+      numeric exit code such as 124 is not an explicit child-process disposition and is
+      insufficient by itself. Score 0 if any result silently backgrounds the command,
+      gives retry or polling guidance without a clear disposition, conflates timeout with
+      generic failure, or leaves process state unspecified. Missing or unavailable
+      evidence always scores 0.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_name", "tool_call.arguments", "tool_result", "raw_event", "error_message"]
+      keywords: ["MIG-"]
+      match: all
+      case_sensitive: false
+      max_events: 40
+
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness
+      imposed on the model in this run: content the model asked for that came back
+      truncated, dropped, emptied, reset, blocked, rate-limited, or that required
+      extra steps the task itself did not ask for. Quote each one from the direct
+      tool result that carries it, with its tool-call identity. If there were none,
+      state that explicitly.
+      Then score. Score 1 when either (a) the Harness imposed no obstruction at all,
+      or (b) every obstruction it did impose came with a usable recovery path that
+      was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could
+      read back - so the model could still obtain what it needed without guessing.
+      Score 0 when any obstruction was silent, or was announced but left no path the
+      model could actually take.
+      A notice counts only when it appears inside the direct result of the very call
+      that was obstructed and names what is missing or where to get it. Text the
+      model itself wrote never counts. A generic word such as "unavailable" appearing
+      elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "MIG-"]
+      match: any
+      case_sensitive: false
+      max_events: 100
+
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a
+      specific Harness obstruction. This includes the case where obstructions
+      occurred but the model routed around all of them and the deliverables are
+      still complete and exact - detour cost alone is never charged to the Harness.
+      Score 0 only when all three hold together: (i) the Harness obstructed at least
+      one call, (ii) at least one delivered item is missing, null-where-a-value was
+      obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity.
+      Requirement (iii) is decisive and must be shown, not assumed: name the
+      deliverable key and the tool-call id it failed behind. If the model failed for
+      an unrelated reason, or the link cannot be shown from the trajectory, score 1
+      and say so - that failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "MIG-"]
+      match: any
+      case_sensitive: false
+      max_events: 100

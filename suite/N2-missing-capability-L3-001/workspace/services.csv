@@ -1,0 +1,13 @@
+service,self_reported_availability
+svc-auth,99.686
+svc-billing,99.289
+svc-cart,99.652
+svc-search,99.974
+svc-ship,99.730
+svc-tax,99.532
+svc-promo,99.392
+svc-notify,99.066
+svc-ledger,99.342
+svc-cdn,99.038
+svc-queue,99.673
+svc-gateway,99.951

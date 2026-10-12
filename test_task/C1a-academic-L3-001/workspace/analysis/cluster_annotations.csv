@@ -1,0 +1,6 @@
+cluster,annotation,marker_evidence,retained_cells,represented_donors,confidence
+0,Naive CD4 T,IL7R,4,2,supported
+1,CD14+ Mono,LYZ,4,2,supported
+2,B,MS4A1,4,2,supported
+3,NK,NKG7,4,2,supported
+4,Platelet,PF4,4,2,supported

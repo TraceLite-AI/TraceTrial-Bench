@@ -1,0 +1,91 @@
+{
+ "artifact": "output/writeoff_receipts.json",
+ "tool": "wo",
+ "mode": "delay",
+ "truth": {
+  "M01": {
+   "rank": 8.3,
+   "code": "4CC0BA8D",
+   "label": "下游耗时约 0.2s",
+   "delay_ms": 200,
+   "expect": "3B232FC8"
+  },
+  "M02": {
+   "rank": 16.7,
+   "code": "CF527CAC",
+   "label": "下游耗时约 0.6s",
+   "delay_ms": 600,
+   "expect": "B3DDFA26"
+  },
+  "M03": {
+   "rank": 25.0,
+   "code": "449FBCA9",
+   "label": "下游耗时约 1.5s",
+   "delay_ms": 1500,
+   "expect": "5DBAD4C1"
+  },
+  "M04": {
+   "rank": 33.3,
+   "code": "B8B7D47D",
+   "label": "下游耗时约 3.0s",
+   "delay_ms": 3000,
+   "expect": "267F9CB1"
+  },
+  "M05": {
+   "rank": 41.7,
+   "code": "E5AC1431",
+   "label": "下游耗时约 6.0s",
+   "delay_ms": 6000,
+   "expect": "68C64067"
+  },
+  "M06": {
+   "rank": 50.0,
+   "code": "854D37B9",
+   "label": "下游耗时约 10.0s",
+   "delay_ms": 10000,
+   "expect": "275CAB95"
+  },
+  "M07": {
+   "rank": 58.3,
+   "code": "D2136578",
+   "label": "下游耗时约 15.0s",
+   "delay_ms": 15000,
+   "expect": "5E578809"
+  },
+  "M08": {
+   "rank": 66.7,
+   "code": "20B0F3F1",
+   "label": "下游耗时约 21.0s",
+   "delay_ms": 21000,
+   "expect": "5CDE5205"
+  },
+  "M09": {
+   "rank": 75.0,
+   "code": "E9142F88",
+   "label": "下游耗时约 28.0s",
+   "delay_ms": 28000,
+   "expect": "627187D7"
+  },
+  "M10": {
+   "rank": 83.3,
+   "code": "02E9C764",
+   "label": "下游耗时约 36.0s",
+   "delay_ms": 36000,
+   "expect": "2F087525"
+  },
+  "M11": {
+   "rank": 91.7,
+   "code": "0EA11CFB",
+   "label": "下游耗时约 45.0s",
+   "delay_ms": 45000,
+   "expect": "68009AF1"
+  },
+  "M12": {
+   "rank": 100.0,
+   "code": "BE06B848",
+   "label": "下游耗时约 60.0s",
+   "delay_ms": 60000,
+   "expect": "B1CF47B3"
+  }
+ }
+}

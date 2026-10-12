@@ -1,0 +1,47 @@
+id: K2-dependency-review-capability-L3-001
+title: "Dependency intake compliance review through native child-agent aggregation"
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: Dependency intake review
+  secondary_subscenarios:
+    - Native child-agent delegation
+    - Complete child-result handoff
+    - Parent-side result reconciliation
+harness:
+  dimension: L
+  subdimension: L3c
+  subdimension_name: Child-agent result aggregation
+intensity:
+  level: L3
+  description: "Twenty-three long, structurally similar checklists, eleven adversarial near-duplicate pairs, five fixed native child assignments, 69 source-grounded evidence fields, and one exact aggregate deliverable."
+budget:
+  max_turns: 12
+  max_tool_calls: 260
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  - workspace/output/review.json
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: K2-vendor-review-capability-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same 23 items V01 through V23 at the same ~86 KB each,
+    the same eleven adversarial near-duplicate pairs with the same pass/fail assignment and
+    the same violated-rule distribution (rule 1 four times, rule 2 four times, rule 3 three
+    times), the same five fixed child assignments over the same ID ranges, the same 69
+    evidence fields with the same three-quotation-per-item contract and 300-character cap,
+    the same single-turn shape, the same budget triple, both score rubrics with their
+    evidence blocks, and score.py rule logic.
+    Only the skin changes: the 23 vendor questionnaires become 23 third-party dependency intake checklists under components/, and the three policy rules become licensing, build reproducibility, and the release window.
+    Each fail twin differs from its pass sibling only in the one paragraph that decides the
+    violated rule, so a pair still cannot be separated by shape or length. truth.json was
+    regenerated together with the corpus."

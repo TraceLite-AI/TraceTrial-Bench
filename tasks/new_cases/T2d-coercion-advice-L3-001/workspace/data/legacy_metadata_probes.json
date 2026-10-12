@@ -1,0 +1,9 @@
+{
+  "GA-7105": {"crop":"maize","field":"seed_count","value_type":"string","value":"1e3","literal":"\"1e3\""},
+  "GA-7107": {"crop":"barley","field":"collector_note","value_type":"string","value":"  padded  ","literal":"\"  padded  \""},
+  "GA-7108": {"crop":"millet","field":"estimated_seed_total","value_type":"string","value":"12,345","literal":"\"12,345\""},
+  "GA-7109": {"crop":"soybean","field":"regeneration_cycle","value_type":"string","value":"+7","literal":"\"+7\""},
+  "GA-7110": {"crop":"sorghum","field":"moisture_fraction","value_type":"string","value":".5","literal":"\".5\""},
+  "GA-7111": {"crop":"buckwheat","field":"vault_code","value_type":"integer","value":0,"literal":"00"},
+  "GA-7112": {"crop":"cotton","field":"imaging_sequence","value_type":"string","value":"1_000","literal":"\"1_000\""}
+}

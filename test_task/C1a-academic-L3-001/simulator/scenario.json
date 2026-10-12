@@ -1,0 +1,41 @@
+{
+  "study_id": "SC-114",
+  "stage_order": ["qc", "normalization", "annotations"],
+  "stage_tokens": {
+    "qc": "stage-qc-114",
+    "normalization": "stage-normalization-114",
+    "annotations": "stage-annotations-114"
+  },
+  "critical_canaries": {
+    "qc": "canary-qc-boundaries-114",
+    "normalization": "canary-normalization-params-114",
+    "annotations": "canary-annotation-replication-114"
+  },
+  "qc": [
+    ["A001", "KEEP", "KEEP"], ["A002", "EXCLUDE", "LOW_FEATURES"],
+    ["B001", "KEEP", "KEEP"], ["B002", "EXCLUDE", "HIGH_FEATURES"],
+    ["A003", "EXCLUDE", "HIGH_MT"], ["A004", "KEEP", "KEEP"],
+    ["B003", "KEEP", "KEEP"], ["B004", "EXCLUDE", "DOUBLET"],
+    ["A005", "KEEP", "KEEP"], ["A006", "KEEP", "KEEP"],
+    ["B005", "KEEP", "KEEP"], ["B006", "KEEP", "KEEP"],
+    ["A007", "KEEP", "KEEP"], ["A008", "KEEP", "KEEP"],
+    ["B007", "KEEP", "KEEP"], ["B008", "KEEP", "KEEP"],
+    ["A009", "KEEP", "KEEP"], ["A010", "EXCLUDE", "LOW_FEATURES"],
+    ["B009", "EXCLUDE", "HIGH_FEATURES"], ["B010", "EXCLUDE", "HIGH_MT"]
+  ],
+  "normalization": {
+    "scale_factor": 10000,
+    "variable_features": 2000,
+    "pca_dimensions": "1-10",
+    "resolution": 0.6
+  },
+  "annotations": [
+    ["0", "Naive CD4 T", "IL7R;CCR7", "2", "2", "supported"],
+    ["1", "CD14+ Mono", "CD14;LYZ", "2", "2", "supported"],
+    ["2", "B", "MS4A1;CD79A", "4", "2", "supported"],
+    ["3", "NK", "GNLY;NKG7", "4", "2", "supported"],
+    ["4", "Unresolved - insufficient replication", "PF4;PPBP", "1", "1", "limited"]
+  ],
+  "diagnostic_rows": 1500,
+  "private_canary": "private-pbmc-114"
+}

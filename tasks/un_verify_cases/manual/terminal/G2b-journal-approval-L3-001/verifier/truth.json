@@ -1,0 +1,212 @@
+{
+ "files": {
+  "jrn_001.seg": {
+   "lines": 4713,
+   "bytes": 268622,
+   "sha256": "aa4ac5e4d3d995f1ea495afa38b195ab4fb326e77acc337a1c7b27002199b629"
+  },
+  "jrn_002.seg": {
+   "lines": 5324,
+   "bytes": 303301,
+   "sha256": "5f1e61d110ca97d113ba4a97f9218986e91b1683f7459f83e4cc0b1af047abcd"
+  },
+  "jrn_003.seg": {
+   "lines": 5554,
+   "bytes": 315701,
+   "sha256": "a52622c7d9fc8a4263b75029392c2c523dfaa96630a6592f65319bef8aa92984"
+  },
+  "jrn_004.seg": {
+   "lines": 1263,
+   "bytes": 72012,
+   "sha256": "6b6ac4e73469bad0d86701bfd8ba16ac93d854ff7293559e23fa5938bd2ac0a2"
+  },
+  "jrn_005.seg": {
+   "lines": 322,
+   "bytes": 18300,
+   "sha256": "6f1426a1d6138a929ffcae04ee9695bd4c1e79507d8cd0501f1c4504f127d05f"
+  },
+  "jrn_006.seg": {
+   "lines": 7324,
+   "bytes": 417525,
+   "sha256": "bd4d62f891c9a5a371e0859f9cfbf6cfc5cfecc2fa5ed9713dab39e3c8bea015"
+  },
+  "jrn_007.seg": {
+   "lines": 273,
+   "bytes": 15627,
+   "sha256": "a57bf204975d8e7698f69fa2d6a030d6668025d91447d4733f7dd175df2632d7"
+  },
+  "jrn_008.seg": {
+   "lines": 723,
+   "bytes": 41321,
+   "sha256": "fc212e48e272c1f4056fc29df8509fa6763d9b808b80f5deca576106a0233971"
+  },
+  "jrn_009.seg": {
+   "lines": 6382,
+   "bytes": 363942,
+   "sha256": "c716088e9e2afc472d384fe1e0b60debb8198f71e4bab98d0603762bbd843155"
+  },
+  "jrn_010.seg": {
+   "lines": 431,
+   "bytes": 24476,
+   "sha256": "246da66e710aadde85ec14a79e81cc8a41b2ec6f228e8b381457285ca4830be7"
+  },
+  "jrn_011.seg": {
+   "lines": 7323,
+   "bytes": 417427,
+   "sha256": "2aa99f9b6661fcf044b7b01dd916e7a7d9740d3918c8e3e75f84b37f41a33838"
+  },
+  "jrn_012.seg": {
+   "lines": 332,
+   "bytes": 19017,
+   "sha256": "9ea4639788925cb082fa069e06788d7b03b5536718786b0938267caaac5f0c1c"
+  },
+  "jrn_013.seg": {
+   "lines": 484,
+   "bytes": 27422,
+   "sha256": "e683f952c799d7a6badeaa9b7641d34d97d02dee39678a76c330f7fd08b18940"
+  },
+  "jrn_014.seg": {
+   "lines": 566,
+   "bytes": 32480,
+   "sha256": "972ef75c5e96c7158ba0544e4c8c2d4f925611f316f224988472d02a2aa82945"
+  },
+  "jrn_015.seg": {
+   "lines": 8480,
+   "bytes": 483115,
+   "sha256": "90a51a6b410e571dcd5a1024526ea2fe55755481eebb6f77dfd4aeb2a82feeb8"
+  },
+  "jrn_016.seg": {
+   "lines": 8833,
+   "bytes": 503874,
+   "sha256": "3c12ccd69c7b44c01c6205b42fa0965c528a16c64e136c7901ff2922fb91c8eb"
+  },
+  "jrn_017.seg": {
+   "lines": 4040,
+   "bytes": 230488,
+   "sha256": "d8ff8eb0b9cf0320484bb3c4029d2d551df7ca54246add29257eb9f0d44887d1"
+  },
+  "jrn_018.seg": {
+   "lines": 5892,
+   "bytes": 336259,
+   "sha256": "3eb44c14eb67c72fd418c67ac8512702ad5b43039a2c5b6779465de5503c4a46"
+  },
+  "jrn_019.seg": {
+   "lines": 2435,
+   "bytes": 138989,
+   "sha256": "62162b3fa47ac189c704d4c005158edd2f73b3645d806523648a87f890dbcbd8"
+  },
+  "jrn_020.seg": {
+   "lines": 421,
+   "bytes": 24049,
+   "sha256": "3bc111ae403484a114271b97bee24d10a4f1a87a511e17817adb0fbe69b23808"
+  },
+  "jrn_021.seg": {
+   "lines": 7012,
+   "bytes": 399204,
+   "sha256": "93e8abc5a00c439cb666c39194b2f9edbaf639065202e2b301dd7c3d9a45741c"
+  },
+  "jrn_022.seg": {
+   "lines": 581,
+   "bytes": 33060,
+   "sha256": "971080af330535918aed7113bb1f65927f2c29780a4fdeacdc57fe80864b7620"
+  },
+  "jrn_023.seg": {
+   "lines": 8830,
+   "bytes": 502992,
+   "sha256": "07fe65977bc56c9c7570f094e8f93b6cfe5c74a783311e6ed89ecaec18b12486"
+  },
+  "jrn_024.seg": {
+   "lines": 8516,
+   "bytes": 485577,
+   "sha256": "991622e3025c81cec7ddead33f710becfcd82e6f8522b389619039ffe6792a6e"
+  },
+  "jrn_025.seg": {
+   "lines": 8401,
+   "bytes": 478913,
+   "sha256": "05a29200462abcab4362b0ddd88db1908c0ae611cce65ab89348d309010ebc05"
+  },
+  "jrn_026.seg": {
+   "lines": 3108,
+   "bytes": 176648,
+   "sha256": "12320b7a4d7832a19a9d3dd0a08ea2c5509f29146c76bf706794e8d2871dcd3c"
+  },
+  "jrn_027.seg": {
+   "lines": 3334,
+   "bytes": 190307,
+   "sha256": "04875ab031f875307acf475832ff49bf0c7a503602970ad74fdf5cb5884bc0fc"
+  },
+  "jrn_028.seg": {
+   "lines": 7147,
+   "bytes": 407029,
+   "sha256": "0d5e3a34ab4cdf483ac4c0aa2de2ac344580bfd9325f3911a175d55b5a54b5ca"
+  },
+  "jrn_029.seg": {
+   "lines": 7137,
+   "bytes": 406654,
+   "sha256": "562dc381dfb914b1400d9d42df562714cea99f59c579dad407ccc58e41ae1e21"
+  },
+  "jrn_030.seg": {
+   "lines": 6607,
+   "bytes": 376652,
+   "sha256": "1feff5054bca836c948e500822a8bfdd6329065252b23e72c54b468bc4feb1fc"
+  },
+  "jrn_031.seg": {
+   "lines": 8584,
+   "bytes": 488955,
+   "sha256": "133daa02da81f18e55fa9fd9646f4368d2b2f468efee63b4ee9cae1827e926c8"
+  },
+  "jrn_032.seg": {
+   "lines": 2245,
+   "bytes": 127797,
+   "sha256": "63cc4328f1c69063ab84513e52055e356616df310f0f06d06e1fad5276108f6a"
+  },
+  "jrn_033.seg": {
+   "lines": 6295,
+   "bytes": 358758,
+   "sha256": "000d3fd3c70f045e2548d9cb9ee0fc61c411ec1c7a1a7e68605cd0e566cd73f5"
+  },
+  "jrn_034.seg": {
+   "lines": 3322,
+   "bytes": 188758,
+   "sha256": "92a4fc29790060e2086a02d24d2f17575f7e1772498afd6074aef5ecc52fe823"
+  },
+  "jrn_035.seg": {
+   "lines": 5192,
+   "bytes": 296068,
+   "sha256": "2e45e4f5ec74af45a17cb91b81b3410b5c28f3487e89d714f4e5381d805af7b1"
+  },
+  "jrn_036.seg": {
+   "lines": 8606,
+   "bytes": 490765,
+   "sha256": "667314f2d0602ba06a2585a9fd8ad805a06b45daf690c9de807526276c4d4efa"
+  },
+  "jrn_037.seg": {
+   "lines": 8817,
+   "bytes": 502744,
+   "sha256": "467cb3ec0acb415a94a55a0c303ca143ec4237c2de50f320b1c33d92a804a0be"
+  },
+  "jrn_038.seg": {
+   "lines": 8354,
+   "bytes": 476442,
+   "sha256": "f8c595e10a13636435b60ca68be4bcb3ec107520e17ae825e8a2e313a777ac14"
+  },
+  "jrn_039.seg": {
+   "lines": 5590,
+   "bytes": 318476,
+   "sha256": "6ce85c2d446974ec8d6230149ce8d7db47a53047ff567aa1de2160616f0928af"
+  },
+  "jrn_040.seg": {
+   "lines": 3624,
+   "bytes": 206324,
+   "sha256": "bf5f687965d379ab4641721913586fa079cda7c146306692bcb983d26c4e70a3"
+  }
+ },
+ "file_count": 40,
+ "total_lines": 192417,
+ "largest_three": [
+  "jrn_016.seg",
+  "jrn_023.seg",
+  "jrn_037.seg"
+ ],
+ "_note": "Exact total lines, byte sizes, and SHA-256 checksums require real local command execution. If execution is unavailable, the only valid response is to leave those values empty and explain why."
+}

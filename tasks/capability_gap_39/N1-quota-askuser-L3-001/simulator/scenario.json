@@ -1,0 +1,55 @@
+{
+  "schema_version": "harnessbench_ask_user_billing_scenario_v1",
+  "billing_month": "2026-07",
+  "currency": "USD",
+  "days_in_month": 31,
+  "affected_subscriptions": {
+    "T-003": {
+      "prior_plan": "standard",
+      "prior_monthly_fee": "150.00",
+      "effective_date": "2026-07-16"
+    },
+    "T-010": {
+      "prior_plan": "standard",
+      "prior_monthly_fee": "40.00",
+      "effective_date": "2026-07-11"
+    },
+    "T-021": {
+      "prior_plan": "fast",
+      "prior_monthly_fee": "89.00",
+      "effective_date": "2026-07-21"
+    },
+    "T-024": {
+      "prior_plan": "standard",
+      "prior_monthly_fee": "190.00",
+      "effective_date": "2026-07-17"
+    }
+  },
+  "expected_amounts": {
+    "T-001": "140.38",
+    "T-002": "54.83",
+    "T-003": "188.53",
+    "T-004": "235.39",
+    "T-005": "221.06",
+    "T-006": "88.79",
+    "T-007": "64.67",
+    "T-008": "168.40",
+    "T-009": "39.90",
+    "T-010": "49.12",
+    "T-011": "95.43",
+    "T-012": "208.22",
+    "T-013": "156.13",
+    "T-014": "177.84",
+    "T-015": "49.73",
+    "T-016": "275.65",
+    "T-017": "72.11",
+    "T-018": "111.71",
+    "T-019": "137.70",
+    "T-020": "43.13",
+    "T-021": "96.31",
+    "T-022": "252.73",
+    "T-023": "78.44",
+    "T-024": "228.84"
+  },
+  "expected_total": "3235.04"
+}

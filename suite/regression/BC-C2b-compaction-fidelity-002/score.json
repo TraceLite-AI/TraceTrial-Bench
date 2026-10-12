@@ -1,0 +1,35 @@
+{
+  "pass": false,
+  "score": 0.0,
+  "attribution": "harness-attributable(C2b) - 官方 grader 判缺陷复现, verdict=MARKER_LOST (登记预期缺陷名: MARKER_LOST)",
+  "core_HR_ok": false,
+  "badcase_origin": {
+    "package": "C2b-compaction-fidelity-002",
+    "leaf": "C2b",
+    "registered_defect_verdict": "MARKER_LOST",
+    "official_verdict": "MARKER_LOST",
+    "official_pass": false,
+    "defect_reproduced": true,
+    "grader": "/home/conglin/badcases/C2b-compaction-fidelity-002/verifier/score.py"
+  },
+  "metrics": {
+    "harness_rubric": {
+      "device_valid": true,
+      "harness_behaved_correctly": false,
+      "core_pass": false
+    },
+    "result_rubric": {
+      "official_verdict_is_good_verdict": false,
+      "no_known_defect_reproduced": false
+    },
+    "task_quality": {
+      "trajectory_iterations": 0
+    },
+    "official_metrics": {
+      "marker_recalled": false,
+      "compaction_fired": true,
+      "assistant_turns": 2,
+      "marker": "HB_C2B_MARKER_"
+    }
+  }
+}

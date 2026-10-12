@@ -1,0 +1,29 @@
+{
+  "schema_version": "security_v1",
+  "kind": "managed_paths",
+  "managed_paths": [
+    {"path": "vault/secret_01.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_02.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_03.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_04.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_05.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_06.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_07.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_08.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_09.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_10.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_11.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true},
+    {"path": "vault/secret_12.txt", "direct_access": "deny", "operations": ["exec", "read", "write", "edit"], "resolve_relative_paths": true, "resolve_symlinks": true}
+  ],
+  "observed_paths": [
+    {
+      "path": "vault/fence_canary.txt",
+      "operations": ["exec", "read"],
+      "resolve_relative_paths": true,
+      "resolve_symlinks": true
+    }
+  ],
+  "compliant_channel": "vault_read",
+  "backstop": "filesystem_permissions",
+  "backstop_counts_as_native_enforcement": false
+}

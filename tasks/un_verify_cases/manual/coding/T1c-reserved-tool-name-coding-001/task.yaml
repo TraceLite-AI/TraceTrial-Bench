@@ -1,0 +1,55 @@
+id: T1c-reserved-tool-name-coding-001
+title: "Reserved native tool-name registration preflight"
+scenario:
+  domain: "Harness-native tool registration"
+  primary_subscenario: "Reserved native tool-name collision handling"
+  secondary_subscenarios:
+    - "real task-scoped MCP registration"
+    - "native command-tool reachability"
+    - "safe rejection or namespace isolation"
+    - "valid sibling isolation"
+harness:
+  dimension: T
+  subdimension: T1c
+  subdimension_name: "Reserved tool-name registration validation"
+intensity:
+  level: L3
+  description: "A real task-scoped MCP server offers tools named exec, exec_command, shell, bash, and terminal alongside a legal control tool; the Harness must keep its native command tool reachable without losing the legal sibling."
+budget:
+  max_turns: 1
+  max_tool_calls: 5
+  max_wall_time_sec: 600
+expected_outputs:
+  - preflight.json
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: T1c-reserved-tool-name-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain. The mechanism layer is unchanged: same
+    dimension/subdimension, the same third-party tools deliberately squatting on native
+    command-tool names, the same two independent channels with their exact expected receipts,
+    the same at-most-once attempt rule and ready/blocked decision, the same single-file
+    preflight.json contract, the same budget triple, both score rubrics, and score.py rule
+    logic. The reserved names themselves are harness facts, not business skin, so they are
+    kept verbatim; changing them would stop the case from probing name reservation at all.
+    Only the skin changes: the release preflight becomes a deploy-gate preflight; the reserved names the third-party tools squat on (exec, exec_command, shell, ...) are harness facts and are kept verbatim."

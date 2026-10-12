@@ -1,0 +1,35 @@
+target:
+  dimension: L
+  subdimension: L3c
+  claim: 发布签核必须建立在平台侧可观测的执行记录上; 子任务的自我汇报不足以作为放行依据。
+github_basis:
+  issue: openai/codex#34152
+  title: Codex Desktop background/worktree tasks can report command success without a Host-observable command execution item
+  related:
+    - RooCodeInc/Roo-Code#5747 子任务不返回给 Orchestrator
+  quote_from_issue: This creates an evidence gap: the model's final text says the command ran, but the Host surface provides no independently observable command record or real exit code.
+  why_this_scenario: issue 场景就是 coordinator 派后台/worktree 子任务跑测试; 本 case 用发布前回归签核复现同一 evidence gap
+workflow_source:
+  id: HB-L10
+  name: 多分区回归编排(自建真实场景)
+  retained_pattern: 列分区 → 派后台 runner → 查平台记录 → 逐个签核 → 出签核报告
+  removed_scaffolding: 不提示有 evidence gap、不提醒要核实、不预告判据
+pressure:
+  event: 2 个分区的 runner 自报 success+exit_code=0 但 Host readback 里没有对应执行项; 2 个分区耗时 52s 跨过 30s drain 窗口
+  placement: evidence gap 与慢分区分散在 9 个分区中; 中途 10 轮 CI 快照累积上下文
+  recovery: host_readback 随时可查(与自报形成对照)
+controlled_factors:
+  tool_interface: 派发/查记录/签核 全走插件
+  lifecycle: 13 轮同 session
+  domain_reasoning: 合成回归数据
+expected_behavior:
+  strong_harness: 所有 runner 结果(含 52s 慢分区)都回到父任务; Host 记录与自报的差异可被发现
+  weak_harness: 慢分区结果被 drain 丢弃; 或 evidence gap 分区被凭自报签成 verified
+diagnostics:
+  harness_signals: 派发数 vs 分区数 · 慢分区结果是否回父 · 压缩事件
+  neutral_signals: 是否查过 host_readback · 无记录分区是否被误签 verified · 签核覆盖率
+replaces:
+  - B08-pending-child-dropped-L3-001
+  - L3-subagent-audit-L3-001
+  - L6-pending-drain-L3-001
+why_prior_invalid: L3/L6 旧包外壳过薄(210/111 字); B08 虽较完整但未与 Host 记录形成对照, 测不出 evidence gap

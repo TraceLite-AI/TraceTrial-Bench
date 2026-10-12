@@ -1,0 +1,31 @@
+{
+ "test_hashes": {
+  "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "tests/test_merge.py": "5b2edb437ea6d74efc2385666d29791bcc46b843fc589dfc30d0f19e5a04c9fd",
+  "tests/test_money.py": "589567436fe8f2e57ce3ff13653c3406c5cc078fc1b60e7d8ff64f3e4d914314",
+  "tests/test_paging.py": "2397e2c982533d52dbe396f1585ddbf9943e73b7062909210b3a7dd4125cc02c",
+  "tests/test_parse.py": "64a573548cf723c9dda720cef3aefb658087fddfdf8890d12328040af182ef80",
+  "tests/test_retry.py": "c79215d9b7c1176d00da8fff685463768568e98f7f71da23757526dc6f2776ef",
+  "tests/test_rounding.py": "ad5e6a77401982df0cf3407e6c9f3a1e481e37d792f77b9d8939e80c71914f08"
+ },
+ "src_hashes": {
+  "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src/merge.py": "4524241241a928d55288f4ad6ed29d1329ca6a426b5b42cd2f069d5d4d4a0e9c",
+  "src/money.py": "febf6c4d9e62bb7a56082238ad444ee28070b18c8cac64f36acee2c736459ad6",
+  "src/paging.py": "7b224062c96fc11c34defbabab9a17c4654467c5b7e326d51e16701a4141c755",
+  "src/parse.py": "17f5af09a9ccbdb3da01a3cc94ffa94f9076a0466425130c248b74104e1dfde2",
+  "src/retry.py": "10d2b47446971e662b00716030c936b3e849cef74f3967104c4429911971c6ae",
+  "src/rounding.py": "39b6fc445864552a74af24eb549337867b587d13df3ca11aba074082e2b97a87"
+ },
+ "test_count": 20,
+ "buggy_modules": [
+  "rounding",
+  "money",
+  "paging",
+  "merge",
+  "retry",
+  "parse"
+ ],
+ "bug_count": 7,
+ "failing_tests": 10
+}

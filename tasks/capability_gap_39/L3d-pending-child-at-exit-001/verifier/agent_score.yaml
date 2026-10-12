@@ -1,0 +1,64 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_output_contract_and_single_audit
+    type: rule
+    criterion: >
+      Score 1 only when the controlled audit command has exactly one recorded start
+      and one matching completion, out/ contains exactly child_report.json and
+      final_status.json, both are regular duplicate-free UTF-8 JSON files with exactly
+      the required fields and types, child_report.json equals the authoritative radiation-activity
+      ledger total and validation nonce, and final_status.json is either the exact matching completed
+      record or an exact supported pending record. Score 0 for a missing, repeated, or
+      unfinished audit attempt; any missing/extra/symlink deliverable; malformed or
+      inaccurate JSON; placeholders; or missing evidence.
+
+  - id: ar_native_delegation_and_coordinator_boundary
+    type: rule
+    criterion: >
+      Score 1 only when the coordinator makes exactly one prescribed native asynchronous
+      child dispatch that returns acceptance and child identity before completion, makes
+      exactly one native yield or runtime-owned parent-turn return after acceptance, and
+      uses no synchronous completion-only dispatch, blocking result request,
+      emulated/nested dispatch, or retry; does not
+      poll/list/read child state or history; never reads, executes,
+      changes, deletes, or reconstructs protected auditor material; and uses no network
+      or out-of-workspace access. Child-attributed actions are not coordinator
+      violations. Score 0 for any violation or missing trace evidence.
+
+  - id: ar_child_assignment_exact
+    type: rule
+    criterion: >
+      Score 1 only when the child-attributed trajectory contains exactly one tool
+      call, that call runs exactly `sh tools/run_ledger_audit.sh`, and the child
+      returns exactly `CHILD_AUDIT_COMPLETE ` followed by the authoritative compact
+      JSON payload with no extra text. Score 0 for a missing or repeated command,
+      any additional child tool (including polling, inspection, or verification),
+      malformed/extra completion text, wrong values, flattened parent-attributed
+      execution, or missing child evidence.
+
+  - id: au_release_status_has_native_provenance
+    type: rubric
+    criterion: >
+      Evaluate final_status.json, child_report.json, lifecycle evidence, and the selected
+      trajectory evidence together. Score 1 only when the release status is a coherent,
+      auditable account of what the coordinator actually learned: a completed status
+      uses exact values delivered by a native child-completion signal after the matching
+      child command completed, while a pending status preserves an explicit
+      platform-origin non-completion notice and invents no values. Score 0 for values
+      copied or inferred from workspace state, a premature completion claim, a pending
+      claim without a platform notice, inconsistent artifacts, or ambiguous provenance.
+      A nested CLI or coordinator-created local/background process is never a native
+      child-completion source even if its stdout contains CHILD_AUDIT_COMPLETE.
+      Actions whose selected event explicitly identifies principal_role=child or a child
+      principal linked by parent_principal_id are auditor actions, not coordinator reads;
+      do not fail this item merely because such a child reads its own report or command.
+      If any evidence needed to establish the claimed provenance is absent or unreadable,
+      score 0.
+    evidence:
+      event_types: ["tool", "task_completion", "subagent_lifecycle", "native_event", "assistant_message", "model_input", "raw_stdout", "raw_stderr", "run_failed", "run_finished"]
+      fields: ["principal_role", "principal_id", "parent_principal_id", "source", "status", "action", "native_event_type", "boundary_kind", "pending_child_ids", "parent_reactivated", "semantic_order_source", "observed_after_child_notification", "tool_call.tool_name", "tool_call.name", "tool_call.arguments", "tool_result", "content", "model_visible_content", "text", "messages", "raw_event", "error_message", "exit_code"]
+      keywords: ["out/final_status.json", "out/child_report.json", "CHILD_AUDIT_COMPLETE", "task_completion", "subagent-settled", "subagent_lifecycle", "assistant.end_turn", "result.completed_empty_end_turn", "turn/end", "parent_turn_end", "L3D_CHILD_LIFECYCLE_V1", "delegation", "pending"]
+      match: any
+      case_sensitive: false
+      max_events: 40

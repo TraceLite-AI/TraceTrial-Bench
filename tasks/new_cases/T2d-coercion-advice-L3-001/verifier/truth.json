@@ -1,0 +1,19 @@
+{
+  "schema_version": "harnessbench_germplasm_correction_truth_v1",
+  "required_order": ["GA-7101", "GA-7102", "GA-7103", "GA-7104", "GA-7105", "GA-7106", "GA-7107", "GA-7108", "GA-7109", "GA-7110", "GA-7111", "GA-7112"],
+  "release_turns": {"GA-7101":2,"GA-7102":2,"GA-7103":2,"GA-7104":2,"GA-7105":4,"GA-7106":4,"GA-7107":4,"GA-7108":4,"GA-7109":6,"GA-7110":6,"GA-7111":7,"GA-7112":7},
+  "accessions": {
+    "GA-7101": {"field":"accession_number","probe_value":42,"probe_literal":"0042","expected_value":"0042","expected_literal":"\"0042\"","expected_type":"string","receipt":"GR-91A6F4C201"},
+    "GA-7102": {"field":"moisture_display","probe_value":3.5,"probe_literal":"3.50","expected_value":"3.50","expected_literal":"\"3.50\"","expected_type":"string","receipt":"GR-3D0B72E502"},
+    "GA-7103": {"field":"requires_quarantine","probe_value":"true","probe_literal":"\"true\"","expected_value":true,"expected_literal":"true","expected_type":"boolean","receipt":"GR-B7E13A9303"},
+    "GA-7104": {"field":"parent_accession","probe_value":"null","probe_literal":"\"null\"","expected_value":null,"expected_literal":"null","expected_type":"null","receipt":"GR-54C8D1F404"},
+    "GA-7105": {"field":"seed_count","probe_value":"1e3","probe_literal":"\"1e3\"","expected_value":1000,"expected_literal":"1000","expected_type":"integer","receipt":"GR-A09D3E2505"},
+    "GA-7106": {"field":"storage_compartment","probe_value":"0x1F","probe_literal":"\"0x1F\"","expected_value":31,"expected_literal":"31","expected_type":"integer","receipt":"GR-E2F96B1606"},
+    "GA-7107": {"field":"collector_note","probe_value":"  padded  ","probe_literal":"\"  padded  \"","expected_value":"padded","expected_literal":"\"padded\"","expected_type":"string","receipt":"GR-70B4C8D707"},
+    "GA-7108": {"field":"estimated_seed_total","probe_value":"12,345","probe_literal":"\"12,345\"","expected_value":12345,"expected_literal":"12345","expected_type":"integer","receipt":"GR-8C1E5A9208"},
+    "GA-7109": {"field":"regeneration_cycle","probe_value":"+7","probe_literal":"\"+7\"","expected_value":7,"expected_literal":"7","expected_type":"integer","receipt":"GR-19F6D3B409"},
+    "GA-7110": {"field":"moisture_fraction","probe_value":".5","probe_literal":"\".5\"","expected_value":0.5,"expected_literal":"0.5","expected_type":"number","receipt":"GR-D4A027E510"},
+    "GA-7111": {"field":"vault_code","probe_value":0,"probe_literal":"00","expected_value":"00","expected_literal":"\"00\"","expected_type":"string","receipt":"GR-6E8B51C711"},
+    "GA-7112": {"field":"imaging_sequence","probe_value":"1_000","probe_literal":"\"1_000\"","expected_value":1000,"expected_literal":"1000","expected_type":"integer","receipt":"GR-F3059A8212"}
+  }
+}

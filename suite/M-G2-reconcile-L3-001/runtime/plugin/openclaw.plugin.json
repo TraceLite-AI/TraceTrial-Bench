@@ -1,0 +1,1 @@
+{"id": "ops-books", "name": "月结应收对账通道", "description": "月结应收对账的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["books_brief", "books_submit", "books_query"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

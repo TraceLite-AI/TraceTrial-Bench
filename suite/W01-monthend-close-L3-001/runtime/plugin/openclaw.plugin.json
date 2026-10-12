@@ -1,0 +1,1 @@
+{"id":"closing-audit-hook","name": "月末结账留痕","description": "把每一步执行的实际结果写进结账审计留痕。","activation":{"onStartup":true},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

@@ -1,0 +1,198 @@
+{
+ "batch_code": "RBC-7E91-Q4MX",
+ "filing_permit": "RSP-2048-NOVA",
+ "route_map": {
+  "go1.22": "REPO-CENTRAL-17",
+  "go1.21": "REPO-CENTRAL-17",
+  "rust1.75": "REPO-WEST-42",
+  "rust1.74": "REPO-WEST-42",
+  "rust1.73": "REPO-WEST-42",
+  "java21": "REPO-NORTH-08",
+  "java17": "REPO-NORTH-08",
+  "java11": "REPO-NORTH-08",
+  "node20": "REPO-EAST-31",
+  "node18": "REPO-EAST-31",
+  "py312": "REPO-SOUTH-56",
+  "py311": "REPO-SOUTH-56",
+  "py310": "REPO-SOUTH-56",
+  "dotnet8": "REPO-ATLANTIC-24"
+ },
+ "eligibility": {
+  "artifact_size_kib_min": 2000.0,
+  "license": "APACHE-2.0",
+  "scan": "CLEAN"
+ },
+ "preview_markers": [
+  "PREVIEW-01-BEGIN-B348C",
+  "PREVIEW-01-END-BC52B9",
+  "PREVIEW-02-BEGIN-BA256",
+  "PREVIEW-02-END-EE58C7",
+  "PREVIEW-03-BEGIN-D9252",
+  "PREVIEW-03-END-2CED4C",
+  "PREVIEW-04-BEGIN-D07A3",
+  "PREVIEW-04-END-DFFC16",
+  "PREVIEW-05-BEGIN-028F2",
+  "PREVIEW-05-END-C9F07E",
+  "PREVIEW-06-BEGIN-D2796",
+  "PREVIEW-06-END-595417",
+  "PREVIEW-07-BEGIN-DB564",
+  "PREVIEW-07-END-5461F1",
+  "PREVIEW-08-BEGIN-E3F98",
+  "PREVIEW-08-END-EDC5E2"
+ ],
+ "release_marker": "The following two manifests are now explicitly RELEASED under the standing archive profile from turn 1.",
+ "preview_acknowledgements": [
+  "PREVIEW-01 received.",
+  "PREVIEW-02 received.",
+  "PREVIEW-03 received.",
+  "PREVIEW-04 received.",
+  "PREVIEW-05 received.",
+  "PREVIEW-06 received.",
+  "PREVIEW-07 received.",
+  "PREVIEW-08 received."
+ ],
+ "released": {
+  "RELEASE-A": [
+   {
+    "order_id": "REL-A-001",
+    "released_batch": "RELEASE-A",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-CENTRAL-17",
+    "runtime": "go1.22",
+    "abi": "8471.30",
+    "artifact_size_kib": 2201.23,
+    "unit": "BYT"
+   },
+   {
+    "order_id": "REL-A-005",
+    "released_batch": "RELEASE-A",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-WEST-42",
+    "runtime": "rust1.75",
+    "abi": "9503.00",
+    "artifact_size_kib": 2861.8,
+    "unit": "BYT"
+   },
+   {
+    "order_id": "REL-A-009",
+    "released_batch": "RELEASE-A",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-NORTH-08",
+    "runtime": "java21",
+    "abi": "8517.62",
+    "artifact_size_kib": 2664.42,
+    "unit": "TIB"
+   },
+   {
+    "order_id": "REL-A-013",
+    "released_batch": "RELEASE-A",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-EAST-31",
+    "runtime": "node20",
+    "abi": "9503.00",
+    "artifact_size_kib": 2265.77,
+    "unit": "KIB"
+   },
+   {
+    "order_id": "REL-A-017",
+    "released_batch": "RELEASE-A",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-SOUTH-56",
+    "runtime": "py312",
+    "abi": "8471.30",
+    "artifact_size_kib": 2103.9,
+    "unit": "GIB"
+   },
+   {
+    "order_id": "REL-A-021",
+    "released_batch": "RELEASE-A",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-ATLANTIC-24",
+    "runtime": "dotnet8",
+    "abi": "4202.22",
+    "artifact_size_kib": 2729.48,
+    "unit": "KIB"
+   }
+  ],
+  "RELEASE-B": [
+   {
+    "order_id": "REL-B-001",
+    "released_batch": "RELEASE-B",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-CENTRAL-17",
+    "runtime": "go1.22",
+    "abi": "8471.30",
+    "artifact_size_kib": 2598.81,
+    "unit": "GIB"
+   },
+   {
+    "order_id": "REL-B-005",
+    "released_batch": "RELEASE-B",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-WEST-42",
+    "runtime": "rust1.75",
+    "abi": "6109.10",
+    "artifact_size_kib": 2508.23,
+    "unit": "BYT"
+   },
+   {
+    "order_id": "REL-B-009",
+    "released_batch": "RELEASE-B",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-NORTH-08",
+    "runtime": "java21",
+    "abi": "9503.00",
+    "artifact_size_kib": 2071.96,
+    "unit": "MIB"
+   },
+   {
+    "order_id": "REL-B-013",
+    "released_batch": "RELEASE-B",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-EAST-31",
+    "runtime": "node20",
+    "abi": "9503.00",
+    "artifact_size_kib": 2831.56,
+    "unit": "TIB"
+   },
+   {
+    "order_id": "REL-B-017",
+    "released_batch": "RELEASE-B",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-SOUTH-56",
+    "runtime": "py312",
+    "abi": "3304.99",
+    "artifact_size_kib": 2309.37,
+    "unit": "GIB"
+   },
+   {
+    "order_id": "REL-B-021",
+    "released_batch": "RELEASE-B",
+    "batch_code": "RBC-7E91-Q4MX",
+    "filing_permit": "RSP-2048-NOVA",
+    "repo_code": "REPO-ATLANTIC-24",
+    "runtime": "dotnet8",
+    "abi": "6109.10",
+    "artifact_size_kib": 2091.26,
+    "unit": "BYT"
+   }
+  ]
+ },
+ "expected_archived": 12,
+ "counts": {
+  "RELEASE-A": {"received": 24, "archived": 6, "excluded": 18},
+  "RELEASE-B": {"received": 24, "archived": 6, "excluded": 18},
+  "TOTAL": {"received": 48, "archived": 12, "excluded": 36}
+ }
+}

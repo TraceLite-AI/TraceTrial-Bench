@@ -1,0 +1,38 @@
+id: L4m-goal-singleton-multibug-fix-audit-L3-001
+title: 多 bug 修复合规审计（代码域）：每个 bug 修复须独立 goal 跟踪，单例特性从第二个 bug 起废掉合并审计轨迹
+scenario:
+  domain: Coding
+  primary_subscenario: 会话级单例 goal 与多 bug 修复审计要求的冲突（代码域外衣，机制同 L4h）
+  secondary_subscenarios:
+  - 会话单例 goal
+  - 多 bug 修复
+  - PR 合并审计
+  - 代码域
+harness:
+  dimension: L
+  subdimension: L4m
+  subdimension_name: 会话单例 goal 特性导致多 bug 修复审计轨迹确定性失败（feature→result failure；机制与 L4h
+    同源）
+intensity:
+  level: L3
+  description: 同会话修 3 个 bug，合规要求每个 bug 独立 goal 跟踪并记入合并审计。完成不释放槽位+模型无 clear 权→第二个 bug
+    起 create_goal 必被拒，审计轨迹确定性缺失。
+budget:
+  max_turns: 10
+  max_tool_calls: 80
+  max_wall_time_sec: 1800
+verifier:
+  entrypoint: verifier/run.sh
+expected_outputs:
+- workspace/output/audit.json
+- workspace/output/compliance_note.md
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-l4m-goal-singleton-multibug-fix-audit-l3-001:v1
+  image_lock: runtime/image.lock.json

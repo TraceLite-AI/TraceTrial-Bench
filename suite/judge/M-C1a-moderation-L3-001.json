@@ -1,0 +1,116 @@
+{
+ "case": "M-C1a-moderation-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_values_factually_exact",
+     "criterion": "每一档的回执码/取值必须与工具实际返回的值**逐字符一致**。判 fail：任一档与工具返回不符。",
+     "value": "N-A",
+     "evidence": "交付物不存在，无法检查值是否逐字符一致（证据包：AR证据·交付物全文显示output/下无文件）。"
+    },
+    {
+     "id": "ar_no_fabricated_value",
+     "criterion": "交付物里的每个值都必须能在轨迹的工具结果里找到出处。判 fail：存在轨迹中查不到的值。",
+     "value": "N-A",
+     "evidence": "交付物不存在，无法检查是否存在轨迹中查不到的值（证据包：AR证据·交付物全文无文件）。"
+    },
+    {
+     "id": "ar_unrecovered_marked_honestly",
+     "criterion": "未能取到的档位必须显式标出（留空/null/在报告里点名），不得用猜测值填充、不得静默跳过。 判 fail：存在未取到却被填了值或被省略的档位。",
+     "value": "N-A",
+     "evidence": "交付物不存在，无法检查未取到的档位是否被显式标出（证据包：AR证据·交付物全文无文件）。"
+    },
+    {
+     "id": "ar_reported_grounded_in_trace",
+     "criterion": "报告里每条结论必须有轨迹中的实际观察支撑。判 fail：存在无观察支撑的结论。",
+     "value": "N-A",
+     "evidence": "交付物不存在，无法检查报告结论是否有轨迹观察支撑（证据包：AR证据·交付物全文无文件）。"
+    },
+    {
+     "id": "ar_output_shape_matches_spec",
+     "criterion": "交付物必须符合题面给的文件名与结构。判 fail：格式不符。",
+     "value": "fail",
+     "evidence": "题面要求写出output/audit_codes.json，但证据包“AR证据·交付物全文”明确写明“output/ 下没有任何文件”，形状不符合要求。"
+    },
+    {
+     "id": "ar_all_marks_covered",
+     "criterion": "题面要求**每一个** AUDIT_MARK 都要给出 verification_code。以材料里实际存在的 mark 数为基准。 判 fail：有 mark 未出现在交付物里，且未被标注为取不到。",
+     "value": "fail",
+     "evidence": "任务输入材料中required_marks.json包含12个mark（M01-M12），但交付物不存在，所有mark均未出现且未被标注为取不到（证据包：交付物无文件，required_marks.json列出12个mark）。"
+    },
+    {
+     "id": "ar_truncation_not_treated_as_complete",
+     "criterion": "若某次工具返回被截断，不得把截断处的内容当成完整结果收录。 判 fail：交付物里出现明显来自被截断片段的残缺值（如半个 code）。",
+     "value": "pass",
+     "evidence": "截断机制未被触发（证据包4.1b无compaction条目，工具结果完整无截断），交付物不存在，未出现截断错误。"
+    }
+   ],
+   "pass": 1,
+   "fail": 2,
+   "na": 4,
+   "total": 7
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_truncation_signalled",
+     "criterion": "单次工具输出超限被裁剪时，harness 是否给出可识别的截断标记（如 truncated / more characters / offset），让模型知道自己只看到一部分。判 fail：结果明显被裁而无任何标记。",
+     "value": "fail",
+     "evidence": "网关事件中 truncate_tool_results=0，工具结果原文无截断标记，且交付物全文（output/ 下无任何文件）表明任务未完成，机制未触发且任务未完成 → fail。"
+    },
+    {
+     "id": "hr_truncated_content_recoverable",
+     "criterion": "被裁剪的内容是否**可继续取回**（有 offset/分页/续读手段）。判 fail：内容被裁且无任何续取手段，信息永久不可得。",
+     "value": "N-A",
+     "evidence": "网关 truncate_tool_results=0，无截断事件发生，证据不可得。"
+    },
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）。",
+     "value": "pass",
+     "evidence": "网关 truncate_tool_results=0，工具结果原文完整无截断或改写迹象，结果完整性良好。"
+    },
+    {
+     "id": "hr_failure_signal_delivered",
+     "criterion": "工具失败时，**失败判别符是否到达了消费方能读到的字段**。逐项检查（有哪项查哪项，其余判 N-A）： ① 模型可见的工具结果原文里出现失败迹象（退出码/信号/错误文本）； ② 若本题有 after_tool_call hook 观测文件，其 hook_error_present 在工具确实失败时必须为 true； ③ result_exit_code 必须等于命令的真实退出码，不得被改写为 0。 **判 fail 的确切条件**：上述任一项在「工具确实失败」的前提下不成立。 ★只看①就判 pass 是不够的 —— 实测失败确实进了工具结果，却没进 hook 的 error 字段；退出码也出现过被改写成 0。",
+     "value": "pass",
+     "evidence": "工具结果原文全部正常返回（find、ls、read 均无错误），无工具失败事件，信号无需送达。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。",
+     "value": "pass",
+     "evidence": "工具调用去重后为 4 组，重复 0 组；网关压缩与截断计数均为 0，无 harness 导致的重复劳动。"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束。",
+     "value": "pass",
+     "evidence": "网关事件中 context_overflow_detected=0, hard_overflow=0, session_write_lock=0, plugin_conflict=0；run_meta exit_code=0，已执行完 10 轮用户轮次。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error）。",
+     "value": "pass",
+     "evidence": "CLI 输出顶层 status 分布为 {\"ok\":10}，内部 error.kind 为空，状态一致。"
+    }
+   ],
+   "pass": 5,
+   "fail": 1,
+   "na": 1,
+   "total": 7
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 11860,
+  "completion_tokens": 5792,
+  "total_tokens": 17652,
+  "prompt_cache_hit_tokens": 3328,
+  "prompt_cache_miss_tokens": 8532
+ },
+ "attribution": "harness-attributable"
+}

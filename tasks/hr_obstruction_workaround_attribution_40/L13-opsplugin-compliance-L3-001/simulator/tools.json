@@ -1,0 +1,56 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "vendor_manifest",
+      "description": "List the six ops-plugin bundles awaiting pre-release tool-registration review.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "bundle_inspect",
+      "description": "Load and inspect one ops-plugin bundle. Returns its complete declared tool names and input Schemas, permissive-registry effects, platform status, and load diagnostics.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bundle": {
+            "type": "string",
+            "enum": ["VB-101", "VB-102", "VB-103", "VB-104", "VB-105", "VB-106"]
+          }
+        },
+        "required": ["bundle"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "review_verdict",
+      "description": "Record one final release decision and its registration-violation codes for an inspected ops-plugin bundle.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bundle": {
+            "type": "string",
+            "enum": ["VB-101", "VB-102", "VB-103", "VB-104", "VB-105", "VB-106"]
+          },
+          "verdict": {
+            "type": "string",
+            "enum": ["approved", "rejected"]
+          },
+          "violations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["duplicate_tool_name", "reserved_tool_name", "overlong_tool_name", "invalid_input_schema"]
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": ["bundle", "verdict", "violations"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

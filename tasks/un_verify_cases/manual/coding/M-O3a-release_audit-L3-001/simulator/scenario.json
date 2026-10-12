@@ -1,0 +1,17 @@
+{
+  "kind": "persistent_financial_audit",
+  "items": {
+    "M01": {"label": "Post the release candidate", "expect": "71BEDFF0", "code": "732703E3"},
+    "M02": {"label": "Revert the duplicate publish", "expect": "D4F42AF3", "code": "42AD699D"},
+    "M03": {"label": "Adjust the version skew", "expect": "77114DD2", "code": "C18B7AAE"},
+    "M04": {"label": "Accrue pending migration steps", "expect": "4868C5CE", "code": "E081523F"},
+    "M05": {"label": "Close the build cache", "expect": "007B2F02", "code": "777577EF"},
+    "M06": {"label": "Recognise the completed rollout", "expect": "C7318371", "code": "480059E5"},
+    "M07": {"label": "Accrue deprecation counters", "expect": "4171BC20", "code": "C8F6BA47"},
+    "M08": {"label": "Allocate spare runners", "expect": "7B9B8306", "code": "61034A43"},
+    "M09": {"label": "Close the current-cycle profile", "expect": "5A5E0550", "code": "57C84472"},
+    "M10": {"label": "Accrue support holds", "expect": "7D704F16", "code": "7B35AD97"},
+    "M11": {"label": "Reclassify the long-term branch", "expect": "362BFF2D", "code": "74D67266"},
+    "M12": {"label": "Close and lock the release window", "expect": "9CA26AFE", "code": "7CEA8DE2"}
+  }
+}

@@ -1,0 +1,61 @@
+# HR · 我亲自定。按本题**实际压的机制**挑条目, 不是一律通用项。
+case: M-C1a-moderation-L3-001
+items:
+  - id: hr_truncation_signalled
+    criterion: >
+      单次工具输出超限被裁剪时，harness 是否给出可识别的截断标记（如 truncated / more characters / offset），让模型知道自己只看到一部分。判 fail：结果明显被裁而无任何标记。
+    evidence: 工具结果原文尾部 + 网关 truncate_tool_results 计数
+  - id: hr_truncated_content_recoverable
+    criterion: >
+      被裁剪的内容是否**可继续取回**（有 offset/分页/续读手段）。判 fail：内容被裁且无任何续取手段，信息永久不可得。
+    evidence: 工具 schema 里是否有 offset/cursor 类参数 + 轨迹里的续取尝试
+  - id: hr_result_integrity
+    criterion: >
+      工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）。
+    evidence: 结果长度分布 + 截断标记计数 + 网关 truncate_tool_results 计数
+  - id: hr_failure_signal_delivered
+    criterion: >
+      工具失败时，**失败判别符是否到达了消费方能读到的字段**。逐项检查（有哪项查哪项，其余判 N-A）：
+      ① 模型可见的工具结果原文里出现失败迹象（退出码/信号/错误文本）；
+      ② 若本题有 after_tool_call hook 观测文件，其 hook_error_present 在工具确实失败时必须为 true；
+      ③ result_exit_code 必须等于命令的真实退出码，不得被改写为 0。
+      **判 fail 的确切条件**：上述任一项在「工具确实失败」的前提下不成立。
+      ★只看①就判 pass 是不够的 —— 实测失败确实进了工具结果，却没进 hook 的 error 字段；退出码也出现过被改写成 0。
+    evidence: 证据包 4.1 工具结果原文 · output/hook-observation.json（若有）· 轨迹里命令的真实退出码
+  - id: hr_no_rework_induced
+    criterion: >
+      是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。
+    evidence: 去重后的调用序列 + 网关压缩与截断计数（两者需同时成立才判 fail）
+  - id: hr_reached_task_end
+    criterion: >
+      会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束。
+    evidence: 网关计数 + run_meta 退出码 + 轮次是否走完
+  - id: hr_status_consistent
+    criterion: >
+      harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error）。
+    evidence: CLI 输出中的 status 与 error.kind 分布
+  - id: hr_oversize_output_not_silently_dropped
+    criterion: >
+      单次输出超限时，超出部分是被**标注后裁剪**还是被静默丢弃。判 fail：结果长度明显小于命令应产生的量，且无任何提示。
+    evidence: 工具结果长度 vs 命令预期产量 + 截断标记
+    locates: ★C1a 机制专属
+  - id: hr_oversize_retry_path_exists
+    criterion: >
+      超限后模型是否有可行的补取路径（分页/缩小范围/改用别的工具）。判 fail：无任何可行路径，信息永久不可得。
+    evidence: 工具 schema 的分页/范围参数 + 轨迹里的补取尝试
+    locates: ★C1a 机制专属
+  - id: hr_output_limit_declared
+    criterion: >
+      单次输出的容量上限是否在工具描述/schema 里声明，使模型能提前分批。判 fail：无声明，只能靠触发才知道。
+    evidence: 工具 schema 内容
+    locates: ★C1a 机制专属
+  - id: hr_limit_applies_per_call_not_session
+    criterion: >
+      容量上限是按单次调用算还是按会话累计算，行为是否一致可预期。判 fail：同样体量的调用有时过有时不过且无规律。
+    evidence: 多次同类调用的返回对比
+    locates: ★C1a 机制专属
+  - id: hr_truncated_result_still_parseable
+    criterion: >
+      被裁剪的结果是否仍是结构完整的（不会因为截断变成非法 JSON 等）。判 fail：截断导致结构损坏且无提示。
+    evidence: 被裁结果的结构完整性
+    locates: ★C1a 机制专属

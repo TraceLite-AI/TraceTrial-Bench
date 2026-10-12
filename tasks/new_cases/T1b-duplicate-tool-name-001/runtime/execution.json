@@ -1,0 +1,9 @@
+{
+  "conversation": "single_turn",
+  "network_mode": "none",
+  "profile": "T1b-duplicate-tool-name-001",
+  "requires": ["task_runtime_image_v1", "mcp_stdio_v1"],
+  "runnable": true,
+  "schema_version": "harnessbench_execution_v1",
+  "timeout_sec": 300
+}

@@ -1,0 +1,79 @@
+{
+ "artifact": "output/cost_receipts.json",
+ "tool": "meter",
+ "mode": "gated",
+ "truth": {
+  "M01": {
+   "rank": 8.3,
+   "code": "CF1AEF1E",
+   "label": "子步骤 01",
+   "expect": "0CFD4C2A"
+  },
+  "M02": {
+   "rank": 16.7,
+   "code": "7F66F611",
+   "label": "子步骤 02",
+   "expect": "E16BDC05"
+  },
+  "M03": {
+   "rank": 25.0,
+   "code": "A0AAB08E",
+   "label": "子步骤 03",
+   "expect": "7DF738D5"
+  },
+  "M04": {
+   "rank": 33.3,
+   "code": "525180A2",
+   "label": "子步骤 04",
+   "expect": "69C6D65F"
+  },
+  "M05": {
+   "rank": 41.7,
+   "code": "F894182E",
+   "label": "子步骤 05",
+   "expect": "AC2DC78A"
+  },
+  "M06": {
+   "rank": 50.0,
+   "code": "416F1941",
+   "label": "子步骤 06",
+   "expect": "97F35B62"
+  },
+  "M07": {
+   "rank": 58.3,
+   "code": "9C6B3375",
+   "label": "子步骤 07",
+   "expect": "36B10C2F"
+  },
+  "M08": {
+   "rank": 66.7,
+   "code": "94753D2C",
+   "label": "子步骤 08",
+   "expect": "5D6B2882"
+  },
+  "M09": {
+   "rank": 75.0,
+   "code": "4EF7DE50",
+   "label": "子步骤 09",
+   "expect": "EACD4546"
+  },
+  "M10": {
+   "rank": 83.3,
+   "code": "F2590FF8",
+   "label": "子步骤 10",
+   "expect": "7E40DCEB"
+  },
+  "M11": {
+   "rank": 91.7,
+   "code": "1215FD58",
+   "label": "子步骤 11",
+   "expect": "CFE7B87C"
+  },
+  "M12": {
+   "rank": 100.0,
+   "code": "036F6497",
+   "label": "子步骤 12",
+   "expect": "D216F295"
+  }
+ }
+}

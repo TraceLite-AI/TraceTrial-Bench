@@ -1,0 +1,58 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: e4_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: E4c
+    dim: procedural
+    layer: HR
+    criterion: "12 个stdin模式是否**全部**经 `e4` 工具通道真正恢复（12 档 stdin/EOF 模式中命令正常完成并交回 token 的比例（模式覆盖曲线））"
+  - id: e4_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: E4c
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的stdin模式（rank>50%）是否全部经通道恢复（复杂交互档（read 循环/交互式解释器/awk END）的完成比例）"
+  - id: e4_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: E1a
+    dim: procedural
+    layer: HR
+    criterion: "`e4_submit` 回执是否全部经工具通道送达模型"
+  - id: e4_no_hard_wall
+    kind: gate
+    core: false
+    axis: E4c
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某stdin模式难度之后全部不可达的硬墙
+  - id: e4_failure_observable
+    kind: gate
+    core: false
+    axis: E4c
+    dim: procedural
+    layer: HR
+    criterion: stdin模式失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: e4_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: O1a
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `e4` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_eof_handled
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: E4c
+    dim: procedural
+    layer: HR
+    criterion: 涉及 EOF 的档正常终止（未卡在等输入）的比例

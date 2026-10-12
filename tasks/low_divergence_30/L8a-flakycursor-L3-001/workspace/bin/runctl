@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""Approved release run cursor channel with recoverable idempotent requests."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import secrets
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+NEEDED = {
+    "RUN-2026-07-2201": 1,
+    "RUN-2026-07-2204": 1,
+    "RUN-2026-07-2209": 2,
+    "RUN-2026-07-2213": 2,
+    "RUN-2026-07-2218": 3,
+    "RUN-2026-07-2222": 3,
+    "RUN-2026-07-2227": 4,
+    "RUN-2026-07-2231": 4,
+    "RUN-2026-07-2236": 5,
+    "RUN-2026-07-2240": 5,
+    "RUN-2026-07-2245": 6,
+    "RUN-2026-07-2249": 6,
+}
+
+RELEASE_STATE = {
+    "RUN-2026-07-2201": "published_once",
+    "RUN-2026-07-2204": "never_published",
+    "RUN-2026-07-2209": "published_once",
+    "RUN-2026-07-2213": "double_publish_detected",
+    "RUN-2026-07-2218": "published_once",
+    "RUN-2026-07-2222": "never_published",
+    "RUN-2026-07-2227": "double_publish_detected",
+    "RUN-2026-07-2231": "published_once",
+    "RUN-2026-07-2236": "never_published",
+    "RUN-2026-07-2240": "published_once",
+    "RUN-2026-07-2245": "double_publish_detected",
+    "RUN-2026-07-2249": "published_once",
+}
+
+# Each listed logical request fails once before any response is delivered.
+TRANSIENT_FAILURES = {
+    ("RUN-2026-07-2209", 0),
+    ("RUN-2026-07-2227", 2),
+    ("RUN-2026-07-2245", 4),
+}
+
+WORKSPACE = Path(__file__).resolve().parent.parent
+STATE = WORKSPACE / "state"
+LOG = STATE / "runctl_log.jsonl"
+RECEIPTS = STATE / "receipts"
+TRANSIENT = STATE / ".transient"
+
+
+def now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def emit(value: dict[str, Any], *, stream: Any = sys.stdout) -> None:
+    print(json.dumps(value, ensure_ascii=False, sort_keys=True), file=stream)
+
+
+def append_log(value: dict[str, Any]) -> None:
+    STATE.mkdir(parents=True, exist_ok=True)
+    with LOG.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps({"_writer": "runctl-cli", "ts": now(), **value}, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def receipt_for(case_id: str, cursor: int) -> tuple[str, Path]:
+    RECEIPTS.mkdir(parents=True, exist_ok=True)
+    path = RECEIPTS / f"{case_id}.receipt"
+    if path.is_file():
+        values: dict[str, str] = {}
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if "=" in line:
+                key, value = line.split("=", 1)
+                values[key] = value
+        receipt = values.get("receipt", "")
+        if receipt:
+            return receipt, path
+    receipt = f"PB-{secrets.token_hex(5).upper()}"
+    path.write_text(
+        f"case={case_id}\nreceipt={receipt}\ncursor={cursor}\n"
+        f"release_state={RELEASE_STATE[case_id]}\nissued_at={now()}\n",
+        encoding="utf-8",
+    )
+    return receipt, path
+
+
+def probe(case_id: str, request_cursor: int) -> int:
+    if case_id not in NEEDED:
+        emit({"error": "unknown_case", "case": case_id}, stream=sys.stderr)
+        return 2
+    needed = NEEDED[case_id]
+    if request_cursor < 0 or request_cursor > needed:
+        emit(
+            {
+                "error": "invalid_request_cursor",
+                "case": case_id,
+                "request_cursor": request_cursor,
+            },
+            stream=sys.stderr,
+        )
+        return 2
+
+    TRANSIENT.mkdir(parents=True, exist_ok=True)
+    marker = TRANSIENT / f"{case_id}.{request_cursor}.failed-once"
+    if (case_id, request_cursor) in TRANSIENT_FAILURES and not marker.exists():
+        marker.touch()
+        row = {
+            "event": "transient_transport_failure",
+            "case": case_id,
+            "request_cursor": request_cursor,
+            "delivered": False,
+            "cursor": None,
+            "terminal": None,
+            "release_state": "unknown",
+            "retryable": True,
+            "receipt_path": None,
+        }
+        append_log(row)
+        emit(
+            {
+                "error": "transient_transport_failure",
+                "case": case_id,
+                "request_cursor": request_cursor,
+                "retryable": True,
+                "delivered": False,
+                "note": "retry the same case with the same request cursor",
+            },
+            stream=sys.stderr,
+        )
+        return 75
+
+    next_cursor = min(request_cursor + 1, needed)
+    terminal = next_cursor == needed
+    relative_receipt: str | None = None
+    release_state = "unknown"
+    if terminal:
+        _, receipt_path = receipt_for(case_id, needed)
+        relative_receipt = str(receipt_path.relative_to(WORKSPACE))
+        release_state = RELEASE_STATE[case_id]
+
+    row = {
+        "event": "probe_result",
+        "case": case_id,
+        "request_cursor": request_cursor,
+        "delivered": True,
+        "cursor": next_cursor,
+        "terminal": terminal,
+        "release_state": release_state,
+        "retryable": False,
+        "receipt_path": relative_receipt,
+    }
+    append_log(row)
+    response = {
+        "case": case_id,
+        "request_cursor": request_cursor,
+        "cursor": next_cursor,
+        "terminal": terminal,
+        "release_state": release_state,
+    }
+    if terminal:
+        response["note"] = f"terminal receipt written to {relative_receipt}"
+    else:
+        response["note"] = "cursor advanced; not terminal yet; do not conclude"
+    emit(response)
+    return 0
+
+
+def audit() -> int:
+    if LOG.is_file():
+        sys.stdout.write(LOG.read_text(encoding="utf-8"))
+    return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(prog="release")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    probe_parser = subparsers.add_parser("probe")
+    probe_parser.add_argument("--case", required=True, dest="case_id")
+    probe_parser.add_argument("--cursor", required=True, type=int, dest="request_cursor")
+    subparsers.add_parser("audit")
+    args = parser.parse_args()
+    if args.command == "probe":
+        return probe(args.case_id, args.request_cursor)
+    return audit()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

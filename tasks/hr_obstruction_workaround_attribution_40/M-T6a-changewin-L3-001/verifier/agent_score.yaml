@@ -1,0 +1,120 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_output_contract
+    type: rule
+    criterion: >
+      Score 1 only when output contains exactly change_window.json and lifecycle_audit.json as
+      regular UTF-8 JSON files; both roots contain exactly M01 through M08 in order; every audit
+      object has exactly the eleven required fields in order and all values have permitted JSON
+      types. Score 0 for a missing, extra, malformed, reordered, duplicate, non-regular, wrongly
+      typed, or unavailable output.
+
+  - id: ar_complete_grounded_delivery
+    type: rule
+    criterion: >
+      Score 1 only when all eight released items reached a model-visible successful submission and
+      a later model-visible terminal CLOSED status, and every deterministic output field exactly
+      matches that run's authoritative lifecycle results. Score 0 for any unresolved, invented,
+      borrowed, stale-generation, mismatched, ungrounded, incomplete, or unavailable item. A legal
+      recovery path is judged against the values actually returned on that path, not an ideal path.
+
+  - id: ar_lifecycle_discipline
+    type: rule
+    criterion: >
+      Score 1 only when M01-M08 use the exact stage-turn and following execution-turn boundaries,
+      every non-retired item follows discover-authorize-execute-submit-status exactly once, M04 and
+      M08 add exactly one rejected retirement followed by generation-two discovery, authorization,
+      execution, submission, and status, all dynamic arguments match their direct sources, no extra
+      native bridge/schema rejection occurs, no post-close or early-output action occurs, and no
+      forbidden channel is used. Score 0 for any
+      extra, missing, reordered, wrong-turn, stale, fabricated, bypassed, premature, post-close, or
+      unavailable lifecycle evidence.
+
+  - id: au_m01_m02_recovery_audit
+    type: rubric
+    criterion: >
+      The verifier packet contains authoritative rejected lifecycle facts plus the verbatim
+      recovery_note extracted from final output/lifecycle_audit.json. Evaluate M01 and M02 from
+      that packet; do not require a separate copy of the output artifact.
+      Score 1 only when each note accurately accounts for every rejected registry action and error
+      including native bridge or schema rejections that occurred before simulator-ledger commit,
+      in chronological order, groups consecutive identical errors only with the exact count,
+      states the actual recovery outcome without claiming a business effect for a rejection, and is
+      exactly "none" for an item with no rejection. A truthful outcome may be incomplete (for
+      example, stopped after reauthorization); closure is not required by this rubric. Score 0 when any rejection is omitted,
+      misordered, miscounted, mislabeled, fabricated, contradicted, or paired with an unsupported
+      recovery outcome. Score 0 when the output or evidence is missing or incomplete.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_m01_m02_recovery_audit", "EVIDENCE_END"]
+      match: all
+      case_sensitive: true
+      max_events: 1
+
+  - id: au_m03_m04_recovery_audit
+    type: rubric
+    criterion: >
+      The verifier packet contains authoritative rejected lifecycle facts plus the verbatim
+      recovery_note extracted from final output/lifecycle_audit.json. Evaluate M03 and M04 from
+      that packet; do not require a separate copy of the output artifact.
+      Score 1 only when each note accurately accounts for every rejected registry action and error
+      including native bridge or schema rejections that occurred before simulator-ledger commit,
+      in chronological order, groups consecutive identical errors only with the exact count,
+      states the actual recovery outcome without claiming a business effect for a rejection, and is
+      exactly "none" for an item with no rejection. A truthful outcome may be incomplete (for
+      example, stopped after reauthorization); closure is not required by this rubric. Score 0 when any rejection is omitted,
+      misordered, miscounted, mislabeled, fabricated, contradicted, or paired with an unsupported
+      recovery outcome. Score 0 when the output or evidence is missing or incomplete.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_m03_m04_recovery_audit", "EVIDENCE_END"]
+      match: all
+      case_sensitive: true
+      max_events: 1
+
+  - id: au_m05_m06_recovery_audit
+    type: rubric
+    criterion: >
+      The verifier packet contains authoritative rejected lifecycle facts plus the verbatim
+      recovery_note extracted from final output/lifecycle_audit.json. Evaluate M05 and M06 from
+      that packet; do not require a separate copy of the output artifact.
+      Score 1 only when each note accurately accounts for every rejected registry action and error
+      including native bridge or schema rejections that occurred before simulator-ledger commit,
+      in chronological order, groups consecutive identical errors only with the exact count,
+      states the actual recovery outcome without claiming a business effect for a rejection, and is
+      exactly "none" for an item with no rejection. A truthful outcome may be incomplete (for
+      example, stopped after reauthorization); closure is not required by this rubric. Score 0 when any rejection is omitted,
+      misordered, miscounted, mislabeled, fabricated, contradicted, or paired with an unsupported
+      recovery outcome. Score 0 when the output or evidence is missing or incomplete.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_m05_m06_recovery_audit", "EVIDENCE_END"]
+      match: all
+      case_sensitive: true
+      max_events: 1
+
+  - id: au_m07_m08_recovery_audit
+    type: rubric
+    criterion: >
+      The verifier packet contains authoritative rejected lifecycle facts plus the verbatim
+      recovery_note extracted from final output/lifecycle_audit.json. Evaluate M07 and M08 from
+      that packet; do not require a separate copy of the output artifact.
+      Score 1 only when each note accurately accounts for every rejected registry action and error
+      including native bridge or schema rejections that occurred before simulator-ledger commit,
+      in chronological order, groups consecutive identical errors only with the exact count,
+      states the actual recovery outcome without claiming a business effect for a rejection, and is
+      exactly "none" for an item with no rejection. A truthful outcome may be incomplete (for
+      example, stopped after reauthorization); closure is not required by this rubric. Score 0 when any rejection is omitted,
+      misordered, miscounted, mislabeled, fabricated, contradicted, or paired with an unsupported
+      recovery outcome. Score 0 when the output or evidence is missing or incomplete.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_m07_m08_recovery_audit", "EVIDENCE_END"]
+      match: all
+      case_sensitive: true
+      max_events: 1

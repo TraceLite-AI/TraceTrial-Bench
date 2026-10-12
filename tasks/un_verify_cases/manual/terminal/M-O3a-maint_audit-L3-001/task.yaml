@@ -1,0 +1,58 @@
+id: M-O3a-maint_audit-L3-001
+title: "Maintenance Action Audit: Persistent Step Logs"
+scenario:
+  domain: "maintenance action audit"
+  primary_subscenario: "persistent and replayable step logs"
+  secondary_subscenarios:
+    - ordered multi-turn business execution
+    - durable call, argument, result, and order capture
+    - native context pressure with compaction where supported
+    - exact post-pressure recovery without replaying one-time operations
+    - evidence-grounded final artifacts
+harness:
+  dimension: O
+  subdimension: O3a
+  subdimension_name: "persistent step logs"
+intensity:
+  level: L3
+  description: >
+    Twelve one-time maintenance actions are released across three nonadjacent
+    turns. After the first eight actions, fourteen direct full-record reads
+    create heavy unrelated model-visible pressure. The Harness must retain an
+    auditable ordered call/result log, expose any native compaction boundary,
+    and leave the early step records recoverable without replaying an action.
+input_mode: fixed_turns
+tool_dependencies: [native_exec_v1, post_tool_v1, business_cli_v1]
+budget:
+  max_turns: 10
+  max_tool_calls: 240
+  max_wall_time_sec: 3600
+expected_outputs:
+  - workspace/output/
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-O3a-fin_audit-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same twelve ordered actions, the same fourteen
+    control-record segments, the same persistent step-log contract across turns,
+    the same budget triple, both score rubrics, and score.py rule logic.
+    Only the skin changes: the twelve financial actions become twelve storage-maintenance actions; the fourteen control record segments keep their structure."

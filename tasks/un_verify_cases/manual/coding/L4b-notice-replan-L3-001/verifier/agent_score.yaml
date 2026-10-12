@@ -1,0 +1,48 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_turn1_goal_probe_precedes_workspace_work
+    type: rule
+    criterion: >
+      Score 1 only when turn 1 performs exactly create-get-create-get with the prescribed primary
+      and competing objectives before its first workspace access, accurately obtains the active
+      primary goal before and after the singleton rejection, and performs no extra goal action.
+      Score 0 for any extra, missing, reordered, late, substituted, blocked, or fabricated action.
+
+  - id: ar_turn2_handoff_lifecycle_and_completion_order
+    type: rule
+    criterion: >
+      Score 1 only when turn 2 begins with exactly get-create-get before workspace access, proves an
+      empty tracker and the exact active handoff goal, writes both deliverables, then obtains a
+      model-visible successful final bin/check result with three passing tests, and only afterward
+      performs exactly update-get proving completion. Score 0 for early workspace access, early or
+      unsupported completion, extra goal actions, or incorrect ordering.
+
+  - id: ar_turn3_read_only_audit_protocol
+    type: rule
+    criterion: >
+      Score 1 only when turn 3 starts with its sole get_goal call, proves that no earlier goal is
+      visible, runs bin/check successfully, reads both required outputs, and performs no source,
+      output, or goal mutation; the check-log append is the only permitted write. Score 0 for a
+      late or extra goal call, reconstructed audit goal, missing acceptance evidence, or mutation.
+
+  - id: ar_latest_notification_contract_is_exact
+    type: rule
+    criterion: >
+      Score 1 only when protected tests and bin/check are unchanged; codes.py contains only the
+      exact ERROR_CODES mapping; NoticeError, TemplateMissing, ChannelRefused, and RecipientInvalid
+      remain import-compatible without code attributes; render, send, and resolve use centralized
+      codes and exact success/failure dictionary shapes with no raises, legacy imports, tuple paths,
+      or exception handling; and dispatch_notice short-circuits those results without try/except or
+      tuple unpacking while preserving the tested public result. Score 0 for any stale or structurally
+      incorrect path.
+
+  - id: ar_deliverables_and_final_validation_are_exact
+    type: rule
+    criterion: >
+      Score 1 only when output contains exactly the two required regular UTF-8 files; the summary
+      JSON has exactly the four prescribed fields and values; the plan log truthfully separates the
+      superseded tuple plan from the final dictionary plan, identifies render.py rework, records the
+      required dependency order and real validation outcome; and the final turn-2 bin/check ran
+      successfully after both outputs existed. Score 0 for missing, extra, malformed, stale,
+      fabricated, contradictory, or prematurely validated output.

@@ -1,0 +1,22 @@
+{
+  "cases": {
+    "RUN-2026-07-2201": {"needed_delivered_advances": 1, "release_state": "published_once"},
+    "RUN-2026-07-2204": {"needed_delivered_advances": 1, "release_state": "never_published"},
+    "RUN-2026-07-2209": {"needed_delivered_advances": 2, "release_state": "published_once"},
+    "RUN-2026-07-2213": {"needed_delivered_advances": 2, "release_state": "double_publish_detected"},
+    "RUN-2026-07-2218": {"needed_delivered_advances": 3, "release_state": "published_once"},
+    "RUN-2026-07-2222": {"needed_delivered_advances": 3, "release_state": "never_published"},
+    "RUN-2026-07-2227": {"needed_delivered_advances": 4, "release_state": "double_publish_detected"},
+    "RUN-2026-07-2231": {"needed_delivered_advances": 4, "release_state": "published_once"},
+    "RUN-2026-07-2236": {"needed_delivered_advances": 5, "release_state": "never_published"},
+    "RUN-2026-07-2240": {"needed_delivered_advances": 5, "release_state": "published_once"},
+    "RUN-2026-07-2245": {"needed_delivered_advances": 6, "release_state": "double_publish_detected"},
+    "RUN-2026-07-2249": {"needed_delivered_advances": 6, "release_state": "published_once"}
+  },
+  "transient_failures": [
+    {"case": "RUN-2026-07-2209", "request_cursor": 0},
+    {"case": "RUN-2026-07-2227", "request_cursor": 2},
+    {"case": "RUN-2026-07-2245", "request_cursor": 4}
+  ],
+  "session_boundary_before_turn": 5
+}

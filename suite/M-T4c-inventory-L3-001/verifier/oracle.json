@@ -1,0 +1,91 @@
+{
+ "artifact": "output/stock_snapshot.json",
+ "tool": "stock",
+ "mode": "fanout",
+ "truth": {
+  "M01": {
+   "rank": 8.3,
+   "code": "46D96F6C",
+   "label": "1 个分片必须同轮取齐",
+   "shards": 1,
+   "expect": "F1FF"
+  },
+  "M02": {
+   "rank": 16.7,
+   "code": "1905AFD1",
+   "label": "2 个分片必须同轮取齐",
+   "shards": 2,
+   "expect": "A379-0150"
+  },
+  "M03": {
+   "rank": 25.0,
+   "code": "8E554493",
+   "label": "3 个分片必须同轮取齐",
+   "shards": 3,
+   "expect": "A312-439C-E562"
+  },
+  "M04": {
+   "rank": 33.3,
+   "code": "AD7832B6",
+   "label": "4 个分片必须同轮取齐",
+   "shards": 4,
+   "expect": "CDD4-509B-DB3B-C54D"
+  },
+  "M05": {
+   "rank": 41.7,
+   "code": "BC1FBDD3",
+   "label": "5 个分片必须同轮取齐",
+   "shards": 5,
+   "expect": "B652-F3D4-E25A-3A3B-8072"
+  },
+  "M06": {
+   "rank": 50.0,
+   "code": "AC977E63",
+   "label": "6 个分片必须同轮取齐",
+   "shards": 6,
+   "expect": "EA31-D3EC-7139-DD27-99F8-C1BE"
+  },
+  "M07": {
+   "rank": 58.3,
+   "code": "0F1F2B55",
+   "label": "7 个分片必须同轮取齐",
+   "shards": 7,
+   "expect": "6E07-B859-DBD7-1062-DC6D-8CFE-978B"
+  },
+  "M08": {
+   "rank": 66.7,
+   "code": "BC24B090",
+   "label": "8 个分片必须同轮取齐",
+   "shards": 8,
+   "expect": "6E21-B2EE-6E71-F2D4-43F1-3E22-57C4-55AB"
+  },
+  "M09": {
+   "rank": 75.0,
+   "code": "147C7873",
+   "label": "9 个分片必须同轮取齐",
+   "shards": 9,
+   "expect": "0BA2-E8E7-4CAC-6615-1A5A-56C1-78A3-697A-221E"
+  },
+  "M10": {
+   "rank": 83.3,
+   "code": "6ABCA69A",
+   "label": "10 个分片必须同轮取齐",
+   "shards": 10,
+   "expect": "ABCC-4F29-BD1F-1F87-B6EC-7ACC-D7DA-C781-CD05-8187"
+  },
+  "M11": {
+   "rank": 91.7,
+   "code": "97BF56C8",
+   "label": "11 个分片必须同轮取齐",
+   "shards": 11,
+   "expect": "B907-E60C-5260-2BCE-C017-EC71-E635-58E4-D4C8-56D6-FC0D"
+  },
+  "M12": {
+   "rank": 100.0,
+   "code": "58754F7C",
+   "label": "12 个分片必须同轮取齐",
+   "shards": 12,
+   "expect": "F296-E2BB-50FD-32C4-DDBA-4ED9-F83D-3538-938F-B204-694F-0904"
+  }
+ }
+}

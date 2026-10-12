@@ -1,0 +1,42 @@
+id: L4b-plan-replan-L3-001
+title: "Singleton goal tracking across touring-equipment refactor thread handoffs"
+scenario:
+  domain: "Performing-Arts Production Technology"
+  primary_subscenario: "Native goal lifecycle tracking during stage-equipment dispatch refactoring"
+  secondary_subscenarios:
+    - "Unfinished-goal singleton enforcement"
+    - "Task-thread isolation"
+    - "Contract invalidation and rework"
+harness:
+  dimension: L
+  subdimension: L4b
+  subdimension_name: "Singleton thread-scoped goal tracking"
+intensity:
+  level: L3
+  description: "Three fixed turns refactor a touring-stage equipment dispatch service across three native task threads. The first probes unfinished-goal singleton behavior, the second must not inherit that goal and completes a handoff goal, and the third must see neither earlier goal during a read-only acceptance audit."
+input_mode: fixed_turns
+tool_dependencies: [native_exec_v1, post_tool_v1, native_goal_tracking_v1, native_session_boundary_v1]
+budget:
+  max_turns: 3
+  max_tool_calls: 80
+  max_wall_time_sec: 1200
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  - workspace/src/codes.py
+  - workspace/output/refactor_summary.json
+  - workspace/output/plan_log.md
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: L4b-plan-replan-L3-001
+  what_changed: "Uses three controlled native task threads to test both singleton behavior and cross-thread isolation, shortens the workload, removes self-authored goal-state artifacts, and separates deterministic rules from evidence-backed rubrics."

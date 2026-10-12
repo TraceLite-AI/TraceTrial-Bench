@@ -1,0 +1,40 @@
+id: M-C2a-warehouse-L3-001
+title: 仓库月度盘点（跨轮连续性凭据）
+scenario:
+  domain: 仓库月度盘点
+  primary_subscenario: 跨轮连续性凭据
+  secondary_subscenarios:
+    - 多轮长程
+    - 真实业务材料
+    - 交付物核对
+harness:
+  dimension: C
+  subdimension: C2a
+  subdimension_name: 跨轮连续性凭据
+intensity:
+  level: L3
+  description: 仓库月度盘点场景; 压 C2a 跨轮连续性凭据; 中途注入 10 轮真实盘点作业累积上下文。
+budget:
+  max_turns: 19
+  max_tool_calls: 160
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  hr_semantics: pass/fail/N-A; 机制未触发且任务完成=pass(记功), 未触发且未完成=fail
+  rr_semantics: 全二值无权重, 全过才算 pass; 幅度看连续指标不进判定
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+  verifier_provenance: 沿用已验证的 v2 量具 verifier(本身已含 harness_rubric/result_rubric/attribution), 判据未改
+expected_outputs:
+  - workspace/output/
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-m-c2a-warehouse-l3-001:v1
+  image_lock: runtime/image.lock.json

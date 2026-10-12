@@ -1,0 +1,1 @@
+{"id": "ops-pay", "name": "代付卡单排查通道", "description": "代付卡单排查的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["pay_brief", "pay_submit", "pay_tick"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

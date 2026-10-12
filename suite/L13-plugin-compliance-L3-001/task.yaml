@@ -1,0 +1,39 @@
+id: L13-plugin-compliance-L3-001
+title: 第三方插件上线前合规审查（平台加载期不校验，违规靠审查者看出）
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: 第三方插件合规审查
+  secondary_subscenarios:
+    - 工具名注册规范
+    - 加载期诊断可靠性
+    - 上线放行决策
+harness:
+  dimension: T
+  subdimension: T1d
+  subdimension_name: 工具名合规
+intensity:
+  level: L3
+  description: 6 个供应商插件包含 3 类注册违规(重名 / 保留名 exec / 144 字符超长名); 平台全部 status=loaded 且无诊断; 中途注入真实运行时监控切片累积上下文。
+budget:
+  max_turns: 20
+  max_tool_calls: 90
+  max_wall_time_sec: 3000
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  hr_semantics: 平台加载期是否给诊断记为事实(非缺陷判定)
+  rr_semantics: 全二值无权重
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/output/compliance_review.md
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-l13-plugin-compliance-l3-001:v1
+  image_lock: runtime/image.lock.json

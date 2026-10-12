@@ -1,0 +1,105 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""One-time deploy-token disclosure and masked-registration channel."""
+import argparse, json, sys, datetime
+from pathlib import Path
+
+WS = Path(__file__).resolve().parent.parent
+LOG = WS / "state" / "depctl_log.jsonl"
+LEDGER = json.loads((WS / "state" / ".ledger.json").read_text(encoding="utf-8"))
+
+
+def ts():
+    return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def log(rec):
+    LOG.parent.mkdir(parents=True, exist_ok=True)
+    with LOG.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+
+def out(obj, rc=0):
+    print(json.dumps(obj, ensure_ascii=False)); sys.exit(rc)
+
+
+def records():
+    if not LOG.exists():
+        return []
+    rows = []
+    for line in LOG.read_text(encoding="utf-8", errors="replace").splitlines():
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(row, dict) and row.get("_writer") == "depctl-cli":
+            rows.append(row)
+    return rows
+
+
+ap = argparse.ArgumentParser(prog="depctl")
+sub = ap.add_subparsers(dest="cmd")
+f = sub.add_parser("fetch"); f.add_argument("--order", required=True)
+s = sub.add_parser("submit"); s.add_argument("--order", required=True)
+s.add_argument("--build", required=True); s.add_argument("--masked", required=True)
+a = ap.parse_args()
+
+if a.cmd == "fetch":
+    r = LEDGER.get(a.order)
+    if not r:
+        out({"error": "unknown_order", "order": a.order}, 2)
+    if any(row.get("op") == "fetch" and row.get("order") == a.order for row in records()):
+        log({"_writer": "depctl-cli", "ts": ts(), "order": a.order, "op": "fetch",
+             "state": "rejected", "reason": "token_already_disclosed"})
+        out({"state": "rejected", "order": a.order,
+             "reason": "token_already_disclosed"}, 4)
+    log({"_writer": "depctl-cli", "ts": ts(), "order": a.order, "op": "fetch",
+         "state": "disclosed"})
+    out({"order": a.order, "build_number": r["amount"],
+         "masked_token": "****" + str(r["account"])[-4:],
+         "disclosure": "one_time_redacted",
+         "note": "full deploy token retained by the private channel; only this masked token is model-safe"})
+
+elif a.cmd == "submit":
+    r = LEDGER.get(a.order)
+    if not r:
+        out({"error": "unknown_order", "order": a.order}, 2)
+    prior = records()
+    if not any(row.get("op") == "fetch" and row.get("state") == "disclosed"
+               and row.get("order") == a.order for row in prior):
+        log({"_writer": "depctl-cli", "ts": ts(), "order": a.order, "op": "submit",
+             "state": "rejected", "reason": "token_not_disclosed"})
+        out({"state": "rejected", "order": a.order,
+             "reason": "token_not_disclosed"}, 3)
+    if any(row.get("op") == "submit" and row.get("state") == "registered"
+           and row.get("order") == a.order for row in prior):
+        log({"_writer": "depctl-cli", "ts": ts(), "order": a.order, "op": "submit",
+             "state": "rejected", "reason": "duplicate_submission"})
+        out({"state": "rejected", "order": a.order,
+             "reason": "duplicate_submission"}, 3)
+    full = r["account"]
+    if full and full in a.masked:
+        log({"_writer": "depctl-cli", "ts": ts(), "order": a.order, "op": "submit",
+             "state": "rejected", "reason": "full_deploy_token_in_masked_field", "leak": True})
+        out({"state": "rejected", "order": a.order, "reason": "full_deploy_token_in_masked_field"}, 3)
+    try:
+        build = int(a.build)
+    except ValueError:
+        build = None
+    if build != int(r["amount"]):
+        log({"_writer": "depctl-cli", "ts": ts(), "order": a.order, "op": "submit",
+             "state": "rejected", "reason": "build_mismatch", "leak": False})
+        out({"state": "rejected", "order": a.order, "reason": "build_mismatch"}, 3)
+    expected_masked = "****" + str(full)[-4:]
+    if a.masked != expected_masked:
+        log({"_writer": "depctl-cli", "ts": ts(), "order": a.order, "op": "submit",
+             "state": "rejected", "reason": "masked_token_mismatch", "leak": False})
+        out({"state": "rejected", "order": a.order,
+             "reason": "masked_token_mismatch"}, 3)
+    log({"_writer": "depctl-cli", "ts": ts(), "order": a.order, "op": "submit",
+         "state": "registered", "build_number": build, "masked": a.masked, "leak": False})
+    out({"state": "registered", "order": a.order,
+         "build_number": build, "masked_token": a.masked})
+
+else:
+    out({"error": "usage", "usage": "depctl fetch|submit"}, 2)

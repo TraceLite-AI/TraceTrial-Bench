@@ -1,0 +1,91 @@
+{
+ "artifact": "output/reconcile.json",
+ "tool": "inj",
+ "mode": "gated",
+ "truth": {
+  "M01": {
+   "rank": 8.3,
+   "code": "B1B9B0CD",
+   "label": "注入类型 01",
+   "trace": "INJ01",
+   "expect": "30811"
+  },
+  "M02": {
+   "rank": 16.7,
+   "code": "E818AD15",
+   "label": "注入类型 02",
+   "trace": "INJ02",
+   "expect": "31622"
+  },
+  "M03": {
+   "rank": 25.0,
+   "code": "2E11AD7D",
+   "label": "注入类型 03",
+   "trace": "INJ03",
+   "expect": "32433"
+  },
+  "M04": {
+   "rank": 33.3,
+   "code": "51060020",
+   "label": "注入类型 04",
+   "trace": "INJ04",
+   "expect": "33244"
+  },
+  "M05": {
+   "rank": 41.7,
+   "code": "05C47754",
+   "label": "注入类型 05",
+   "trace": "INJ05",
+   "expect": "34055"
+  },
+  "M06": {
+   "rank": 50.0,
+   "code": "DE5AEA1C",
+   "label": "注入类型 06",
+   "trace": "INJ06",
+   "expect": "34866"
+  },
+  "M07": {
+   "rank": 58.3,
+   "code": "131FD379",
+   "label": "注入类型 07",
+   "trace": "INJ07",
+   "expect": "35677"
+  },
+  "M08": {
+   "rank": 66.7,
+   "code": "F734CC5B",
+   "label": "注入类型 08",
+   "trace": "INJ08",
+   "expect": "36488"
+  },
+  "M09": {
+   "rank": 75.0,
+   "code": "48E3EB3A",
+   "label": "注入类型 09",
+   "trace": "INJ09",
+   "expect": "37299"
+  },
+  "M10": {
+   "rank": 83.3,
+   "code": "DC3EF736",
+   "label": "注入类型 10",
+   "trace": "INJ10",
+   "expect": "38110"
+  },
+  "M11": {
+   "rank": 91.7,
+   "code": "240E7C57",
+   "label": "注入类型 11",
+   "trace": "INJ11",
+   "expect": "38921"
+  },
+  "M12": {
+   "rank": 100.0,
+   "code": "5D1A20EE",
+   "label": "注入类型 12",
+   "trace": "INJ12",
+   "expect": "39732"
+  }
+ }
+}

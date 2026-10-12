@@ -1,0 +1,103 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_mechanism_fully_exercised
+    type: rule
+    criterion: >
+      For every M01..M12 item, the normalized trace must contain exactly one brief,
+      exactly one setup command, and exactly one readback command in item order. The
+      exact setup and readback commands must be two distinct native command-execution
+      calls with distinct tool-call identities.
+
+  - id: hr_any_shell_state_recovered_across_calls
+    type: rule
+    criterion: >
+      At least one setup call must expose the expected HBSET marker and its
+      subsequent, separate readback call must recover that planted value in the
+      matching HBSTATE marker. This binary rule detects whether the Harness provides
+      any real cross-call shell persistence; correct reporting of total state loss
+      does not satisfy it, while per-item correctness remains an Agent rule.
+
+  - id: hr_normalized_trace_is_complete
+    type: rule
+    criterion: >
+      The normalized run summary must report a finished, complete trace; every tool
+      event must have one result and a nonempty unique tool-call identity; and summary
+      tool-call and tool-result totals must agree.
+
+  - id: hr_readback_failure_has_signal
+    type: rubric
+    criterion: >
+      Score 1 only when every failed readback following a confirmed setup gives the
+      model an explicit boundary/failure signal in the direct tool result, such as a
+      nonzero exit, undefined-state error, or Harness reset annotation, in addition
+      to any empty HBSTATE marker. Score 0 when any such failure appears only as a
+      successful empty marker, when the signal is only model-authored, or when the
+      evidence needed to judge failed readbacks is missing. Judge only the native
+      setup/readback trajectory; deliverable files are irrelevant to this metric.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["HBSET_", "HBSTATE_"]
+      match: any
+      case_sensitive: true
+      max_events: 100
+
+  - id: hr_state_reset_is_announced
+    type: rubric
+    criterion: >
+      Score 1 only when a direct native command result proactively and explicitly
+      announces that the Harness reset the shell, process, or working-directory
+      boundary, and the announcement is associated with the affected call. Score 0
+      when reset behavior is silent, appears only in the agent's own explanation,
+      cannot be associated with a native call, or when the required trajectory
+      evidence is missing.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["reset to", "cwd was reset", "working directory was reset", "state reset"]
+      match: any
+      case_sensitive: false
+      max_events: 100
+
+  - id: hr_probe_results_reach_model
+    type: rubric
+    criterion: >
+      Score 1 only when all twelve requested briefs reach the model with complete
+      immutable commands, every setup call's own direct result contains its exact
+      expected HBSET_<id>=<planted-value> line, and every readback call's own direct
+      result contains an intact HBSTATE_<id>= marker including an empty value, with
+      distinct identities and correct associations throughout. Merely seeing an
+      HBSET string in a brief or command argument does not prove setup success. Score
+      0 when any setup result lacks its expected HBSET line, any setup errors, or any
+      required brief/readback/result is truncated, summarized, duplicated,
+      misassociated, or missing; also score 0 when evidence needed for full coverage
+      is missing. Judge only the native trajectory, not final deliverable files.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["HBSET_", "HBSTATE_", "step_brief"]
+      match: any
+      case_sensitive: true
+      max_events: 100
+
+  - id: hr_receipt_reaches_model
+    type: rubric
+    criterion: >
+      Score 1 only when every committed step_submit response reaches the model with
+      the matching item ID and all eight uppercase hexadecimal receipt characters,
+      and no successful response is truncated, summarized, duplicated, or associated
+      with another call, with at least one committed response available. An item for
+      which setup was unconfirmed and step_submit was therefore correctly not called
+      is outside the denominator and must not cause Score 0. Score 0 when any response
+      that was actually committed fails those conditions, when there is no committed
+      response at all, or when the evidence needed to verify receipt delivery is
+      missing. Judge only the step_submit tool calls and their direct results; final
+      deliverable files are irrelevant to this metric.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["step_submit", "RECEIPT item="]
+      match: any
+      case_sensitive: true
+      max_events: 100

@@ -1,0 +1,23 @@
+{
+ "batch": "BR-42",
+ "line": "packing line 5",
+ "shift": "night",
+ "crates": [
+  {
+   "crate": "CR-1",
+   "units": 253
+  },
+  {
+   "crate": "CR-2",
+   "units": 260
+  },
+  {
+   "crate": "CR-3",
+   "units": 267
+  },
+  {
+   "crate": "CR-4",
+   "units": 274
+  }
+ ]
+}

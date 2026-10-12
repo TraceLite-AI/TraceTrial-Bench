@@ -1,0 +1,198 @@
+{
+ "batch_code": "SBC-7E91-Q4MX",
+ "filing_permit": "STP-2048-NOVA",
+ "route_map": {
+  "eu-central": "CHN-CENTRAL-17",
+  "eu-vienna": "CHN-CENTRAL-17",
+  "eu-west": "CHN-WEST-42",
+  "eu-brussels": "CHN-WEST-42",
+  "eu-amsterdam": "CHN-WEST-42",
+  "eu-copenhagen": "CHN-NORTH-08",
+  "eu-stockholm": "CHN-NORTH-08",
+  "eu-helsinki": "CHN-NORTH-08",
+  "eu-warsaw": "CHN-EAST-31",
+  "eu-prague": "CHN-EAST-31",
+  "eu-milan": "CHN-SOUTH-56",
+  "eu-madrid": "CHN-SOUTH-56",
+  "eu-lisbon": "CHN-SOUTH-56",
+  "eu-dublin": "CHN-ATLANTIC-24"
+ },
+ "eligibility": {
+  "transfer_size_gib_min": 2000.0,
+  "protocol": "RSYNC",
+  "integrity": "VERIFIED"
+ },
+ "preview_markers": [
+  "PREVIEW-01-BEGIN-FEE64",
+  "PREVIEW-01-END-FA5261",
+  "PREVIEW-02-BEGIN-BB695",
+  "PREVIEW-02-END-C7B434",
+  "PREVIEW-03-BEGIN-FA9EF",
+  "PREVIEW-03-END-065786",
+  "PREVIEW-04-BEGIN-FCA85",
+  "PREVIEW-04-END-FF4715",
+  "PREVIEW-05-BEGIN-00C18",
+  "PREVIEW-05-END-3B34F9",
+  "PREVIEW-06-BEGIN-213EC",
+  "PREVIEW-06-END-6B9718",
+  "PREVIEW-07-BEGIN-9B7A0",
+  "PREVIEW-07-END-7BC956",
+  "PREVIEW-08-BEGIN-04028",
+  "PREVIEW-08-END-43355A"
+ ],
+ "release_marker": "The following two manifests are now explicitly RELEASED under the standing archive profile from turn 1.",
+ "preview_acknowledgements": [
+  "PREVIEW-01 received.",
+  "PREVIEW-02 received.",
+  "PREVIEW-03 received.",
+  "PREVIEW-04 received.",
+  "PREVIEW-05 received.",
+  "PREVIEW-06 received.",
+  "PREVIEW-07 received.",
+  "PREVIEW-08 received."
+ ],
+ "released": {
+  "RELEASE-A": [
+   {
+    "order_id": "REL-A-001",
+    "released_batch": "RELEASE-A",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-CENTRAL-17",
+    "region": "eu-central",
+    "class": "4202.22",
+    "transfer_size_gib": 2231.96,
+    "unit": "PIB"
+   },
+   {
+    "order_id": "REL-A-005",
+    "released_batch": "RELEASE-A",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-WEST-42",
+    "region": "eu-west",
+    "class": "4202.22",
+    "transfer_size_gib": 2529.36,
+    "unit": "TIB"
+   },
+   {
+    "order_id": "REL-A-009",
+    "released_batch": "RELEASE-A",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-NORTH-08",
+    "region": "eu-copenhagen",
+    "class": "4202.22",
+    "transfer_size_gib": 2041.32,
+    "unit": "GIB"
+   },
+   {
+    "order_id": "REL-A-013",
+    "released_batch": "RELEASE-A",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-EAST-31",
+    "region": "eu-warsaw",
+    "class": "6109.10",
+    "transfer_size_gib": 2365.39,
+    "unit": "KIB"
+   },
+   {
+    "order_id": "REL-A-017",
+    "released_batch": "RELEASE-A",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-SOUTH-56",
+    "region": "eu-milan",
+    "class": "8517.62",
+    "transfer_size_gib": 2861.22,
+    "unit": "MIB"
+   },
+   {
+    "order_id": "REL-A-021",
+    "released_batch": "RELEASE-A",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-ATLANTIC-24",
+    "region": "eu-dublin",
+    "class": "4202.22",
+    "transfer_size_gib": 2135.14,
+    "unit": "PIB"
+   }
+  ],
+  "RELEASE-B": [
+   {
+    "order_id": "REL-B-001",
+    "released_batch": "RELEASE-B",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-CENTRAL-17",
+    "region": "eu-central",
+    "class": "9503.00",
+    "transfer_size_gib": 2102.98,
+    "unit": "TIB"
+   },
+   {
+    "order_id": "REL-B-005",
+    "released_batch": "RELEASE-B",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-WEST-42",
+    "region": "eu-west",
+    "class": "8471.30",
+    "transfer_size_gib": 2191.14,
+    "unit": "KIB"
+   },
+   {
+    "order_id": "REL-B-009",
+    "released_batch": "RELEASE-B",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-NORTH-08",
+    "region": "eu-copenhagen",
+    "class": "3304.99",
+    "transfer_size_gib": 2885.21,
+    "unit": "GIB"
+   },
+   {
+    "order_id": "REL-B-013",
+    "released_batch": "RELEASE-B",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-EAST-31",
+    "region": "eu-warsaw",
+    "class": "6109.10",
+    "transfer_size_gib": 2400.93,
+    "unit": "TIB"
+   },
+   {
+    "order_id": "REL-B-017",
+    "released_batch": "RELEASE-B",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-SOUTH-56",
+    "region": "eu-milan",
+    "class": "4202.22",
+    "transfer_size_gib": 2373.22,
+    "unit": "TIB"
+   },
+   {
+    "order_id": "REL-B-021",
+    "released_batch": "RELEASE-B",
+    "batch_code": "SBC-7E91-Q4MX",
+    "filing_permit": "STP-2048-NOVA",
+    "channel_code": "CHN-ATLANTIC-24",
+    "region": "eu-dublin",
+    "class": "6109.10",
+    "transfer_size_gib": 2493.5,
+    "unit": "TIB"
+   }
+  ]
+ },
+ "expected_archived": 12,
+ "counts": {
+  "RELEASE-A": {"received": 24, "archived": 6, "excluded": 18},
+  "RELEASE-B": {"received": 24, "archived": 6, "excluded": 18},
+  "TOTAL": {"received": 48, "archived": 12, "excluded": 36}
+ }
+}

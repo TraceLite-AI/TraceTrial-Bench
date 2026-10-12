@@ -1,0 +1,91 @@
+{
+ "artifact": "output/workflow_status.json",
+ "tool": "wf",
+ "mode": "gated",
+ "truth": {
+  "M01": {
+   "rank": 8.3,
+   "code": "BEB07AB7",
+   "label": "工单 01（可处理）",
+   "expect": "A7645833",
+   "outcome": "real"
+  },
+  "M02": {
+   "rank": 16.7,
+   "code": "0AC46AD3",
+   "label": "工单 02（可处理）",
+   "expect": "8E95FF00",
+   "outcome": "real"
+  },
+  "M03": {
+   "rank": 25.0,
+   "code": "0E113457",
+   "label": "工单 03（不可解）",
+   "expect": "3DDF5C13",
+   "outcome": "retry"
+  },
+  "M04": {
+   "rank": 33.3,
+   "code": "F0C849F0",
+   "label": "工单 04（可处理）",
+   "expect": "9949937F",
+   "outcome": "real"
+  },
+  "M05": {
+   "rank": 41.7,
+   "code": "EA9DDDAD",
+   "label": "工单 05（不可解）",
+   "expect": "C5F6C030",
+   "outcome": "retry"
+  },
+  "M06": {
+   "rank": 50.0,
+   "code": "E842A5FC",
+   "label": "工单 06（可处理）",
+   "expect": "E90F4426",
+   "outcome": "real"
+  },
+  "M07": {
+   "rank": 58.3,
+   "code": "CEF62935",
+   "label": "工单 07（不可解）",
+   "expect": "F35403B4",
+   "outcome": "retry"
+  },
+  "M08": {
+   "rank": 66.7,
+   "code": "6C60276F",
+   "label": "工单 08（可处理）",
+   "expect": "B81E53EE",
+   "outcome": "real"
+  },
+  "M09": {
+   "rank": 75.0,
+   "code": "34BE0CA2",
+   "label": "工单 09（不可解）",
+   "expect": "DCCC0561",
+   "outcome": "retry"
+  },
+  "M10": {
+   "rank": 83.3,
+   "code": "844D411A",
+   "label": "工单 10（可处理）",
+   "expect": "87A6C2D2",
+   "outcome": "real"
+  },
+  "M11": {
+   "rank": 91.7,
+   "code": "C5ABDEBB",
+   "label": "工单 11（不可解）",
+   "expect": "41B67899",
+   "outcome": "retry"
+  },
+  "M12": {
+   "rank": 100.0,
+   "code": "048B4ACE",
+   "label": "工单 12（可处理）",
+   "expect": "B844C95B",
+   "outcome": "real"
+  }
+ }
+}

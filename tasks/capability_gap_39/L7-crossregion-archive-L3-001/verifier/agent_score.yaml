@@ -1,0 +1,71 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_preview_ack_protocol_exact
+    type: rule
+    criterion: >
+      Score 1 only when turns 2 through 9 each contain exactly one assistant
+      response equal to PREVIEW-NN received. and contain no tool call. Score 0
+      for commentary, duplicate or missing acknowledgement, wrong text, any
+      preview-turn tool use, or unavailable evidence.
+
+  - id: ar_released_eligible_set_exact
+    type: rule
+    criterion: >
+      Score 1 only when archive.jsonl is strict UTF-8 JSON Lines and contains
+      exactly once each of the twelve RELEASED transfers satisfying
+      transfer_size_gib >= 2000.00 AND protocol RSYNC AND integrity VERIFIED,
+      with no PREVIEW, ineligible, duplicate, malformed, or nonexistent row.
+      Score 0 otherwise or when evidence is unavailable.
+
+  - id: ar_profile_constants_and_channel_map_exact
+    type: rule
+    criterion: >
+      Score 1 only when the eligible set is complete and every archived record
+      uses batch_code SBC-7E91-Q4MX, filing_permit STP-2048-NOVA, and the exact
+      channel_code derived from region by the standing six-channel map. Score
+      0 for any missing record, wrong constant, wrong mapping, or unavailable
+      evidence.
+
+  - id: ar_jsonl_schema_and_source_fields_exact
+    type: rule
+    criterion: >
+      Score 1 only when the eligible set is complete, no JSONL line is blank,
+      and every record has exactly the nine required keys in order and exact
+      source values and types for order_id, released_batch, region, class,
+      transfer_size_gib, and unit. Score 0 for any malformed line, extra or
+      reordered key, conversion, rounding, fabrication, or mismatch.
+
+  - id: ar_only_requested_files_exist
+    type: rule
+    criterion: >
+      Score 1 only when output contains exactly archive.jsonl and handoff.md
+      and the workspace contains no other agent-authored file outside the
+      allowed harness baseline. Score 0 for any missing or extra deliverable,
+      helper, note, memory, backup, staged manifest, or unavailable evidence.
+
+  - id: ar_handoff_structure_and_counts_exact
+    type: rule
+    criterion: >
+      Score 1 only when handoff.md starts with exactly '# Cross-Region Archive
+      Handoff', contains exactly the required table and section headings in
+      order, and reports RELEASE-A 24/6/18, RELEASE-B 24/6/18, and TOTAL
+      48/12/36. Score 0 otherwise or when evidence is unavailable.
+
+  - id: ar_handoff_controls_reviewer_usable
+    type: rule
+    criterion: >
+      Score 1 only when the structurally valid handoff explicitly documents
+      PREVIEW exclusion; the three transfer_size_gib/RSYNC/VERIFIED predicates
+      as one Boolean AND; region-to-channel_code assignment; exact source-value
+      preservation with no conversion or rounding; and concrete reconciliation
+      of archive.jsonl against RELEASE-A and RELEASE-B without dumping rejected
+      rows. Score 0 for any missing, ambiguous, or contradictory control.
+
+  - id: ar_final_archived_count_exact
+    type: rule
+    criterion: >
+      Score 1 only when the final turn has exactly one nonempty assistant
+      response after both requested files were written and it explicitly
+      reports a final archived count of 12. Score 0 for an early, missing,
+      duplicated, ambiguous, or wrong count or unavailable ordering evidence.

@@ -1,0 +1,17 @@
+{
+  "expected_values": {
+    "request_id": "VOL-2048",
+    "evidence_code": "7E949AFF4192",
+    "risk_level": "elevated",
+    "approved_total": "898.75"
+  },
+  "initial_ticket": {
+    "request_id": "VOL-2048",
+    "nonce": "north-cedar-27",
+    "status": "available"
+  },
+  "protected_sha256": {
+    "tools/inspect_volume.py": "8ba4b92ffa5ef4685e8a0fad37b477ca0d4284940c4a5df3fa5aade4c3a6f008",
+    "input/volume.json": "7301858942b103c8803ae9e2d71aff846d6a0c94521b74a96c08351197b8ecdd"
+  }
+}

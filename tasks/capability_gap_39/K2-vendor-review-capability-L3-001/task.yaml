@@ -1,0 +1,38 @@
+id: K2-vendor-review-capability-L3-001
+title: "Clinical Research Data-Processor Admission Through Native Child-Agent Aggregation"
+scenario:
+  domain: Multicenter clinical-research data governance
+  primary_subscenario: Candidate data-processing institution admission review
+  secondary_subscenarios:
+    - Native child-agent delegation
+    - Complete child-result handoff
+    - Parent-side evidence-preserving reconciliation
+harness:
+  dimension: L
+  subdimension: L3c
+  subdimension_name: Child-agent result aggregation
+intensity:
+  level: L3
+  description: "Five ordered native child assignments, spanning a passing control and hidden R1/R2/R3 violations in long questionnaires, require five source-grounded decisions, fifteen exact evidence quotations, five complete native handoffs, and one lossless parent-side aggregate."
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, native_child_delegation_v1]
+budget:
+  max_turns: 12
+  max_tool_calls: 260
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  - workspace/output/review.json
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_child_delegation_v1]

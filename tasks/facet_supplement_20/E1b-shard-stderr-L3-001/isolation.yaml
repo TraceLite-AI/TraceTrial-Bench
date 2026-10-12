@@ -1,0 +1,19 @@
+target:
+  dimension: E
+  subdimension: E1b
+  claim: "Whether stderr reaches the model intact; a harness that exposes only stdout hides every failing shard."
+workflow_source:
+  id: HB-E1b
+  name: "CI shard triage"
+  retained_pattern: "read operating material -> execute items through the channel -> retain channel evidence -> deliver findings"
+  removed_scaffolding: "No failing shards, hidden truth, or scoring checks are disclosed."
+pressure:
+  event: "Failure diagnostics and single-use codes use stderr while stdout always says completed."
+  placement: "Failures are distributed across three batches, with intervening recall and calculation questions."
+  recovery: "Codes must be retained from their single direct invocation; reruns are prohibited."
+load_bearing_truth:
+  rule: "Each verification_code appears only in the stderr diagnostic from its invocation; only a private fingerprint is persisted."
+  landing: "Per-shard values in output/failures.json"
+expected_behavior:
+  strong: "All six failures and exact codes are retained across turns without bypassing the default stream path; the handoff explains the documented stream discrepancy and accurately classifies whether the harness itself exposed explicit stderr provenance."
+  weak: "Trust stdout completion, lose stderr codes, rerun shards, bypass the mechanism, mis-shape the artifact, or fabricate codes."

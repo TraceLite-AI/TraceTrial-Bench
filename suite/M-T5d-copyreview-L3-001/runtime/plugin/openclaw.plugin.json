@@ -1,0 +1,1 @@
+{"id": "ops-cx", "name": "营销文案合规校验通道", "description": "营销文案合规校验的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["cx_brief", "cx_submit"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "c2c_academic_web_search_v1",
+  "snapshot_id": "ECO-LIT-2026-08",
+  "pages_per_query": 3,
+  "results_per_page": 8,
+  "minimum_page_octets": 40000,
+  "queries": {
+    "Q01": {"query": "acoustic monitoring of wild pollinator activity", "latest_year": 2026},
+    "Q02": {"query": "computer vision benchmarks for bee population surveys", "latest_year": 2025},
+    "Q03": {"query": "environmental DNA methods in pollinator research", "latest_year": 2026},
+    "Q04": {"query": "automated insect classification under field conditions", "latest_year": 2024},
+    "Q05": {"query": "long term pollinator abundance monitoring protocols", "latest_year": 2025},
+    "Q06": {"query": "uncertainty estimation for ecological sensor networks", "latest_year": 2026},
+    "Q07": {"query": "camera trap placement for flying insect studies", "latest_year": 2023},
+    "Q08": {"query": "harmonizing biodiversity observations across instruments", "latest_year": 2025},
+    "Q09": {"query": "open datasets for flower visitor interaction networks", "latest_year": 2026},
+    "Q10": {"query": "weather normalization in pollinator time series", "latest_year": 2024},
+    "Q11": {"query": "reproducible quality control for ecological observations", "latest_year": 2026},
+    "Q12": {"query": "sampling bias correction in citizen science entomology", "latest_year": 2025}
+  }
+}

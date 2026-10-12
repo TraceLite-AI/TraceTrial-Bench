@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:d07773865a7248f5f6d1c262d708ddf287603e314e96e5f3e130c3b16fda4f3a",
+  "image_reference": "harnessbench/case-e1-config-remediation-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "E1-config-remediation-L3-001"
+}

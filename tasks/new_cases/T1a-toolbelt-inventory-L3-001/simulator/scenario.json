@@ -1,0 +1,7 @@
+{
+  "schema_version": "t1a_phytosanitary_bench_surface_v1",
+  "token": "PQ-BENCH-PROTECTED-7D3C91",
+  "required_label": "PQ-4101",
+  "required_mode": "bench-audit",
+  "attestation": "BENCH-EXPOSURE-OK-4101"
+}

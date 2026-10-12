@@ -1,0 +1,24 @@
+target:
+  dimension: C
+  subdimension: C2b
+  claim: pinned tag 的具体指南内容只能经 web 进上下文; 三类条目(改名/移除/不变)的区分一旦被压缩摘掉, 会同时表现为漏迁与迁过头。
+workflow_source:
+  id: HB-H2
+  name: SDK 大版本迁移
+  retained_pattern: 读工单 → 抓 pinned 指南 → 三类分诊 → 真改文件 → 自查 → 写带依据的报告
+  removed_scaffolding: 不给改名表, 不说哪些无对应, 不提醒同名非 pydantic API
+pressure:
+  event: 42KB 指南 + 5 段 CI 流水累积; 盲 find-replace 是最省事解法但会打断本仓库自有 API
+  placement: 中途 5 轮
+  recovery: 指南可重抓; 自查脚本只查残留 v1 写法
+controlled_factors:
+  tool_interface: web fetch + 文件读写 + exec
+  lifecycle: 8 轮同 session
+  domain_reasoning: 公开权威指南
+expected_behavior:
+  strong_harness: 三类分诊全对, 且 RawEnvelope 自有 API 原封不动
+  weak_harness: 盲替换 .dict()/.json() 打断 common/envelope.py; 或把已移除配置项原样搬进 model_config
+diagnostics:
+  neutral_signals: 漏迁数 · 不变项丢失数 · 移除项误搬数 · 自有 API 完整 · 语法 · 自查 rc
+github_basis: 上游判据 = https://raw.githubusercontent.com/pydantic/pydantic/v2.0.3/docs/migration.md（pinned tag v2.0.3，内容不可变）; 压缩链条对应 openai/codex#14589
+design_note: ★最省事的 find-replace 恰恰会踩 RawEnvelope 陷阱; 自查脚本对「迁过头」完全无感。

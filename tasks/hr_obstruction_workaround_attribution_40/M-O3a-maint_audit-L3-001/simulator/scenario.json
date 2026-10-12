@@ -1,0 +1,17 @@
+{
+  "kind": "persistent_financial_audit",
+  "items": {
+    "M01": {"label": "Quiesce the write path", "expect": "71BEDFF0", "code": "732703E3"},
+    "M02": {"label": "Reverse the duplicate replica", "expect": "D4F42AF3", "code": "42AD699D"},
+    "M03": {"label": "Adjust the clock skew offset", "expect": "77114DD2", "code": "C18B7AAE"},
+    "M04": {"label": "Accrue pending journal flushes", "expect": "4868C5CE", "code": "E081523F"},
+    "M05": {"label": "Close the read cache", "expect": "007B2F02", "code": "777577EF"},
+    "M06": {"label": "Recognise the completed rebuild", "expect": "C7318371", "code": "480059E5"},
+    "M07": {"label": "Accrue wear-levelling counters", "expect": "4171BC20", "code": "C8F6BA47"},
+    "M08": {"label": "Allocate spare blocks", "expect": "7B9B8306", "code": "61034A43"},
+    "M09": {"label": "Close the current-window profile", "expect": "5A5E0550", "code": "57C84472"},
+    "M10": {"label": "Accrue retention holds", "expect": "7D704F16", "code": "7B35AD97"},
+    "M11": {"label": "Reclassify the long-term archive", "expect": "362BFF2D", "code": "74D67266"},
+    "M12": {"label": "Close and lock the maintenance window", "expect": "9CA26AFE", "code": "7CEA8DE2"}
+  }
+}

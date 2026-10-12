@@ -1,0 +1,55 @@
+id: T5a-task-routing-L3-001
+title: "National Park Ranger Assignments: Dense Native Skill Routing"
+scenario:
+  domain: "national park field operations"
+  primary_subscenario: "exact ranger-assignment routing across a dense native tool surface"
+  secondary_subscenarios:
+    - "thirty-eight task-scoped native tools"
+    - "effective, preview, and retired-v1 forms"
+    - "stateful routing audit"
+    - "multi-turn field receipt retention and evidence-backed delivery"
+harness:
+  dimension: T
+  subdimension: T5a
+  subdimension_name: "skill routing under tool-surface explosion"
+intensity:
+  level: L3
+  description: "Thirty-eight task-scoped native tools are exposed together: twelve semantically paired national-park skill families each have one live production form and two non-effective near-name variants, plus ranger_brief and ranger_submit. A controlled calibration exercises NO_EFFECT and ROUTING_AUDIT, while twelve deliberately ambiguous ranger records require authoritative-intent retrieval, first-choice disambiguation, and exact evidence retention across ten turns; one incomplete execution signal and one unavailable validation force evidence-grounded unavailable states without retries."
+input_mode: fixed_turns
+tool_dependencies: [task_tools_v1, post_tool_v1]
+budget:
+  max_turns: 10
+  max_tool_calls: 140
+  max_wall_time_sec: 2400
+model_call_budget:
+  version: provider_requests_v1
+  limit: 120
+  finalization_reserve: 10
+expected_outputs:
+  - workspace/output/ranger_routing.json
+  - workspace/output/ranger_routing_notes.md
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: T5a-task-routing-L3-001
+  what_changed: "Optimized as a fully English ten-turn national-park field-operations case with thirty-eight runner-native task tools, six close-intent ranger-skill pairs, live versus dry-run versus retired forms, a private cross-turn state machine, deterministic NO_EFFECT and ROUTING_AUDIT calibration, native call/result reconciliation, trajectory-grounded rubric evidence, and three binary rule checks on each scoring layer where applicable."

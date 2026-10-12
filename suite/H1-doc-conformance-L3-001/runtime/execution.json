@@ -1,0 +1,8 @@
+{
+  "conversation": "multi_turn",
+  "network_mode": "web",
+  "profile": "H1-doc-conformance-L3-001",
+  "runnable": true,
+  "schema_version": "openclaw_native_v1",
+  "timeout_sec": 3600
+}

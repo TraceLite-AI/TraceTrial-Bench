@@ -1,0 +1,98 @@
+{
+ "M01": {
+  "rank": 8.3,
+  "code": "F3EEF7D3",
+  "label": "并发 1 个后台作业",
+  "trace": "1178573F",
+  "expect": "1178573F",
+  "note": "1"
+ },
+ "M02": {
+  "rank": 16.7,
+  "code": "30BF532A",
+  "label": "并发 2 个后台作业",
+  "trace": "4FB1F32B",
+  "expect": "4FB1F32B",
+  "note": "2"
+ },
+ "M03": {
+  "rank": 25.0,
+  "code": "C8BAA3B3",
+  "label": "并发 3 个后台作业",
+  "trace": "5418A67B",
+  "expect": "5418A67B",
+  "note": "3"
+ },
+ "M04": {
+  "rank": 33.3,
+  "code": "42C81BBB",
+  "label": "并发 4 个后台作业",
+  "trace": "D22E715C",
+  "expect": "D22E715C",
+  "note": "4"
+ },
+ "M05": {
+  "rank": 41.7,
+  "code": "D6BC30DE",
+  "label": "并发 5 个后台作业",
+  "trace": "65CC4379",
+  "expect": "65CC4379",
+  "note": "5"
+ },
+ "M06": {
+  "rank": 50.0,
+  "code": "90EB4A29",
+  "label": "并发 6 个后台作业",
+  "trace": "9DBC3A6F",
+  "expect": "9DBC3A6F",
+  "note": "6"
+ },
+ "M07": {
+  "rank": 58.3,
+  "code": "3931AED0",
+  "label": "并发 7 个后台作业",
+  "trace": "B15BA936",
+  "expect": "B15BA936",
+  "note": "7"
+ },
+ "M08": {
+  "rank": 66.7,
+  "code": "6B797419",
+  "label": "并发 8 个后台作业",
+  "trace": "79A02629",
+  "expect": "79A02629",
+  "note": "8"
+ },
+ "M09": {
+  "rank": 75.0,
+  "code": "4AFB1340",
+  "label": "并发 9 个后台作业",
+  "trace": "47B684D5",
+  "expect": "47B684D5",
+  "note": "9"
+ },
+ "M10": {
+  "rank": 83.3,
+  "code": "35987E53",
+  "label": "并发 10 个后台作业",
+  "trace": "95628652",
+  "expect": "95628652",
+  "note": "10"
+ },
+ "M11": {
+  "rank": 91.7,
+  "code": "449A2F7E",
+  "label": "并发 11 个后台作业",
+  "trace": "BC1EB5A7",
+  "expect": "BC1EB5A7",
+  "note": "11"
+ },
+ "M12": {
+  "rank": 100.0,
+  "code": "F6F607E9",
+  "label": "并发 12 个后台作业",
+  "trace": "17AE4D0A",
+  "expect": "17AE4D0A",
+  "note": "12"
+ }
+}

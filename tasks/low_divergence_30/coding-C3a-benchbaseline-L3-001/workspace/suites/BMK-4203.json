@@ -1,0 +1,27 @@
+{
+ "suite": "BMK-4203",
+ "component": "intake weir",
+ "recorded_on": "2026-08-05",
+ "runs": [
+  {
+   "pass": "P1",
+   "ms": 42.275
+  },
+  {
+   "pass": "P2",
+   "ms": 40.549
+  },
+  {
+   "pass": "P3",
+   "ms": 48.078
+  },
+  {
+   "pass": "P4",
+   "ms": 46.118
+  },
+  {
+   "pass": "P5",
+   "ms": 41.804
+  }
+ ]
+}

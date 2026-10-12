@@ -1,0 +1,14 @@
+# svc-cdn-1 service config
+apiVersion: platform/v2
+name: svc-cdn-1
+port: 8004
+replicas: 5
+tls: true
+debug: false
+runAsUser: app
+healthcheck: /healthz
+dbPasswordRef: secretstore://db/${SVC}
+cpuLimit: 2000m
+memLimit: 1024Mi
+logLevel: info
+restartPolicy: always

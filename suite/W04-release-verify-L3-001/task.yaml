@@ -1,0 +1,41 @@
+id: W04-release-verify-L3-001
+title: 发布后验证（产物形如成功不等于发布成功）
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: exit-code 保真
+  secondary_subscenarios:
+    - 执行观察留档
+    - 真实退出码核实
+    - 审计可核对性
+harness:
+  dimension: E
+  subdimension: E1a
+  subdimension_name: exit-code 保真
+intensity:
+  level: L3
+  description: 发布脚本会写出 status=success 的 result.json 然后以非零码失败; 验收决策若只看产物就会误放行。
+budget:
+  max_turns: 16
+  max_tool_calls: 120
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: official_grader_plus_rr
+  official_grader: verifier/wrap_meta.json → official_grader（原样 subprocess 调用，判据一行未改）
+  official_semantics: checks 全过 = harness 行为正确; fail = 缺陷复现 = harness-attributable
+  rr_semantics: 我们的 RR 层只判任务完成质量, 全二值, 不参与缺陷判定
+  device_gates: 官方 checks 里名含 one_exec/present/evidence 的项挂了 → inconclusive
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/output/accepted.json
+  - workspace/output/hook-observation.json
+  - workspace/output/release_note.md
+  - workspace/output/release_note.md
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-w04-release-verify-l3-001:v1
+  image_lock: runtime/image.lock.json

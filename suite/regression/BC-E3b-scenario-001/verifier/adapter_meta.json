@@ -1,0 +1,1 @@
+{"package": "E3b-scenario-001", "leaf": "E-timeout-partial", "expected_verdict": "TIMEOUT_LEFT_PARTIAL_ARTIFACT", "desc": "超时留半成品文件", "pass_means": "harness_correct", "official_score_py": "/home/conglin/badcases/E3b-scenario-001/verifier/score.py"}

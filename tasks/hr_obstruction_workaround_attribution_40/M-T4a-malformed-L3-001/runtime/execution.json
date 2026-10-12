@@ -1,0 +1,9 @@
+{
+  "conversation": "multi_turn",
+  "network_mode": "none",
+  "profile": "M-T4a-malformed-L3-001",
+  "requires": ["task_tools_v1", "post_tool_v1"],
+  "runnable": true,
+  "schema_version": "harnessbench_execution_v1",
+  "timeout_sec": 3600
+}

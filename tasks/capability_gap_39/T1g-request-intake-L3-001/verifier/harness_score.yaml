@@ -1,0 +1,97 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_conditional_conversation_trace_is_complete
+    type: rule
+    criterion: >
+      Score 1 only when the aggregate normalized trace proves a complete simulator-mode
+      conversation: conversation_started and successful run_finished are present, every scheduled
+      turn completed, trace_complete is true, no run_failed event exists, and every turn remains
+      in exactly one non-empty native session with no session boundary. Score 0 for an incomplete,
+      failed, reset, multi-session, mismatched, or unavailable trace.
+  - id: hr_structured_ask_user_round_trip_is_operational
+    type: rule
+    criterion: >
+      Score 1 only when the normalized trace contains a real invocation of a first-class
+      structured ask-user tool whose arguments identify all five unresolved request IDs, its
+      immediate result is successful and bound to the same call, and the exact private Urban
+      Forestry Operations answer appears once in a later user turn. A provider declaration alone,
+      especially one restricted to an inactive mode, is not operational evidence. Score 0 when the
+      capability is absent or not invoked, the question is incomplete, the call fails or loses
+      identity, the response is missing, early, duplicate, altered, unbound, or deterministic
+      evidence is unavailable.
+  - id: hr_private_clarification_follows_release_policy
+    type: rule
+    criterion: >
+      Score 1 only when the private decisions and authorization values follow the conditional
+      release policy in the observed trace: without a structured ask-user call they never appear
+      in a user turn; after a real call exactly one complete byte-exact clarification appears
+      later. Ordinary assistant text must never unlock or contain the private values. Score 0 for
+      an unearned, early, duplicate, partial, modified, missing-after-call, leaked, or unauditable
+      release.
+  - id: hu_structured_clarification_request_is_decision_complete
+    type: rubric
+    criterion: >
+      Score 1 only when an actual successful structured ask-user invocation presents a usable,
+      decision-complete clarification request covering all five unresolved request IDs and the
+      competing choices or identifiers that Operations must resolve. Its arguments and bound
+      result must be visible, and the later authoritative user answer must be consistent with the
+      requested decisions. Score 0 when there is no actual invocation, a provider declaration is
+      the only evidence, the call is unavailable or unsuccessful, any unresolved request or
+      material alternative is omitted, the result is unbound, the later answer is inconsistent, or
+      evidence is missing. Agent-omission guard: this criterion can only judge the calls the Agent
+      actually made. If the Agent never issued a call this criterion depends on, that gap is an
+      Agent-layer omission, not a Harness defect — score 0 and begin the reason with the literal
+      prefix [AGENT BYPASS] so attribution charges it to the Agent rather than the Harness. Judge
+      Harness quality only over the calls that were actually issued; never let the Agent's own
+      artifacts, records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["tool", "conversation_turn_started"]
+      fields: ["event_type", "seq", "tool_call.tool_call_id", "tool_call.tool_name", "tool_call.name", "tool_call.arguments", "tool_result", "user_input", "input"]
+      keywords: ["request_user_input", "ask_user", "AskUserQuestion", "clarify", "request_input", "prompt_user", "elicit", "[STRUCTURED CLARIFICATION RESPONSE]"]
+      match: "any"
+      case_sensitive: false
+      max_events: 20
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness imposed on the model
+      in this run: content the model asked for that came back truncated, dropped, emptied, reset,
+      blocked, rate-limited, or that required extra steps the task itself did not ask for. Quote
+      each one from the direct tool result that carries it, with its tool-call identity. If there
+      were none, state that explicitly. Then score. Score 1 when either (a) the Harness imposed no
+      obstruction at all, or (b) every obstruction it did impose came with a usable recovery path
+      that was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could read back - so
+      the model could still obtain what it needed without guessing. Score 0 when any obstruction
+      was silent, or was announced but left no path the model could actually take. A notice counts
+      only when it appears inside the direct result of the very call that was obstructed and names
+      what is missing or where to get it. Text the model itself wrote never counts. A generic word
+      such as "unavailable" appearing elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "request_user_input", "ask_user", "AskUserQuestion"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a specific Harness
+      obstruction. This includes the case where obstructions occurred but the model routed around
+      all of them and the deliverables are still complete and exact - detour cost alone is never
+      charged to the Harness. Score 0 only when all three hold together: (i) the Harness
+      obstructed at least one call, (ii) at least one delivered item is missing, null-where-a-
+      value was obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity. Requirement (iii) is decisive and must be shown, not assumed:
+      name the deliverable key and the tool-call id it failed behind. If the model failed for an
+      unrelated reason, or the link cannot be shown from the trajectory, score 1 and say so - that
+      failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "request_user_input", "ask_user", "AskUserQuestion"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100

@@ -1,0 +1,58 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_canonical_trace_complete
+    type: rule
+    criterion: >
+      Score 1 only when the canonical normalized trace is marked complete, records a start and
+      a finish for each of the seven turns, exposes a typed parent exit code, has contiguous
+      unique sequence numbers, and pairs every tool call with a structured result carrying the
+      same unique non-empty id. Score 0 for missing, duplicated, orphaned, truncated,
+      inconsistent, or unavailable lifecycle evidence.
+
+  - id: hr_scenario_holds_one_of_each_failure_kind
+    type: rule
+    criterion: >
+      Score 1 only when the workspace really contains six readable ledgers, exactly one
+      posting naming a path that does not exist, and exactly one naming a path that resolves
+      to a directory, recomputed from the workspace rather than read from a fixture. Score 0
+      otherwise: without one of each kind the case cannot measure whether they are
+      distinguishable, and no conclusion should be drawn from the run.
+
+  - id: hr_tool_error_says_what_went_wrong
+    type: rule
+    criterion: >
+      This is the item the case exists for, and it scores the platform. Score 1 only when each
+      failing read came back with an error that names what went wrong specifically enough to
+      act on -- an absent path reported as absent, a directory path reported as a directory.
+      Score 0 when an error says only that the read failed, when it names both kinds and
+      settles neither, when it names the wrong kind, or when no error came back at all. Read
+      from the tool result in the trace, never from what the model wrote about it.
+
+  - id: hr_failure_kinds_are_distinguishable
+    type: rule
+    criterion: >
+      Score 1 only when the two failures were reported differently from each other, so a
+      reader of the results alone can tell which is which. Score 0 when both arrive worded the
+      same way, even if that wording is informative: two failures that call for different
+      actions and arrive identical leave the model unable to route either. Score 0 if the
+      evidence needed to compare them is missing.
+
+  - id: hu_unreported_failure_detail_is_announced
+    type: rubric
+    criterion: >
+      Score 1 when either every failing read carried its specific reason, or the platform
+      itself indicated that detail was withheld, truncated, or unavailable -- an explicit
+      notice, an error type without a message paired with a statement that more detail exists
+      elsewhere, or similar -- so the model could tell it was missing something. Score 0 when
+      a generic failure was delivered as if it were the whole story, leaving the model with no
+      indication that a distinction it needs was dropped. The model noticing on its own that
+      two failures look alike is not a platform announcement. Score 0 if the evidence is
+      insufficient to tell the two situations apart.
+    evidence:
+      event_types: ["tool", "assistant_message", "model_input", "raw_stdout", "raw_stderr", "run_finished", "run_failed"]
+      fields: ["tool_call.tool_name", "tool_call.arguments", "tool_result", "raw_event", "content", "text", "error_message"]
+      keywords: ["ENOENT", "EISDIR", "no such file", "is a directory", "error", "failed", "truncated", "unavailable", "ledgers/"]
+      match: any
+      case_sensitive: false
+      max_events: 80

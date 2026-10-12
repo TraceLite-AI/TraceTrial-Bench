@@ -1,0 +1,9 @@
+{
+  "conversation": "multi_turn",
+  "network_mode": "none",
+  "profile": "M-T6a-changewin-L3-001",
+  "requires": ["gateway"],
+  "runnable": true,
+  "schema_version": "native_v1",
+  "timeout_sec": 1800
+}

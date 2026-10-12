@@ -1,0 +1,16 @@
+{
+  "items": [
+    {"id": "M01", "label": "Volume group 1"},
+    {"id": "M02", "label": "Volume group 2"},
+    {"id": "M03", "label": "Volume group 3"},
+    {"id": "M04", "label": "Volume group 4"},
+    {"id": "M05", "label": "Volume group 5"},
+    {"id": "M06", "label": "Volume group 6"},
+    {"id": "M07", "label": "Volume group 7"},
+    {"id": "M08", "label": "Volume group 8"},
+    {"id": "M09", "label": "Volume group 9"},
+    {"id": "M10", "label": "Volume group 10"},
+    {"id": "M11", "label": "Volume group 11"},
+    {"id": "M12", "label": "Volume group 12"}
+  ]
+}

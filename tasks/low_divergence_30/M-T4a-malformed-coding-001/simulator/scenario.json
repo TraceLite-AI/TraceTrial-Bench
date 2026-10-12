@@ -1,0 +1,22 @@
+{
+  "schema_version": "harnessbench_malformed_vendor_scenario_v1",
+  "required_order": [
+    "M01", "M02", "M03", "M04",
+    "M05", "M06", "M07", "M08",
+    "M09", "M10", "M11", "M12"
+  ],
+  "items": {
+    "M01": {"source": "vendor-acme/M01", "recipe": "valid_json", "verify": "428607E1", "receipt": "B9EAD96E"},
+    "M02": {"source": "vendor-acme/M02", "recipe": "trailing_comma", "verify": "D8B70925", "receipt": "8ECA78A2"},
+    "M03": {"source": "vendor-acme/M03", "recipe": "duplicate_key", "verify": "7588FD1E", "receipt": "E353446F"},
+    "M04": {"source": "vendor-acme/M04", "recipe": "nan_infinity", "verify": "EB49EEB6", "receipt": "C38F359C"},
+    "M05": {"source": "vendor-acme/M05", "recipe": "raw_newline", "verify": "388E5EB1", "receipt": "56CA31DC"},
+    "M06": {"source": "vendor-acme/M06", "recipe": "c0_controls", "verify": "743AE114", "receipt": "9B9B0577"},
+    "M07": {"source": "vendor-acme/M07", "recipe": "bom_crlf", "verify": "305C1E7F", "receipt": "C7E96365"},
+    "M08": {"source": "vendor-acme/M08", "recipe": "long_single_line", "verify": "FEED742E", "receipt": "11D36EC0"},
+    "M09": {"source": "vendor-acme/M09", "recipe": "deep_nesting", "verify": "F534547A", "receipt": "38F786F9"},
+    "M10": {"source": "vendor-acme/M10", "recipe": "half_token_truncation", "verify": "87F4BAB0", "receipt": "63C4BE79"},
+    "M11": {"source": "vendor-acme/M11", "recipe": "c1_controls", "verify": "1F944204", "receipt": "D22CC759"},
+    "M12": {"source": "vendor-acme/M12", "recipe": "combined_long_truncated", "verify": "DDF02127", "receipt": "D1B36AE8"}
+  }
+}

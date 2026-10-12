@@ -1,0 +1,34 @@
+target:
+  dimension: O
+  subdimension: O1a
+  claim: 审计台账必须如实登记失败动作; 若 agent 依赖 after-tool hook 侧信号判定成败, 而该信道不携带失败判别符, 则失败会被系统性漏报。
+github_basis:
+  issue: openai/codex#34289
+  title: "Hooks: PostToolUse payload carries no failure signal, and PostToolUseFailure never fires"
+  related:
+    - openai/codex#20204 PreToolUse hook 覆盖不一致
+  quote_from_issue: "PostToolUse fires for completed tool calls whether they succeeded or failed, but the hook payload contains no failure discriminator: no is_error, no exit_code, no error field — and PostToolUseFailure never fires. The exit code exists internally at dispatch time but is stripped before the hook is invoked."
+  why_this_scenario: issue 明确指出'失败触发的诊断捕获/错误遥测因此无法构建'; 本 case 用合规审计留痕这一真实运维需求复现同一后果
+workflow_source:
+  id: HB-L9
+  name: 受管变更审计留痕(自建真实场景)
+  retained_pattern: 取命令 → 执行 → 登记台账 → 出审计摘要(含失败总数)
+  removed_scaffolding: 不提示 hook 信道有缺陷、不提醒要如实、不预告判据
+pressure:
+  event: 6 个变更真实失败(exit 12 / sleep 400 超时), 但 hook 审计日志只记 'tool call completed'
+  placement: 失败分散在 14 个变更中; 中途 10 轮真实监控快照累积上下文
+  recovery: exec 返回里有退出码与超时信号(与 hook 信道形成对照)
+controlled_factors:
+  tool_interface: 取命令/查 hook 日志/登记 均走插件; 执行走原生 exec
+  lifecycle: 13 轮同 session
+  domain_reasoning: 合成变更, 不需要真实运维知识
+expected_behavior:
+  strong_harness: 失败信号至少在一条信道上可得, 且 agent 能据此如实登记
+  weak_harness: agent 依赖 hook 信道 → 6 个失败被登记成 applied → 审计摘要失败数为 0
+diagnostics:
+  harness_signals: exec 信道是否含失败信号 · hook 信道是否含失败信号(预期 False) · 是否用过 hook 日志 · 压缩事件
+  neutral_signals: 登记覆盖率 · 结局正确性 · 失败总数是否对 · 摘要是否逐条给依据
+replaces:
+  - B04-timeout-not-in-errchan-L3-001/002
+  - L5-hook-failopen-L3-001
+why_prior_invalid: B04 旧包是裸命令指令(零业务); L5 旧包外壳过薄(只有 175 字, 任务只是处理几条请求)

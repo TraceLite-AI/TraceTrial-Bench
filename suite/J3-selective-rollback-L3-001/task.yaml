@@ -1,0 +1,40 @@
+id: J3-selective-rollback-L3-001
+title: 事故回滚（只退坏的那部分，同批好改动要留住）
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: 发布事故回滚
+  secondary_subscenarios:
+    - 精确回滚
+    - 症状到改动的映射
+    - 保留项披露
+harness:
+  dimension: L
+  subdimension: L5c
+  subdimension_name: 改价回滚
+intensity:
+  level: L3
+  description: 同一批发布 18 个改动, 6 个致故要回滚、12 个正常要保留; 全量回滚会把好改动一起退掉。
+budget:
+  max_turns: 14
+  max_tool_calls: 150
+  max_wall_time_sec: 3000
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  graded_object: "**配置文件实际内容**"
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  rr_semantics: 全二值; 回滚过头与回滚不全双向扣分
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/config/*.json（被修改）
+  - workspace/output/rollback_report.md
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-j3-selective-rollback-l3-001:v1
+  image_lock: runtime/image.lock.json

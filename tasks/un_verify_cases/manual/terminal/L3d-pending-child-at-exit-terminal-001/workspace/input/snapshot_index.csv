@@ -1,0 +1,8 @@
+segment_id,volume,amount,flag
+1001,vol-a1,120.50,ok
+1002,vol-b2,89.99,ok
+1003,vol-c3,3400.00,review
+1004,vol-d4,17.25,ok
+1005,vol-e5,642.00,ok
+1006,vol-f6,58.10,review
+1007,vol-g7,1203.75,ok

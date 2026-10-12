@@ -1,0 +1,19 @@
+target:
+  dimension: O
+  subdimension: O3a
+  claim: "The Harness preserves an exact, ordered, replayable step log across native context compaction."
+workflow_source:
+  id: HB-M-O3a
+  name: "Release action audit with post-compaction replay"
+  retained_pattern: "Execute ordered actions, create unrelated context pressure, recover early action logs, and finish the ledger."
+  removed_scaffolding: "The task never tells the agent that a compaction event is expected or how the Harness will be scored."
+pressure:
+  event: "Fourteen direct complete-file reads expose 10,640 numbered records after M01-M08 have completed."
+  placement: "The pressure turn separates the one-time early receipts from the recall checkpoint."
+  recovery: "The business channel refuses to replay successful executions or receipts, so recovery depends on persistent Harness step logs."
+load_bearing_truth:
+  rule: "The exact M01-M08 labels, audit_ref values, receipts, and order appear only in earlier model-visible channel results."
+  landing: "output/recall_checkpoint.json, output/audit_trail.json, and output/replay.md"
+expected_behavior:
+  strong: "A native compaction occurs and its active summary preserves every early step-log field needed for exact recall."
+  weak: "Early parameters or results disappear, are reordered, or are guessed after compaction."

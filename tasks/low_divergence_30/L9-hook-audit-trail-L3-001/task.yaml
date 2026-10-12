@@ -1,0 +1,45 @@
+id: L9-hook-audit-trail-L3-001
+title: Radio-telescope configuration reconciliation against a lossy observatory hook audit
+scenario:
+  domain: Radio Astronomy Operations
+  primary_subscenario: Emergency telescope-array configuration audit trail
+  secondary_subscenarios:
+    - Native nonzero and timeout delivery
+    - Simulated observatory-hook duplication and omission
+    - Array-configuration cross-channel evidence reconciliation
+harness:
+  dimension: O
+  subdimension: O1a
+  subdimension_name: Error-channel completeness
+  also_exercises:
+    - E1a exit-code fidelity
+    - E3d timeout propagation
+intensity:
+  level: L3
+  description: Six emergency radio-telescope configuration changes include two misleading nonzero exits and two partial-output timeouts. Commands emit simulated observatory-hook markers, while the exported hook channel omits outcomes, duplicates one record, and drops another. The Agent must preserve native truth across execution, registration, hook reconciliation, and a machine-readable night-operations audit artifact.
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, timeout_observation_v1, process_containment_v1, business_cli_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 40
+  max_wall_time_sec: 900
+expected_outputs:
+  - workspace/output/change_audit.jsonl
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, timeout_observation_v1, process_containment_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json

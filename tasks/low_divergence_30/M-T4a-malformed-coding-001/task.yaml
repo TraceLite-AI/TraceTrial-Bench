@@ -1,0 +1,60 @@
+id: M-T4a-malformed-coding-001
+title: "PKGAPI Registry Response Compatibility: Malformed Payload Handling"
+scenario:
+  domain: "PKGAPI response compatibility analysis"
+  primary_subscenario: "malformed and boundary-stressed payload handling"
+  secondary_subscenarios:
+    - "multi-turn batch processing"
+    - "source-versus-transport truncation attribution"
+    - "cross-turn receipt retention"
+    - "evidence-grounded deliverables"
+harness:
+  dimension: T
+  subdimension: T4a
+  subdimension_name: "malformed handling"
+intensity:
+  level: L3
+  description: "Twelve private PKGAPI responses span valid JSON, non-standard syntax, duplicate keys, raw controls, BOM/CRLF, a 120,000-character line, 150-level nesting, incomplete tokens, C1 controls, and a combined long truncated document. They are processed across eight turns through native task tools with exact private-ledger evidence."
+input_mode: fixed_turns
+tool_dependencies: [task_tools_v1, post_tool_v1]
+budget:
+  max_turns: 8
+  max_tool_calls: 160
+  max_wall_time_sec: 3600
+expected_outputs:
+  - workspace/output/vendor_verify.json
+  - workspace/output/compat_notes.md
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-T4a-malformed-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same twelve private responses covering the same
+    encoding conditions in the same order (valid JSON, non-standard syntax,
+    duplicate keys, raw controls, BOM/CRLF, a 120,000-character line, 150-level
+    nesting, incomplete tokens, C1 controls, and a combined long truncated
+    document), the same three gated batches across eight turns, the same private
+    ledger evidence contract, the same budget triple, both score rubrics, and
+    score.py rule logic.
+    Only the skin changes: the ACME vendor responses become PKGAPI package-registry responses; the twelve malformed conditions themselves are payload-encoding facts and are kept verbatim."

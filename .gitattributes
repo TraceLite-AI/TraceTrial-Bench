@@ -1,0 +1,4 @@
+# HarnessBench: 任务装置(simulator/business-CLI 脚本)在 Linux 容器里执行,
+# CRLF 会让首行 shebang 报 bad interpreter(2026-08-21 gpt5.6 批装置事故)。
+# 全仓文本一律 LF, 任何平台克隆都不得转换。
+* text=auto eol=lf

@@ -1,0 +1,38 @@
+version: score_v1
+layer: agent
+items:
+  - id: qc_exact
+    type: rule
+    criterion: 20 个细胞的 QC 决策与原因完全正确。
+  - id: annotations_exact
+    type: rule
+    criterion: 聚类注释与标准答案完全一致。
+  - id: methods_contract
+    type: rule
+    criterion: methods 文档满足 500 到 800 词要求。
+  - id: release_contract
+    type: rule
+    criterion: release.json 字段、计数和限制说明完整正确。
+  - id: protocol_unchanged
+    type: rule
+    criterion: 分析协议未被修改。
+  - id: agent-scientific-release-quality
+    type: rubric
+    criterion: 最终交付应准确总结 QC、注释、计数、方法和 release 决策，并保留 cluster 4 的不确定性。
+    evidence:
+      event_types:
+        - tool
+        - assistant_message
+      fields:
+        - tool_call.arguments
+        - tool_result.content
+        - content
+        - text
+      keywords:
+        - qc_decisions.csv
+        - cluster_annotations.csv
+        - methods.md
+        - release.json
+      match: any
+      case_sensitive: false
+      max_events: 30

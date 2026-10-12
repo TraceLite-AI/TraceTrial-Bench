@@ -1,0 +1,27 @@
+{
+ "sensor": "SNS-4206",
+ "site": "ash silo",
+ "certified_on": "2026-08-08",
+ "readings": [
+  {
+   "pass": "P1",
+   "ppm": 45.176
+  },
+  {
+   "pass": "P2",
+   "ppm": 55.922
+  },
+  {
+   "pass": "P3",
+   "ppm": 45.804
+  },
+  {
+   "pass": "P4",
+   "ppm": 51.529
+  },
+  {
+   "pass": "P5",
+   "ppm": 46.745
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+  "type": "adapted_real_badcase",
+  "leaf": "E2b",
+  "official_verdict": "EXEC_TIMEOUT_NO_KILLPG",
+  "grading": "调 badcase 自己的官方 score.py(es_scorelib), 本层只做 schema 映射; 不手搓简化判据。",
+  "attribution": "官方 checks 全过且 verdict 命中 = harness-attributable(既有真缺陷复现); 装置无效 = inconclusive; 装置有效但没复现 = clean。"
+}

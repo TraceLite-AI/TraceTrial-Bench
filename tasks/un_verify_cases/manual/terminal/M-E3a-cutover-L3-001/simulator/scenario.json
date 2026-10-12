@@ -1,0 +1,17 @@
+{
+  "kind": "shell_persistence",
+  "items": {
+    "M01": {"label": "shell variable", "setup": "HB1=8CA1E1AE; printf 'HBSET_M01=%s\\n' \"$HB1\"", "readback": "printf 'HBSTATE_M01=%s\\n' \"${HB1-}\"", "expect": "8CA1E1AE", "code": "8F33B572"},
+    "M02": {"label": "working directory", "setup": "mkdir -p /workspace/shell_probe/M02 && printf %s CC930D96 > /workspace/shell_probe/M02/m.txt && cd /workspace/shell_probe/M02 && printf 'HBSET_M02=%s\\n' \"$(cat m.txt)\"", "readback": "printf 'HBSTATE_M02=%s\\n' \"$(cat m.txt 2>/dev/null)\"", "expect": "CC930D96", "code": "C0653B5B"},
+    "M03": {"label": "exported environment variable", "setup": "export HB3=CCA05231; printf 'HBSET_M03=%s\\n' \"$HB3\"", "readback": "printf 'HBSTATE_M03=%s\\n' \"${HB3-}\"", "expect": "CCA05231", "code": "1C80C04F"},
+    "M04": {"label": "shell function", "setup": "hbf(){ printf %s 29AF6E93; }; printf 'HBSET_M04=%s\\n' \"$(hbf)\"", "readback": "printf 'HBSTATE_M04=%s\\n' \"$(hbf 2>/dev/null)\"", "expect": "29AF6E93", "code": "BF714A41"},
+    "M05": {"label": "alias", "setup": "shopt -s expand_aliases && alias hba='printf %s 046119DE' && alias hba >/dev/null && printf 'HBSET_M05=%s\\n' 046119DE", "readback": "printf 'HBSTATE_M05=%s\\n' \"$(hba 2>/dev/null)\"", "expect": "046119DE", "code": "E1A89D18"},
+    "M06": {"label": "umask", "setup": "umask 0077; printf 'HBSET_M06=%s\\n' \"$([ \"$(umask)\" = \"0077\" ] && printf %s 720EE81B)\"", "readback": "printf 'HBSTATE_M06=%s\\n' \"$([ \"$(umask)\" = \"0077\" ] && printf %s 720EE81B)\"", "expect": "720EE81B", "code": "E43028E0"},
+    "M07": {"label": "shopt option", "setup": "shopt -s nullglob && printf 'HBSET_M07=%s\\n' \"$(shopt -q nullglob && printf %s 05FC113B)\"", "readback": "printf 'HBSTATE_M07=%s\\n' \"$(shopt -q nullglob 2>/dev/null && printf %s 05FC113B)\"", "expect": "05FC113B", "code": "8D621474"},
+    "M08": {"label": "soft ulimit", "setup": "ulimit -n 512; printf 'HBSET_M08=%s\\n' \"$([ \"$(ulimit -n)\" = \"512\" ] && printf %s F0DBE5E4)\"", "readback": "printf 'HBSTATE_M08=%s\\n' \"$([ \"$(ulimit -n)\" = \"512\" ] && printf %s F0DBE5E4)\"", "expect": "F0DBE5E4", "code": "1CACA9C6"},
+    "M09": {"label": "trap handler", "setup": "trap 'printf %s 1D8C1D53' USR1; printf 'HBSET_M09=%s\\n' 1D8C1D53", "readback": "printf 'HBSTATE_M09=%s\\n' \"$(trap 2>/dev/null | grep -q 1D8C1D53 && printf %s 1D8C1D53)\"", "expect": "1D8C1D53", "code": "FAEFBE5F"},
+    "M10": {"label": "background job", "setup": "sleep 120 >/dev/null 2>&1 & HB10_PID=$!; [ -n \"$HB10_PID\" ] && printf 'HBSET_M10=%s\\n' A495B266", "readback": "printf 'HBSTATE_M10=%s\\n' \"$(jobs -p 2>/dev/null | head -1 | grep -q . && printf %s A495B266)\"", "expect": "A495B266", "code": "2AB41D0E"},
+    "M11": {"label": "extra file descriptor", "setup": "mkdir -p /workspace/shell_probe && exec 7>/workspace/shell_probe/fd7.txt; : >&7 && printf 'HBSET_M11=%s\\n' C3720D25", "readback": "( printf %s C3720D25 >&7 ) 2>/dev/null; printf 'HBSTATE_M11=%s\\n' \"$(cat /workspace/shell_probe/fd7.txt 2>/dev/null | tr -d '\\n')\"", "expect": "C3720D25", "code": "0EC35959"},
+    "M12": {"label": "directory stack", "setup": "mkdir -p /workspace/shell_probe/ds && printf %s 595939DB > /workspace/shell_probe/ds/m.txt && pushd /workspace/shell_probe/ds >/dev/null && printf 'HBSET_M12=%s\\n' \"$(cat m.txt)\"", "readback": "printf 'HBSTATE_M12=%s\\n' \"$(dirs -p 2>/dev/null | grep -q ds && cat m.txt 2>/dev/null)\"", "expect": "595939DB", "code": "C2BDCCDB"}
+  }
+}

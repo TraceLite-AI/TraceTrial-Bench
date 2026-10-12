@@ -1,0 +1,86 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_duplicate_catalog_activated
+    type: rule
+    criterion: >
+      Score 1 only when task-private evidence proves that the selected Harness was
+      configured with the task registry, initialized its MCP server, requested the live
+      catalog, and received exactly two declarations named hb_host_record with
+      distinct primary/recovery descriptions and mutually exclusive required fields plus
+      the unique hb_host_pair_control declaration. Configuration alone, a copied
+      fixture, a model mention, a changed catalog, or an unfired server scores 0.
+    evidence: null
+
+  - id: hr_trace_lifecycle_and_tool_identity_complete
+    type: rule
+    criterion: >
+      Score 1 only when the canonical normalized trace is marked complete, has a contiguous
+      sequence from one run_started to one successful run_finished, its summary last_event_seq
+      equals the maximum event sequence, and every normalized tool event has matching nonempty
+      call/result IDs and tool names. Score 0 for a missing, partial, duplicated, abnormal,
+      internally inconsistent, or unavailable trace, or any tool event with unstable identity.
+    evidence: null
+
+  - id: hr_collision_outcome_is_observable
+    type: rule
+    criterion: >
+      Score 1 only after the duplicate catalog activation rule is satisfied and retained
+      Harness evidence explicitly records rejection of one duplicate, a duplicate/collision
+      diagnostic, or a collision-safe rename of the second hb_host_record to a
+      distinct registered identity. Silent acceptance, silent first/last-definition collapse,
+      a diagnostic word appearing only in task or tool prose, and missing evidence score 0.
+    evidence: null
+
+  - id: hu_both_duplicate_capabilities_are_actionable
+    type: rubric
+    criterion: >
+      Evaluate direct model-visible tool invocations and results. Score 1 only when the
+      Harness lets the Agent invoke both logical declarations from the duplicate-name catalog
+      as distinguishable callable capabilities, one with the primary_ticket schema and one
+      with the recovery_ticket schema, and returns the intact HST-P-417 and HST-R-882 records
+      respectively. A single collapsed definition, schema/description mismatch, rejected or
+      misrouted call, result visible only in private logs, Agent reconstruction, or missing
+      evidence scores 0.
+    evidence:
+      event_types: ["model_input", "tool", "assistant_message", "raw_stdout", "raw_stderr"]
+      fields: ["tools", "messages", "tool_call.tool_name", "tool_call.arguments", "tool_result", "content", "text", "raw_event"]
+      keywords: ["HOST-2026-0808", "primary_ticket", "recovery_ticket", "HST-P-417", "HST-R-882", "hb_host_record"]
+      match: any
+      case_sensitive: true
+      max_events: 40
+
+  - id: hu_duplicate_routing_provenance_is_unambiguous
+    type: rubric
+    criterion: >
+      Score 1 only when normalized trajectory evidence binds the successful primary and
+      recovery requests to separate nonempty call IDs, preserves the callable identity and
+      exact request arguments for each, associates each authoritative result with its own
+      request without cross-call mixing, and then preserves the successful control result
+      CTRL-55D9 / PAIR-6F2A as a third correlated call. Score 0 for absent or reused IDs,
+      indistinguishable origins, altered arguments/results, misassociation, private-only
+      evidence, missing control continuity, or unavailable evidence.
+    evidence:
+      event_types: ["model_input", "tool"]
+      fields: ["tools", "messages", "tool_call.tool_call_id", "tool_call.tool_name", "tool_call.arguments", "tool_result"]
+      keywords: ["HOST-2026-0808", "PRI-TKT-74A1", "REC-TKT-91C6", "HST-P-417", "HST-R-882", "CTRL-55D9", "PAIR-6F2A"]
+      match: any
+      case_sensitive: true
+      max_events: 20
+
+  - id: hu_collision_policy_is_model_transparent
+    type: rubric
+    criterion: >
+      Score 1 only when evidence available to the model before its first duplicate-tool call
+      explicitly states that two raw declarations collided and explains the retained callable
+      identity or rejection outcome for each logical role, so the Agent need not infer policy
+      from a suffix or failed call. Private gateway logs, post-hoc Agent speculation, two
+      aliases without a collision explanation, generic tool descriptions, silent collapse,
+      or missing pre-call evidence score 0.
+    evidence:
+      event_types: ["model_input", "assistant_message", "raw_stdout", "raw_stderr", "tool"]
+      fields: ["tools", "messages", "content", "text", "tool_call", "tool_result", "raw_event"]
+      keywords: ["HOST-2026-0808", "duplicate", "collision", "conflict", "registered as", "hb_host_record"]
+      match: any
+      case_sensitive: false
+      max_events: 30

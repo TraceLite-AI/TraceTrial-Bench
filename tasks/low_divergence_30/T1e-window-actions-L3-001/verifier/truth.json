@@ -1,0 +1,60 @@
+{
+  "schema_version": "harnessbench_monthend_dense_tools_truth_v1",
+  "calibration_ref": "CAL-TOOLFACE-001",
+  "calibration_tools": [
+    "node_cordon_and_drain_draft",
+    "volume_detach_hard_dry_run",
+    "snapshot_promote_primary_legacy"
+  ],
+  "max_business_candidates": 2,
+  "items": {
+    "OPS-2026-07-001": {
+      "action": "node_cordon_and_drain",
+      "receipt": "6E1E6EF2"
+    },
+    "OPS-2026-07-002": {
+      "action": "volume_detach_hard",
+      "receipt": "D0A137B8"
+    },
+    "OPS-2026-07-003": {
+      "action": "snapshot_promote_primary",
+      "receipt": "5A80B819"
+    },
+    "OPS-2026-07-004": {
+      "action": "cert_rotate_serving_key",
+      "receipt": "D992A482"
+    },
+    "OPS-2026-07-005": {
+      "action": "journal_seal_period",
+      "receipt": "329B512D"
+    },
+    "OPS-2026-07-006": {
+      "action": "queue_release_held",
+      "receipt": "AFDD45C4"
+    },
+    "OPS-2026-07-007": {
+      "action": "mount_remount_readwrite",
+      "receipt": "D03327C2"
+    },
+    "OPS-2026-07-008": {
+      "action": "firewall_commit_ruleset",
+      "receipt": "0A738358"
+    },
+    "OPS-2026-07-009": {
+      "action": "quota_raise_approved",
+      "receipt": "83D8E43B"
+    },
+    "OPS-2026-07-010": {
+      "action": "index_rebuild_catchup",
+      "receipt": "548B9FC5"
+    },
+    "OPS-2026-07-011": {
+      "action": "image_publish_confirm",
+      "receipt": "2119A948"
+    },
+    "OPS-2026-07-012": {
+      "action": "host_onboard_final_review",
+      "receipt": "E24BD8A4"
+    }
+  }
+}

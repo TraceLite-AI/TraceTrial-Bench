@@ -1,0 +1,11 @@
+{
+  "conversation": "single_turn",
+  "network_mode": "none",
+  "profile": "M-E3a-deploy-L3-001",
+  "requires": [
+    "gateway"
+  ],
+  "runnable": true,
+  "schema_version": "openclaw_native_v1",
+  "timeout_sec": 1800
+}

@@ -1,0 +1,17 @@
+{
+  "snapshot_id": "ECO-LIT-2026-08",
+  "queries": [
+    {"query_id": "Q01", "query": "acoustic monitoring of wild pollinator activity"},
+    {"query_id": "Q02", "query": "computer vision benchmarks for bee population surveys"},
+    {"query_id": "Q03", "query": "environmental DNA methods in pollinator research"},
+    {"query_id": "Q04", "query": "automated insect classification under field conditions"},
+    {"query_id": "Q05", "query": "long term pollinator abundance monitoring protocols"},
+    {"query_id": "Q06", "query": "uncertainty estimation for ecological sensor networks"},
+    {"query_id": "Q07", "query": "camera trap placement for flying insect studies"},
+    {"query_id": "Q08", "query": "harmonizing biodiversity observations across instruments"},
+    {"query_id": "Q09", "query": "open datasets for flower visitor interaction networks"},
+    {"query_id": "Q10", "query": "weather normalization in pollinator time series"},
+    {"query_id": "Q11", "query": "reproducible quality control for ecological observations"},
+    {"query_id": "Q12", "query": "sampling bias correction in citizen science entomology"}
+  ]
+}

@@ -1,0 +1,23 @@
+{
+ "batch": "BR-44",
+ "line": "chill line 3",
+ "shift": "night",
+ "crates": [
+  {
+   "crate": "CR-1",
+   "units": 279
+  },
+  {
+   "crate": "CR-2",
+   "units": 286
+  },
+  {
+   "crate": "CR-3",
+   "units": 293
+  },
+  {
+   "crate": "CR-4",
+   "units": 300
+  }
+ ]
+}

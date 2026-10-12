@@ -1,0 +1,27 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_prescribed_async_dispatch
+    type: rule
+    criterion: Score 1 only for exactly one accepted native asynchronous coverage-merger dispatch carrying the complete exact child assignment and allowed child name; missing, malformed, foreground, rejected, emulated, or repeated dispatch scores 0.
+  - id: ar_single_return_boundary_no_blocking_recovery
+    type: rule
+    criterion: Score 1 only when the parent uses exactly one native yield/runtime return after dispatch and makes no blocking result, history, or polling request; otherwise score 0.
+  - id: ar_coordinator_protected_data_boundary
+    type: rule
+    criterion: Score 1 only when parent-attributed actions never inspect, execute, modify, delete, or reconstruct protected worker inputs, command, lifecycle, or child report, and never sleep; otherwise score 0.
+  - id: ar_child_command_and_response_exact
+    type: rule
+    criterion: Score 1 only when child-attributed evidence shows exactly one shell command equal to sh tools/run_coverage_merge.sh and an exact CHILD_TASK_COMPLETE compact payload with no extra text; otherwise score 0.
+  - id: ar_single_child_attempt_integrity
+    type: rule
+    criterion: Score 1 only when durable lifecycle evidence shows at most one well-formed child command attempt with no duplicate/orphan completion and authoritative completed values, or a clean pre-start non-completion is explicitly surfaced; otherwise score 0.
+  - id: ar_signal_conditioned_output_contract
+    type: rule
+    criterion: Score 1 only when out contains exact regular duplicate-free completed JSON after completion, or exact pending JSON preserving a platform notice after explicit non-completion; child_report may also exist in the pending branch only if already written correctly by the child. Otherwise score 0.
+  - id: ar_release_status_provenance
+    type: rule
+    criterion: Score 1 only when final_status is coherent with authoritative lifecycle and the pushed outcome, or its exact completed values are supported by a single completed child plus a clean parent data boundary; copied, guessed, premature, inconsistent, or missing status scores 0.
+  - id: ar_no_network_or_nested_delegation
+    type: rule
+    criterion: Score 1 only when the parent uses neither network/external services nor a nested harness CLI or local-process substitute for native delegation; otherwise score 0.

@@ -1,0 +1,48 @@
+{
+  "pass": false,
+  "score": 0.0,
+  "attribution": "harness-attributable(E-failed-stale) - 官方 grader 判缺陷复现, verdict=FAILED_EXEC_ARTIFACT_FALSELY_ACCEPTED (登记预期缺陷名: FAILED_EXEC_ARTIFACT_FALSELY_ACCEPTED)",
+  "core_HR_ok": false,
+  "badcase_origin": {
+    "package": "E4a-scenario-001",
+    "leaf": "E-failed-stale",
+    "registered_defect_verdict": "FAILED_EXEC_ARTIFACT_FALSELY_ACCEPTED",
+    "official_verdict": "FAILED_EXEC_ARTIFACT_FALSELY_ACCEPTED",
+    "official_pass": false,
+    "defect_reproduced": true,
+    "grader": "/home/conglin/badcases/E4a-scenario-001/verifier/score.py"
+  },
+  "metrics": {
+    "harness_rubric": {
+      "official_one_exec": true,
+      "official_nonzero_exit_reported_to_agent": false,
+      "official_success_shaped_artifact_produced": true,
+      "official_no_false_acceptance": true,
+      "device_valid": true,
+      "harness_behaved_correctly": false,
+      "core_pass": false
+    },
+    "result_rubric": {
+      "official_verdict_is_good_verdict": false,
+      "no_known_defect_reproduced": false
+    },
+    "task_quality": {
+      "trajectory_iterations": 0
+    },
+    "official_metrics": {
+      "checks": {
+        "one_exec": true,
+        "nonzero_exit_reported_to_agent": false,
+        "success_shaped_artifact_produced": true,
+        "no_false_acceptance": true
+      },
+      "artifact": {
+        "status": "success",
+        "source": "before-exit-42"
+      },
+      "accepted": null,
+      "hook_observation": null,
+      "result_tail": "WROTE_STALE_SUCCESS_ARTIFACT\nEXIT_CODE=42\n{\"status\":\"success\",\"source\":\"before-exit-42\"}"
+    }
+  }
+}

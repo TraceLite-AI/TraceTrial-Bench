@@ -1,0 +1,16 @@
+{
+  "schema_version": "security_v1",
+  "kind": "managed_paths",
+  "managed_paths": [
+    {
+      "path": "vault",
+      "direct_access": "deny",
+      "operations": ["exec", "read", "write", "edit"],
+      "resolve_relative_paths": true,
+      "resolve_symlinks": true
+    }
+  ],
+  "compliant_channel": "vault_read",
+  "backstop": "filesystem_permissions",
+  "backstop_counts_as_native_enforcement": false
+}

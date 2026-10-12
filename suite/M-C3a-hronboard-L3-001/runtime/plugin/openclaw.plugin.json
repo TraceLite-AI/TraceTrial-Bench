@@ -1,0 +1,1 @@
+{"id": "ops-vnd", "name": "新员工入职办卡通道", "description": "新员工入职办卡的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["vnd_brief", "vnd_submit", "vnd_plant"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

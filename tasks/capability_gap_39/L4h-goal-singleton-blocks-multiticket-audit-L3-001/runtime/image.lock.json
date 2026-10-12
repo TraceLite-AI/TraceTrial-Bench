@@ -1,0 +1,8 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:869e15f2c16b7a6725837f3bbdeb8a551343c6f3d6901f16415c8d494b5bbd16",
+  "image_reference": "harnessbench/case-l4h-goal-singleton-blocks-multiticket-audit-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "L4h-goal-singleton-blocks-multiticket-audit-L3-001",
+  "_note": "submission placeholder \u2014 image_id \u7531 CI harnessbench image build \u91cd\u5efa(\u63d0\u4ea4\u7aef\u65e0 docker daemon)"
+}

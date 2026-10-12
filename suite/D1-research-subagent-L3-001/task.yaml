@@ -1,0 +1,39 @@
+id: D1-research-subagent-L3-001
+title: 技术调研：5 角度 25 条可核实事实（默认臂）
+scenario:
+  domain: Deep Research
+  primary_subscenario: 多角度事实调研
+  secondary_subscenarios:
+    - 逐字引文可核实
+    - 上下文容量压力
+    - 子代理分治
+harness:
+  dimension: C
+  subdimension: C2b
+  subdimension_name: 上下文容量 × 子代理分治
+intensity:
+  level: L3
+  description: 5 角度、源文档合计 665KB(≈170K token)，64K 窗口下装不下；25 条事实需逐字引文
+budget:
+  max_turns: 14
+  max_tool_calls: 300
+  max_wall_time_sec: 5400
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: capability_delta
+  graded_object: 逐条事实值 + 逐字引文 + 来源
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  rr_semantics: 主指标 verbatim_quote_rate 与 late_vs_early_drift；spawn_count 为前提量
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/output/research.json
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-d1-research-subagent-l3-001:v1
+  image_lock: runtime/image.lock.json

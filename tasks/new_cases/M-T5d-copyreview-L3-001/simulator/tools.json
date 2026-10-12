@@ -1,0 +1,40 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "cx_brief",
+      "description": "Return the authoritative publication constraint and accepted reference copy for one released municipal animal-shelter adoption notice.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "enum": ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09", "M10", "M11", "M12"]
+          }
+        },
+        "required": ["item"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cx_submit",
+      "description": "Validate one animal-adoption notice value against its authoritative publication constraint. Returns a signed receipt only for an exact accepted value.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "enum": ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09", "M10", "M11", "M12"]
+          },
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        },
+        "required": ["item", "value"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

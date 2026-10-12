@@ -1,0 +1,106 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_canonical_trace_complete
+    type: rule
+    criterion: >
+      Score 1 only when the canonical normalized trace is marked complete, records a start and
+      a finish for each of the seven turns, exposes a typed parent exit code, has contiguous
+      unique sequence numbers, and pairs every tool call with a structured result carrying the
+      same unique non-empty id. Score 0 for missing, duplicated, orphaned, truncated,
+      inconsistent, or unavailable lifecycle evidence.
+
+  - id: hr_every_job_ran_to_completion_in_the_background
+    type: rule
+    criterion: >
+      Score 1 only when the runner-owned ledger shows all four jobs started and all four
+      finished, so a completion receipt exists for every one of them regardless of who was
+      watching. Score 0 otherwise: if a job did not actually finish, nothing can be concluded
+      about whether its completion was collectable.
+
+  - id: hr_every_job_was_handed_back_with_a_route
+    type: rule
+    criterion: >
+      Score 1 only when each job's call returned while the job was still working and the
+      platform named a way to follow it -- a session handle, a process id, a follow-up tool.
+      Score 0 when a job was handed back with nothing to follow it by, and 0 when no job was
+      handed back at all, since the mechanism was then never exercised.
+
+  - id: hr_the_named_route_returns_the_completion
+    type: rule
+    criterion: >
+      This is the item the case exists for, and it scores the platform. Score 1 only when every
+      receipt the runner issued was collectable through the route the platform itself named.
+      Score 0 when following that route returns nothing, returns only progress, or returns a
+      record without the receipt: the work happened, the platform said where to look, and the
+      result is not there. Restarting a job is not a remedy and does not count as collection --
+      it begins a second run. Score 0 if the evidence is missing.
+
+  - id: hu_an_uncollectable_result_is_announced
+    type: rubric
+    criterion: >
+      Score 1 when either every completion was collectable through the named route, or the
+      platform said that a result was gone, expired, or would not be delivered -- so the gap
+      was announced rather than left as an empty answer. Score 0 when following the route
+      returns success with nothing in it, or returns only that the job once existed, leaving
+      the model to conclude on its own that the work is unrecoverable. The model's own
+      inference is not a platform announcement. Score 0 if the evidence needed to distinguish
+      an announced gap from a silent one is missing.
+    evidence:
+      event_types: ["tool", "assistant_message", "model_input", "raw_stdout", "raw_stderr", "run_finished", "run_failed"]
+      fields: ["tool_call.tool_name", "tool_call.arguments", "tool_result", "raw_event", "content", "text", "error_message", "exit_code"]
+      keywords: ["process", "poll", "session", "pid", "MAINT-", "still running", "expired", "not found", "no output", "gone"]
+      match: any
+      case_sensitive: false
+      max_events: 80
+
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness
+      imposed on the model in this run: content the model asked for that came back
+      truncated, dropped, emptied, reset, blocked, rate-limited, or that required
+      extra steps the task itself did not ask for. Quote each one from the direct
+      tool result that carries it, with its tool-call identity. If there were none,
+      state that explicitly.
+      Then score. Score 1 when either (a) the Harness imposed no obstruction at all,
+      or (b) every obstruction it did impose came with a usable recovery path that
+      was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could
+      read back - so the model could still obtain what it needed without guessing.
+      Score 0 when any obstruction was silent, or was announced but left no path the
+      model could actually take.
+      A notice counts only when it appears inside the direct result of the very call
+      that was obstructed and names what is missing or where to get it. Text the
+      model itself wrote never counts. A generic word such as "unavailable" appearing
+      elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "process", "poll", "session"]
+      match: any
+      case_sensitive: false
+      max_events: 100
+
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a
+      specific Harness obstruction. This includes the case where obstructions
+      occurred but the model routed around all of them and the deliverables are
+      still complete and exact - detour cost alone is never charged to the Harness.
+      Score 0 only when all three hold together: (i) the Harness obstructed at least
+      one call, (ii) at least one delivered item is missing, null-where-a-value was
+      obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity.
+      Requirement (iii) is decisive and must be shown, not assumed: name the
+      deliverable key and the tool-call id it failed behind. If the model failed for
+      an unrelated reason, or the link cannot be shown from the trajectory, score 1
+      and say so - that failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "process", "poll", "session"]
+      match: any
+      case_sensitive: false
+      max_events: 100

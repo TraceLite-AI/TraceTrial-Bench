@@ -1,0 +1,27 @@
+{
+ "suite": "BMK-4216",
+ "component": "condenser bay",
+ "recorded_on": "2026-08-18",
+ "runs": [
+  {
+   "pass": "P1",
+   "ms": 58.588
+  },
+  {
+   "pass": "P2",
+   "ms": 56.627
+  },
+  {
+   "pass": "P3",
+   "ms": 42.824
+  },
+  {
+   "pass": "P4",
+   "ms": 58.039
+  },
+  {
+   "pass": "P5",
+   "ms": 40.157
+  }
+ ]
+}

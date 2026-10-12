@@ -1,0 +1,8 @@
+{
+  "request_id": "PKT-2048",
+  "records": [
+    {"record_id": "DG-01", "cargo_class": "Class 3 flammable liquid", "amount": "125.50", "unit": "tonnes", "flag": "normal"},
+    {"record_id": "DG-02", "cargo_class": "Class 8 corrosive substance", "amount": "731.25", "unit": "tonnes", "flag": "manual_review"},
+    {"record_id": "DG-03", "cargo_class": "Class 9 miscellaneous dangerous goods", "amount": "42.00", "unit": "tonnes", "flag": "normal"}
+  ]
+}

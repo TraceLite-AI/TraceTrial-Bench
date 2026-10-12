@@ -1,0 +1,47 @@
+id: T1c-reserved-tool-name-001
+title: "Substation Relay-Protection Release Preflight under Reserved Tool Names"
+scenario:
+  domain: "substation relay-protection configuration release"
+  primary_subscenario: "Reserved native tool-name collision handling"
+  secondary_subscenarios:
+    - "real task-scoped MCP registration"
+    - "native command-tool reachability"
+    - "safe rejection or namespace isolation"
+    - "valid sibling isolation"
+harness:
+  dimension: T
+  subdimension: T1c
+  subdimension_name: "Reserved tool-name registration validation"
+intensity:
+  level: L3
+  description: "A relay-protection release extension offers tools named exec, exec_command, shell, bash, and terminal alongside a legal readiness control; the Harness must keep its native command tool reachable without losing the legal sibling."
+budget:
+  max_turns: 1
+  max_tool_calls: 5
+  max_wall_time_sec: 600
+expected_outputs:
+  - protection_preflight.json
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: tasks/cases/T1c-reserved-tool-name-001
+  what_changed: "Reskinned as a substation relay-protection configuration release while preserving the English single-turn two-channel preflight, real cross-Harness MCP reserved-name registration, native-command independence check, structured auditable deliverable, compact rubric evidence, and deterministic trace-to-ledger correlation."

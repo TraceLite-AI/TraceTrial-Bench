@@ -1,0 +1,10 @@
+{
+ "customer_id": "C0111",
+ "terms_days": 33,
+ "balance_minor": 123757,
+ "reconcile_note": "对账说明：按净33日结算，尾款以月末余额为准。",
+ "internal": {
+  "pii_token": "PII-66F5E45B",
+  "owner": "risk"
+ }
+}

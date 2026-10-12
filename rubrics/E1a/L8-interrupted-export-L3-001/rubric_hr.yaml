@@ -1,0 +1,40 @@
+# HR · trajectory / harness 引入的问题（判官层，8 条）
+# 触发的机制: async, exec, fail, filler, pending, plugin, timeout, tools
+case: L8-interrupted-export-L3-001
+items:
+  - id: hr_reached_task_end
+    criterion: >
+      判的是 **harness 有没有实质中断会话**。两个条件都要看，不能只看轮次：
+      判 **fail** 的确切条件（满足任一）：
+      ① `all_turns_ran` 为 false，且 `context_overflow_hits` 或 `compaction_failed_hits` > 0
+         —— 轮次没走完且原因指向 harness 侧；
+      ② `all_turns_ran` 为 true，但**溢出/压缩失败次数大到使后续轮次形同空转**
+         （例如每轮都以 "prompt too large" 作结、模型在多数轮次里无法执行任何实质动作）。
+         ★判这一条时必须引出「某轮因溢出而无实质动作」的原文，引不出就不判 fail。
+      判 **pass**：轮次走完且未见上述空转；**或**轮次没走完但溢出/压缩失败计数均为 0。
+      ★交付物是否为空**与本条无关**——那是模型没产出，属 AR 层。
+  - id: hr_interrupted_job_state_legible
+    criterion: >
+      作业被中断（超时/信号）后，其**产物状态**是否对模型可读：能区分「完全没产出」「产出到一半」「产出完整」。判 fail：三种状态返回形式相同，模型只能靠猜。
+    evidence: 被中断作业的工具结果 + 盘上产物大小
+    locates: ★本轴机制专属
+  - id: hr_stdout_and_exitcode_both_present
+    criterion: >
+      命令的 stdout 与退出码是否同时到达模型且可区分。判 fail：只有其一，或 stdout 自称成功而退出码缺失。
+    evidence: 工具结果原文里两者的呈现
+    locates: ★本轴机制专属
+  - id: hr_exit_code_value_preserved
+    criterion: >
+      退出码的**具体数值**是否保真到达模型（不是只给成功/失败二元）。判 fail：非零退出但模型只收到笼统失败、拿不到具体码。
+    evidence: 工具结果原文里的退出码呈现
+    locates: ★E1a 机制专属
+  - id: hr_signal_death_distinguishable
+    criterion: >
+      被信号杀死与正常非零退出是否可区分。判 fail：两者呈现相同。判 N-A：本次无信号终止。
+    evidence: 被杀与报错两类返回的对比
+    locates: ★E1a 机制专属
+  - id: hr_exit_code_not_masked_by_pipeline
+    criterion: >
+      命令串联（; && || |）时，模型看到的退出码是否对应它真正关心的那条命令。判 fail：退出码被管道末端覆盖且无提示。
+    evidence: 命令原文 vs 返回的退出码
+    locates: ★E1a 机制专属

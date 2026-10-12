@@ -1,0 +1,16 @@
+{
+  "records": [
+    {"id":"WF-2026-08-9001","field":"wafer_lot_reference","probe":{"value":12345,"literal":"12345"},"correction":{"value":"0012345","literal":"\"0012345\""}},
+    {"id":"WF-2026-08-9004","field":"exposure_duration_ms","probe":{"value":"1250","literal":"\"1250\""},"correction":{"value":1250,"literal":"1250"}},
+    {"id":"WF-2026-08-9007","field":"rejected_die_count","probe":{"value":"0","literal":"\"0\""},"correction":{"value":0,"literal":"0"}},
+    {"id":"WF-2026-08-9011","field":"photoresist_ratio","probe":{"value":1.25,"literal":"1.25"},"correction":{"value":"1.2500","literal":"\"1.2500\""}},
+    {"id":"WF-2026-08-9014","field":"operator_note","probe":{"value":null,"literal":"null"},"correction":{"value":"","literal":"\"\""}},
+    {"id":"WF-2026-08-9018","field":"backup_operator","probe":{"value":"","literal":"\"\""},"correction":{"value":null,"literal":"null"}},
+    {"id":"WF-2026-08-9022","field":"mask_sequence","probe":{"value":900000000000000000001,"literal":"900000000000000000001"},"correction":{"value":"900000000000000000001","literal":"\"900000000000000000001\""}},
+    {"id":"WF-2026-08-9026","field":"requires_priority_metrology","probe":{"value":"true","literal":"\"true\""},"correction":{"value":true,"literal":"true"}},
+    {"id":"WF-2026-08-9030","field":"dose_map","probe":{"value":"zone_a=1,zone_b=2","literal":"\"zone_a=1,zone_b=2\""},"correction":{"value":{"zone_a":1,"zone_b":2},"literal":"{\"zone_a\":1,\"zone_b\":2}"}},
+    {"id":"WF-2026-08-9034","field":"impurity_fraction","probe":{"value":0.06,"literal":"0.06"},"correction":{"value":"0.06","literal":"\"0.06\""}},
+    {"id":"WF-2026-08-9038","field":"cassette_ordinal","probe":{"value":7.0,"literal":"7.0"},"correction":{"value":7,"literal":"7"}},
+    {"id":"WF-2026-08-9042","field":"inspection_stations","probe":{"value":"SEM-A,SEM-B","literal":"\"SEM-A,SEM-B\""},"correction":{"value":["SEM-A","SEM-B"],"literal":"[\"SEM-A\",\"SEM-B\"]"}}
+  ]
+}

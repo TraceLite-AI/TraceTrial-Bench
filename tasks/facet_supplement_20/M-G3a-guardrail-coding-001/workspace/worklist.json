@@ -1,0 +1,52 @@
+{
+ "items": [
+  {
+   "id": "M01",
+   "label": "Managed module 01"
+  },
+  {
+   "id": "M02",
+   "label": "Managed module 02"
+  },
+  {
+   "id": "M03",
+   "label": "Managed module 03"
+  },
+  {
+   "id": "M04",
+   "label": "Managed module 04"
+  },
+  {
+   "id": "M05",
+   "label": "Managed module 05"
+  },
+  {
+   "id": "M06",
+   "label": "Managed module 06"
+  },
+  {
+   "id": "M07",
+   "label": "Managed module 07"
+  },
+  {
+   "id": "M08",
+   "label": "Managed module 08"
+  },
+  {
+   "id": "M09",
+   "label": "Managed module 09"
+  },
+  {
+   "id": "M10",
+   "label": "Managed module 10"
+  },
+  {
+   "id": "M11",
+   "label": "Managed module 11"
+  },
+  {
+   "id": "M12",
+   "label": "Managed module 12"
+  }
+ ]
+}

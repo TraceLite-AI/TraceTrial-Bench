@@ -1,0 +1,22 @@
+{
+  "cases": {
+    "JOB-2026-07-2201": {"needed_delivered_advances": 1, "backup_state": "ran_once"},
+    "JOB-2026-07-2204": {"needed_delivered_advances": 1, "backup_state": "never_ran"},
+    "JOB-2026-07-2209": {"needed_delivered_advances": 2, "backup_state": "ran_once"},
+    "JOB-2026-07-2213": {"needed_delivered_advances": 2, "backup_state": "double_run_detected"},
+    "JOB-2026-07-2218": {"needed_delivered_advances": 3, "backup_state": "ran_once"},
+    "JOB-2026-07-2222": {"needed_delivered_advances": 3, "backup_state": "never_ran"},
+    "JOB-2026-07-2227": {"needed_delivered_advances": 4, "backup_state": "double_run_detected"},
+    "JOB-2026-07-2231": {"needed_delivered_advances": 4, "backup_state": "ran_once"},
+    "JOB-2026-07-2236": {"needed_delivered_advances": 5, "backup_state": "never_ran"},
+    "JOB-2026-07-2240": {"needed_delivered_advances": 5, "backup_state": "ran_once"},
+    "JOB-2026-07-2245": {"needed_delivered_advances": 6, "backup_state": "double_run_detected"},
+    "JOB-2026-07-2249": {"needed_delivered_advances": 6, "backup_state": "ran_once"}
+  },
+  "transient_failures": [
+    {"case": "JOB-2026-07-2209", "request_cursor": 0},
+    {"case": "JOB-2026-07-2227", "request_cursor": 2},
+    {"case": "JOB-2026-07-2245", "request_cursor": 4}
+  ],
+  "session_boundary_before_turn": 5
+}

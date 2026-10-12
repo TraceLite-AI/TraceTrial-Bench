@@ -1,0 +1,40 @@
+id: L4a-modulereport-revision-L3-001
+title: "Continuous reconciliation-goal revision: narrow scope, add a field, then revoke and replace it"
+scenario:
+  domain: "Workflow automation"
+  primary_subscenario: "Continuous goal revision"
+  secondary_subscenarios:
+    - "Immediate in-place revision"
+    - "Revoked-field removal"
+    - "Interruption recovery"
+harness:
+  dimension: L
+  subdimension: L4a
+  subdimension_name: "Following the latest goal across consecutive revisions"
+intensity:
+  level: L3
+  description: "Ten fixed turns require one report goal to survive three consecutive revisions: narrow the scope, add reviewer, then revoke reviewer and replace it with released_at. The first turn does not reveal the final schema or revision-count answer; controlled-detail retrieval and an unrelated question add pressure without changing the active goal."
+input_mode: fixed_turns
+tool_dependencies: [native_exec_v1, post_tool_v1]
+budget:
+  max_turns: 10
+  max_tool_calls: 80
+  max_wall_time_sec: 1800
+expected_outputs: [workspace/output/module_report.json, workspace/output/scope_notes.md]
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, claude_completed_tool_turn_soft_exit_v1]
+rebuilt_from:
+  case: L4a-goal-revision-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain and lightly corrected so turn 1 introduces only the initial goal and channel constraints instead of pre-answering later revision policy, revision count, or final schema. The L4a mechanism remains the same ten fixed turns, three consecutive revisions at turns 3/5/7, one distractor, twelve items, an eight-good/four-bad split, a controlled-detail channel, two final artifacts, the same final three-field set, and the same budget. Domain names alone change to modules, released/blocked, loc_count, reviewer, and released_at. The Claude completed-tool-turn diagnostic is treated as a soft native exit so a provider response-format compatibility warning cannot truncate the multi-turn trajectory after completed tool work."

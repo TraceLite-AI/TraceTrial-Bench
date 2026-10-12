@@ -1,0 +1,1 @@
+{"id":"harnessbench-t1d","name":"HarnessBench T1d","description":"Over-long tool name probe","activation":{"onStartup":true},"contracts":{"tools":["hb_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"]},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

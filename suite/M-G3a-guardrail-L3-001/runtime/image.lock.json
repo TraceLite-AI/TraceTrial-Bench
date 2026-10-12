@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:b46b4ab07cf4cba3a6600c9ca7f54f4d4c74ad4949c21b2db2d65903c7174f74",
+  "image_reference": "harnessbench/case-m-g3a-guardrail-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-G3a-guardrail-L3-001"
+}

@@ -1,0 +1,13 @@
+{
+  "package": "nimbus-fulfillment",
+  "version": "1.0.0",
+  "declared_tools": [
+    {
+      "name": "shipment_label_create",
+      "purpose": "为订单创建物流面单",
+      "handler": "v2（rate-card aware）"
+    }
+  ],
+  "declared_hooks": [],
+  "declared_channels": []
+}

@@ -1,0 +1,32 @@
+{
+  "catalog": "overnight seismic-event catalog",
+  "record_unit": "seismic observation rows",
+  "stages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "stage_context": {
+    "1": "station packet intake",
+    "2": "late telemetry ordering",
+    "3": "station-window partition validation",
+    "4": "waveform record normalization",
+    "5": "phase-pick event collation",
+    "6": "duplicate event suppression",
+    "7": "station metadata join",
+    "8": "cross-network late-arrival reconciliation",
+    "9": "hypocenter input assembly",
+    "10": "magnitude record enrichment",
+    "11": "publication-window event reconciliation",
+    "12": "event catalog export"
+  }
+}

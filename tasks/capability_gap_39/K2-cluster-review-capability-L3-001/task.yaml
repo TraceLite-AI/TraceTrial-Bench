@@ -1,0 +1,38 @@
+id: K2-cluster-review-capability-L3-001
+title: "Cluster baseline compliance review through native child-agent aggregation"
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: Cluster baseline review
+  secondary_subscenarios: [Native child-agent delegation, Complete child-result handoff, Parent-side result reconciliation]
+harness:
+  dimension: L
+  subdimension: L3c
+  subdimension_name: Child-agent result aggregation
+intensity:
+  level: L3
+  description: "Twenty-three long, structurally similar checklists, eleven adversarial near-duplicate pairs, five fixed native child assignments, 69 source-grounded evidence fields, and one exact aggregate deliverable."
+input_mode: single_turn
+tool_dependencies: [native_child_delegation_v1, native_child_lifecycle_observation_v1, native_async_child_dispatch_v1, native_child_return_boundary_v1, native_pushed_child_completion_v1]
+budget:
+  max_turns: 12
+  max_tool_calls: 260
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs: [workspace/output/review.json]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_child_delegation_v1, native_child_lifecycle_observation_v1, native_async_child_dispatch_v1, native_child_return_boundary_v1, native_pushed_child_completion_v1]
+rebuilt_from:
+  case: K2-vendor-review-capability-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain with the same L3c mechanism, 23 items, eleven adversarial near-duplicate pairs, five fixed child assignments, 69 evidence fields, single-turn shape, budget, and truth distribution. The terminal rebuild declares native child lifecycle and pushed-completion observation, makes all core aggregation checks deterministic binary rules, adds four-harness verifier regressions, and changes only the domain skin to cluster baselines and RSB-3 policy rules."

@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:c899ece67777c3b9ae7b7bcf73037e2676572cad9f2b2aa9b7cc301120e77011",
+  "image_reference": "harnessbench/case-l11-longrun-timeout-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "L11-longrun-timeout-L3-001"
+}

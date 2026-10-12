@@ -1,0 +1,16 @@
+{
+  "items": [
+    {"id": "M01", "label": "Notice title contains no more than 20 characters"},
+    {"id": "M02", "label": "Notice body ends with the exact adoption-guidance tag"},
+    {"id": "M03", "label": "Photo attachment contains exactly three animal-photo IDs"},
+    {"id": "M04", "label": "Adoption fee includes the CNY currency prefix"},
+    {"id": "M05", "label": "Notice quotes the veterinary record exactly"},
+    {"id": "M06", "label": "NoticeText field uses Simplified Chinese"},
+    {"id": "M07", "label": "Public profile excludes internal kennel codenames LYNX and OTTER"},
+    {"id": "M08", "label": "Notice contains the specified adoption-appointment action"},
+    {"id": "M09", "label": "Shelter visit time uses ISO 8601 format"},
+    {"id": "M10", "label": "Shelter contact number masks the middle four digits"},
+    {"id": "M11", "label": "Notice contains no more than one emoji"},
+    {"id": "M12", "label": "Notice satisfies all eleven preceding publication constraints simultaneously"}
+  ]
+}

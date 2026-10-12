@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:e5b8b17f71ae49b30e0506ea4b175e03d9df5d8b094d916bb2882134a048fb3c",
+  "image_reference": "harnessbench/case-m-c5a-assets-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-C5a-assets-L3-001"
+}

@@ -1,0 +1,14 @@
+# svc-queue-1 service config
+apiVersion: platform/v2
+name: svc-queue-1
+port: 8005
+replicas: 2
+tls: true
+debug: true
+runAsUser: app
+healthcheck: /healthz
+dbPasswordRef: secretstore://db/${SVC}
+cpuLimit: 2000m
+memLimit: 1024Mi
+logLevel: error
+restartPolicy: always

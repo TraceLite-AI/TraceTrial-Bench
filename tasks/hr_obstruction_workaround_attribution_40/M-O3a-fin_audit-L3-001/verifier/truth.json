@@ -1,0 +1,14 @@
+{
+  "M01": {"rank": 1, "label": "Register sealed sample intake", "audit_ref": "71BEDFF0", "receipt": "732703E3"},
+  "M02": {"rank": 2, "label": "Quarantine duplicate sample container", "audit_ref": "D4F42AF3", "receipt": "42AD699D"},
+  "M03": {"rank": 3, "label": "Record sample homogenization", "audit_ref": "77114DD2", "receipt": "C18B7AAE"},
+  "M04": {"rank": 4, "label": "Authorize sterile aliquot preparation", "audit_ref": "4868C5CE", "receipt": "E081523F"},
+  "M05": {"rank": 5, "label": "Log reagent blank control", "audit_ref": "007B2F02", "receipt": "777577EF"},
+  "M06": {"rank": 6, "label": "Confirm calibration standard", "audit_ref": "C7318371", "receipt": "480059E5"},
+  "M07": {"rank": 7, "label": "Release extraction batch", "audit_ref": "4171BC20", "receipt": "C8F6BA47"},
+  "M08": {"rank": 8, "label": "Record instrument sequence", "audit_ref": "7B9B8306", "receipt": "61034A43"},
+  "M09": {"rank": 9, "label": "Approve confirmatory rerun", "audit_ref": "5A5E0550", "receipt": "57C84472"},
+  "M10": {"rank": 10, "label": "Validate quality-control recovery", "audit_ref": "7D704F16", "receipt": "7B35AD97"},
+  "M11": {"rank": 11, "label": "Archive chromatogram package", "audit_ref": "362BFF2D", "receipt": "74D67266"},
+  "M12": {"rank": 12, "label": "Close and lock sample case", "audit_ref": "9CA26AFE", "receipt": "7CEA8DE2"}
+}

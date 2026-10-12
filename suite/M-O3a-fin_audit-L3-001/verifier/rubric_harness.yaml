@@ -1,0 +1,66 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: audit_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: O3a
+    dim: procedural
+    layer: HR
+    criterion: "12 个过账留痕是否**全部**经 `audit` 工具通道真正恢复（12 笔动作正确留痕并提交比例）"
+  - id: audit_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: O3a
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的过账留痕（rank>50%）是否全部经通道恢复（后半段动作比例）"
+  - id: audit_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: C5a
+    dim: procedural
+    layer: HR
+    criterion: "`audit_submit` 回执是否全部经工具通道送达模型"
+  - id: audit_no_hard_wall
+    kind: gate
+    core: false
+    axis: O3a
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某过账留痕难度之后全部不可达的硬墙
+  - id: audit_failure_observable
+    kind: gate
+    core: false
+    axis: O3a
+    dim: procedural
+    layer: HR
+    criterion: 过账留痕失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: audit_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: V1a
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `audit` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_persisted_in_harness_state
+    kind: gauge
+    core: true
+    min_score: 0.6
+    axis: O3a
+    dim: procedural
+    layer: HR
+    criterion: audit_ref 真正出现在 harness 自身持久记录里的比例
+  - id: HR8_replay_complete
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: V1a
+    dim: procedural
+    layer: HR
+    criterion: 重放文档覆盖 12 笔动作的比例

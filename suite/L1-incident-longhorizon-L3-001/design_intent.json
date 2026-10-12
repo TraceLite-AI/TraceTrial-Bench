@@ -1,0 +1,13 @@
+{
+ "targets_harness_characteristic": "rolling_compaction_longhorizon_memory",
+ "is_feature_not_bug": true,
+ "feature_description": "OpenClaw 的 rolling compaction 是有意特性(~180K 触发, keep ~20K), 用于把上下文控制在窗口内; 不是 bug。",
+ "induced_capability_gap": "长程任务中, 早期阶段发现的 root_cause_code 与跨告警依赖链会被压成摘要丢失, 导致 reconcile/report 阶段无法闭合因果链。",
+ "badcase_lineage": [
+  "C1a",
+  "C2b",
+  "break_h6_taskload"
+ ],
+ "attribution_rule": "早期材料丢失 AND 压缩/溢出确有触发 -> harness-attributable(特性诱发能力缺口); 丢失 BUT 无压缩 -> model-side; 从未走到长程 -> inconclusive。",
+ "control_arm": "WFA-incident-001-short(3 起, 不触发压缩)应当 clean, 用于把特性效应从模型能力剥离。"
+}

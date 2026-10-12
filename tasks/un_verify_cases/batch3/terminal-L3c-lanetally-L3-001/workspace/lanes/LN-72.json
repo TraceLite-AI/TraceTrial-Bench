@@ -1,0 +1,28 @@
+{
+ "lane": "LN-72",
+ "dock": "west dock",
+ "manifest_date": "2026-08-05",
+ "settle_seconds": 2.2,
+ "pallets": [
+  {
+   "pallet": "PL-1",
+   "units": 187.34
+  },
+  {
+   "pallet": "PL-2",
+   "units": 186.49
+  },
+  {
+   "pallet": "PL-3",
+   "units": 191.67
+  },
+  {
+   "pallet": "PL-4",
+   "units": 183.62
+  },
+  {
+   "pallet": "PL-5",
+   "units": 181.32
+  }
+ ]
+}

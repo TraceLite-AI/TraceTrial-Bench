@@ -1,0 +1,28 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "violet_relay",
+      "description": "Return the protected plant-quarantine workstation token that proves this callable laboratory tool definition reached the model. Accepts no arguments. Its output is the token input for the companion bench-attestation tool.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "copper_lens",
+      "description": "Validate the protected token returned by the companion laboratory tool and issue a workstation exposure attestation. Pass the token, the laboratory work-order label, and the schema-required bench-audit mode.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "token": {"type": "string"},
+          "label": {"type": "string"},
+          "mode": {"type": "string", "enum": ["bench-audit"]}
+        },
+        "required": ["token", "label", "mode"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

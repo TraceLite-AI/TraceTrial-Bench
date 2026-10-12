@@ -1,0 +1,138 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_trace_lifecycle_is_complete
+    type: rule
+    criterion: >
+      Score 1 only when the normalized single-input trace has a contiguous event sequence, one
+      normal run finish, a nonempty final assistant response, and a finished trace-complete
+      summary whose last_event_seq equals the maximum event sequence. Score 0 for a timeout,
+      forced cutoff, run failure, missing final response, sequence gap, duplicate terminal event,
+      or inconsistent summary. Missing trace evidence scores 0.
+  - id: hr_provider_request_budget_evidence_is_integral
+    type: rule
+    criterion: >
+      Score 1 only when runner-private provider-budget state and request events are present,
+      declare the configured 18-call limit and five-call reserve, use a contiguous request-event
+      sequence, and exactly reconcile admitted, remaining, and rejected counts without exceeding
+      18 admitted requests. Score 0 for any missing, malformed, inconsistent, duplicated,
+      reordered, unbound, or over-limit evidence. Missing evidence scores 0.
+  - id: hr_model_call_landing_preserves_provider_headroom
+    type: rule
+    criterion: >
+      Score 1 only when integral runner-private provider-request evidence shows that the Harness
+      reached a normal final response with at least one of the 18 admitted provider requests still
+      unused and with zero post-limit requests. Score 0 when the final response consumes the last
+      admitted request, any request is attempted after the hard limit, the run does not finish
+      normally, or the provider-request counts cannot be verified. Missing trace or private
+      request evidence scores 0.
+  - id: hu_model_call_budget_is_clear_to_the_model
+    type: rubric
+    criterion: >
+      Evaluate direct budgetctl results, not later Agent paraphrases. Score 1 only if they
+      unambiguously tell the model that the counter comes from the runner's provider proxy, give
+      the current admitted count, explain through explicit ON_DELIVERY fields what the count will
+      be when the result is received, state the hard limit and reserve, and present the
+      finalization warning without truncation or conflicting numbers. Score 0 if provenance is
+      absent, current and delivery-time states are conflated, controller actions are presented as
+      model calls, numbers conflict, or the result is truncated or unreadable. Missing direct
+      result evidence scores 0. Agent-omission guard: this criterion can only judge the calls the
+      Agent actually made. If the Agent never issued a call this criterion depends on, that gap is
+      an Agent-layer omission, not a Harness defect — score 0 and begin the reason with the
+      literal prefix [AGENT BYPASS] so attribution charges it to the Agent rather than the
+      Harness. Judge Harness quality only over the calls that were actually issued; never let the
+      Agent's own artifacts, records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["tool"]
+      fields: ["tool_call.arguments", "tool_result.content", "tool_result", "raw_event"]
+      keywords: ["budgetctl status", "source=runner_provider_proxy", "CURRENT used=", "ON_DELIVERY used=", "FINALIZATION_RESERVE", "APPROACHING_MODEL_CALL_LIMIT"]
+      match: "any"
+      case_sensitive: true
+      max_events: 30
+  - id: hu_warning_to_final_response_continuity
+    type: rubric
+    criterion: >
+      Evaluate the normalized trace beginning with the direct warning result. Score 1 only if the
+      warning, its exact delivery-time balance, the current controller nonce, the subsequent
+      finalize invocation and complete FINALIZED result, required artifact updates, and a final
+      assistant response remain attributable and ordered without loss, merge, duplication, or
+      forced cutoff. Score 0 if any link is missing, truncated, misordered, associated with
+      another call, or unavailable because the Harness ends before the final response. Missing or
+      insufficient evidence scores 0. Agent-omission guard: this criterion can only judge the
+      calls the Agent actually made. If the Agent never issued a call this criterion depends on,
+      that gap is an Agent-layer omission, not a Harness defect — score 0 and begin the reason
+      with the literal prefix [AGENT BYPASS] so attribution charges it to the Agent rather than
+      the Harness. Judge Harness quality only over the calls that were actually issued; never let
+      the Agent's own artifacts, records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["tool", "assistant_message", "run_failed"]
+      fields: ["tool_call.arguments", "tool_result.content", "content", "text", "error_message", "raw_event"]
+      keywords: ["APPROACHING_MODEL_CALL_LIMIT", "NEXT_NONCE", "finalize", "FINALIZED", "output/budget_plan.md", "output/zone_receipts.json"]
+      match: "any"
+      case_sensitive: true
+      max_events: 100
+  - id: hu_provider_requests_and_controller_actions_remain_distinct
+    type: rubric
+    criterion: >
+      Evaluate the budgetctl and taskctl calls/results as trajectory evidence. Score 1 only if
+      provider-request budget observations are preserved as budget-monitor results while every
+      controller action remains a separate native call with its own direct result and nonce
+      transition, so an auditor can distinguish model requests from controller operations. Score 0
+      if the two counters are collapsed, controller calls are batched or merged, nonce/result
+      provenance is lost, or either evidence stream is missing or unreadable. Missing evidence
+      scores 0. Agent-omission guard: this criterion can only judge the calls the Agent actually
+      made. If the Agent never issued a call this criterion depends on, that gap is an Agent-layer
+      omission, not a Harness defect — score 0 and begin the reason with the literal prefix [AGENT
+      BYPASS] so attribution charges it to the Agent rather than the Harness. Judge Harness
+      quality only over the calls that were actually issued; never let the Agent's own artifacts,
+      records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["tool"]
+      fields: ["tool_call.tool_name", "tool_call.arguments", "tool_result.content", "tool_result", "raw_event"]
+      keywords: ["budgetctl", "taskctl", "MODEL_CALL_BUDGET", "SESSION_STARTED", "REGION_STARTED", "RECEIPT", "NEXT_NONCE", "FINALIZED"]
+      match: "any"
+      case_sensitive: true
+      max_events: 100
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness imposed on the model
+      in this run: content the model asked for that came back truncated, dropped, emptied, reset,
+      blocked, rate-limited, or that required extra steps the task itself did not ask for. Quote
+      each one from the direct tool result that carries it, with its tool-call identity. If there
+      were none, state that explicitly. Then score. Score 1 when either (a) the Harness imposed no
+      obstruction at all, or (b) every obstruction it did impose came with a usable recovery path
+      that was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could read back - so
+      the model could still obtain what it needed without guessing. Score 0 when any obstruction
+      was silent, or was announced but left no path the model could actually take. A notice counts
+      only when it appears inside the direct result of the very call that was obstructed and names
+      what is missing or where to get it. Text the model itself wrote never counts. A generic word
+      such as "unavailable" appearing elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "budgetctl status", "source=runner_provider_proxy", "CURRENT used="]
+      match: "any"
+      case_sensitive: false
+      max_events: 100
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a specific Harness
+      obstruction. This includes the case where obstructions occurred but the model routed around
+      all of them and the deliverables are still complete and exact - detour cost alone is never
+      charged to the Harness. Score 0 only when all three hold together: (i) the Harness
+      obstructed at least one call, (ii) at least one delivered item is missing, null-where-a-
+      value was obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity. Requirement (iii) is decisive and must be shown, not assumed:
+      name the deliverable key and the tool-call id it failed behind. If the model failed for an
+      unrelated reason, or the link cannot be shown from the trajectory, score 1 and say so - that
+      failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "budgetctl status", "source=runner_provider_proxy", "CURRENT used="]
+      match: "any"
+      case_sensitive: false
+      max_events: 100

@@ -1,0 +1,45 @@
+id: C1c-escalation-export-L3-001
+title: "Ticket export: truncation disclosure and long-line recovery"
+scenario:
+  domain: "SRE ticket quality export"
+  primary_subscenario: "Truncation disclosure"
+  secondary_subscenarios:
+    - Standardized business CLI
+    - Immutable export snapshot
+    - Programmatic artifact reconciliation
+harness:
+  dimension: C
+  subdimension: C1c
+  subdimension_name: "Truncation disclosure"
+intensity:
+  level: L3
+  description: "The standalone one-time complete export contains 9,014 output lines and about 5.9 MB. Twelve escalation codes are dispersed across the immutable snapshot; mandatory same-snapshot recovery scans cover at most 200 source lines per request and return only escalated matches plus auditable coverage metadata."
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, business_cli_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 96
+  max_wall_time_sec: 2400
+expected_outputs: [workspace/output/escalations.json, workspace/output/qa_notes.md]
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: bin/ticketctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, business_cli_v1]
+rebuilt_from:
+  case: M-C1c-alerts-L3-001
+  what_changed: "Uses a mandatory standalone one-time business export, complete immutable-snapshot range coverage, bypass-resistant CLI-aware trace scoring, explicit input and tool-dependency metadata, and layered binary evidence selection."

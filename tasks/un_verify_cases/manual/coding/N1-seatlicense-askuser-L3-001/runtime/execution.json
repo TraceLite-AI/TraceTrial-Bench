@@ -1,0 +1,13 @@
+{
+  "conversation": {
+    "mode": "simulator",
+    "entrypoint": "simulator/next_turn.py",
+    "max_turns": 5
+  },
+  "network_mode": "none",
+  "profile": "N1-seatlicense-askuser-L3-001",
+  "requires": [],
+  "runnable": true,
+  "schema_version": "harnessbench_execution_v1",
+  "timeout_sec": 1800
+}

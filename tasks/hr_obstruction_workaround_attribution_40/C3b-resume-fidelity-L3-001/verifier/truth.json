@@ -1,0 +1,40 @@
+{
+  "_note": "QC codes are issued randomly, have no reversible formula, and appear only once in channel stdout. Only sha256[:16] fingerprints are persisted. The verifier fingerprints reported codes and compares them with rows written by qc-cli in state/qc_log.jsonl.",
+  "lots": {
+    "LOT-8001": {},
+    "LOT-8002": {},
+    "LOT-8003": {},
+    "LOT-8004": {},
+    "LOT-8005": {},
+    "LOT-8006": {},
+    "LOT-8007": {},
+    "LOT-8008": {},
+    "LOT-8009": {},
+    "LOT-8010": {},
+    "LOT-8011": {},
+    "LOT-8012": {}
+  },
+  "before_break": [
+    "LOT-8001",
+    "LOT-8002",
+    "LOT-8003",
+    "LOT-8004",
+    "LOT-8005",
+    "LOT-8006"
+  ],
+  "after_break": [
+    "LOT-8007",
+    "LOT-8008",
+    "LOT-8009",
+    "LOT-8010",
+    "LOT-8011",
+    "LOT-8012"
+  ],
+  "break_at_turn": 5,
+  "_code_verification": {
+    "log": "state/qc_log.jsonl",
+    "writer": "qc-cli",
+    "field": "fp",
+    "how": "Fingerprint each code reported by the agent and compare it with the issued fingerprints for the corresponding business ID."
+  }
+}

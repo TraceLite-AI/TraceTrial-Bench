@@ -1,0 +1,8 @@
+{
+ "turns": [
+  "这 12 个依赖要评估能否升级，任务书在 `docs/UPGRADE_BRIEF.md`，清单在 `deps.csv`。\n\n**用 `web_fetch` 取每个依赖的上游变更说明**（内网镜像地址见任务书），据原文判断。\n\n产出 `output/upgrade_assessment.json`：`{\"urllib3\": {\"breaking\": true/false, \"source_url\": \"...\", \"basis\": \"...\"}, ...}`\n\n先回复\"收到\"。",
+  "发布窗口在周四，尽快。",
+  "有几个是核心依赖，判错了会炸生产，麻烦按上游原文来。",
+  "定稿吧。"
+ ]
+}

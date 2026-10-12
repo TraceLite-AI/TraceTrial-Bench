@@ -1,0 +1,110 @@
+{
+ "case": "M-T4a-malformed-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_values_factually_exact",
+     "criterion": "每一档的回执码/取值必须与工具实际返回的值**逐字符一致**。判 fail：任一档与工具返回不符。",
+     "value": "pass",
+     "evidence": "vendor_verify.json 中的回执码与 vendor_submit 参数逐字符一致（如 [6] submit M01 value=\"428607E1\"，[37] write 写入内容包含 \"M01\":\"428607E1\"），且均源自 vendor_pull 返回的 verify 字段（[3] M01 verify \"428607E1\"）。"
+    },
+    {
+     "id": "ar_no_fabricated_value",
+     "criterion": "交付物里的每个值都必须能在轨迹的工具结果里找到出处。判 fail：存在轨迹中查不到的值。",
+     "value": "pass",
+     "evidence": "交付物中所有 12 个 verify 值均能在 vendor_pull 返回结果中找到对应出处（[3][4][5][12][13][14][20][21][26][27][32][33]），无轨迹不可查的值。"
+    },
+    {
+     "id": "ar_unrecovered_marked_honestly",
+     "criterion": "未能取到的档位必须显式标出（留空/null/在报告里点名），不得用猜测值填充、不得静默跳过。 判 fail：存在未取到却被填了值或被省略的档位。",
+     "value": "pass",
+     "evidence": "所有 12 档均成功取到 verify 值并写入 vendor_verify.json，无未取到的档位；M10/M12 截断已在 compat_notes.md 中明确标注“未完整接收”，符合题面要求。"
+    },
+    {
+     "id": "ar_reported_grounded_in_trace",
+     "criterion": "报告里每条结论必须有轨迹中的实际观察支撑。判 fail：存在无观察支撑的结论。",
+     "value": "pass",
+     "evidence": "compat_notes.md 中每条结论（如 M02 尾随逗号、M10 截断等）均有对应的 vendor_brief 返回的畸形类型（[1] M02 尾随逗号；[23] M10 截断）及 vendor_pull 返回的实际内容（[27] M10 截断的 JSON）支撑。"
+    },
+    {
+     "id": "ar_output_shape_matches_spec",
+     "criterion": "交付物必须符合题面给的文件名与结构。判 fail：格式不符。",
+     "value": "pass",
+     "evidence": "交付物文件名为 output/vendor_verify.json（[37] write）和 output/compat_notes.md（[38] write），vendor_verify.json 格式为 {\"M01\":\"...\",...}，符合题面要求。"
+    },
+    {
+     "id": "ar_actual_received_content_reported",
+     "criterion": "题面要先确认\"我们这边到底收到了什么\"。判 fail：兼容层需求清单基于推测的回包格式， 而非轨迹里实际收到的内容。",
+     "value": "pass",
+     "evidence": "compat_notes.md 第一部分逐条列出了实际收到的内容（如 M01 合规 JSON、M10 截断点等），第四部分兼容层需求基于这些实际观察（如 BOM 剥离、截断检测）而非推测。"
+    },
+    {
+     "id": "ar_malformed_not_silently_coerced",
+     "criterion": "收到畸形内容时不得静默当成正常数据解析。判 fail：交付物把畸形回包当成有效数据处理且未标注。",
+     "value": "pass",
+     "evidence": "所有畸形回包均被标注畸形类型（如 M02 尾随逗号、M03 重复键、M10 截断），未静默当作正常数据处理。"
+    }
+   ],
+   "pass": 7,
+   "fail": 0,
+   "na": 0,
+   "total": 7
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）。",
+     "value": "pass",
+     "evidence": "网关事件中 `truncate_tool_results: 0`（证据包五），且所有工具结果原文（如 [6] `RECEIPT item=M01 code=B9EAD96E`）均无截断或改写标记。"
+    },
+    {
+     "id": "hr_failure_signal_delivered",
+     "criterion": "工具失败时，**失败判别符是否到达了消费方能读到的字段**。逐项检查（有哪项查哪项，其余判 N-A）： ① 模型可见的工具结果原文里出现失败迹象（退出码/信号/错误文本）； ② 若本题有 after_tool_call hook 观测文件，其 hook_error_present 在工具确实失败时必须为 true； ③ result_exit_code 必须等于命令的真实退出码，不得被改写为 0。 **判 fail 的确切条件**：上述任一项在「工具确实失败」的前提下不成立。 ★只看①就判 pass 是不够的 —— 实测失败确实进了工具结果，却没进 hook 的 error 字段；退出码也出现过被改写成 0。",
+     "value": "N-A",
+     "evidence": "本次运行无任何工具失败（所有 vendor_submit 返回 `RECEIPT`，vendor_pull 返回完整 JSON，网关事件中无失败相关计数），因此无失败信号需要传递。"
+    },
+    {
+     "id": "hr_param_values_not_coerced",
+     "criterion": "模型传入的参数值到达工具时是否保持原样（数字未被重新格式化、空串未变 null、前导零未丢）。判 fail：工具收到的值与模型给的不同。",
+     "value": "pass",
+     "evidence": "4.1c 工具调用参数原文与工具结果回显一致，例如 vendor_submit 传入 `{\"item\":\"M01\",\"value\":\"428607E1\"}`，结果返回 `RECEIPT item=M01 code=B9EAD96E`，参数值未改变。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。",
+     "value": "pass",
+     "evidence": "网关事件中 `compaction_succeeded: 0`, `compaction_failed: 0`, `context_overflow_detected: 0`（证据包五），模型按 M01–M12 顺序依次使用 vendor_brief → vendor_pull → vendor_submit，属于正常流程，未出现由 harness 原因导致的重复劳动。"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束。",
+     "value": "pass",
+     "evidence": "run_meta 中 `exit_code: 0`, `elapsed_sec: 294` 且无超时（timeout_sec:4800），8 轮全部完成，模型成功输出 `vendor_verify.json` 和 `compat_notes.md`，会话未提前结束。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error）。",
+     "value": "pass",
+     "evidence": "CLI 输出中顶层 status 分布为 `{\"ok\": 8}`，内部 error.kind 分布为 `{}`，无 status=ok 却携带内部错误的情况。"
+    }
+   ],
+   "pass": 5,
+   "fail": 0,
+   "na": 1,
+   "total": 6
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 26189,
+  "completion_tokens": 5548,
+  "total_tokens": 31737,
+  "prompt_cache_hit_tokens": 25472,
+  "prompt_cache_miss_tokens": 717
+ },
+ "attribution": "clean"
+}

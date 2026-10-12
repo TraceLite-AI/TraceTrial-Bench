@@ -1,0 +1,9 @@
+{
+  "arm": "B_orphan",
+  "exit_code": 124,
+  "wall_sec": 182,
+  "oc_timeout": 45,
+  "outer_timeout": 180,
+  "orphans_surviving": 3,
+  "oc_timeout_error_in_log": 0
+}

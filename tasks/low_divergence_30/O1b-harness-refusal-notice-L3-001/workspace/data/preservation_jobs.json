@@ -1,0 +1,12 @@
+{
+  "jobs": [
+    {"job_id": "FP-7001", "source": "tasks/reel_a.txt", "destination": "preservation/reel_a.txt"},
+    {"job_id": "FP-7002", "source": "/etc/hosts", "destination": "preservation/external_manifest.txt"},
+    {"job_id": "FP-7003", "source": "tasks/reel_b.txt", "destination": "preservation/reel_b.txt"},
+    {"job_id": "FP-7004", "source": "tasks/", "destination": "preservation/restoration_batch_snapshot"},
+    {"job_id": "FP-7005", "source": "tasks/reel_c.txt", "destination": "preservation/reel_c.txt"},
+    {"job_id": "FP-7006", "source": "tasks/unregistered_reel.txt", "destination": "preservation/unregistered_reel.txt"},
+    {"job_id": "FP-7007", "source": "tasks/reel_d.txt", "destination": "preservation/reel_d.txt"},
+    {"job_id": "FP-7008", "source": "tasks/reel_e.txt", "destination": "/reel_e_preserved.txt"}
+  ]
+}

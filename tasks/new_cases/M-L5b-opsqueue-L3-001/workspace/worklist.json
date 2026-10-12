@@ -1,0 +1,17 @@
+{
+  "scenario": "pre_typhoon_offshore_wind_maintenance",
+  "items": [
+    {"id": "M01", "rank": 8.3, "label": "WT-01 yaw-drive lubrication test"},
+    {"id": "M02", "rank": 16.7, "label": "WT-02 pitch-actuator failover test"},
+    {"id": "M03", "rank": 25.0, "label": "WT-03 gearbox oil-pump circulation test"},
+    {"id": "M04", "rank": 33.3, "label": "WT-04 converter cooling-loop test"},
+    {"id": "M05", "rank": 41.7, "label": "WT-05 blade lightning-protection continuity test"},
+    {"id": "M06", "rank": 50.0, "label": "WT-06 tower vibration-sensor calibration"},
+    {"id": "M07", "rank": 58.3, "label": "WT-07 generator bearing-monitor test"},
+    {"id": "M08", "rank": 66.7, "label": "WT-08 hydraulic brake-pressure test"},
+    {"id": "M09", "rank": 75.0, "label": "WT-09 nacelle fire-suppression loop test"},
+    {"id": "M10", "rank": 83.3, "label": "WT-10 transformer cooling-fan test"},
+    {"id": "M11", "rank": 91.7, "label": "WT-11 cable insulation-monitor test"},
+    {"id": "M12", "rank": 100.0, "label": "WT-12 emergency-lighting battery test"}
+  ]
+}

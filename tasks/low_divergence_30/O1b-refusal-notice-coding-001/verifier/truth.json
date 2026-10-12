@@ -1,0 +1,14 @@
+{
+  "schema_version": "harnessbench_native_refusal_notice_truth_v1",
+  "required_order": ["PUB-7001", "PUB-7002", "PUB-7003", "PUB-7004", "PUB-7005", "PUB-7006", "PUB-7007", "PUB-7008"],
+  "jobs": {
+    "PUB-7001": {"state": "published", "system_message": null, "receipt_code": "RP-0A277BB53E"},
+    "PUB-7002": {"state": "failed", "system_message": "PUBLISH_REFUSED job=PUB-7002 notice=N-8D41C72A class=OUTSIDE_WORKSPACE detail=Source path is outside the permitted workspace boundary.", "receipt_code": "RP-09E74CA343"},
+    "PUB-7003": {"state": "published", "system_message": null, "receipt_code": "RP-19A3719830"},
+    "PUB-7004": {"state": "failed", "system_message": "PUBLISH_REFUSED job=PUB-7004 notice=N-2AB60F95 class=SOURCE_IS_DIRECTORY detail=The requested source is a directory, not a regular file.", "receipt_code": "RP-2711E4F01B"},
+    "PUB-7005": {"state": "published", "system_message": null, "receipt_code": "RP-C55E2B0252"},
+    "PUB-7006": {"state": "failed", "system_message": "PUBLISH_REFUSED job=PUB-7006 notice=N-C731E84B class=SOURCE_NOT_FOUND detail=The requested source does not exist.", "receipt_code": "RP-A0D4CE2714"},
+    "PUB-7007": {"state": "published", "system_message": null, "receipt_code": "RP-C37501A4F3"},
+    "PUB-7008": {"state": "failed", "system_message": "PUBLISH_REFUSED job=PUB-7008 notice=N-5F09DA36 class=DESTINATION_OUTSIDE_WORKSPACE detail=Destination path is outside the permitted workspace boundary.", "receipt_code": "RP-4C675EAC16"}
+  }
+}

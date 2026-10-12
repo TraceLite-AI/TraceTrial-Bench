@@ -1,0 +1,42 @@
+id: L10-subagent-evidence-L3-001
+title: 多分区回归测试签核（放行须有平台侧可核实记录）
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: 发布前多分区回归编排
+  secondary_subscenarios:
+    - 子任务证据核实
+    - 慢任务收尾
+    - 发布签核
+harness:
+  dimension: L
+  subdimension: L3c
+  subdimension_name: 子代理结果聚合
+  also_exercises:
+    - L-pending-child 挂起任务收尾
+    - C2b 压缩保真
+intensity:
+  level: L3
+  description: 9 个分区派给独立后台 runner; 其中 2 个按 codex#34152 自报成功但平台侧无执行记录(evidence gap), 2 个耗时 52s 跨过 30s pending-drain 窗口; 中途注入真实 CI 快照累积上下文。
+budget:
+  max_turns: 24
+  max_tool_calls: 140
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  hr_semantics: 慢分区结果未回父任务 → harness(pending-drain); 压缩致早期分区漏签 → harness(compaction)
+  rr_semantics: 全二值无权重; 无 Host 记录却签 verified → model-side
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/output/signoff_report.md
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-l10-subagent-evidence-l3-001:v1
+  image_lock: runtime/image.lock.json

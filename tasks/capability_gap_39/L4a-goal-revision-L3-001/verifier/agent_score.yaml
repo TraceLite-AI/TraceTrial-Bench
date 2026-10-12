@@ -1,0 +1,54 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_final_output_contract_matches_latest_goal
+    type: rule
+    criterion: >
+      Score 1 only when output/ contains exactly recon_report.json and scope_notes.md;
+      recon_report.json is a JSON object containing exactly the eight settled construction bid-lot IDs; every row
+      contains exactly line, amount_minor, and settled_at; line equals its object key; and no
+      pending bid lot, approver, status, placeholder, extra field, or extra output file remains.
+      Score 0 when any required file, bid lot, or field is missing, malformed, stale, or extra, or
+      when deterministic evidence is unavailable.
+
+  - id: ar_final_values_are_exact_and_authoritative
+    type: rule
+    criterion: >
+      Score 1 only when every final bid lot and amount_minor exactly matches data/lines.json, every
+      settled_at exactly matches the controlled value recorded for that bid lot by the approved
+      channel in the runner-private integrity-bound ledger, and the agent never attempts to access
+      channel-internal state directly. Score 0 for any mismatch, estimate, fabrication, hidden-state
+      access, or unavailable deterministic evidence. Model-visible delivery is scored separately at
+      the harness layer and is not required for this artifact-correctness rule.
+
+  - id: ar_each_explicit_revision_updates_the_report_in_turn
+    type: rule
+    criterion: >
+      Score 1 only when normalized trace evidence contains a mutation of the same
+      output/recon_report.json during each explicit revision turn: turn 3 for the settled-only
+      scope, turn 5 for adding approver, and turn 7 for revoking approver and replacing it with
+      settled_at. Score 0 when any revision is deferred, applied only to notes, written to another
+      file, or cannot be verified from trace evidence.
+
+  - id: ar_scope_notes_distinguish_three_revisions_from_non_revisions
+    type: rubric
+    criterion: >
+      Score 1 only when output/scope_notes.md clearly states the latest goal—settled construction bid lots only,
+      with exactly line, amount_minor, and settled_at and no approver—and identifies exactly three
+      revisions in the correct order: (1) narrow all bid lots to settled bid lots, (2) add approver,
+      (3) revoke approver and replace it with settled_at. Initial report creation, controlled-detail
+      retrieval, verification, and the maximum-certified-amount question must not be counted as revisions.
+      Score 0 when the final goal is obsolete or ambiguous, the count or order is wrong, a
+      non-revision is counted, two revisions are merged, approver remains final, or the artifact or
+      necessary evidence is missing. Also score 0 if initial creation is labeled "revision 0" or is
+      placed as an entry inside the revision history, even when the stated numeric count is three.
+      A complete final scope and field set stated once anywhere in the evidence is sufficient; do
+      not infer a missing field from a separately repeated sentence that is cut off at the end of an
+      otherwise valid evidence snippet.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["Scope Notes", "Revision", "settled_at"]
+      match: all
+      case_sensitive: false
+      max_events: 10

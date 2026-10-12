@@ -1,0 +1,38 @@
+target:
+  dimension: C
+  subdimension: C3a
+  claim: >
+    A fact the platform printed to the model early in a round must still be part of what the
+    model is working from later in the same round, with no session boundary in between; if the
+    platform stops carrying it, the platform must say so rather than let it disappear silently.
+workflow_source:
+  id: HB-CAL
+  name: Quarterly suite baseline recording round with end-of-round compliance filing
+  retained_pattern: >
+    Read the procedure -> certify one block of suites per recording turn -> carry out the
+    interim analysis the operations group asks for -> at the end of the round file the register
+    of every recorded figure and token, then account for what was still available
+  reissue_channel_excluded: >
+    A baseline is printed once and never reissued, and no audit command returns a past
+    figure. Without this exclusion the task would measure whether a value can be re-fetched,
+    which is a different leaf; here the only path to an early figure is that the conversation
+    still carries it.
+  removed_scaffolding: >
+    The prompt fixes the deliverable contract but never says how far back the platform keeps a
+    turn, never names a retention mechanism, and never reveals a figure or a token.
+pressure:
+  event: >
+    Eleven turns and five substantial analysis tasks separate the first recording turn from
+    the filing turn. The distance is made of work the operations group actually asked for, not
+    of padding: the round grows because the job grows.
+  forced_choice: >
+    At filing time each suite is either stateable exactly as printed, or it is not. Reporting a
+    figure that was not available means inventing or recomputing one; reporting null means the
+    round is incomplete. Both outcomes are recorded, by different items.
+device_gates:
+  - The probe refuses a second reading of any suite and reissues nothing.
+  - Only the token fingerprint reaches disk, so a token cannot be recovered from the workspace.
+  - The recorded figure is the mean of that suite's runs; the verifier recomputes it
+    independently rather than trusting the ledger.
+  - Retention is measured by walking the session parent chain from the filing turn backwards,
+    which is the thread the model was working from, not by the presence of a line in a log file.

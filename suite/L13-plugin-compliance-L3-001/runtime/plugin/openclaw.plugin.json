@@ -1,0 +1,1 @@
+{"id": "hb-vendor-review", "name": "hb-vendor-review", "description": "plugin compliance review", "activation": {"onStartup": true}, "contracts": {"tools": ["vendor_manifest", "bundle_inspect", "review_verdict"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

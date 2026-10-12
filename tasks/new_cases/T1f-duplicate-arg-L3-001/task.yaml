@@ -1,0 +1,44 @@
+id: T1f-duplicate-arg-L3-001
+title: "Migratory-bird banding observation transport"
+scenario:
+  domain: "migratory-bird banding station observation intake"
+  primary_subscenario: "multiple observers encoded as repeated native arguments"
+  secondary_subscenarios:
+    - "ordered duplicate JSON members"
+    - "prefix-similar native argument names"
+    - "raw-to-dispatch argument fidelity"
+    - "grounded mismatch reporting"
+harness:
+  dimension: T
+  subdimension: T1f
+  subdimension_name: "Duplicate and prefix-similar argument transport"
+intensity:
+  level: L3
+  description: "Ten one-shot native banding-observation calls include four observations with repeated top-level observer members, four observations with distinct band_ref/band_ref-check members, two combined cases, and ordinary controls. A raw-pair-preserving MCP backend records the ordered argument members that actually reach dispatch and returns them to the Agent."
+input_mode: single_turn
+tool_dependencies: [mcp_stdio_v1, post_tool_v1, task_runtime_image_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 30
+  max_wall_time_sec: 600
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  - workspace/output/observation_result.json
+  - workspace/output/observation_notes.md
+execution_probe:
+  version: lifecycle_v1
+  requires: [post_tool_v1]
+execution:
+  mode: docker
+  protocol: harnessbench_native_v1
+  image: harnessbench/case-t1f-duplicate-arg-l3-001-migrated:v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: tasks/cases/T1f-duplicate-arg-L3-001
+  what_changed: "Reframed as a fully English migratory-bird banding-station task whose repeated observer names and prefix-similar band_ref/band_ref-check names are top-level arguments of a real task-scoped native MCP tool. The optimized verifier still separates duplicate-name fidelity from distinct-name controls, checks private dispatch evidence against model-visible results, and supplies focused evidence for binary trajectory and artifact rubrics."

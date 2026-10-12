@@ -1,0 +1,73 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: req_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: T1g
+    dim: procedural
+    layer: HR
+    criterion: "12 个req是否**全部**经 `req` 工具通道真正恢复（清晰请求正确执行提交比例）"
+  - id: req_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: T1g
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的req（rank>50%）是否全部经通道恢复（后半段清晰请求比例）"
+  - id: req_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: V1a
+    dim: procedural
+    layer: HR
+    criterion: "`req_submit` 回执是否全部经工具通道送达模型"
+  - id: req_no_hard_wall
+    kind: gate
+    core: false
+    axis: T1g
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某req难度之后全部不可达的硬墙
+  - id: req_failure_observable
+    kind: gate
+    core: false
+    axis: T1g
+    dim: procedural
+    layer: HR
+    criterion: req失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: req_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: L4b
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `req` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_clarified_ambiguous
+    kind: gauge
+    core: true
+    min_score: 0.6
+    axis: T1g
+    dim: procedural
+    layer: HR
+    criterion: 对歧义项发起澄清（而非猜着做）的比例
+  - id: HR8_no_guess_on_ambiguous
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: T1g
+    dim: procedural
+    layer: HR
+    criterion: "**未**对歧义项猜一个解读硬做的比例"
+  - id: HR9_ask_user_is_first_class
+    kind: gate
+    core: false
+    axis: T1g
+    dim: procedural
+    layer: HR
+    criterion: harness 是否提供结构化 ask-user 能力（能力探针，非core信息项）

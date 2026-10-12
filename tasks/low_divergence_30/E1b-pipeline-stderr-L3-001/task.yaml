@@ -1,0 +1,44 @@
+id: E1b-pipeline-stderr-L3-001
+title: "Seismic Event Catalog Triage: Defect Codes on Standard Error"
+scenario:
+  domain: "overnight seismic-event catalog processing"
+  primary_subscenario: "stderr capture and stream fidelity"
+  secondary_subscenarios:
+    - seismic observation pipeline artifacts
+    - multi-turn evidence retention
+    - deterministic catalog-handoff reconciliation
+harness:
+  dimension: E
+  subdimension: E1b
+  subdimension_name: "stderr capture and stream fidelity"
+intensity:
+  level: L3
+  description: "All 12 seismic catalog stages report status=completed on stdout; six data-integrity diagnostics and their single-use verification codes appear only on stderr, which the monitoring dashboard does not consume."
+budget:
+  max_turns: 14
+  max_tool_calls: 140
+  max_wall_time_sec: 2400
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+input:
+  mode: multi_turn_direct
+  turns: turns.json
+dependencies:
+  workspace_tools:
+    - bin/pipeline run
+    - bin/pipeline audit
+  mechanisms:
+    - stderr_capture
+    - stdout_stderr_stream_provenance
+    - single_use_verification_codes
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-E1b-etl-L3-001
+  what_changed: "Reframed as an overnight seismic-event catalog investigation while preserving the stderr-only mechanism; scoring separates deterministic artifact checks from trace-level stream-fidelity evidence."

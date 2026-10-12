@@ -1,0 +1,1 @@
+{"id": "hb-migrate", "name": "hb-migrate", "description": "migration runbook", "activation": {"onStartup": true}, "contracts": {"tools": ["step_command"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

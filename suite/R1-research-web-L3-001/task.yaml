@@ -1,0 +1,48 @@
+id: R1-research-web-L3-001
+title: Cross-source open-source coding agent survey with citation grounding
+scenario:
+  domain: Deep research
+  primary_subscenario: Multi-source technical survey
+  secondary_subscenarios:
+    - Citation grounding
+    - Release-line disambiguation
+    - Uncertainty disclosure
+harness:
+  dimension: C
+  subdimension: C2b
+  subdimension_name: 压缩保真 / web 通道上下文压力
+  also_exercises:
+    - O1a 工具结果保真
+    - L3c 子代理(可选路径)
+intensity:
+  level: L3
+  description: 6 个项目 × 4 个字段 = 24 个数据点, 来源分散在多个真实站点; web 抓取内容只能留在上下文里(无法 grep/卸载), 必然累积上下文压力。
+budget:
+  max_turns: 60
+  max_tool_calls: 150
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  harness_rubric: verifier/rubric.md#第-1-层hr--harness-属性层三态或条件判定
+  result_rubric: verifier/rubric.md#第-2-层rr--结果质量层harness-中立全二值无权重
+  hr_semantics: pass/fail/N-A; 机制未触发且任务完成=pass(记功), 未触发且未完成=fail
+  rr_semantics: 全二值无权重, 全过才算 pass; 幅度看连续指标不进判定
+  no_scalar_score: 不输出加权总分(等权重+丢幅度会造假等价), 只出二值判定+连续指标+归因
+  determinism: full
+  llm_judge: reserved
+  llm_judge_planned_model: claude-opus-5
+  llm_judge_votes: 3
+  llm_judge_note: 判官只做判定不做检索(来源页证据由打分器统一代抓, 两 harness 拿到完全相同证据); 必须输出证据span; 报分歧率; 与确定性判定并行输出做交叉核对
+  llm_judge_id_rule: 必须写完整模型ID, 禁用别名(本机 opus→claude-opus-4-5-20251101, 会导致跨机器不可复现)
+  judge_candidates: RR3_value_grounded(语义等价) · RR4_source_authoritative(出处权威性) · RR8_uncertainty_declared(披露充分性)
+  judge_discipline: 判官模型≠被测模型 · 固定模型与温度 · 必须输出证据span · 3次投票并报分歧率 · 跨harness配置一致 · 结果分纯确定性/含判官两口径
+expected_outputs:
+  - workspace/output/research.json
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-r1-research-web-l3-001:v1
+  image_lock: runtime/image.lock.json

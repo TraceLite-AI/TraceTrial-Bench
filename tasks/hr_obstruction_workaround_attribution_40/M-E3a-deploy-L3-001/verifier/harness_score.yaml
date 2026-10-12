@@ -1,0 +1,158 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_mechanism_fully_exercised
+    type: rule
+    criterion: >
+      For every M01..M12 item, the normalized trace must contain exactly one brief, exactly one
+      setup command, and exactly one readback command in item order. The exact setup and readback
+      commands must be two distinct native command-execution calls with distinct tool-call
+      identities.
+  - id: hr_any_shell_state_recovered_across_calls
+    type: rule
+    criterion: >
+      At least one setup call must expose the expected HBSET marker and its subsequent, separate
+      readback call must recover that planted value in the matching HBSTATE marker. This binary
+      rule detects whether the Harness provides any real cross-call shell persistence during the
+      broadcast playout upgrade; correct reporting of total state loss does not satisfy it, while
+      per-item correctness remains an Agent rule.
+  - id: hr_normalized_trace_is_complete
+    type: rule
+    criterion: >
+      The normalized run summary must report a finished, complete trace; every tool event must
+      have one result and a nonempty unique tool-call identity; and summary tool-call and tool-
+      result totals must agree.
+  - id: hr_readback_failure_has_signal
+    type: rubric
+    criterion: >
+      Score 1 only when every failed readback following a confirmed setup gives the model an
+      explicit boundary/failure signal in the direct tool result, such as a nonzero exit,
+      undefined-state error, or Harness reset annotation, in addition to any empty HBSTATE marker.
+      Score 0 when any such failure appears only as a successful empty marker, when the signal is
+      only model-authored, or when the evidence needed to judge failed readbacks is missing. Judge
+      only the native setup/readback trajectory; deliverable files are irrelevant to this metric.
+      Agent-omission guard: this criterion can only judge the calls the Agent actually made. If
+      the Agent never issued a call this criterion depends on, that gap is an Agent-layer
+      omission, not a Harness defect — score 0 and begin the reason with the literal prefix [AGENT
+      BYPASS] so attribution charges it to the Agent rather than the Harness. Judge Harness
+      quality only over the calls that were actually issued; never let the Agent's own artifacts,
+      records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["HBSET_", "HBSTATE_"]
+      match: "any"
+      case_sensitive: true
+      max_events: 100
+  - id: hr_state_reset_is_announced
+    type: rubric
+    criterion: >
+      Score 1 only when a direct native command result proactively and explicitly announces that
+      the Harness reset the shell, process, or working-directory boundary, and the announcement is
+      associated with the affected call. Score 0 when reset behavior is silent, appears only in
+      the agent's own explanation, cannot be associated with a native call, or when the required
+      trajectory evidence is missing. Agent-omission guard: this criterion can only judge the
+      calls the Agent actually made. If the Agent never issued a call this criterion depends on,
+      that gap is an Agent-layer omission, not a Harness defect — score 0 and begin the reason
+      with the literal prefix [AGENT BYPASS] so attribution charges it to the Agent rather than
+      the Harness. Judge Harness quality only over the calls that were actually issued; never let
+      the Agent's own artifacts, records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["reset to", "resets to", "cwd was reset", "cwd resets", "working directory was reset", "working directory resets", "state reset", "fresh shell"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100
+  - id: hr_probe_results_reach_model
+    type: rubric
+    criterion: >
+      Score 1 only when all twelve requested briefs reach the model with complete immutable
+      commands, every setup call's own direct result contains its exact expected
+      HBSET_<id>=<planted-value> line, and every readback call's own direct result contains an
+      intact HBSTATE_<id>= marker including an empty value, with distinct identities and correct
+      associations throughout. Merely seeing an HBSET string in a brief or command argument does
+      not prove setup success. Score 0 when any setup result lacks its expected HBSET line, any
+      setup errors, or any required brief/readback/result is truncated, summarized, duplicated,
+      misassociated, or missing; also score 0 when evidence needed for full coverage is missing.
+      Judge only the native trajectory, not final deliverable files. Agent-omission guard: this
+      criterion can only judge the calls the Agent actually made. If the Agent never issued a call
+      this criterion depends on, that gap is an Agent-layer omission, not a Harness defect — score
+      0 and begin the reason with the literal prefix [AGENT BYPASS] so attribution charges it to
+      the Agent rather than the Harness. Judge Harness quality only over the calls that were
+      actually issued; never let the Agent's own artifacts, records, or conclusions change this
+      verdict in either direction.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["HBSET_", "HBSTATE_", "dep_brief"]
+      match: "any"
+      case_sensitive: true
+      max_events: 100
+  - id: hr_receipt_reaches_model
+    type: rubric
+    criterion: >
+      Score 1 only when every committed dep_submit response reaches the model with the matching
+      item ID and all eight uppercase hexadecimal receipt characters, and no successful response
+      is truncated, summarized, duplicated, or associated with another call, with at least one
+      committed response available. An item for which setup was unconfirmed and dep_submit was
+      therefore correctly not called is outside the denominator and must not cause Score 0. Score
+      0 when any response that was actually committed fails those conditions, when there is no
+      committed response at all, or when the evidence needed to verify receipt delivery is
+      missing. Judge only the dep_submit tool calls and their direct results; final deliverable
+      files are irrelevant to this metric. Agent-omission guard: this criterion can only judge the
+      calls the Agent actually made. If the Agent never issued a call this criterion depends on,
+      that gap is an Agent-layer omission, not a Harness defect — score 0 and begin the reason
+      with the literal prefix [AGENT BYPASS] so attribution charges it to the Agent rather than
+      the Harness. Judge Harness quality only over the calls that were actually issued; never let
+      the Agent's own artifacts, records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["dep_submit", "RECEIPT item="]
+      match: "any"
+      case_sensitive: true
+      max_events: 100
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness imposed on the model
+      in this run: content the model asked for that came back truncated, dropped, emptied, reset,
+      blocked, rate-limited, or that required extra steps the task itself did not ask for. Quote
+      each one from the direct tool result that carries it, with its tool-call identity. If there
+      were none, state that explicitly. Then score. Score 1 when either (a) the Harness imposed no
+      obstruction at all, or (b) every obstruction it did impose came with a usable recovery path
+      that was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could read back - so
+      the model could still obtain what it needed without guessing. Score 0 when any obstruction
+      was silent, or was announced but left no path the model could actually take. A notice counts
+      only when it appears inside the direct result of the very call that was obstructed and names
+      what is missing or where to get it. Text the model itself wrote never counts. A generic word
+      such as "unavailable" appearing elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "HBSET_", "HBSTATE_", "reset to"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a specific Harness
+      obstruction. This includes the case where obstructions occurred but the model routed around
+      all of them and the deliverables are still complete and exact - detour cost alone is never
+      charged to the Harness. Score 0 only when all three hold together: (i) the Harness
+      obstructed at least one call, (ii) at least one delivered item is missing, null-where-a-
+      value was obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity. Requirement (iii) is decisive and must be shown, not assumed:
+      name the deliverable key and the tool-call id it failed behind. If the model failed for an
+      unrelated reason, or the link cannot be shown from the trajectory, score 1 and say so - that
+      failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "HBSET_", "HBSTATE_", "reset to"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100

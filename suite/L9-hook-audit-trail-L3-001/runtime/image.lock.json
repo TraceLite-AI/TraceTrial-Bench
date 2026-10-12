@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:a733ce93a799caa65dc2f1d7114dafa5bbd130a54be4108e7b5c9a0f95be9161",
+  "image_reference": "harnessbench/case-l9-hook-audit-trail-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "L9-hook-audit-trail-L3-001"
+}

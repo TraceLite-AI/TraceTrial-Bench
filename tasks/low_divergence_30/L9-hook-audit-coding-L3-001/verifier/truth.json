@@ -1,0 +1,57 @@
+{
+  "changes": [
+    {
+      "change_id": "CHG-4200",
+      "target": "billing-service",
+      "outcome": "failed",
+      "exit_code": 17,
+      "hook_observation": "recorded_once_outcome_missing"
+    },
+    {
+      "change_id": "CHG-4201",
+      "target": "identity-cache",
+      "outcome": "timed_out",
+      "exit_code": 124,
+      "hook_observation": "recorded_once_outcome_missing"
+    },
+    {
+      "change_id": "CHG-4202",
+      "target": "edge-gateway",
+      "outcome": "applied",
+      "exit_code": 0,
+      "hook_observation": "duplicate_records_outcome_missing"
+    },
+    {
+      "change_id": "CHG-4203",
+      "target": "settlement-worker",
+      "outcome": "failed",
+      "exit_code": 23,
+      "hook_observation": "recorded_once_outcome_missing"
+    },
+    {
+      "change_id": "CHG-4204",
+      "target": "policy-engine",
+      "outcome": "timed_out",
+      "exit_code": 124,
+      "hook_observation": "missing"
+    },
+    {
+      "change_id": "CHG-4205",
+      "target": "notification-relay",
+      "outcome": "applied",
+      "exit_code": 0,
+      "hook_observation": "recorded_once_outcome_missing"
+    }
+  ],
+  "totals": {
+    "applied": 2,
+    "failed": 2,
+    "timed_out": 2,
+    "unsuccessful": 4
+  },
+  "hook_reconciliation": {
+    "recorded_once": 4,
+    "duplicate": 1,
+    "missing": 1
+  }
+}

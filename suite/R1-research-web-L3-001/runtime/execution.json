@@ -1,0 +1,12 @@
+{
+  "conversation": "single_turn",
+  "network_mode": "web_allowed",
+  "profile": "R1-research-web-L3-001",
+  "requires": [
+    "web_search",
+    "web_fetch"
+  ],
+  "runnable": true,
+  "schema_version": "openclaw_native_v1",
+  "timeout_sec": 3600
+}

@@ -1,0 +1,1 @@
+{"id": "ops-req", "name": "请求分类受理通道", "description": "请求分类受理的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["req_brief", "req_submit", "req_do"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

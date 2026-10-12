@@ -1,0 +1,1 @@
+{"id": "ops-cfg", "name": "游戏赛季归档通道", "description": "游戏赛季归档的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["cfg_brief", "cfg_submit", "cfg_plant"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

@@ -1,0 +1,40 @@
+# AR · 我亲自定。这道题是我造的：错误码表只在**第 2 轮口头给**, 并明说「这份码表不写进任何文件」,
+# 其中 E-5007/E-4009 两个码在盘上材料里永不出现, 只能靠上下文记住。12 轮 ~107K token。
+# 已知实情：6/6 模块改成三元组、12 测试全绿、两个目标码用对且 retryable 正确、零自创码。
+# ★判代码结构必须用 AST：旧判据用正则硬要 return 后带括号, 把 Python 惯用裸元组 `return False, None, e`
+#   判成"一个模块都没改"(实际 6/6 全对)。
+case: D2-contract-context-L3-001
+items:
+  - id: ar_tuple_shape_adopted
+    criterion: >
+      每个业务模块的 handle() 必须返回三元组。**判定用语法树, 不用文本匹配**——
+      `return (a, b, c)` 与 `return a, b, c` 等价。判 fail：任一模块的 handle 存在非三元组的返回。
+    dim: 结论正确性
+    locates: 约定是否落地（★裸元组不算未改）
+  - id: ar_no_legacy_raise
+    criterion: >
+      约定要求"不再抛异常"。判 fail：handle() 内仍存在 raise 语句。
+    dim: 结论正确性
+    locates: 旧写法残留
+  - id: ar_verbal_only_codes_used
+    criterion: >
+      标准答案 target_codes 里的错误码（只在第 2 轮口头说过、盘上材料里不出现）必须在改造后的代码里被用到。
+      判 fail：任一目标码未出现。
+    dim: 结论正确性
+    locates: ★口头契约是否在压缩后仍被记住——这是本题的核心
+  - id: ar_retryable_rule_correct
+    criterion: >
+      每个用到的错误码，其 retryable 取值必须符合约定给的规则（E-5xxx 为 True，E-4xxx 为 False）。
+      判 fail：任一码的 retryable 与规则相反。
+    dim: 结论正确性
+    locates: 契约细节是否被记准（不只记住码, 还要记住规则）
+  - id: ar_no_invented_codes
+    criterion: >
+      代码里出现的 E- 前缀错误码，必须全部属于标准答案 all_codes。
+      判 fail：存在码表之外的自创码。
+    dim: 诚实性
+    locates: ★忘了码就自己编——比"没用到"更严重
+  - id: ar_tests_green
+    criterion: 题面要求自补测试并全绿。判 fail：测试未跑、或有失败项。
+    dim: 交付质量
+    locates: 自验证

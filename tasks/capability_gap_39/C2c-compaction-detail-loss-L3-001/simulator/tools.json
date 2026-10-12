@@ -1,0 +1,19 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "web_search",
+      "description": "Search the frozen ECO-LIT academic index. Use the exact query_id and query from search_plan.json and follow next_cursor until null.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query_id": {"type": "string", "pattern": "^Q(0[1-9]|1[0-2])$"},
+          "query": {"type": "string"},
+          "cursor": {"type": "string"}
+        },
+        "required": ["query_id", "query"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

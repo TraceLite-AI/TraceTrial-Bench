@@ -1,0 +1,1 @@
+{"id": "ops-tok", "name": "运维动作待办通道", "description": "运维动作待办的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["tok_brief", "tok_submit", "tok_plant"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

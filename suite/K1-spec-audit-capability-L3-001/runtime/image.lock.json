@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:7bf5a8375019cce2114d48da2c30b1d777234b598bf7e0d7ffa065a01d1785da",
+  "image_reference": "harnessbench/case-k1-spec-audit-capability-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "K1-spec-audit-capability-L3-001"
+}

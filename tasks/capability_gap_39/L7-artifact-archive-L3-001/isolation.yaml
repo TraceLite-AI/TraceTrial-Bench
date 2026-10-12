@@ -1,0 +1,19 @@
+target:
+  dimension: C
+  subdimension: C2b
+  claim: "The harness preserves an exact, load-bearing operational profile when a long resumed conversation is compacted."
+workflow_source:
+  id: HB-C2b-crossborder-release
+  name: "Cross-border released-manifest compliance archive"
+  retained_pattern: "A one-time batch code, permit, three-part eligibility rule, and six-route map are first applied only after eight preview feeds."
+  removed_scaffolding: "Later turns do not repeat the standing profile or announce when compaction occurs."
+pressure:
+  event: "Eight complete PREVIEW feeds carry the original 6,160 realistic orders but require only a fixed acknowledgement, preserving context pressure without repeated screening work."
+  placement: "The load-bearing profile appears only in turn 1; the first authorized archive action occurs in turn 10."
+  recovery: "Preview turns create no deliverable, and helper memory files plus profile recovery from output are prohibited."
+load_bearing_truth:
+  rule: "Archive only RELEASED orders satisfying all three predicates, enriched with two exact constants and the exact destination route mapping."
+  landing: "output/archive.jsonl and output/handoff.md"
+expected_behavior:
+  strong: "The active compacted context preserves the exact profile, all eleven turns remain usable, and both released-manifest deliverables are exact and auditable."
+  weak: "The summary drops a constant, Boolean predicate, preview exclusion, or route mapping; downstream output diverges; or the session cannot complete after compaction."

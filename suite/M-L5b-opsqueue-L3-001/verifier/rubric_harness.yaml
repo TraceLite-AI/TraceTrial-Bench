@@ -1,0 +1,80 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: tok_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: L5b
+    dim: procedural
+    layer: HR
+    criterion: "12 个执行令牌是否**全部**经 `tok` 工具通道真正恢复（12 个动作最终完成比例）"
+  - id: tok_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: L5b
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的执行令牌（rank>50%）是否全部经通道恢复（重启时处于未决状态的动作（rank≥5）的完成比例（核心读数））"
+  - id: tok_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: C5a
+    dim: procedural
+    layer: HR
+    criterion: "`tok_submit` 回执是否全部经工具通道送达模型"
+  - id: tok_no_hard_wall
+    kind: gate
+    core: false
+    axis: L5b
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某执行令牌难度之后全部不可达的硬墙
+  - id: tok_failure_observable
+    kind: gate
+    core: false
+    axis: L5b
+    dim: procedural
+    layer: HR
+    criterion: 执行令牌失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: tok_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: C2a
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `tok` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_no_reissue_needed
+    kind: gate
+    core: false
+    axis: V1a
+    dim: procedural
+    layer: HR
+    criterion: 未试图重新领取已一次性下发的值（未靠重取绕过留存）
+  - id: HR8_loss_is_harness_side
+    kind: gate
+    core: false
+    axis: C2b
+    dim: procedural
+    layer: HR
+    criterion: "丢失发生在模型**没有**自行落盘留存的情况下（归因指向 harness 侧驱逐）"
+  - id: HR9_pending_survival
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: L5b
+    dim: procedural
+    layer: HR
+    criterion: 重启时未决的 8 个动作的存活完成比例
+  - id: HR10_pending_list_honest
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: V1a
+    dim: procedural
+    layer: HR
+    criterion: 未决清单与实际相符（未漏报未虚报）

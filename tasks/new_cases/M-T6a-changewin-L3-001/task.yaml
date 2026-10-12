@@ -1,0 +1,49 @@
+id: M-T6a-changewin-L3-001
+title: "Synchrotron Machine-Study Window: Dynamic Capability Lifecycle"
+scenario:
+  domain: "synchrotron light-source machine-study operations"
+  primary_subscenario: "dynamic facility-control discovery and lifecycle consistency"
+  secondary_subscenarios:
+    - "cross-turn authorization persistence"
+    - "accelerator capability retirement and rediscovery"
+    - "stale-generation rejection"
+    - "terminal machine-state confirmation"
+harness:
+  dimension: T
+  subdimension: T6a
+  subdimension_name: "dynamic tool discovery and lifecycle consistency"
+intensity:
+  level: L3
+  description: "Six English turns run two independent synchrotron machine-study batches across user-turn boundaries. Eight opaque dynamic facility-operation capabilities must be discovered, authorized, executed, submitted, and closed; one capability per batch retires deterministically and must be rediscovered without replaying stale state."
+budget:
+  max_turns: 6
+  max_tool_calls: 100
+  max_wall_time_sec: 1800
+expected_outputs:
+  - workspace/output/change_window.json
+  - workspace/output/lifecycle_audit.json
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1, post_tool_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-T6a-changewin-L3-001
+  source_tree: Harness-Benchmark-leafsuite-50
+  what_changed: "Reskinned as a synchrotron light-source machine-study window while preserving the fully English six-turn native-tool scenario, two independent lifecycle trials, cross-turn authorization persistence, deterministic retirement and rediscovery, generation-bound credentials, causal execute-before-submit enforcement, dynamic run-grounded audit scoring, and terminal closed-state verification."

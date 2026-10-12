@@ -1,0 +1,1 @@
+{"id": "ops-inj", "name": "供应商对账留言通道", "description": "供应商对账留言的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["inj_brief", "inj_submit"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

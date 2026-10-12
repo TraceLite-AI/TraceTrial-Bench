@@ -1,0 +1,32 @@
+# HR · trajectory / harness 引入的问题（判官层，8 条）
+# 触发的机制: async, exec, fail, filler, pending, plugin, timeout, tools
+case: M-C2b-gameops-L3-001
+items:
+  - id: hr_reached_task_end
+    criterion: 会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束，导致任务没走完
+    evidence: 网关计数 + run_meta 退出码 + 轮次是否走完
+  - id: hr_compaction_summary_nonempty
+    criterion: >
+      压缩产出的摘要是否含实质内容。判 fail：summary 各节均为空/占位（如全是 (none)），等于压缩点之前的上下文被换成一份空摘要。
+    evidence: session 里 compaction 条目的 summary 原文 + tokensBefore
+    locates: ★C2b 机制专属
+  - id: hr_compaction_preserves_task_critical
+    criterion: >
+      压缩摘要是否保住了完成任务所必需的那几项（题面点名的编码/批号/契约）。判 fail：这些项在摘要与保留区里都找不到。
+    evidence: compaction.summary + firstKeptEntryId 之后的内容 vs 题面点名的关键项
+    locates: ★C2b 机制专属
+  - id: hr_compaction_trigger_threshold_sane
+    criterion: >
+      压缩是在接近预算时触发，还是过早/过晚触发（过早=白丢材料，过晚=直接硬失败）。判 fail：压缩事件与容量事件的时序显示触发点不合理（压缩前已出现硬溢出）。
+    evidence: gw.log 里 overflow 与 compaction 事件的先后时序
+    locates: ★C2b 机制专属
+  - id: hr_post_compaction_retry_allowed
+    criterion: >
+      一次压缩不足以腾出空间时，harness 是否允许再压一次，还是被守卫拦下直接硬失败。判 fail：出现 already_compacted_recently 类拦截且随后硬失败。
+    evidence: gw.log 的 blocked_by_guard 与 hard_overflow 计数与时序
+    locates: ★C2b 机制专属
+  - id: hr_kept_region_covers_recent_work
+    criterion: >
+      压缩保留区（firstKeptEntryId 之后）是否覆盖了最近的实际工作内容，而非只留下开场白。判 fail：保留区不含任何近期工具调用与结果。
+    evidence: compaction.firstKeptEntryId 对应位置之后的条目内容
+    locates: ★C2b 机制专属

@@ -1,0 +1,43 @@
+{
+  "pass": false,
+  "score": 0.0,
+  "attribution": "harness-attributable(E-exit-masked) - 官方 grader 判缺陷复现, verdict=NONZERO_EXIT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK (登记预期缺陷名: NONZERO_EXIT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK)",
+  "core_HR_ok": false,
+  "badcase_origin": {
+    "package": "E4b-scenario-001",
+    "leaf": "E-exit-masked",
+    "registered_defect_verdict": "NONZERO_EXIT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK",
+    "official_verdict": "NONZERO_EXIT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK",
+    "official_pass": false,
+    "defect_reproduced": true,
+    "grader": "/home/conglin/badcases/E4b-scenario-001/verifier/score.py"
+  },
+  "metrics": {
+    "harness_rubric": {
+      "official_one_exec": true,
+      "official_nonzero_exit_reported_to_agent": false,
+      "official_hook_observed_exit_23": false,
+      "official_hook_received_error": false,
+      "device_valid": true,
+      "harness_behaved_correctly": false,
+      "core_pass": false
+    },
+    "result_rubric": {
+      "official_verdict_is_good_verdict": false,
+      "no_known_defect_reproduced": false
+    },
+    "task_quality": {
+      "trajectory_iterations": 0
+    },
+    "official_metrics": {
+      "checks": {
+        "one_exec": true,
+        "nonzero_exit_reported_to_agent": false,
+        "hook_observed_exit_23": false,
+        "hook_received_error": false
+      },
+      "hook_observation": null,
+      "result_tail": "STATUS: OK\nRESULT: complete\nEXIT_CODE=23"
+    }
+  }
+}

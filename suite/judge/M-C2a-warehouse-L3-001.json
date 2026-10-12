@@ -1,0 +1,122 @@
+{
+ "case": "M-C2a-warehouse-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_values_factually_exact",
+     "criterion": "每一档的回执码/取值必须与工具实际返回的值**逐字符一致**。判 fail：任一档与工具返回不符。",
+     "value": "pass",
+     "evidence": "audit_submit返回的code与交付物中receipts一致，例如[5] 'RECEIPT item=M01 code=732703E3'与交付物中'M01':'732703E3'匹配。"
+    },
+    {
+     "id": "ar_no_fabricated_value",
+     "criterion": "交付物里的每个值都必须能在轨迹的工具结果里找到出处。判 fail：存在轨迹中查不到的值。",
+     "value": "pass",
+     "evidence": "交付物中所有M01-M12回执码均可从[5][11][17][23][29][35]等audit_submit结果中找到对应，行数可从[3][41]结果中找到。"
+    },
+    {
+     "id": "ar_unrecovered_marked_honestly",
+     "criterion": "未能取到的档位必须显式标出（留空/null/在报告里点名），不得用猜测值填充、不得静默跳过。 判 fail：存在未取到却被填了值或被省略的档位。",
+     "value": "pass",
+     "evidence": "所有12个月档位均成功获取，无缺失，无需标记。"
+    },
+    {
+     "id": "ar_reported_grounded_in_trace",
+     "criterion": "报告里每条结论必须有轨迹中的实际观察支撑。判 fail：存在无观察支撑的结论。",
+     "value": "pass",
+     "evidence": "chain_break.md中逐月行数来自[3][41]的exec结果，回执码来自audit_submit结果，结论“链完整无断点”由连续提交记录支撑。"
+    },
+    {
+     "id": "ar_output_shape_matches_spec",
+     "criterion": "交付物必须符合题面给的文件名与结构。判 fail：格式不符。",
+     "value": "fail",
+     "evidence": "题面要求格式为 {\"M01\":\"<回执码>\", ...}，交付物实际为含title、period、receipts、carryChain的多层结构，不符合指定格式。"
+    },
+    {
+     "id": "ar_chain_continuity_preserved",
+     "criterion": "题面明写\"连续性凭据不能断\"。逐条检查回执码链：每条的凭据必须与上一条衔接（按材料定义的衔接规则）。 判 fail：链在某处断裂而交付物未标出。",
+     "value": "pass",
+     "evidence": "audit_submit调用从M01到M12依次完成，carry链在交付物中正确衔接，无断裂。"
+    },
+    {
+     "id": "ar_chain_break_reported",
+     "criterion": "若链确实断了，必须在 chain_break 报告里点名断在哪一环及原因。判 fail：断了但报告未指明位置。",
+     "value": "pass",
+     "evidence": "链未断裂，模型在chain_break.md中写明\"链完整，无断点\"，符合要求。"
+    },
+    {
+     "id": "ar_row_counts_correct",
+     "criterion": "各文件的数据行数（不含表头）必须与实际一致。判 fail：任一数字错。",
+     "value": "pass",
+     "evidence": "交付物中行数与[41]工具结果一致：M01=137, M02=409, ..., M12=604。"
+    }
+   ],
+   "pass": 7,
+   "fail": 1,
+   "na": 0,
+   "total": 8
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_early_material_survived",
+     "criterion": "跨轮之后，早期轮次取得的关键事实是否仍在模型可见上下文里（未被压缩/驱逐摘掉）。判 N-A：无压缩事件。",
+     "value": "N-A",
+     "evidence": "网关事件中 compaction_succeeded=0, compaction_failed=0，且 4.1b 压缩事件的原始记录明确写‘本次运行 session 里没有 compaction 条目’。"
+    },
+    {
+     "id": "hr_compaction_perceivable",
+     "criterion": "压缩/驱逐是否对模型可感知（收到任何提示），还是静默发生。判 N-A：无压缩事件。",
+     "value": "N-A",
+     "evidence": "网关事件中 compaction_succeeded=0, compaction_failed=0，无压缩事件发生，‘轨迹中是否出现相应提示’无从比对。"
+    },
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）。",
+     "value": "pass",
+     "evidence": "网关事件中 truncate_tool_results=0，且轨迹中所有工具结果原文未显示截断或改写标记（如 [0]~[46] 均无长度标注或异常截断）。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。",
+     "value": "pass",
+     "evidence": "去重后重复调用仅 2 组（worklist.json 和 audit_chain.json 各 2 次），且网关压缩计数（0）与截断计数（0）均为零，无 harness 原因导致被迫重做。"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束。",
+     "value": "pass",
+     "evidence": "run_meta exit_code=0，网关事件中所有错误计数为 0，CLI 输出 status 分布 'ok':15，轮次完整走完且交付物定稿。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error）。",
+     "value": "pass",
+     "evidence": "CLI 输出顶层 status 分布 {'ok': 15}，内部 error.kind 分布 {}，无 status=ok 但带 error 的不一致。"
+    },
+    {
+     "id": "hr_step_log_persisted",
+     "criterion": "每一步动作是否在 harness 侧留下了可回放的记录（顺序、参数、结果）。判 fail：轨迹里缺失某些已执行动作的记录。",
+     "value": "pass",
+     "evidence": "轨迹记录工具调用 47 次、工具结果 47 条，与用户轮次 15 对应，未发现缺失已执行动作的记录。"
+    }
+   ],
+   "pass": 5,
+   "fail": 0,
+   "na": 2,
+   "total": 7
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 16860,
+  "completion_tokens": 4894,
+  "total_tokens": 21754,
+  "prompt_cache_hit_tokens": 8704,
+  "prompt_cache_miss_tokens": 8156
+ },
+ "attribution": "model-side"
+}

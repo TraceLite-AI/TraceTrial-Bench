@@ -1,0 +1,14 @@
+{
+  "J01": {"label": "phoneme alignment shard alpha", "terminal_status": "succeeded", "exit_code": 0, "signal": null, "complete": true, "token": "A17C09E1", "observation": "TOKEN:A17C09E1", "receipt": "91BC4E20"},
+  "J02": {"label": "phoneme alignment shard beta", "terminal_status": "succeeded", "exit_code": 0, "signal": null, "complete": true, "token": "5B72D8F4", "observation": "TOKEN:5B72D8F4", "receipt": "0AF31CD7"},
+  "J03": {"label": "speaker metadata normalization shard", "terminal_status": "failed", "exit_code": 17, "signal": null, "complete": false, "token": null, "observation": "FAIL:17:INPUT_REJECTED", "receipt": "D3E85A12"},
+  "J04": {"label": "eastern dialect transcription shard", "terminal_status": "succeeded", "exit_code": 0, "signal": null, "complete": true, "token": "C44271AB", "observation": "TOKEN:C44271AB", "receipt": "6D120F89"},
+  "J05": {"label": "audio archive compaction shard", "terminal_status": "signaled", "exit_code": 143, "signal": 15, "complete": false, "token": null, "observation": "SIGNAL:15:TERMINATED", "receipt": "B8A9704C"},
+  "J06": {"label": "western dialect transcription shard", "terminal_status": "succeeded", "exit_code": 0, "signal": null, "complete": true, "token": "79E315C0", "observation": "TOKEN:79E315C0", "receipt": "2CE64B91"},
+  "J07": {"label": "transcript reconciliation shard delta", "terminal_status": "timed_out", "exit_code": 124, "signal": null, "complete": false, "token": null, "observation": "TIMEOUT:124:DEADLINE_EXCEEDED", "receipt": "F01D62A8"},
+  "J08": {"label": "language-tag allocation shard", "terminal_status": "succeeded", "exit_code": 0, "signal": null, "complete": true, "token": "E9064A33", "observation": "TOKEN:E9064A33", "receipt": "47C5B219"},
+  "J09": {"label": "corpus integrity indexing shard", "terminal_status": "failed", "exit_code": 23, "signal": null, "complete": false, "token": null, "observation": "FAIL:23:CHECKSUM_MISMATCH", "receipt": "A52F8D60"},
+  "J10": {"label": "waveform-index compaction shard", "terminal_status": "succeeded", "exit_code": 0, "signal": null, "complete": true, "token": "314FC7D2", "observation": "TOKEN:314FC7D2", "receipt": "78E20B45"},
+  "J11": {"label": "consent-record indexing shard", "terminal_status": "succeeded", "exit_code": 0, "signal": null, "complete": true, "token": "B6730E98", "observation": "TOKEN:B6730E98", "receipt": "C1947FA3"},
+  "J12": {"label": "final corpus consolidation shard", "terminal_status": "succeeded", "exit_code": 0, "signal": null, "complete": true, "token": "0D8A52F6", "observation": "TOKEN:0D8A52F6", "receipt": "3EB609DC"}
+}

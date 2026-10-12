@@ -1,0 +1,67 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_exact_single_json_contract
+    type: rule
+    criterion: >
+      Score 1 only when output/research.json is the sole regular file under output, is duplicate-free
+      UTF-8 JSON, contains exactly A1-1 through A5-5, and every entry has exactly the four required
+      string fields with the correct angle prefix. Score 0 for any violation or missing evidence.
+
+  - id: ar_A1_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A1 values match the pinned answers. Score 0 if any A1 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+  - id: ar_A2_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A2 values match the pinned answers. Score 0 if any A2 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+  - id: ar_A3_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A3 values match the pinned answers. Score 0 if any A3 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+  - id: ar_A4_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A4 values match the pinned answers. Score 0 if any A4 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+  - id: ar_A5_values_correct
+    type: rule
+    criterion: >
+      Score 1 only when all five A5 values match the pinned answers. Score 0 if any A5 value is
+      absent or incorrect. This metric is always binary and has no N/A state.
+
+  - id: ar_A1_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A1 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Score 0 for any unsupported A1 citation or missing evidence.
+  - id: ar_A2_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A2 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Score 0 for any unsupported A2 citation or missing evidence.
+  - id: ar_A3_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A3 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Score 0 for any unsupported A3 citation or missing evidence.
+  - id: ar_A4_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A4 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Rendered reStructuredText ignores section-adornment lines. Score 0 for any unsupported A4
+      citation or missing evidence.
+  - id: ar_A5_citations_supported
+    type: rule
+    criterion: >
+      Score 1 only when all five A5 URLs are canonical and every quote is a contiguous raw or
+      rendered-source excerpt that names the fact subject and contains the reported value.
+      Score 0 for any unsupported A5 citation or missing evidence.

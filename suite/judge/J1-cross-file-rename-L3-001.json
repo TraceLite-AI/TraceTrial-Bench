@@ -1,0 +1,98 @@
+{
+ "case": "J1-cross-file-rename-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_all_should_rename_done",
+     "criterion": "标准答案 should_rename 里的每一处都必须已改成新名。判 fail：任一处仍是旧名。",
+     "value": "pass",
+     "evidence": "交付后的源码现状中所有 should_rename 文件均已出现新名，如 src/api/mod_00.py 显示 'class OrderReferenceBuilder'（证据包三点九），且工具结果 [15] 的 grep 输出列出所有 should_rename 文件包含 OrderReference。"
+    },
+    {
+     "id": "ar_must_not_rename_preserved",
+     "criterion": "标准答案 must_not_rename 里的每一处必须保持旧名不变。判 fail：任一处被改。",
+     "value": "pass",
+     "evidence": "报告第三部分列出 4 处协议字段保留（src/jobs/mod_02.py 等），实际源码 src/core/mod_16.py 显示 `LEGACY_WIRE_FIELD = \"LegacyOrderCode\"` 未改动（证据包三点九），自查脚本通过（工具结果 [15] 'RENAME CHECK OK'）。"
+    },
+    {
+     "id": "ar_kept_locations_explained",
+     "criterion": "报告必须写出\"哪些地方没改及原因\"，且列出的位置须覆盖实际保留的那几处。 判 fail：报告未提及任何保留项，或提及的位置与实际保留的不符。",
+     "value": "pass",
+     "evidence": "报告第三部分 '未改动的地方及原因' 明确列出 4 处协议字段保留及 10 个无需改动的文件，并给出原因 '依据 docs/ADR-014.md，对外协议字段名不得更改'（证据包交付物全文）。"
+    },
+    {
+     "id": "ar_checker_passes",
+     "criterion": "题面要求跑 tools/check_rename.sh 自查。判 fail：自查脚本未通过。",
+     "value": "pass",
+     "evidence": "工具结果 [15] 显示 'RENAME CHECK OK'，自查脚本通过。"
+    },
+    {
+     "id": "ar_no_syntax_break",
+     "criterion": "改名后所有被改文件必须语法正确。判 fail：任一文件不可解析。",
+     "value": "N-A",
+     "evidence": "证据包中无语法检查工具的运行结果或日志，无法直接判定语法正确性，属证据不可得。"
+    },
+    {
+     "id": "ar_report_lists_actual_files",
+     "criterion": "报告列出的\"改了哪些文件\"必须与盘上实际改动的文件集合一致。 判 fail：声称改了但没改，或改了但未列。",
+     "value": "pass",
+     "evidence": "报告列出实际改动文件 18 个（包括代码标识符改动 15 个与仅注释改动 3 个），与交付后的源码现状中实际改动的文件集合一致（证据包三点九及三点六）。"
+    }
+   ],
+   "pass": 5,
+   "fail": 0,
+   "na": 1,
+   "total": 6
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）",
+     "value": "pass",
+     "evidence": "网关事件中 truncate_tool_results 为 0，工具结果原文未出现截断标记（证据包五），且所有工具结果长度正常。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工",
+     "value": "pass",
+     "evidence": "去重后不同调用 18 组，出现重复调用 0 组（证据包 4.2）；网关压缩与截断计数均为 0（evidence包五），无 harness 原因导致的重复劳动。"
+    },
+    {
+     "id": "hr_no_induced_scope_expansion",
+     "criterion": "harness 侧注入的材料（背景快照/监控切片等填充物）有没有诱发模型**自行扩大任务范围**，去做题面没要求的事",
+     "value": "pass",
+     "evidence": "工具调用分布仅为 exec/read/write/edit（证据包四），交付物仅 rename_report.md（证据包二），未执行题面外的操作。"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束，导致任务没走完",
+     "value": "pass",
+     "evidence": "run_meta 中 exit_code 为 0，elapsed_sec 236 未超时（证据包五）；网关无溢出/压缩失败/会话锁（证据包五）；CLI 输出 9 轮全部 ok（证据包五）。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error 的情况）",
+     "value": "pass",
+     "evidence": "CLI 输出顶层 status 分布为 {'ok': 9}，内部 error.kind 分布为空（证据包五），无 status=ok 但带 error 的情况。"
+    }
+   ],
+   "pass": 5,
+   "fail": 0,
+   "na": 0,
+   "total": 5
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 14359,
+  "completion_tokens": 6398,
+  "total_tokens": 20757,
+  "prompt_cache_hit_tokens": 9984,
+  "prompt_cache_miss_tokens": 4375
+ },
+ "attribution": "clean"
+}

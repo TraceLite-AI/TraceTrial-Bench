@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:9de2af374ae065e2f9c43dc8c3a3896ae03f93fbc8d87bcd8b5eecdf87316011",
+  "image_reference": "harnessbench/case-m-o3a-fin_audit-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-O3a-fin_audit-L3-001"
+}

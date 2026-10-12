@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:8f3ef05a5d600fb5886930ab4c79ac05069dc53c2cac2d5832dd515271db8560",
+  "image_reference": "harnessbench/case-m-t4c-inventory-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-T4c-inventory-L3-001"
+}

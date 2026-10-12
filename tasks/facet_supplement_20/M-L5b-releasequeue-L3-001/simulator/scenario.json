@@ -1,0 +1,19 @@
+{
+  "kind": "operations_queue_resume",
+  "items": {
+    "M01": {"label": "Release action 01", "token": "CE679FD4", "receipt": "657BB84A"},
+    "M02": {"label": "Release action 02", "token": "A0DB55FC", "receipt": "BD1F09B6"},
+    "M03": {"label": "Release action 03", "token": "1D0B0934", "receipt": "6CB74C18"},
+    "M04": {"label": "Release action 04", "token": "5AEF3B3C", "receipt": "79392FC4"},
+    "M05": {"label": "Release action 05", "token": "02C607B0", "receipt": "BE3AFB69"},
+    "M06": {"label": "Release action 06", "token": "57C7D3B1", "receipt": "4D000F63"},
+    "M07": {"label": "Release action 07", "token": "F5308964", "receipt": "C908AA17"},
+    "M08": {"label": "Release action 08", "token": "4ECABC73", "receipt": "4A360049"},
+    "M09": {"label": "Release action 09", "token": "35A1BA99", "receipt": "459E78F9"},
+    "M10": {"label": "Release action 10", "token": "770C2BB3", "receipt": "B8036049"},
+    "M11": {"label": "Release action 11", "token": "CB9C475E", "receipt": "20FD3238"},
+    "M12": {"label": "Release action 12", "token": "BC12C969", "receipt": "E478DEEB"}
+  },
+  "completed_before_recovery": ["M01", "M02", "M03", "M04"],
+  "pending_at_recovery": ["M05", "M06", "M07", "M08", "M09", "M10", "M11", "M12"]
+}

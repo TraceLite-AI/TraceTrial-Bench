@@ -1,0 +1,40 @@
+id: M-C1a-moderation-L3-001
+title: 内容安全复盘（输出超限处理）
+scenario:
+  domain: 内容安全复盘
+  primary_subscenario: 输出超限处理
+  secondary_subscenarios:
+    - 多轮长程
+    - 真实业务材料
+    - 交付物核对
+harness:
+  dimension: C
+  subdimension: C1a
+  subdimension_name: 输出超限处理
+intensity:
+  level: L3
+  description: 内容安全复盘场景; 压 C1a 输出超限处理; 中途注入 8 轮真实社区审核队列累积上下文。
+budget:
+  max_turns: 14
+  max_tool_calls: 160
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  hr_semantics: pass/fail/N-A; 机制未触发且任务完成=pass(记功), 未触发且未完成=fail
+  rr_semantics: 全二值无权重, 全过才算 pass; 幅度看连续指标不进判定
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+  verifier_provenance: 沿用已验证的 v2 量具 verifier(本身已含 harness_rubric/result_rubric/attribution), 判据未改
+expected_outputs:
+  - workspace/output/
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-m-c1a-moderation-l3-001:v1
+  image_lock: runtime/image.lock.json

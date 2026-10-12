@@ -1,0 +1,320 @@
+{
+ "files": [
+  {
+   "file": "models/order.py",
+   "renamed": [
+    "allow_population_by_field_name",
+    "populate_by_name"
+   ],
+   "unchanged": "extra",
+   "removed": "allow_mutation",
+   "method": [
+    "dict",
+    "model_dump"
+   ],
+   "uses_envelope": true
+  },
+  {
+   "file": "models/shipment.py",
+   "renamed": [
+    "anystr_lower",
+    "str_to_lower"
+   ],
+   "unchanged": "frozen",
+   "removed": null,
+   "method": [
+    "json",
+    "model_dump_json"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/invoice.py",
+   "renamed": [
+    "anystr_strip_whitespace",
+    "str_strip_whitespace"
+   ],
+   "unchanged": "title",
+   "removed": "fields",
+   "method": [
+    "parse_obj",
+    "model_validate"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/customer.py",
+   "renamed": [
+    "anystr_upper",
+    "str_to_upper"
+   ],
+   "unchanged": "use_enum_values",
+   "removed": null,
+   "method": [
+    "copy",
+    "model_copy"
+   ],
+   "uses_envelope": true
+  },
+  {
+   "file": "models/payment.py",
+   "renamed": [
+    "keep_untouched",
+    "ignored_types"
+   ],
+   "unchanged": "validate_assignment",
+   "removed": "smart_union",
+   "method": [
+    "construct",
+    "model_construct"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/refund.py",
+   "renamed": [
+    "max_anystr_length",
+    "str_max_length"
+   ],
+   "unchanged": "arbitrary_types_allowed",
+   "removed": null,
+   "method": [
+    "dict",
+    "model_dump"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/ledger.py",
+   "renamed": [
+    "min_anystr_length",
+    "str_min_length"
+   ],
+   "unchanged": "extra",
+   "removed": "allow_mutation",
+   "method": [
+    "json",
+    "model_dump_json"
+   ],
+   "uses_envelope": true
+  },
+  {
+   "file": "models/route.py",
+   "renamed": [
+    "orm_mode",
+    "from_attributes"
+   ],
+   "unchanged": "frozen",
+   "removed": null,
+   "method": [
+    "parse_obj",
+    "model_validate"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/batch.py",
+   "renamed": [
+    "schema_extra",
+    "json_schema_extra"
+   ],
+   "unchanged": "title",
+   "removed": "fields",
+   "method": [
+    "copy",
+    "model_copy"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/quote.py",
+   "renamed": [
+    "validate_all",
+    "validate_default"
+   ],
+   "unchanged": "use_enum_values",
+   "removed": null,
+   "method": [
+    "construct",
+    "model_construct"
+   ],
+   "uses_envelope": true
+  },
+  {
+   "file": "models/contract.py",
+   "renamed": [
+    "allow_population_by_field_name",
+    "populate_by_name"
+   ],
+   "unchanged": "validate_assignment",
+   "removed": "smart_union",
+   "method": [
+    "dict",
+    "model_dump"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/tariff.py",
+   "renamed": [
+    "anystr_lower",
+    "str_to_lower"
+   ],
+   "unchanged": "arbitrary_types_allowed",
+   "removed": null,
+   "method": [
+    "json",
+    "model_dump_json"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/manifest.py",
+   "renamed": [
+    "anystr_strip_whitespace",
+    "str_strip_whitespace"
+   ],
+   "unchanged": "extra",
+   "removed": "allow_mutation",
+   "method": [
+    "parse_obj",
+    "model_validate"
+   ],
+   "uses_envelope": true
+  },
+  {
+   "file": "models/payout.py",
+   "renamed": [
+    "anystr_upper",
+    "str_to_upper"
+   ],
+   "unchanged": "frozen",
+   "removed": null,
+   "method": [
+    "copy",
+    "model_copy"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/voucher.py",
+   "renamed": [
+    "keep_untouched",
+    "ignored_types"
+   ],
+   "unchanged": "title",
+   "removed": "fields",
+   "method": [
+    "construct",
+    "model_construct"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/rebate.py",
+   "renamed": [
+    "max_anystr_length",
+    "str_max_length"
+   ],
+   "unchanged": "use_enum_values",
+   "removed": null,
+   "method": [
+    "dict",
+    "model_dump"
+   ],
+   "uses_envelope": true
+  },
+  {
+   "file": "models/consign.py",
+   "renamed": [
+    "min_anystr_length",
+    "str_min_length"
+   ],
+   "unchanged": "validate_assignment",
+   "removed": "smart_union",
+   "method": [
+    "json",
+    "model_dump_json"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/waybill.py",
+   "renamed": [
+    "orm_mode",
+    "from_attributes"
+   ],
+   "unchanged": "arbitrary_types_allowed",
+   "removed": null,
+   "method": [
+    "parse_obj",
+    "model_validate"
+   ],
+   "uses_envelope": false
+  },
+  {
+   "file": "models/settle.py",
+   "renamed": [
+    "schema_extra",
+    "json_schema_extra"
+   ],
+   "unchanged": "extra",
+   "removed": "allow_mutation",
+   "method": [
+    "copy",
+    "model_copy"
+   ],
+   "uses_envelope": true
+  },
+  {
+   "file": "models/escrow.py",
+   "renamed": [
+    "validate_all",
+    "validate_default"
+   ],
+   "unchanged": "frozen",
+   "removed": null,
+   "method": [
+    "construct",
+    "model_construct"
+   ],
+   "uses_envelope": false
+  }
+ ],
+ "renamed": {
+  "allow_population_by_field_name": "populate_by_name",
+  "anystr_lower": "str_to_lower",
+  "anystr_strip_whitespace": "str_strip_whitespace",
+  "anystr_upper": "str_to_upper",
+  "keep_untouched": "ignored_types",
+  "max_anystr_length": "str_max_length",
+  "min_anystr_length": "str_min_length",
+  "orm_mode": "from_attributes",
+  "schema_extra": "json_schema_extra",
+  "validate_all": "validate_default"
+ },
+ "removed": [
+  "allow_mutation",
+  "error_msg_templates",
+  "fields",
+  "getter_dict",
+  "smart_union",
+  "underscore_attrs_are_private"
+ ],
+ "unchanged": [
+  "extra",
+  "frozen",
+  "title",
+  "use_enum_values",
+  "validate_assignment",
+  "arbitrary_types_allowed"
+ ],
+ "methods": {
+  "dict": "model_dump",
+  "json": "model_dump_json",
+  "parse_obj": "model_validate",
+  "copy": "model_copy",
+  "construct": "model_construct"
+ },
+ "guide": "https://raw.githubusercontent.com/pydantic/pydantic/v2.0.3/docs/migration.md"
+}

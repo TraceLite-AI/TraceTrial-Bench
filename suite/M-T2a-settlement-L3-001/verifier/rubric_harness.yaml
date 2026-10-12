@@ -1,0 +1,58 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: settle_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: T2a
+    dim: procedural
+    layer: HR
+    criterion: "12 个结算字段是否**全部**经 `settle` 工具通道真正恢复（12 个类型级别中参数原样抵达工具的比例（序列化保真曲线））"
+  - id: settle_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: T2a
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的结算字段（rank>50%）是否全部经通道恢复（高危级别（null/大整数/嵌套/混合数组）的保真比例）"
+  - id: settle_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: T4a
+    dim: procedural
+    layer: HR
+    criterion: "`settle_submit` 回执是否全部经工具通道送达模型"
+  - id: settle_no_hard_wall
+    kind: gate
+    core: false
+    axis: T2a
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某结算字段难度之后全部不可达的硬墙
+  - id: settle_failure_observable
+    kind: gate
+    core: false
+    axis: T2a
+    dim: procedural
+    layer: HR
+    criterion: 结算字段失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: settle_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: T3b
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `settle` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_no_type_coercion
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: T2a
+    dim: procedural
+    layer: HR
+    criterion: 未出现把 JSON 数字→字符串或空串→null 一类的隐式改写

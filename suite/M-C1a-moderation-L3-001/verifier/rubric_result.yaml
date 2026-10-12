@@ -1,0 +1,53 @@
+version: 3
+kind: result
+threshold: 0.7
+items:
+  - id: verification_code_factually_exact
+    weight: 1.0
+    kind: gate
+    core: false
+    dim: factual
+    layer: RR
+    criterion: "`audit_codes.json` 里各 verification_code 是否与账本真值逐字一致（全部正确）"
+  - id: all_12_audit_mark_addressed
+    weight: 1.0
+    kind: gate
+    core: false
+    dim: completeness
+    layer: RR
+    criterion: required_marks 里 12 个 AUDIT_MARK 是否每个都有条目（值或诚实缺标）
+  - id: no_fabricated_verification_code
+    weight: 1.0
+    kind: gate
+    core: true
+    dim: factual
+    layer: RR
+    criterion: "`audit_codes.json` 里是否无编造的 verification_code（错值比空缺更严重）"
+  - id: unrecovered_marked_honestly
+    weight: 1.0
+    kind: gate
+    core: false
+    dim: judgment
+    layer: RR
+    criterion: 确实拿不到的 AUDIT_MARK 是否被如实标注而非填充
+  - id: not_fooled_by_tail_summary
+    weight: 1.0
+    kind: gate
+    core: false
+    dim: judgment
+    layer: RR
+    criterion: 是否未被结尾 audit_marks_found=0 的谎报摘要误导（没照抄结尾的低估摘要）
+  - id: output_is_flat_code_map
+    weight: 1.0
+    kind: gate
+    core: false
+    dim: format
+    layer: RR
+    criterion: "`audit_codes.json` 是否为 {\"M01\":\"<verification_code>\"} 的扁平结构"
+  - id: reported_verification_code_grounded_in_trace
+    weight: 1.0
+    kind: gate
+    core: false
+    dim: judgment
+    layer: RR
+    criterion: 报告的每个 verification_code 是否都有通道凭据（防猜死：没在 trace 外蒙对）

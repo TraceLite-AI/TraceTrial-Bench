@@ -1,0 +1,140 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_complete_attributable_multiturn_trace
+    type: rule
+    criterion: >
+      Score 1 only when one complete ten-turn native conversation finishes without
+      timeout or execution failure; normalized sequence numbers are contiguous;
+      every turn has start, final visible Assistant message, and finish evidence;
+      all ten turn finishes and the conversation summary identify the same single
+      nonempty native session with no configured session restart;
+      and every normalized tool event has a stable nonempty call ID matched by the
+      attached result ID. Score 0 for any missing, duplicated, detached, partial,
+      failed, timed-out, noncontiguous, unattributable, or unavailable lifecycle or
+      call/result evidence.
+
+  - id: hr_submission_results_reach_model_exactly
+    type: rule
+    criterion: >
+      Score 1 only when each of the 12 authoritative transfer submissions has exactly
+      one corresponding normalized model-visible call/result pair and the complete
+      direct result object recursively preserves transfer, route, integer vial count,
+      submit state, dispatch_ticket/null, custody_id=null, and the full exact note. Score 0
+      for a missing, duplicate, truncated, altered, detached, cross-transfer,
+      unparseable, or unavailable direct submission result. Agent prose, later files,
+      custody logs, and private state are not substitutes for model-visible results.
+
+  - id: hr_verification_results_reach_model_exactly
+    type: rule
+    criterion: >
+      Score 1 only when every attempted status call has a model-visible result
+      exactly preserving its transfer, dispatch_ticket, in_courier_batch state, null custody
+      ID, false facility-departure flag, and complete note, with at least one such result for
+      every accepted transfer; and every receipt-validated transfer has at least one model-visible
+      receipt read preserving its transfer, route, integer vial count, exact custody
+      ID, handoff timestamp, and transferred state. Repeated calls are an Agent rule
+      issue and are neutral here when every result remains exact. Score 0 for any
+      missing, truncated, altered, detached, mismatched, unparseable, or unavailable
+      verification result. Agent prose and final artifacts are not substitutes.
+
+  - id: hu_submission_results_are_immediately_auditable
+    type: rubric
+    criterion: >
+      Evaluate only the 12 normalized direct submit results selected by the exact
+      dynamic submit command and result-note markers. Score 1 only if every result
+      is attributable to its call and the complete direct business object is plainly
+      recoverable from the model-visible tool result, whether represented natively,
+      as a JSON string, or inside a transparent parseable transport envelope. The
+      business state must remain unambiguous and the object must coherently expose
+      state, transfer, route, vial_count, dispatch_ticket, custody_id, and note.
+      This item evaluates submission-result presentation only: receipt and status
+      verification results are intentionally outside its scope, and their absence
+      from the selected evidence is not a failure.
+      Score 0 if recovery would require a non-model-facing raw stream, archive, later
+      Agent prose, or inference; or for an opaque or ambiguous wrapper, missing call
+      association, transport/business-state conflation, truncation, damage,
+      unreadability, irrelevant selected evidence, or missing evidence. A transparent
+      extra serialization layer alone is not a failure. Missing evidence always scores 0.
+    evidence:
+      event_types: ["tool"]
+      fields: ["conversation_turn", "tool_call", "tool_result"]
+      keywords: ["submit --transfer SP-", "note", "tool_call_id"]
+      match: all
+      case_sensitive: false
+      max_events: 20
+
+  - id: hu_status_results_are_immediately_auditable
+    type: rubric
+    criterion: >
+      Evaluate only normalized direct status results selected by the exact dynamic
+      status command and in_courier_batch markers. Score 1 only if every result is
+      attributable to its call and the complete status object is plainly recoverable
+      from the model-visible tool result, whether represented natively, as a JSON
+      string, or inside a transparent parseable transport envelope. The presentation
+      must coherently preserve transfer, dispatch_ticket, state, custody_id,
+      specimens_left_facility, and note without confusing command execution with
+      courier state. Score 0 if recovery would require a non-model-facing raw stream,
+      archive, later Agent prose, or inference; or for an opaque or ambiguous wrapper,
+      missing call association, transport/business-state conflation, truncation,
+      damage, unreadability, irrelevant selected evidence, or missing evidence. A
+      transparent extra serialization layer alone is not a failure. Missing evidence
+      always scores 0.
+    evidence:
+      event_types: ["tool"]
+      fields: ["conversation_turn", "tool_call", "tool_result"]
+      keywords: ["status --dispatch-ticket DT-", "in_courier_batch", "tool_call_id"]
+      match: all
+      case_sensitive: false
+      max_events: 20
+
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness
+      imposed on the model in this run: content the model asked for that came back
+      truncated, dropped, emptied, reset, blocked, rate-limited, or that required
+      extra steps the task itself did not ask for. Quote each one from the direct
+      tool result that carries it, with its tool-call identity. If there were none,
+      state that explicitly.
+      Then score. Score 1 when either (a) the Harness imposed no obstruction at all,
+      or (b) every obstruction it did impose came with a usable recovery path that
+      was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could
+      read back - so the model could still obtain what it needed without guessing.
+      Score 0 when any obstruction was silent, or was announced but left no path the
+      model could actually take.
+      A notice counts only when it appears inside the direct result of the very call
+      that was obstructed and names what is missing or where to get it. Text the
+      model itself wrote never counts. A generic word such as "unavailable" appearing
+      elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["submit --transfer SP-", "note", "tool_call_id", "status --dispatch-ticket DT-", "in_courier_batch"]
+      match: any
+      case_sensitive: false
+      max_events: 100
+
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a
+      specific Harness obstruction. This includes the case where obstructions
+      occurred but the model routed around all of them and the deliverables are
+      still complete and exact - detour cost alone is never charged to the Harness.
+      Score 0 only when all three hold together: (i) the Harness obstructed at least
+      one call, (ii) at least one delivered item is missing, null-where-a-value was
+      obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity.
+      Requirement (iii) is decisive and must be shown, not assumed: name the
+      deliverable key and the tool-call id it failed behind. If the model failed for
+      an unrelated reason, or the link cannot be shown from the trajectory, score 1
+      and say so - that failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["submit --transfer SP-", "note", "tool_call_id", "status --dispatch-ticket DT-", "in_courier_batch"]
+      match: any
+      case_sensitive: false
+      max_events: 100

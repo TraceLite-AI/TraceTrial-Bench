@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# QC inspection channel
+set -uo pipefail
+WS="$(cd "$(dirname "$0")/.." && pwd)"; mkdir -p "$WS/state"
+cmd="${1:-}"; shift || true
+case "$cmd" in
+inspect)
+  lot=""
+  while [ $# -gt 0 ]; do case "$1" in --lot) lot="$2"; shift 2;; *) printf '{"error":"unknown_option"}\n'; exit 2;; esac; done
+  [ -n "$lot" ] || { printf '{"error":"missing_required_option","required":["--lot"]}\n'; exit 2; }
+  [ -f "$WS/lots/$lot.md" ] || { printf '{"error":"unknown_lot","lot":"%s"}\n' "$lot"; exit 2; }
+  LOT="$lot" WSP="$WS" python3 - <<'PY'
+import hashlib, json, os, sys, datetime
+import secrets
+ws=os.environ["WSP"]; lot=os.environ["LOT"]
+p=f"{ws}/state/qc_log.jsonl"; seen=set()
+if os.path.exists(p):
+    for ln in open(p,encoding="utf-8"):
+        try: seen.add(json.loads(ln).get("lot"))
+        except Exception: pass
+ts=datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+if lot in seen:
+    print(json.dumps({"state":"already_inspected","lot":lot,
+                      "note":"This lot has already been inspected; the QC code will not be reissued"})); sys.exit(3)
+# Random issuance: there is no reversible formula, and the code appears only once on stdout.
+code="QC-"+"".join(secrets.choice("0123456789ABCDEF") for _ in range(10))
+fp=hashlib.sha256(code.encode()).hexdigest()[:16].upper()   # Only the fingerprint is persisted.
+print(json.dumps({"state":"inspected","lot":lot,"qc_code":code,
+                  "note":"The QC code is generated only for this inspection and will not be reissued"}))
+open(p,"a",encoding="utf-8").write(json.dumps({"_writer":"qc-cli","ts":ts,"lot":lot,"fp":fp},ensure_ascii=False)+"\n")
+PY
+  exit $?;;
+audit)
+  # Audit returns only the lot ID and timestamp, never the QC code.
+  if [ -f "$WS/state/qc_log.jsonl" ]; then python3 -c "
+import json,sys
+for ln in open('$WS/state/qc_log.jsonl',encoding='utf-8'):
+    try: r=json.loads(ln)
+    except Exception: continue
+    print(json.dumps({'lot':r.get('lot'),'ts':r.get('ts')},ensure_ascii=False))
+"; fi; exit 0;;
+*) printf '{"error":"usage","usage":"qc inspect|audit"}\n'; exit 2;;
+esac

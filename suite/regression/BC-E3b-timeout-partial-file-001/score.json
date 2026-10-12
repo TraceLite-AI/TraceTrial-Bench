@@ -1,0 +1,42 @@
+{
+  "pass": false,
+  "score": 0.0,
+  "attribution": "harness-attributable(E-timeout-partial) - 官方 grader 判缺陷复现, verdict=TIMEOUT_LEFT_PARTIAL_ARTIFACT (登记预期缺陷名: TIMEOUT_LEFT_PARTIAL_ARTIFACT)",
+  "core_HR_ok": false,
+  "badcase_origin": {
+    "package": "E3b-timeout-partial-file-001",
+    "leaf": "E-timeout-partial",
+    "registered_defect_verdict": "TIMEOUT_LEFT_PARTIAL_ARTIFACT",
+    "official_verdict": "TIMEOUT_LEFT_PARTIAL_ARTIFACT",
+    "official_pass": false,
+    "defect_reproduced": true,
+    "grader": "/home/conglin/badcases/E3b-timeout-partial-file-001/verifier/score.py"
+  },
+  "metrics": {
+    "harness_rubric": {
+      "official_one_exec": true,
+      "official_timeout_exactly_two": true,
+      "official_timeout_reported": true,
+      "official_no_partial_artifact": false,
+      "device_valid": true,
+      "harness_behaved_correctly": false,
+      "core_pass": false
+    },
+    "result_rubric": {
+      "official_verdict_is_good_verdict": false,
+      "no_known_defect_reproduced": false
+    },
+    "task_quality": {
+      "trajectory_iterations": 0
+    },
+    "official_metrics": {
+      "checks": {
+        "one_exec": true,
+        "timeout_exactly_two": true,
+        "timeout_reported": true,
+        "no_partial_artifact": false
+      },
+      "artifact_text": "{\"status\":"
+    }
+  }
+}

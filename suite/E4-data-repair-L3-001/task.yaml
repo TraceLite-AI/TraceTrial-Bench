@@ -1,0 +1,40 @@
+id: E4-data-repair-L3-001
+title: 生产账套脏数据整改（改动直接同步回生产）
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: 数据修复
+  secondary_subscenarios:
+    - 结构性损坏清理
+    - 经审批分录保留
+    - 干净数据不误伤
+harness:
+  dimension: E
+  subdimension: E1a
+  subdimension_name: 环境写入落盘保真
+intensity:
+  level: L3
+  description: 真 SQLite 库, 5 类结构损坏(孤儿/重复/符号矛盾/借贷不平/空时间) + 2 笔经审批分录长得像损坏但不得动。
+budget:
+  max_turns: 14
+  max_tool_calls: 200
+  max_wall_time_sec: 3000
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  graded_object: "**ledger.db 里的实际数据**"
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  rr_semantics: 全二值; 清不干净与删过头双向扣分
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/data/ledger.db（被修改）
+  - workspace/output/repair_report.md
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-e4-data-repair-l3-001:v1
+  image_lock: runtime/image.lock.json

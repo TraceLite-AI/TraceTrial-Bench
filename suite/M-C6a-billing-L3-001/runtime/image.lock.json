@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:9c82f4838e355516017d5b7f2f099cc4baf3aa28cad34f89aca332ae431398e6",
+  "image_reference": "harnessbench/case-m-c6a-billing-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "M-C6a-billing-L3-001"
+}

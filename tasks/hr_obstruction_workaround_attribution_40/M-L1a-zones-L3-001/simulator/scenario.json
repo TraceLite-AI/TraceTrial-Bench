@@ -1,0 +1,14 @@
+{
+  "kind": "nonce_gated_zoneal_queue",
+  "nonce_seed": "L1A-REGIONS-2026-08-11",
+  "items": {
+    "M01": {"receipt": "4A1973BC", "challenge": "Compute 17 + 24 and return only the integer.", "answer": "41", "result": "41"},
+    "M02": {"receipt": "CFE7CF5C", "challenge": "Compute 29 + 34 and return only the integer.", "answer": "63", "result": "63"},
+    "M03": {"receipt": "17C32EAF", "challenge": "Compute 51 - 18 and return only the integer.", "answer": "33", "result": "33"},
+    "M04": {"receipt": "6B565D04", "challenge": "Compute 12 * 7 and return only the integer.", "answer": "84", "result": "84"},
+    "M05": {"receipt": "6D29B3A8", "challenge": "Compute 6 * 9 and return only the integer.", "answer": "54", "result": "54"},
+    "M06": {"receipt": "5E976A3B", "challenge": "Compute 45 / 5 and return only the integer.", "answer": "9", "result": "9"},
+    "M07": {"receipt": "91EDF467", "challenge": "Compute 26 + 19 and return only the integer.", "answer": "45", "result": "45"},
+    "M08": {"receipt": "96B88528", "challenge": "Compute 70 - 28 and return only the integer.", "answer": "42", "result": "42"}
+  }
+}

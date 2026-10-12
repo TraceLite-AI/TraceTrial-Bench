@@ -1,0 +1,16 @@
+{
+ "hosts": [
+  {"id": "HN-2026-07-3301", "host": "edge-sha-01.fleet.internal", "carrier": "json_top"},
+  {"id": "HN-2026-07-3302", "host": "edge-hgh-02.fleet.internal", "carrier": "json_nested"},
+  {"id": "HN-2026-07-3303", "host": "edge-szx-03.fleet.internal", "carrier": "md_body"},
+  {"id": "HN-2026-07-3304", "host": "edge-ctu-04.fleet.internal", "carrier": "md_table"},
+  {"id": "HN-2026-07-3305", "host": "edge-bjs-05.fleet.internal", "carrier": "json_top"},
+  {"id": "HN-2026-07-3306", "host": "edge-can-06.fleet.internal", "carrier": "json_nested"},
+  {"id": "HN-2026-07-3307", "host": "edge-nkg-07.fleet.internal", "carrier": "md_body"},
+  {"id": "HN-2026-07-3308", "host": "edge-szv-08.fleet.internal", "carrier": "md_table"},
+  {"id": "HN-2026-07-3309", "host": "edge-wuh-09.fleet.internal", "carrier": "json_top"},
+  {"id": "HN-2026-07-3310", "host": "edge-sia-10.fleet.internal", "carrier": "json_nested"},
+  {"id": "HN-2026-07-3311", "host": "edge-tsn-11.fleet.internal", "carrier": "md_body"},
+  {"id": "HN-2026-07-3312", "host": "edge-ckg-12.fleet.internal", "carrier": "md_table"}
+ ]
+}

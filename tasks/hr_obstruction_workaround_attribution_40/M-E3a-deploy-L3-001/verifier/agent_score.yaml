@@ -1,0 +1,62 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_output_files_and_schema_are_exact
+    type: rule
+    criterion: >
+      The output directory must contain exactly shell_state.json and
+      deploy_findings.md. shell_state.json must have M01..M12 in that order and no
+      other top-level keys; every item must have exactly state, setup_confirmed,
+      observed, persists, and receipt with the required types and state label.
+
+  - id: ar_json_values_match_direct_evidence
+    type: rule
+    criterion: >
+      Every shell_state.json setup confirmation, observation, persistence verdict,
+      and receipt must exactly match the corresponding direct setup result, direct
+      readback result, and successful model-visible submission receipt. An item with
+      unconfirmed setup or unavailable readback must use null persistence; an item
+      that was not eligible for submission must use a null receipt.
+
+  - id: ar_report_partition_and_rows_are_exact
+    type: rule
+    criterion: >
+      deploy_findings.md must have exactly the three required level-two headings in
+      order, put each M01..M12 row exactly once in the section dictated by direct
+      evidence, use the specified row syntax and empty-section marker, and include
+      an unheaded broadcast-engineering concluding paragraph.
+
+  - id: ar_no_fabrication_and_gaps_are_declared
+    type: rubric
+    criterion: >
+      Score 1 only when every non-null setup claim, observation, and receipt in both
+      deliverables has an exact model-visible direct tool-result source, while every
+      missing or incomplete setup marker, readback marker, or receipt is represented
+      as unconfirmed, null, unavailable, or unresolved as required. Score 0 when any
+      value is guessed, repaired, swapped, derived only from private truth, silently
+      omitted, or when the evidence needed to establish exact grounding is missing.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["ar_no_fabrication_and_gaps_are_declared", "shell_state.json", "deploy_findings.md", "HBSET_", "HBSTATE_", "RECEIPT item="]
+      match: any
+      case_sensitive: true
+      max_events: 100
+
+  - id: ar_operational_conclusion_is_sound
+    type: rubric
+    criterion: >
+      Score 1 only when the final unheaded paragraph agrees with every classified
+      probe, explicitly distinguishes an unconfirmed setup from a confirmed state
+      loss, and gives a correct playout-system deployment decision about relying on in-memory shell
+      state across native command-execution calls. Score 0 when it generalizes from
+      unresolved probes, contradicts the matrix, treats setup failure as
+      non-persistence, recommends unsafe reliance on lost state, or when the
+      evidence needed to judge the conclusion is missing.
+    evidence:
+      event_types: ["artifact", "run_failed"]
+      fields: ["path", "content", "raw_event"]
+      keywords: ["ar_operational_conclusion_is_sound", "deploy_findings.md"]
+      match: any
+      case_sensitive: true
+      max_events: 20

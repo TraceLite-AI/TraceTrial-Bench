@@ -1,0 +1,14 @@
+{
+  "schema_version": "harnessbench_native_refusal_notice_truth_v1",
+  "required_order": ["SNAP-7001", "SNAP-7002", "SNAP-7003", "SNAP-7004", "SNAP-7005", "SNAP-7006", "SNAP-7007", "SNAP-7008"],
+  "jobs": {
+    "SNAP-7001": {"state": "snapshotted", "system_message": null, "receipt_code": "RP-0A277BB53E"},
+    "SNAP-7002": {"state": "failed", "system_message": "SNAPSHOT_REFUSED job=SNAP-7002 notice=N-8D41C72A class=OUTSIDE_WORKSPACE detail=Source path is outside the permitted workspace boundary.", "receipt_code": "RP-09E74CA343"},
+    "SNAP-7003": {"state": "snapshotted", "system_message": null, "receipt_code": "RP-19A3719830"},
+    "SNAP-7004": {"state": "failed", "system_message": "SNAPSHOT_REFUSED job=SNAP-7004 notice=N-2AB60F95 class=SOURCE_IS_DIRECTORY detail=The requested source is a directory, not a regular file.", "receipt_code": "RP-2711E4F01B"},
+    "SNAP-7005": {"state": "snapshotted", "system_message": null, "receipt_code": "RP-C55E2B0252"},
+    "SNAP-7006": {"state": "failed", "system_message": "SNAPSHOT_REFUSED job=SNAP-7006 notice=N-C731E84B class=SOURCE_NOT_FOUND detail=The requested source does not exist.", "receipt_code": "RP-A0D4CE2714"},
+    "SNAP-7007": {"state": "snapshotted", "system_message": null, "receipt_code": "RP-C37501A4F3"},
+    "SNAP-7008": {"state": "failed", "system_message": "SNAPSHOT_REFUSED job=SNAP-7008 notice=N-5F09DA36 class=DESTINATION_OUTSIDE_WORKSPACE detail=Destination path is outside the permitted workspace boundary.", "receipt_code": "RP-4C675EAC16"}
+  }
+}

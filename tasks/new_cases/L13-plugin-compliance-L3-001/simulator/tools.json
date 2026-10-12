@@ -1,0 +1,56 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "vendor_manifest",
+      "description": "List the six ecological-monitoring integration bundles awaiting platform-admission review; the retained vendor field identifies each submitting monitoring organization.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "bundle_inspect",
+      "description": "Load and inspect one ecological-monitoring integration bundle. Returns its submitting organization, complete declared tool names and input Schemas, permissive-registry effects, platform status, and load diagnostics.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bundle": {
+            "type": "string",
+            "enum": ["VB-101", "VB-102", "VB-103", "VB-104", "VB-105", "VB-106"]
+          }
+        },
+        "required": ["bundle"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "review_verdict",
+      "description": "Record one final platform-admission decision and its registration-violation codes for an inspected ecological-monitoring bundle.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bundle": {
+            "type": "string",
+            "enum": ["VB-101", "VB-102", "VB-103", "VB-104", "VB-105", "VB-106"]
+          },
+          "verdict": {
+            "type": "string",
+            "enum": ["approved", "rejected"]
+          },
+          "violations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["duplicate_tool_name", "reserved_tool_name", "overlong_tool_name", "invalid_input_schema"]
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": ["bundle", "verdict", "violations"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

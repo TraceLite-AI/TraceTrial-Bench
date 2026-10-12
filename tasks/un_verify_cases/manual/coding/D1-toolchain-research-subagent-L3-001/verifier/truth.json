@@ -1,0 +1,194 @@
+{
+ "angles": [
+  {
+   "id": "A1",
+   "topic": "Jest configuration defaults",
+   "source": "jest",
+   "url": "https://raw.githubusercontent.com/jestjs/jest/v29.7.0/docs/Configuration.md",
+   "facts": [
+    {
+     "fid": "A1-1",
+     "q": "What is the documented default of the Jest configuration option `automock`?",
+     "answer": "false",
+     "quote_must_contain": "### `automock` \\[boolean]\n\nDefault: `false`"
+    },
+    {
+     "fid": "A1-2",
+     "q": "What is the documented default of the Jest configuration option `bail`?",
+     "answer": "0",
+     "quote_must_contain": "### `bail` \\[number | boolean]\n\nDefault: `0`"
+    },
+    {
+     "fid": "A1-3",
+     "q": "What is the documented default of the Jest configuration option `clearMocks`?",
+     "answer": "false",
+     "quote_must_contain": "### `clearMocks` \\[boolean]\n\nDefault: `false`"
+    },
+    {
+     "fid": "A1-4",
+     "q": "What is the documented default of the Jest configuration option `collectCoverage`?",
+     "answer": "false",
+     "quote_must_contain": "### `collectCoverage` \\[boolean]\n\nDefault: `false`"
+    },
+    {
+     "fid": "A1-5",
+     "q": "What is the documented default of the Jest configuration option `errorOnDeprecated`?",
+     "answer": "false",
+     "quote_must_contain": "### `errorOnDeprecated` \\[boolean]\n\nDefault: `false`"
+    }
+   ]
+  },
+  {
+   "id": "A2",
+   "topic": "Prettier option defaults",
+   "source": "prettier",
+   "url": "https://raw.githubusercontent.com/prettier/prettier/3.1.1/docs/options.md",
+   "facts": [
+    {
+     "fid": "A2-1",
+     "q": "What is the documented default of the Prettier option `printWidth`?",
+     "answer": "80",
+     "quote_must_contain": "`80`    | `--print-width <int>` | `printWidth: <int>`"
+    },
+    {
+     "fid": "A2-2",
+     "q": "What is the documented default of the Prettier option `tabWidth`?",
+     "answer": "2",
+     "quote_must_contain": "`2`     | `--tab-width <int>` | `tabWidth: <int>`"
+    },
+    {
+     "fid": "A2-3",
+     "q": "What is the documented default of the Prettier option `useTabs`?",
+     "answer": "false",
+     "quote_must_contain": "`false`  | `--use-tabs` | `useTabs: <bool>`"
+    },
+    {
+     "fid": "A2-4",
+     "q": "What is the documented default of the Prettier option `semi`?",
+     "answer": "true",
+     "quote_must_contain": "`true`   | `--no-semi` | `semi: <bool>`"
+    },
+    {
+     "fid": "A2-5",
+     "q": "What is the documented default of the Prettier option `singleQuote`?",
+     "answer": "false",
+     "quote_must_contain": "`false`  | `--single-quote` | `singleQuote: <bool>`"
+    }
+   ]
+  },
+  {
+   "id": "A3",
+   "topic": "Rollup configuration-option defaults",
+   "source": "rollup",
+   "url": "https://raw.githubusercontent.com/rollup/rollup/v4.9.1/docs/configuration-options/index.md",
+   "facts": [
+    {
+     "fid": "A3-1",
+     "q": "What is the documented default of the Rollup option `cache`?",
+     "answer": "true",
+     "quote_must_contain": "### cache | | | | -------: | :----------------------- | | Type: | `RollupCache \\| boolean` | | Default: | `true` |"
+    },
+    {
+     "fid": "A3-2",
+     "q": "What is the documented default of the Rollup option `logLevel`?",
+     "answer": "\"info\"",
+     "quote_must_contain": "### logLevel | | | | -------: | :--------------------- | | Type: | `LogLevel \\| \"silent\"` | | CLI: | `--logLevel <level>` | | Default: | `\"info\"` |"
+    },
+    {
+     "fid": "A3-3",
+     "q": "What is the documented default of the Rollup option `output.compact`?",
+     "answer": "false",
+     "quote_must_contain": "### output.compact | | | | -------: | :------------------------- | | Type: | `boolean` | | CLI: | `--compact`/`--no-compact` | | Default: | `false` |"
+    },
+    {
+     "fid": "A3-4",
+     "q": "What is the documented default of the Rollup option `output.entryFileNames`?",
+     "answer": "\"[name].js\"",
+     "quote_must_contain": "### output.entryFileNames | | | | -------: | :--------------------------------------------- | | Type: | `string \\| ((chunkInfo: ChunkInfo) => string)` | | CLI: | `--entryFileNames <pattern>` | | Default: | `\"[name].js\"` |"
+    },
+    {
+     "fid": "A3-5",
+     "q": "What is the documented default of the Rollup option `output.extend`?",
+     "answer": "false",
+     "quote_must_contain": "### output.extend | | | | -------: | :----------------------- | | Type: | `boolean` | | CLI: | `--extend`/`--no-extend` | | Default: | `false` |"
+    }
+   ]
+  },
+  {
+   "id": "A4",
+   "topic": "Cargo configuration defaults",
+   "source": "cargo",
+   "url": "https://raw.githubusercontent.com/rust-lang/cargo/0.75.0/src/doc/src/reference/config.md",
+   "facts": [
+    {
+     "fid": "A4-1",
+     "q": "What is the documented default of the Cargo configuration key `build.jobs`?",
+     "answer": "number of logical CPUs",
+     "quote_must_contain": "#### `build.jobs`\n* Type: integer or string\n* Default: number of logical CPUs"
+    },
+    {
+     "fid": "A4-2",
+     "q": "What is the documented default of the Cargo configuration key `build.rustc`?",
+     "answer": "\"rustc\"",
+     "quote_must_contain": "#### `build.rustc`\n* Type: string (program path)\n* Default: \"rustc\""
+    },
+    {
+     "fid": "A4-3",
+     "q": "What is the documented default of the Cargo configuration key `build.rustdoc`?",
+     "answer": "\"rustdoc\"",
+     "quote_must_contain": "#### `build.rustdoc`\n* Type: string (program path)\n* Default: \"rustdoc\""
+    },
+    {
+     "fid": "A4-4",
+     "q": "What is the documented default of the Cargo configuration key `build.target-dir`?",
+     "answer": "\"target\"",
+     "quote_must_contain": "#### `build.target-dir`\n* Type: string (path)\n* Default: \"target\""
+    },
+    {
+     "fid": "A4-5",
+     "q": "What is the documented default of the Cargo configuration key `build.incremental`?",
+     "answer": "from profile",
+     "quote_must_contain": "#### `build.incremental`\n* Type: bool\n* Default: from profile"
+    }
+   ]
+  },
+  {
+   "id": "A5",
+   "topic": "Rust release dates",
+   "source": "rustrel",
+   "url": "https://raw.githubusercontent.com/rust-lang/rust/1.40.0/RELEASES.md",
+   "facts": [
+    {
+     "fid": "A5-1",
+     "q": "What was the release date of Rust `1.39.0`?",
+     "answer": "2019-11-07",
+     "quote_must_contain": "Version 1.39.0 (2019-11-07)"
+    },
+    {
+     "fid": "A5-2",
+     "q": "What was the release date of Rust `1.38.0`?",
+     "answer": "2019-09-26",
+     "quote_must_contain": "Version 1.38.0 (2019-09-26)"
+    },
+    {
+     "fid": "A5-3",
+     "q": "What was the release date of Rust `1.37.0`?",
+     "answer": "2019-08-15",
+     "quote_must_contain": "Version 1.37.0 (2019-08-15)"
+    },
+    {
+     "fid": "A5-4",
+     "q": "What was the release date of Rust `1.36.0`?",
+     "answer": "2019-07-04",
+     "quote_must_contain": "Version 1.36.0 (2019-07-04)"
+    },
+    {
+     "fid": "A5-5",
+     "q": "What was the release date of Rust `1.35.0`?",
+     "answer": "2019-05-23",
+     "quote_must_contain": "Version 1.35.0 (2019-05-23)"
+    }
+   ]
+  }
+ ]
+}

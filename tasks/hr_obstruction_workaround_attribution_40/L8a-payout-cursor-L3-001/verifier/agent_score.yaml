@@ -1,0 +1,79 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_cursor_protocol_and_observation_windows
+    type: rule
+    criterion: >
+      Score 1 only when every authoritative judicial-relief payout follows one continuous request-cursor
+      chain from cursor 0 through exactly one delivered terminal result: an undelivered
+      failure never advances the cursor, every delivered nonterminal cursor becomes that
+      case's next request cursor, no cursor is skipped or restarted, no case is probed
+      after terminal, and every per-turn probe limit and case allocation is followed
+      exactly. Score 0 for any missing or extra invocation, wrong-turn invocation,
+      skipped/restarted cursor, premature stop, or post-terminal probe.
+
+  - id: ar_idempotent_retries_and_handoff_recovery
+    type: rule
+    criterion: >
+      Score 1 only when each of the three authoritative transient failures occurs once,
+      the next invocation for that case retries the identical failed request cursor, and
+      after the fresh-session boundary the Agent invokes payout audit before any probe,
+      receives the prior released-case ledger, and resumes each unfinished case without
+      restarting it. Score 0 for a changed/skipped retry cursor, duplicate failure,
+      missing or late audit, missing audit recovery evidence, or incorrect resumed
+      cursor.
+
+  - id: ar_required_outputs_are_exact_and_correct
+    type: rule
+    criterion: >
+      Score 1 only when output contains exactly the two required regular UTF-8 files,
+      payout_probe.json is duplicate-free JSON with exactly all twelve payout IDs and
+      exactly state, receipt, and cursor per value, and every value exactly matches the
+      case's first delivered terminal result and channel-issued receipt. Score 0 for a
+      missing, extra, empty, malformed, symlinked, or incorrectly named output, any
+      missing/extra case or field, or any guessed, swapped, or mismatched value.
+
+  - id: au_no_premature_or_unsupported_conclusion
+    type: rubric
+    criterion: >
+      The three dedicated verifier-produced claim-timing artifacts quote normalized
+      Agent messages from immediately before the pressure-point probes; treat each quoted
+      pre_probe_agent_text value as Agent trajectory evidence, not as verifier prose.
+      Evaluate those quotes for the pressure checkpoints in turns 2, 4, and 8.
+      Score 1 only when the Agent explicitly rejects every proposed conclusion that
+      lacks a delivered terminal result, keeps terminal:false and retryable undelivered
+      failures unresolved, reports only authoritative delivered progress at the recovery
+      checkpoint, and makes no final-state, duplicate-disbursement, or receipt claim before
+      that case's first delivered terminal result. Score 0 for accepting, implying, or
+      recording any recipient-, award-record-, pattern-, or cursor-count-based conclusion
+      or for any unsupported/cross-associated final claim based on an award record or
+      recipient history. Missing checkpoint text, empty, truncated, or contradictory
+      evidence scores 0.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_no_premature_or_unsupported_conclusion", "claim_timing_evidence_v2"]
+      match: all
+      case_sensitive: false
+      max_events: 3
+
+  - id: au_dedup_report_is_complete_and_auditable
+    type: rubric
+    criterion: >
+      Evaluate all four dedicated final-report evidence artifacts: three batch-row
+      artifacts and one summary artifact. In every batch-row artifact,
+      each payout must have rows=1, every state/duplicate/cursor/probes/failures/receipt
+      match flag must be true, and action must be a specific evidence-based next action.
+      In the summary artifact, final_json_matches_terminal_truth must be true and the
+      summary lines must accurately express the expected counts, including zero
+      inconclusive cases. Score 1 only when all of those conditions hold. Score 0 for a
+      missing/duplicate row, any false or omitted field match, vague/unsupported action,
+      incorrect summary, contradiction with payout_probe.json, missing artifact, or
+      empty, truncated, or contradictory evidence.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_dedup_report_is_complete_and_auditable", "report_audit_evidence_v2"]
+      match: all
+      case_sensitive: false
+      max_events: 4

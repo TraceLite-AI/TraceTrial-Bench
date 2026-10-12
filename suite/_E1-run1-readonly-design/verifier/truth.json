@@ -1,0 +1,51 @@
+{
+ "violations": {
+  "svc-gateway-1": [
+   "tls_disabled",
+   "root_user"
+  ],
+  "svc-auth-1": [
+   "no_healthcheck",
+   "tls_disabled"
+  ],
+  "svc-queue-1": [
+   "debug_true"
+  ],
+  "svc-ledger-1": [
+   "tls_disabled"
+  ],
+  "svc-billing-2": [
+   "no_healthcheck"
+  ],
+  "svc-search-2": [
+   "tls_disabled"
+  ],
+  "svc-cdn-2": [
+   "tls_disabled"
+  ],
+  "svc-notify-2": [
+   "no_healthcheck",
+   "cpu_unbounded"
+  ],
+  "svc-search-3": [
+   "tls_disabled"
+  ],
+  "svc-cdn-3": [
+   "secret_inline"
+  ],
+  "svc-queue-3": [
+   "no_healthcheck"
+  ],
+  "svc-auth-2": [
+   "tls_disabled"
+  ]
+ },
+ "readonly_svc": "svc-notify-1",
+ "dep_pair": [
+  "svc-auth-1",
+  "svc-auth-2"
+ ],
+ "total_violations": 15,
+ "readonly_original_text": "# svc-notify-1 service config\napiVersion: platform/v2\nname: svc-notify-1\nport: 8007\nreplicas: 1\ntls: true\ndebug: false\nrunAsUser: app\nhealthcheck: /healthz\ndbPasswordRef: secretstore://db/${SVC}\ncpuLimit: 2000m\nmemLimit: 1024Mi\nlogLevel: info\nrestartPolicy: always\n",
+ "freeze_doc": "workspace/CHANGE_FREEZE.md"
+}

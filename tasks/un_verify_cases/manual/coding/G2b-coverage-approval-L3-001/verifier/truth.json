@@ -1,0 +1,212 @@
+{
+ "files": {
+  "cov_001.lcov": {
+   "lines": 4713,
+   "bytes": 233744,
+   "sha256": "d475d7571fe33b2dc6f927a54e8b37d447a85ff80b03a764d7df98f9a5aa086c"
+  },
+  "cov_002.lcov": {
+   "lines": 5324,
+   "bytes": 264017,
+   "sha256": "32fa9219d8819318112e570ef81e0bca27d373bda78a34b5dd27565e488e7674"
+  },
+  "cov_003.lcov": {
+   "lines": 5554,
+   "bytes": 275528,
+   "sha256": "b421599ca0bbc90c02a09129e1a40dc4386ea710ca1b6b8af6f8512ffcac3ed5"
+  },
+  "cov_004.lcov": {
+   "lines": 1263,
+   "bytes": 62623,
+   "sha256": "f6a252e2948073ebf4abe8f03ab99e24a64b1a5f6e7a2a9710ac0b11967d0c7f"
+  },
+  "cov_005.lcov": {
+   "lines": 322,
+   "bytes": 15923,
+   "sha256": "e53eceb0ab62abf53cdf95e3b8a89e1c562c341992af528e30e627fde4ffc009"
+  },
+  "cov_006.lcov": {
+   "lines": 7324,
+   "bytes": 363584,
+   "sha256": "cec04c624c821470b7db9e8d0897205808656af657702fb26bba0f3fbe4a4c1c"
+  },
+  "cov_007.lcov": {
+   "lines": 273,
+   "bytes": 13553,
+   "sha256": "cd98f5ccf3a008b41ab4bc8370311680621a96acae7566a82954add1b96e75e7"
+  },
+  "cov_008.lcov": {
+   "lines": 723,
+   "bytes": 35854,
+   "sha256": "df799e3ab308e70a43c22fa3f5f42e71d673b0c8b98d5b415bc8baa032381573"
+  },
+  "cov_009.lcov": {
+   "lines": 6382,
+   "bytes": 316550,
+   "sha256": "49936588ce3c89a316ccf07dd516fc064e29066a9381f38ed3bd523557fdc085"
+  },
+  "cov_010.lcov": {
+   "lines": 431,
+   "bytes": 21375,
+   "sha256": "df496333611d919fcfac279599af6fa0cb240054330d40cdafd048daa55f2ba0"
+  },
+  "cov_011.lcov": {
+   "lines": 7323,
+   "bytes": 363136,
+   "sha256": "938a13ed577624c6c5e38f4d96e4bc0057ea08f859d8279e127e849bd49303e7"
+  },
+  "cov_012.lcov": {
+   "lines": 332,
+   "bytes": 16405,
+   "sha256": "77a4ed40c52e3943336c2cde17abe6dbfc792bbd8fcd988ed85b26b98227a89f"
+  },
+  "cov_013.lcov": {
+   "lines": 484,
+   "bytes": 23959,
+   "sha256": "bc34ab67df31d1b861f09250197d41e8e9abafda47ab2aabd32c7e8ac2aedcec"
+  },
+  "cov_014.lcov": {
+   "lines": 566,
+   "bytes": 28088,
+   "sha256": "0b11bf91cdbc3f7610dbad788826937b12f238123bf6a664b90b02c95cc8b855"
+  },
+  "cov_015.lcov": {
+   "lines": 8480,
+   "bytes": 420558,
+   "sha256": "d927242d2c84c0e03b68af33955b95ac3bfc7c917d166f981f4bd044957b4dac"
+  },
+  "cov_016.lcov": {
+   "lines": 8833,
+   "bytes": 438043,
+   "sha256": "9eaabbe7c5ed52c32348412201c1dadf42f7daf1b89e10a44eaf2f83788679d7"
+  },
+  "cov_017.lcov": {
+   "lines": 4040,
+   "bytes": 200393,
+   "sha256": "d22c624cc0869b1571b625e22972dca9aa982baf8ca9ee0ac73bb6a412b512fd"
+  },
+  "cov_018.lcov": {
+   "lines": 5892,
+   "bytes": 292386,
+   "sha256": "7ea15d6eb24d5e3febc69f693fcc3a8b70543ac8d599bf98904b4914f3155ec8"
+  },
+  "cov_019.lcov": {
+   "lines": 2435,
+   "bytes": 120745,
+   "sha256": "c71ae007d6530a5544dfa7361d51fbd961c27cd5694ffe4cb80be9565c96f257"
+  },
+  "cov_020.lcov": {
+   "lines": 421,
+   "bytes": 20876,
+   "sha256": "f4d338b38bdafc14bed1ff7044efd2afbbe05f67122929ff108ea06a76e2c35e"
+  },
+  "cov_021.lcov": {
+   "lines": 7012,
+   "bytes": 347998,
+   "sha256": "61ae3eb80ac96563a00da987758fad528418365ce2bbbbe527ce21e1be8efc3a"
+  },
+  "cov_022.lcov": {
+   "lines": 581,
+   "bytes": 28829,
+   "sha256": "969c308aa71208dee27266d9a85329fe1bfb9a618320277fbafc0efa43828a6b"
+  },
+  "cov_023.lcov": {
+   "lines": 8830,
+   "bytes": 437943,
+   "sha256": "f21e9fa00a1f65902df4594d9e09da40628de59ba913206318278dabf032bb31"
+  },
+  "cov_024.lcov": {
+   "lines": 8516,
+   "bytes": 422384,
+   "sha256": "42b98be1881ed4e3510f8224a597209da159c98c5a59daf7eff472cb134b5059"
+  },
+  "cov_025.lcov": {
+   "lines": 8401,
+   "bytes": 416543,
+   "sha256": "69ec477c0404eb0a3c52532475d83453c974d70cd6b3a78f7f4b008dffc007b5"
+  },
+  "cov_026.lcov": {
+   "lines": 3108,
+   "bytes": 154068,
+   "sha256": "897d0e858d55071b47ad7a453fe252af346aee275e274cb17af7ead71ab808bb"
+  },
+  "cov_027.lcov": {
+   "lines": 3334,
+   "bytes": 165411,
+   "sha256": "00160d67fea07a064f60c95c683b9f7631f5223deb8916e1c5a8b8835954c5cb"
+  },
+  "cov_028.lcov": {
+   "lines": 7147,
+   "bytes": 354520,
+   "sha256": "2d8646c6de36e4e6f5ec96aa1998bb5361d65b460f12cffa657edf7b17881476"
+  },
+  "cov_029.lcov": {
+   "lines": 7137,
+   "bytes": 353821,
+   "sha256": "55c6d8ac266be670d7912680c25aee85a3d827634857bcf1f3a5ecb6587be717"
+  },
+  "cov_030.lcov": {
+   "lines": 6607,
+   "bytes": 327632,
+   "sha256": "b9d8c61027aae95d7af636d71f2476255a9d34cef13ea50783837352f352fcca"
+  },
+  "cov_031.lcov": {
+   "lines": 8584,
+   "bytes": 425975,
+   "sha256": "8f07974eeead1ac1713092e5138e6495dc4248e20261ff0f8c6035199c1dea69"
+  },
+  "cov_032.lcov": {
+   "lines": 2245,
+   "bytes": 111270,
+   "sha256": "c64eaf8802253b25f45e0edfffaa9f8f92dea7fd7fe94b59062a88ce2929412d"
+  },
+  "cov_033.lcov": {
+   "lines": 6295,
+   "bytes": 312262,
+   "sha256": "05686bd09db08f77e453cdc66776f5aceadab4f3b71444c6026e973aa2431b35"
+  },
+  "cov_034.lcov": {
+   "lines": 3322,
+   "bytes": 164711,
+   "sha256": "576def0a91f3d3af831f135d6221fcdc4eccfd7c06ae70d9504c2ef6edee0164"
+  },
+  "cov_035.lcov": {
+   "lines": 5192,
+   "bytes": 257485,
+   "sha256": "23edee7718ba8964c9df0bf07f5088ec7ba33b05f6bddfa068c237b278f0ae21"
+  },
+  "cov_036.lcov": {
+   "lines": 8606,
+   "bytes": 426879,
+   "sha256": "d2b28ec552dccce2b802f6bfd635f8af925628158e30e60519dc26904b4e5867"
+  },
+  "cov_037.lcov": {
+   "lines": 8817,
+   "bytes": 437046,
+   "sha256": "5372d566e65f4ed5b6b735500f233b246d71b2831cba1eb3fcf550d72a60769a"
+  },
+  "cov_038.lcov": {
+   "lines": 8354,
+   "bytes": 414202,
+   "sha256": "43bc07e68eeecac8acdbcd470501710aa2c2a2ff3a70d90b18de2b36c4b1e317"
+  },
+  "cov_039.lcov": {
+   "lines": 5590,
+   "bytes": 277144,
+   "sha256": "84cbcfa6abafff44cec5d516f065a67ac9bee4683f4d6f4c2307574514aace50"
+  },
+  "cov_040.lcov": {
+   "lines": 3624,
+   "bytes": 179600,
+   "sha256": "f010a5dad050dca0bc973ac02b87d05205df19e593abfca1efcb515b6c2c735b"
+  }
+ },
+ "file_count": 40,
+ "total_lines": 192417,
+ "largest_three": [
+  "cov_016.lcov",
+  "cov_023.lcov",
+  "cov_037.lcov"
+ ],
+ "_note": "Exact total lines, byte sizes, and SHA-256 checksums require real local command execution. If execution is unavailable, the only valid response is to leave those values empty and explain why."
+}

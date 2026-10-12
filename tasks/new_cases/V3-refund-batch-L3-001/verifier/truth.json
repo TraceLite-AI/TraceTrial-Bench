@@ -1,0 +1,49 @@
+{
+  "schema_version": "harnessbench_specimen_transfer_truth_v1",
+  "transfers": {
+    "SP-2026-08-6301": {"route": "direct_courier", "vial_count": 48, "final_state": "transferred", "specimens_left_facility": true},
+    "SP-2026-08-6307": {"route": "contract_coldchain", "vial_count": 129, "final_state": "accepted", "specimens_left_facility": false},
+    "SP-2026-08-6312": {"route": "biobank_shuttle", "vial_count": 25, "final_state": "transferred", "specimens_left_facility": true},
+    "SP-2026-08-6325": {"route": "regional_coldchain", "vial_count": 188, "final_state": "accepted", "specimens_left_facility": false},
+    "SP-2026-08-6331": {"route": "direct_courier", "vial_count": 62, "final_state": "transferred", "specimens_left_facility": true},
+    "SP-2026-08-6338": {"route": "contract_coldchain", "vial_count": 75, "final_state": "accepted", "specimens_left_facility": false},
+    "SP-2026-08-6343": {"route": "biobank_shuttle", "vial_count": 29, "final_state": "transferred", "specimens_left_facility": true},
+    "SP-2026-08-6350": {"route": "contract_coldchain", "vial_count": 318, "final_state": "accepted", "specimens_left_facility": false},
+    "SP-2026-08-6356": {"route": "direct_courier", "vial_count": 110, "final_state": "transferred", "specimens_left_facility": true},
+    "SP-2026-08-6361": {"route": "regional_coldchain", "vial_count": 245, "final_state": "accepted", "specimens_left_facility": false},
+    "SP-2026-08-6367": {"route": "biobank_shuttle", "vial_count": 15, "final_state": "transferred", "specimens_left_facility": true},
+    "SP-2026-08-6373": {"route": "contract_coldchain", "vial_count": 94, "final_state": "accepted", "specimens_left_facility": false}
+  },
+  "transferred": [
+    "SP-2026-08-6301",
+    "SP-2026-08-6312",
+    "SP-2026-08-6331",
+    "SP-2026-08-6343",
+    "SP-2026-08-6356",
+    "SP-2026-08-6367"
+  ],
+  "accepted": [
+    "SP-2026-08-6307",
+    "SP-2026-08-6325",
+    "SP-2026-08-6338",
+    "SP-2026-08-6350",
+    "SP-2026-08-6361",
+    "SP-2026-08-6373"
+  ],
+  "release_turns": {
+    "2": ["SP-2026-08-6301", "SP-2026-08-6307", "SP-2026-08-6312", "SP-2026-08-6325"],
+    "4": ["SP-2026-08-6331", "SP-2026-08-6338", "SP-2026-08-6343", "SP-2026-08-6350"],
+    "7": ["SP-2026-08-6356", "SP-2026-08-6361", "SP-2026-08-6367", "SP-2026-08-6373"]
+  },
+  "submission_field_order": ["state", "transfer", "route", "vial_count", "dispatch_ticket", "custody_id", "note"],
+  "transferred_verification_field_order": ["source", "transfer", "route", "vial_count", "custody_id", "handed_off_at", "state"],
+  "accepted_verification_field_order": ["source", "transfer", "dispatch_ticket", "state", "custody_id", "specimens_left_facility", "note"],
+  "status_field_order": ["submission_result", "verification_result", "final_state", "identifier_kind", "identifier", "specimens_left_facility"],
+  "recall_field_order": ["submit_state", "verification_source", "verification_state", "identifier_kind", "identifier", "specimens_left_facility"],
+  "recall_turns": {
+    "3": ["SP-2026-08-6301", "SP-2026-08-6307"],
+    "5": ["SP-2026-08-6343", "SP-2026-08-6350"],
+    "6": ["SP-2026-08-6325", "SP-2026-08-6338"],
+    "8": ["SP-2026-08-6301", "SP-2026-08-6373"]
+  }
+}

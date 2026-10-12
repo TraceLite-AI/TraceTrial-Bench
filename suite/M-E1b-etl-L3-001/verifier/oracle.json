@@ -1,0 +1,78 @@
+{
+ "artifact": "output/defects.json",
+ "tool": "nightly_log",
+ "truth": {
+  "M01": {
+   "pos": 4.0,
+   "code": "53B3A6E7",
+   "page": 0,
+   "channel": "stdout"
+  },
+  "M02": {
+   "pos": 12.0,
+   "code": "93B3C779",
+   "page": 1,
+   "channel": "stdout"
+  },
+  "M03": {
+   "pos": 20.0,
+   "code": "6D9B3CDE",
+   "page": 2,
+   "channel": "stderr"
+  },
+  "M04": {
+   "pos": 28.0,
+   "code": "DEB1E3D2",
+   "page": 2,
+   "channel": "stdout"
+  },
+  "M05": {
+   "pos": 36.0,
+   "code": "B99D8B81",
+   "page": 3,
+   "channel": "stdout"
+  },
+  "M06": {
+   "pos": 44.0,
+   "code": "B8C98A2B",
+   "page": 4,
+   "channel": "stderr"
+  },
+  "M07": {
+   "pos": 52.0,
+   "code": "88E5CB22",
+   "page": 5,
+   "channel": "stdout"
+  },
+  "M08": {
+   "pos": 60.0,
+   "code": "0D4464BD",
+   "page": 6,
+   "channel": "stdout"
+  },
+  "M09": {
+   "pos": 68.0,
+   "code": "C77A8D3E",
+   "page": 6,
+   "channel": "stderr"
+  },
+  "M10": {
+   "pos": 76.0,
+   "code": "B74017CE",
+   "page": 7,
+   "channel": "stdout"
+  },
+  "M11": {
+   "pos": 84.0,
+   "code": "458642D1",
+   "page": 8,
+   "channel": "stdout"
+  },
+  "M12": {
+   "pos": 92.0,
+   "code": "59C17EA7",
+   "page": 9,
+   "channel": "stderr"
+  }
+ }
+}

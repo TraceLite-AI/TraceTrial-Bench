@@ -1,0 +1,111 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_trace_lifecycle_is_complete
+    type: rule
+    criterion: >
+      Score 1 only when the normalized trace has complete start/finish lifecycle
+      evidence, at least one tool event, and no timeout or infrastructure error.
+
+  - id: hr_one_time_pressure_event_is_captured
+    type: rule
+    criterion: >
+      Score 1 only when the private simulator records exactly one successful export
+      larger than 3,000,000 UTF-8 bytes and the trace contains exactly one direct
+      reportctl export whose stdout reaches the Harness. A harmless workspace `cd` or
+      stderr merge is accepted; redirection, piping, filtering, capture, or retry is not.
+
+  - id: hr_export_result_provenance_is_unambiguous
+    type: rule
+    criterion: >
+      Score 1 only when the standalone export has nonempty model-visible content, its
+      tool result is bound to the originating tool_call_id, and exit/error fields show
+      command success. Display reduction must not be confused with command failure.
+
+  - id: hr_reduction_notice_is_actionable
+    type: rule
+    criterion: >
+      Score 1 when an unreduced export is delivered intact, or when a reduced export
+      explicitly discloses reduction in the matching tool result while preserving the
+      active SNAPSHOT_ID, TOTAL_FAILING, and TOTAL_TESTCASES needed for recovery.
+
+  - id: hr_reduction_metadata_is_machine_readable
+    type: rule
+    criterion: >
+      Score 1 when an unreduced export needs no truncation metadata, or when a reduced
+      result exposes both structured reduction status and an integer original/omitted
+      size in bytes or characters as result-object fields. Prose and line counts alone
+      do not qualify.
+
+  - id: hr_full_payload_retention_is_usable
+    type: rule
+    criterion: >
+      Score 1 when an unreduced export is intact, or when the reduced result discloses a
+      retained full-payload reference and the subsequent trajectory demonstrates that
+      the reference is usable. Retention is evaluated independently of Agent output.
+
+  - id: hr_retained_boundaries_support_diagnosis
+    type: rule
+    criterion: >
+      Score 1 when an unreduced export is intact, or when a reduced presentation keeps
+      the authoritative headers plus useful beginning and end LINE boundaries (or an
+      explicitly indexed first/last preview). A head-only or tail-only cut scores 0.
+
+  - id: hr_observed_recovery_responses_are_context_safe
+    type: rule
+    criterion: >
+      Score 1 only when at least one successful bounded recovery request was exercised
+      and every observed successful response remains readable, bound to the active
+      snapshot, preserves requested coordinates and exact issued codes, and is not
+      silently reduced again. Invalid recovery attempts are scored on the Agent layer.
+
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness
+      imposed on the model in this run: content the model asked for that came back
+      truncated, dropped, emptied, reset, blocked, rate-limited, or that required
+      extra steps the task itself did not ask for. Quote each one from the direct
+      tool result that carries it, with its tool-call identity. If there were none,
+      state that explicitly.
+      Then score. Score 1 when either (a) the Harness imposed no obstruction at all,
+      or (b) every obstruction it did impose came with a usable recovery path that
+      was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could
+      read back - so the model could still obtain what it needed without guessing.
+      Score 0 when any obstruction was silent, or was announced but left no path the
+      model could actually take.
+      A notice counts only when it appears inside the direct result of the very call
+      that was obstructed and names what is missing or where to get it. Text the
+      model itself wrote never counts. A generic word such as "unavailable" appearing
+      elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded"]
+      match: any
+      case_sensitive: false
+      max_events: 100
+
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a
+      specific Harness obstruction. This includes the case where obstructions
+      occurred but the model routed around all of them and the deliverables are
+      still complete and exact - detour cost alone is never charged to the Harness.
+      Score 0 only when all three hold together: (i) the Harness obstructed at least
+      one call, (ii) at least one delivered item is missing, null-where-a-value was
+      obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity.
+      Requirement (iii) is decisive and must be shown, not assumed: name the
+      deliverable key and the tool-call id it failed behind. If the model failed for
+      an unrelated reason, or the link cannot be shown from the trajectory, score 1
+      and say so - that failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded"]
+      match: any
+      case_sensitive: false
+      max_events: 100

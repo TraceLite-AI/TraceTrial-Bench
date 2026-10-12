@@ -1,0 +1,27 @@
+{
+ "suite": "BMK-4201",
+ "component": "north stack",
+ "recorded_on": "2026-08-03",
+ "runs": [
+  {
+   "pass": "P1",
+   "ms": 50.431
+  },
+  {
+   "pass": "P2",
+   "ms": 58.98
+  },
+  {
+   "pass": "P3",
+   "ms": 46.51
+  },
+  {
+   "pass": "P4",
+   "ms": 58.039
+  },
+  {
+   "pass": "P5",
+   "ms": 50.118
+  }
+ ]
+}

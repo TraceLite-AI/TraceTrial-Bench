@@ -1,0 +1,107 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_single_turn_trace_complete
+    type: rule
+    criterion: >
+      Score 1 only when the canonical normalized trace contains exactly one root run,
+      no run_failed event, and exactly one successful run_finished event with
+      trace_complete=true. Score 0 for missing, duplicated, failed, or incomplete root
+      lifecycle evidence. A missing canonical trace is a measurement-device failure.
+
+  - id: hr_native_dispatch_calls_accepted
+    type: rule
+    criterion: >
+      Score 1 only when the Agent issued at least one native child dispatch for each of
+      the five required component groups and the first required dispatch for every group
+      was accepted by the Harness. Score 0 when a required dispatch is rejected, has no
+      success evidence, or the Agent never issued the complete five-group plan. Extra or
+      repeated sessions are scored separately as Agent behavior and do not erase evidence
+      that the five required calls were accepted.
+
+  - id: hr_distinct_child_identities_observable
+    type: rule
+    criterion: >
+      Score 1 only when the Harness exposes one non-empty, distinct native child identity
+      for the accepted first dispatch of each required group, and every identity remains
+      bound to that group. Score 0 for a missing, reused, ambiguous, or untraceable child
+      identity, or when the required five dispatches were not all accepted.
+
+  - id: hr_native_child_terminal_states_observable
+    type: rule
+    criterion: >
+      Score 1 only when the canonical trace exposes a completed terminal state for each of
+      the five required child identities before the root run ends. Score 0 when any
+      accepted child lacks terminal evidence, reports failure, or cannot be linked back to
+      its required group.
+
+  - id: hr_initial_completions_delivered
+    type: rule
+    criterion: >
+      Score 1 only when five identity-linked native completion results, one for every
+      required group, become visible to the parent through a native completion channel.
+      Each result must contain a substantive payload rather than launch metadata, a status
+      notice, or an empty completion. Score 0 for any missing, duplicated, status-only,
+      unlinked, or unavailable parent-visible result.
+
+  - id: hr_initial_completion_payloads_intact
+    type: rule
+    criterion: >
+      Score 1 only when every one of the five native completion transports contains one
+      untruncated, extractable JSON object with exactly the assigned component keys and
+      complete verdict, rule, and r1/r2/r3 evidence fields. Surrounding child-authored
+      prose does not make an otherwise complete transport a Harness failure; the Agent
+      pure-JSON handoff rule scores that format violation. Score 0 if any transported JSON
+      value is missing, malformed, truncated, incomplete, or unavailable. Judge transport
+      integrity, not child formatting discipline or factual decision correctness.
+
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness
+      imposed on the model in this run: content the model asked for that came back
+      truncated, dropped, emptied, reset, blocked, rate-limited, or that required
+      extra steps the task itself did not ask for. Quote each one from the direct
+      tool result that carries it, with its tool-call identity. If there were none,
+      state that explicitly.
+      Then score. Score 1 when either (a) the Harness imposed no obstruction at all,
+      or (b) every obstruction it did impose came with a usable recovery path that
+      was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could
+      read back - so the model could still obtain what it needed without guessing.
+      Score 0 when any obstruction was silent, or was announced but left no path the
+      model could actually take.
+      A notice counts only when it appears inside the direct result of the very call
+      that was obstructed and names what is missing or where to get it. Text the
+      model itself wrote never counts. A generic word such as "unavailable" appearing
+      elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded"]
+      match: any
+      case_sensitive: false
+      max_events: 100
+
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a
+      specific Harness obstruction. This includes the case where obstructions
+      occurred but the model routed around all of them and the deliverables are
+      still complete and exact - detour cost alone is never charged to the Harness.
+      Score 0 only when all three hold together: (i) the Harness obstructed at least
+      one call, (ii) at least one delivered item is missing, null-where-a-value was
+      obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity.
+      Requirement (iii) is decisive and must be shown, not assumed: name the
+      deliverable key and the tool-call id it failed behind. If the model failed for
+      an unrelated reason, or the link cannot be shown from the trajectory, score 1
+      and say so - that failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded"]
+      match: any
+      case_sensitive: false
+      max_events: 100

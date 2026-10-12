@@ -1,0 +1,43 @@
+id: J1-cross-file-rename-L3-001
+title: 跨文件重命名（LegacyOrderCode → OrderReference，但对外协议字段不能动）
+scenario:
+  domain: Software Engineering
+  primary_subscenario: 跨文件重构
+  secondary_subscenarios:
+    - 判断边界
+    - 对外契约保护
+    - 批量文件修改
+harness:
+  dimension: T
+  subdimension: T3b
+  subdimension_name: 结构保真
+  also_exercises:
+    - 文件写入持久性
+    - 跨文件状态
+intensity:
+  level: L3
+  description: "28 个文件; 代码标识符要改, 但 4 处对外协议字段名与注释里的历史说明**不能改**(ADR-014 明令)。"
+budget:
+  max_turns: 16
+  max_tool_calls: 200
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  graded_object: "**文件实际内容**(该改的改了/不该改的没动)"
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  rr_semantics: 全二值无权重; 做过头(改了不该改的)与没做全同等扣分
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/src/**/*.py（被修改）
+  - workspace/output/rename_report.md
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-j1-cross-file-rename-l3-001:v1
+  image_lock: runtime/image.lock.json

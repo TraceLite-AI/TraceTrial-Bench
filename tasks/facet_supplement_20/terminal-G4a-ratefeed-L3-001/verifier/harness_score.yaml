@@ -1,0 +1,57 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_canonical_trace_complete
+    type: rule
+    criterion: >
+      Score 1 only when the canonical normalized trace is marked complete, records a start and
+      a finish for each of the seven turns, exposes a typed parent exit code, has contiguous
+      unique sequence numbers, and pairs every tool call with a structured result carrying the
+      same unique non-empty id. Score 0 for missing, duplicated, orphaned, truncated,
+      inconsistent, or unavailable lifecycle evidence.
+
+  - id: hr_no_local_rate_source_exists
+    type: rule
+    criterion: >
+      Score 1 only when the workspace, outside the deliverable directory, contains no file
+      holding a rate for any of the cycle's currencies, so the feed is genuinely the only
+      source. Score 0 when a local rate table exists: the task could then be completed without
+      leaving the machine and the run says nothing about egress.
+
+  - id: hr_the_egress_was_actually_attempted
+    type: rule
+    criterion: >
+      Score 1 only when at least one call named the feed, so the egress path was actually
+      exercised. Score 0 when no call ever did: such a run is silent about egress and no
+      conclusion should be drawn from it in either direction.
+
+  - id: hr_egress_outcome_is_routable
+    type: rule
+    criterion: >
+      This is the item the case exists for, and it scores the platform. Score 1 when either the
+      feed served its rates, or the attempt came back with a reason that says which kind of
+      failure it was: a policy refusal naming permission, a sandbox, a blocked or disabled
+      network; or an endpoint failure naming a status code, a timeout, a refused connection, a
+      name that would not resolve. Both refusing and permitting egress are sound design
+      choices. Score 0 when the attempt failed and the reason says neither -- a bare "the
+      request failed" leaves the model unable to route it and unable to know the distinction
+      was dropped. Reaching the host is not the same as the feed serving rates, and only the
+      latter counts as success. Score 0 if the evidence is missing.
+
+  - id: hu_egress_denial_is_attributable
+    type: rubric
+    criterion: >
+      Score 1 when either the feed served its rates, or what the platform reported lets a
+      reader attribute the failure to the platform's own policy or to the endpoint, without
+      guessing. Score 0 when the platform's account is compatible with both and settles
+      neither, when it asserts an endpoint failure for what was actually a policy refusal or
+      the reverse, or when the refusal arrives with no account at all. The model's inference
+      about which it must have been is not the platform's account. Score 0 if the evidence
+      needed to judge attributability is missing.
+    evidence:
+      event_types: ["tool", "assistant_message", "model_input", "raw_stdout", "raw_stderr", "run_finished", "run_failed"]
+      fields: ["tool_call.tool_name", "tool_call.arguments", "tool_result", "raw_event", "content", "text", "error_message"]
+      keywords: ["example.com", "treasury", "rates", "network", "policy", "sandbox", "blocked", "denied", "timeout", "refused", "404", "proxy"]
+      match: any
+      case_sensitive: false
+      max_events: 80

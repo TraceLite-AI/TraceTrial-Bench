@@ -1,0 +1,38 @@
+id: L1-incident-longhorizon-L3-001
+title: "多阶段事故复盘：早期查到的根因码与跨告警依赖链必须存活到 reconcile/report 阶段"
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: 压缩保真
+  secondary_subscenarios:
+    - 压缩保真
+harness:
+  dimension: C
+  subdimension: C2b
+  subdimension_name: 压缩保真
+intensity:
+  level: L3
+  description: "多阶段事故复盘: 早期查到的根因码与跨告警依赖链必须存活到 reconcile/report 阶段"
+budget:
+  max_turns: 80
+  max_tool_calls: 200
+  max_wall_time_sec: 2400
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  hr_semantics: pass/fail/N-A; 机制未触发且任务完成=pass(记功), 未触发且未完成=fail
+  rr_semantics: 全二值无权重, 全过才算 pass; 幅度看连续指标不进判定
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+  llm_judge_planned_model: claude-opus-5
+expected_outputs:
+  - workspace/output/
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-l1-incident-longhorizon-l3-001:v1
+  image_lock: runtime/image.lock.json

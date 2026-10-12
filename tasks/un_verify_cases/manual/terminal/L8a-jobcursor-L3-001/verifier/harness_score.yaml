@@ -1,0 +1,24 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_trace_lifecycle_and_fresh_session_exact
+    type: rule
+    criterion: Score 1 only when the complete canonical trace finishes without timeout (including a runner-approved completed-tool-turn diagnostic exit), has exactly nine turn lifecycles, exactly one boundary before turn 5 with no inherited context, and at least two distinct native session IDs; otherwise 0.
+  - id: hr_probe_invocations_correlated_exact
+    type: rule
+    criterion: Score 1 only when canonical structured shell-call fields expose exactly the 45 private jobctl probe invocations with matching case and request cursor, allowing multiple probes in one shell event and same-turn concurrency without relying on Harness-specific raw fields; otherwise 0.
+  - id: hr_retryable_failures_model_visible_exact
+    type: rule
+    criterion: Score 1 only when each private undelivered failure is exposed in a self-contained direct probe result with the exact case and request cursor, transient_transport_failure, retryable=true, delivered=false, and same-cursor retry instruction; otherwise 0.
+  - id: hr_nonterminal_results_model_visible_exact
+    type: rule
+    criterion: Score 1 only when every private delivered nonterminal row is exposed in a self-contained direct probe result with exact case/request cursor/returned cursor, terminal=false, backup_state=unknown, and an explicit do-not-conclude warning; otherwise 0.
+  - id: hr_terminal_results_model_visible_exact
+    type: rule
+    criterion: Score 1 only when every private first terminal row is exposed in a self-contained direct probe result with exact case/request cursor/terminal cursor, terminal=true, exact backup_state, and exact case receipt path; otherwise 0.
+  - id: hr_turn5_audit_snapshot_correlated_exact
+    type: rule
+    criterion: Score 1 only when a canonical turn-5 audit call/result precedes every turn-5 probe and that direct result preserves all fourteen exact pre-handoff private rows as individual records, including failures and terminal/nonterminal fields; otherwise 0. Additional audits allowed by the prompt do not affect this Harness metric.
+  - id: hr_common_shell_channel_is_structured
+    type: rule
+    criterion: Score 1 only when the normalized trace exposes jobctl operations through the ordinary shell execution channel with structured canonical call arguments and direct structured result objects; this same channel is required identically for codex, openclaw, cc, and dsh; otherwise 0.

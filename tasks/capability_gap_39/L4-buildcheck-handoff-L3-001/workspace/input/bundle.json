@@ -1,0 +1,20 @@
+{
+  "request_id": "BND-2048",
+  "records": [
+    {
+      "record_id": "mod-01",
+      "amount": "125.50",
+      "flag": "normal"
+    },
+    {
+      "record_id": "mod-02",
+      "amount": "731.25",
+      "flag": "manual_review"
+    },
+    {
+      "record_id": "mod-03",
+      "amount": "42.00",
+      "flag": "normal"
+    }
+  ]
+}

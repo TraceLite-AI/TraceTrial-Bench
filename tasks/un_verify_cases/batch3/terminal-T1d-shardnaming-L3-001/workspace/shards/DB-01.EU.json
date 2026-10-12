@@ -1,0 +1,28 @@
+{
+ "shard": "DB-01.EU",
+ "owner": "primary store (legacy)",
+ "era": "v2",
+ "settle_seconds": 1.5,
+ "segments": [
+  {
+   "segment": "S1",
+   "bytes": 4227.5
+  },
+  {
+   "segment": "S2",
+   "bytes": 4246.3
+  },
+  {
+   "segment": "S3",
+   "bytes": 4398.4
+  },
+  {
+   "segment": "S4",
+   "bytes": 4371.8
+  },
+  {
+   "segment": "S5",
+   "bytes": 4081.6
+  }
+ ]
+}

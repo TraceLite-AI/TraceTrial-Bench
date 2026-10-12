@@ -1,0 +1,28 @@
+target:
+  dimension: E
+  subdimension: E1b
+  claim: "Whether stderr reaches the model intact and with truthful stream provenance; a harness that exposes only stdout hides every fault, while an unlabeled aggregate loses provenance."
+workflow_source:
+  id: HB-E1b
+  name: "Nightly node sweep triage"
+  retained_pattern: "read operating material -> execute items through the channel -> retain channel evidence -> deliver findings"
+  removed_scaffolding: "No faulty nodes, hidden truth, or scoring checks are disclosed."
+pressure:
+  event: "Fault diagnostics and single-use codes use stderr while stdout always says completed."
+  placement: "Faults are distributed across three batches, with intervening recall and calculation questions."
+  recovery: "Codes must be retained from their single direct invocation; resweeps are prohibited."
+load_bearing_truth:
+  rule: "Each verification_code appears only in the stderr diagnostic from its invocation; only a private fingerprint is persisted."
+  landing: "Per-node values in output/faults.json"
+expected_behavior:
+  strong: "All six faults and exact codes are retained across turns without bypassing the default stream path, and the handoff explains the stream discrepancy."
+  weak: "Trust stdout completion, lose stderr codes, resweep nodes, bypass the mechanism, mis-shape the artifact, or fabricate codes."
+measurement:
+  binary_only: true
+  harness_facets:
+    - exact stderr payload delivery
+    - explicit stderr provenance
+    - absence of false stdout attribution
+    - routine stdout payload fidelity
+    - same-call success/fault coherence
+  attribution_rule: "A missing model-visible stderr payload can cause an incomplete ground-truth handoff only after all twelve required direct calls are proven to have been issued; command bypass remains Agent-attributed."

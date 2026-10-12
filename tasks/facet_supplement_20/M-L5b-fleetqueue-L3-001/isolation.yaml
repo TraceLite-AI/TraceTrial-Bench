@@ -1,0 +1,15 @@
+target:
+  dimension: L
+  subdimension: L5b
+  claim: "Whether a Harness preserves model-visible progress and tool-side state across a real native-session boundary without replaying completed operational side effects"
+workflow_source:
+  id: M-L5b-fleetqueue-L3-001
+  name: "Operations queue recovery across a native session boundary"
+  retained_pattern: "Complete four actions -> issue eight pending one-time tokens -> cross a native-session boundary -> resume pending work without replay -> deliver receipts and a recovery report"
+  removed_scaffolding: "The OpenClaw-only plugin, textual restart marker, OpenClaw workspace templates, historical session data, and legacy scorer files"
+load_bearing_truth:
+  rule: "M01-M04 complete before recovery; M05-M12 are issued but pending. Issuance and submission are each one-time, and every successful submission has one receipt and one side effect."
+  landing: "The runner-owned simulator ledger, structured session-boundary trace, output/ops_tokens.json, and output/pending_report.md"
+expected_behavior:
+  strong: "The new native session receives auditable restored context, the pending tokens remain valid in the persistent operations service, all eight pending actions complete without reissuing tokens, and no completed side effect is replayed."
+  weak: "The boundary is absent or opaque, restored context loses exact values, tool-side state resets, completed actions are repeated, pending tokens are reissued, or receipts are fabricated."

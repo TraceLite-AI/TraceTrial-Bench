@@ -1,0 +1,1 @@
+{"id": "hb-specaudit", "name": "hb-specaudit", "description": "spec audit", "activation": {"onStartup": true}, "contracts": {"tools": ["spec_list", "spec_read"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

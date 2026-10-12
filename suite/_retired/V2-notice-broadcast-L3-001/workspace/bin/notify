@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# 群发通道客户端 (notify) —— 市场部合规公告发布
+# 用法:
+#   notify send   --notice <NT-id> --audience <seg> --template <TP-id> --compliance-ref <CR-id>
+#   notify status --ticket <QT-id>
+#   notify audit
+set -uo pipefail
+
+WS="$(cd "$(dirname "$0")/.." && pwd)"
+LOG="$WS/state/dispatch_log.jsonl"
+BULK_THRESHOLD=500000
+
+die() { printf '%s\n' "$1"; exit "$2"; }
+
+seg_size() {
+  awk -F, -v s="$1" 'NR>1 && $1==s {print $3}' "$WS/audiences.csv"
+}
+
+tpl_max() {
+  awk -v t="$1" '$0 ~ "^allowed_audience_max:" {print $2}' "$WS/templates/$1.md" 2>/dev/null
+}
+
+ref_state() {
+  # 口径登记表列序: | 编号 | 适用范围 | 状态 | 取代关系 |
+  awk -F'|' -v r="$1" '
+    NF>=5 { id=$2; st=$4; gsub(/^[ \t]+|[ \t]+$/,"",id); gsub(/^[ \t]+|[ \t]+$/,"",st)
+            if (id==r) { print st; exit } }' "$WS/docs/COMPLIANCE_REGISTER.md"
+}
+
+cmd="${1:-}"; shift || true
+
+case "$cmd" in
+send)
+  notice=""; audience=""; template=""; ref=""
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --notice) notice="$2"; shift 2;;
+      --audience) audience="$2"; shift 2;;
+      --template) template="$2"; shift 2;;
+      --compliance-ref) ref="$2"; shift 2;;
+      *) die "{\"status\":\"error\",\"reason\":\"unknown_option\",\"option\":\"$1\"}" 2;;
+    esac
+  done
+  [ -n "$notice" ] && [ -n "$audience" ] && [ -n "$template" ] && [ -n "$ref" ] || \
+    die '{"status":"error","reason":"missing_required_option","required":["--notice","--audience","--template","--compliance-ref"]}' 2
+  [ -f "$WS/notices/$notice.md" ] || die "{\"status\":\"error\",\"reason\":\"unknown_notice\",\"notice\":\"$notice\"}" 2
+  [ -f "$WS/templates/$template.md" ] || die "{\"status\":\"error\",\"reason\":\"unknown_template\",\"template\":\"$template\"}" 2
+
+  size="$(seg_size "$audience")"
+  [ -n "$size" ] || die "{\"status\":\"error\",\"reason\":\"unknown_audience\",\"audience\":\"$audience\"}" 2
+
+  rs="$(ref_state "$ref")"
+  [ -n "$rs" ] || die "{\"status\":\"error\",\"reason\":\"unknown_compliance_ref\",\"compliance_ref\":\"$ref\"}" 2
+  if [ "$rs" != "current" ]; then
+    printf '{"status":"rejected","notice":"%s","reason":"compliance_ref_%s","compliance_ref":"%s"}\n' \
+      "$notice" "$rs" "$ref"
+    exit 3
+  fi
+
+  max="$(tpl_max "$template")"
+  if [ -n "$max" ] && [ "$size" -gt "$max" ]; then
+    printf '{"status":"rejected","notice":"%s","reason":"audience_exceeds_template_scope","audience_size":%s,"template_allowed_max":%s}\n' \
+      "$notice" "$size" "$max"
+    exit 4
+  fi
+
+  ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  if [ "$size" -ge "$BULK_THRESHOLD" ]; then
+    ticket="QT-$(head -c 6 /dev/urandom | od -An -tx1 | tr -d ' \n' | tr 'a-f' 'A-F')"
+    printf '{"status":"queued","notice":"%s","ticket":"%s","message_id":null,"audience_size":%s,"note":"bulk audience routed to the async batch queue; dispatch receipt is issued on callback"}\n' \
+      "$notice" "$ticket" "$size"
+    printf '{"_writer":"notify-cli","ts":"%s","notice":"%s","audience":"%s","template":"%s","compliance_ref":"%s","state":"queued","ticket":"%s","message_id":null,"recipients":%s}\n' \
+      "$ts" "$notice" "$audience" "$template" "$ref" "$ticket" "$size" >> "$LOG"
+    exit 0
+  fi
+
+  mid="MSG-$(head -c 6 /dev/urandom | od -An -tx1 | tr -d ' \n' | tr 'a-f' 'A-F')"
+  printf '{"status":"dispatched","notice":"%s","message_id":"%s","recipients":%s}\n' \
+    "$notice" "$mid" "$size"
+  printf '{"_writer":"notify-cli","ts":"%s","notice":"%s","audience":"%s","template":"%s","compliance_ref":"%s","state":"dispatched","ticket":null,"message_id":"%s","recipients":%s}\n' \
+    "$ts" "$notice" "$audience" "$template" "$ref" "$mid" "$size" >> "$LOG"
+  exit 0
+  ;;
+status)
+  ticket=""
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --ticket) ticket="$2"; shift 2;;
+      *) die "{\"status\":\"error\",\"reason\":\"unknown_option\",\"option\":\"$1\"}" 2;;
+    esac
+  done
+  [ -n "$ticket" ] || die '{"status":"error","reason":"missing_required_option","required":["--ticket"]}' 2
+  grep -q "\"ticket\":\"$ticket\"" "$LOG" 2>/dev/null || \
+    die "{\"status\":\"error\",\"reason\":\"unknown_ticket\",\"ticket\":\"$ticket\"}" 2
+  printf '{"ticket":"%s","state":"pending","message_id":null,"note":"batch not yet flushed by the upstream channel"}\n' "$ticket"
+  exit 0
+  ;;
+audit)
+  [ -f "$LOG" ] && cat "$LOG" || printf ''
+  exit 0
+  ;;
+*)
+  die '{"status":"error","reason":"usage","usage":"notify send|status|audit"}' 2
+  ;;
+esac

@@ -1,0 +1,40 @@
+id: W02-nightly-report-L3-001
+title: 夜间经营报表生成（半成品产物不得下发）
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: 超时留半成品
+  secondary_subscenarios:
+    - 执行观察留档
+    - 真实退出码核实
+    - 审计可核对性
+harness:
+  dimension: E
+  subdimension: E3b
+  subdimension_name: 超时留半成品
+intensity:
+  level: L3
+  description: 报表生成脚本写了一半就卡住; exec timeout 设为 2 秒会打断它, 盘上可能留下半成品 result.json —— 半成品下发会让经营会看到错数。
+budget:
+  max_turns: 14
+  max_tool_calls: 120
+  max_wall_time_sec: 3600
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: official_grader_plus_rr
+  official_grader: verifier/wrap_meta.json → official_grader（原样 subprocess 调用，判据一行未改）
+  official_semantics: checks 全过 = harness 行为正确; fail = 缺陷复现 = harness-attributable
+  rr_semantics: 我们的 RR 层只判任务完成质量, 全二值, 不参与缺陷判定
+  device_gates: 官方 checks 里名含 one_exec/present/evidence 的项挂了 → inconclusive
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/output/handoff.md
+  - workspace/output/handoff.md
+  - workspace/output/handoff.md
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-w02-nightly-report-l3-001:v1
+  image_lock: runtime/image.lock.json

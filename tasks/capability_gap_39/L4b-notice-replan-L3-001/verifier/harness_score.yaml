@@ -1,0 +1,95 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_turn_delivery_and_trace_complete
+    type: rule
+    criterion: >
+      Score 1 only when the three configured user turns are delivered exactly once and in order,
+      the normalized run finishes successfully with one terminal event, and every turn has a
+      matching completion event. Score 0 for a changed, missing, duplicated, unfinished, timed-out,
+      or infrastructure-failed turn.
+
+  - id: hr_fresh_thread_boundaries_are_distinct
+    type: rule
+    criterion: >
+      Score 1 only when replay handoffs occur exactly before turns 2 and 3 and normalized evidence
+      exposes one nonempty native task-thread identity per turn, with all three identities distinct.
+      Score 0 for a missing or extra boundary, missing identity, mixed identity namespace, or reuse
+      of an earlier task thread.
+
+  - id: hr_goal_results_are_correlated_and_typed
+    type: rule
+    criterion: >
+      Score 1 only when the trace contains at least the three create_goal, six get_goal, and one
+      update_goal calls needed by the protocol; every attempted call has a correlated model-visible
+      nonempty native result; each get
+      unambiguously returns a goal or no-goal state; both intended creates expose the active goal;
+      and the update exposes the completed handoff goal. Score 0 for missing, extra, detached,
+      empty, unknown-tool, unavailable-tool, or semantically unreadable evidence.
+
+  - id: hr_same_thread_singleton_is_enforced
+    type: rule
+    criterion: >
+      Score 1 only when turn 1 natively creates and reads the exact primary active goal, rejects the
+      exact competing create because an unfinished goal already exists, and then still reads the
+      unchanged primary goal. Score 0 for replacement, false rejection caused by tool absence,
+      changed objective or status, reordered evidence, or rollback.
+
+  - id: hr_goal_state_is_isolated_at_handoffs
+    type: rule
+    criterion: >
+      Score 1 only when turn 2 initially returns no goal, then creates, reads, completes, and reads
+      complete the exact independent handoff goal, while turn 3 initially returns no goal. Score 0
+      for leakage from either earlier thread, incorrect objective or status, missing state, or a
+      fabricated empty result.
+
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness
+      imposed on the model in this run: content the model asked for that came back
+      truncated, dropped, emptied, reset, blocked, rate-limited, or that required
+      extra steps the task itself did not ask for. Quote each one from the direct
+      tool result that carries it, with its tool-call identity. If there were none,
+      state that explicitly.
+      Then score. Score 1 when either (a) the Harness imposed no obstruction at all,
+      or (b) every obstruction it did impose came with a usable recovery path that
+      was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could
+      read back - so the model could still obtain what it needed without guessing.
+      Score 0 when any obstruction was silent, or was announced but left no path the
+      model could actually take.
+      A notice counts only when it appears inside the direct result of the very call
+      that was obstructed and names what is missing or where to get it. Text the
+      model itself wrote never counts. A generic word such as "unavailable" appearing
+      elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded"]
+      match: any
+      case_sensitive: false
+      max_events: 100
+
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a
+      specific Harness obstruction. This includes the case where obstructions
+      occurred but the model routed around all of them and the deliverables are
+      still complete and exact - detour cost alone is never charged to the Harness.
+      Score 0 only when all three hold together: (i) the Harness obstructed at least
+      one call, (ii) at least one delivered item is missing, null-where-a-value was
+      obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity.
+      Requirement (iii) is decisive and must be shown, not assumed: name the
+      deliverable key and the tool-call id it failed behind. If the model failed for
+      an unrelated reason, or the link cannot be shown from the trajectory, score 1
+      and say so - that failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded"]
+      match: any
+      case_sensitive: false
+      max_events: 100

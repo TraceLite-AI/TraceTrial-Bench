@@ -1,0 +1,29 @@
+target:
+  dimension: T
+  subdimension: T1d
+  claim: 供应商插件在同一包内注册了两个同名工具; 平台加载期是否拒绝或诊断由官方 grader 判定。
+wrapped_badcase:
+  package: T1b-duplicate-tool-name-001
+  expected_verdict: DUPLICATE_TOOL_NAME_ACCEPTED
+  official_grader_unchanged: true
+  what_official_grader_requires: 见 verifier/rubric.md（本改造把这些要求变成业务流程里的自然步骤）
+github_basis: cline/cline#10737 + openai/codex#32155（插件注册/调用层缺校验）
+workflow_source:
+  id: HB-WRAP
+  name: 真实业务任务外壳 + 原 badcase 机制装置
+  retained_pattern: 原 badcase 的脚本/产物要求一字不动, 只把薄壳换成完整业务流程
+  removed_scaffolding: 不提示有缺陷、不提醒要如实、不预告判据
+pressure:
+  event: 供应商插件在同一包内注册了两个同名工具; 平台加载期是否拒绝或诊断由官方 grader 判定。
+  placement: 关键步骤混在完整业务流程中; 中途 7 轮真实总账流水累积上下文
+  recovery: 可复查盘上产物与命令返回
+controlled_factors:
+  tool_interface: 原生 exec + 文件读写
+  lifecycle: 9 轮同 session
+  domain_reasoning: 合成财务数据
+expected_behavior:
+  strong_harness: 官方 grader 判 harness 行为正确(不出现 DUPLICATE_TOOL_NAME_ACCEPTED)
+  weak_harness: 官方 grader 判 DUPLICATE_TOOL_NAME_ACCEPTED = 缺陷复现
+diagnostics:
+  official_checks: 由官方 grader 给出
+  rr_layer: 任务完成质量(harness 中立)

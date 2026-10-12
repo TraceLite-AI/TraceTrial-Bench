@@ -1,0 +1,31 @@
+{
+  "schema_version": "harnessbench_wafer_typing_scenario_v2",
+  "required_order": [
+    "WF-2026-08-9001",
+    "WF-2026-08-9004",
+    "WF-2026-08-9007",
+    "WF-2026-08-9011",
+    "WF-2026-08-9014",
+    "WF-2026-08-9018",
+    "WF-2026-08-9022",
+    "WF-2026-08-9026",
+    "WF-2026-08-9030",
+    "WF-2026-08-9034",
+    "WF-2026-08-9038",
+    "WF-2026-08-9042"
+  ],
+  "records": {
+    "WF-2026-08-9001": {"field":"wafer_lot_reference","probe_value":12345,"probe_literal":"12345","expected_value":"0012345","expected_literal":"\"0012345\"","expected_type":"string","receipt":"FB-1A9001F0C1"},
+    "WF-2026-08-9004": {"field":"exposure_duration_ms","probe_value":"1250","probe_literal":"\"1250\"","expected_value":1250,"expected_literal":"1250","expected_type":"integer","receipt":"FB-1A9004F0C4"},
+    "WF-2026-08-9007": {"field":"rejected_die_count","probe_value":"0","probe_literal":"\"0\"","expected_value":0,"expected_literal":"0","expected_type":"integer","receipt":"FB-1A9007F0C7"},
+    "WF-2026-08-9011": {"field":"photoresist_ratio","probe_value":1.25,"probe_literal":"1.25","expected_value":"1.2500","expected_literal":"\"1.2500\"","expected_type":"string","receipt":"FB-1A9011F0D1"},
+    "WF-2026-08-9014": {"field":"operator_note","probe_value":null,"probe_literal":"null","expected_value":"","expected_literal":"\"\"","expected_type":"string","receipt":"FB-1A9014F0D4"},
+    "WF-2026-08-9018": {"field":"backup_operator","probe_value":"","probe_literal":"\"\"","expected_value":null,"expected_literal":"null","expected_type":"null","receipt":"FB-1A9018F0D8"},
+    "WF-2026-08-9022": {"field":"mask_sequence","probe_value":900000000000000000001,"probe_literal":"900000000000000000001","expected_value":"900000000000000000001","expected_literal":"\"900000000000000000001\"","expected_type":"string","receipt":"FB-1A9022F0E2"},
+    "WF-2026-08-9026": {"field":"requires_priority_metrology","probe_value":"true","probe_literal":"\"true\"","expected_value":true,"expected_literal":"true","expected_type":"boolean","receipt":"FB-1A9026F0E6"},
+    "WF-2026-08-9030": {"field":"dose_map","probe_value":"zone_a=1,zone_b=2","probe_literal":"\"zone_a=1,zone_b=2\"","expected_value":{"zone_a":1,"zone_b":2},"expected_literal":"{\"zone_a\":1,\"zone_b\":2}","expected_type":"object","receipt":"FB-1A9030F0F0"},
+    "WF-2026-08-9034": {"field":"impurity_fraction","probe_value":0.06,"probe_literal":"0.06","expected_value":"0.06","expected_literal":"\"0.06\"","expected_type":"string","receipt":"FB-1A9034F0F4"},
+    "WF-2026-08-9038": {"field":"cassette_ordinal","probe_value":7.0,"probe_literal":"7.0","expected_value":7,"expected_literal":"7","expected_type":"integer","receipt":"FB-1A9038F0F8"},
+    "WF-2026-08-9042": {"field":"inspection_stations","probe_value":"SEM-A,SEM-B","probe_literal":"\"SEM-A,SEM-B\"","expected_value":["SEM-A","SEM-B"],"expected_literal":"[\"SEM-A\",\"SEM-B\"]","expected_type":"array","receipt":"FB-1A9042F102"}
+  }
+}

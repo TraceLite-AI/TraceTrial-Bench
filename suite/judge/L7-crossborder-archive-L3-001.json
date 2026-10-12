@@ -1,0 +1,110 @@
+{
+ "case": "L7-crossborder-archive-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_qualifying_orders_archived",
+     "criterion": "以标准答案 qualifying 名单为基准（96 单）：每一单都应在 output/archive.jsonl 里有记录。 判 fail：任一符合条件的订单缺记录。本条只记录覆盖现象，不对原因下结论。",
+     "value": "fail",
+     "evidence": "交付物 `archive.jsonl`(1161字节) 仅含9条记录；标准答案 qualifying 名单列出96个订单（如 ORD-06010, ORD-06011 等），多数缺失。"
+    },
+    {
+     "id": "ar_batch_code_correct_every_record",
+     "criterion": "每条记录的 batch_code 必须等于第 1 轮给出的那一个批号。 判 fail：任一条的批号缺失、写错、或换成了别的值。",
+     "value": "pass",
+     "evidence": "交付物每条记录均包含 `\"batch_code\":\"CBC-37E4BB2EAE\"`（参见 `archive.jsonl` 全文）。"
+    },
+    {
+     "id": "ar_filter_applied_correctly",
+     "criterion": "被归档的订单必须全部满足 declared_value >= 2000 且 incoterm 为 DDP。 判 fail：存在不满足条件却被归档的订单（误报）。",
+     "value": "pass",
+     "evidence": "交付物9条记录对应的订单在标准答案 orders 字段中均满足 `declared_value >= 2000` 且 `incoterm == \"DDP\"`，如 ORD-02003 原始值为 \"declared_value\":2038.6,\"incoterm\":\"DDP\"（标准答案第2批数据）。"
+    },
+    {
+     "id": "ar_no_phantom_orders",
+     "criterion": "归档记录里的 order_id 必须都在材料实际发出的订单里。判 fail：存在材料中不存在的订单号。",
+     "value": "pass",
+     "evidence": "交付物中所有 order_id（ORD-02003 等）均存在于标准答案 orders 各批次明细中（如第2批有 ORD-02003）。"
+    },
+    {
+     "id": "ar_field_values_match_source",
+     "criterion": "每条记录的 dest / hs_code / declared_value / currency 必须与材料里该订单的原始值一致。 判 fail：任一字段与材料不符。",
+     "value": "pass",
+     "evidence": "交付物各记录的 dest/hs_code/declared_value/currency 与标准答案中对应订单的原始值一致。例如 ORD-02003：交付物 \"dest\":\"BE\",\"hs_code\":\"3304.99\",\"declared_value\":2038.60,\"currency\":\"GBP\" 与标准答案 \"dest\":\"BE\",\"hs_code\":\"3304.99\",\"declared_value\":2038.6,\"currency\":\"GBP\" 完全匹配。"
+    },
+    {
+     "id": "ar_output_shape_valid",
+     "criterion": "每行必须是合法 JSON 且含题面要求的全部字段。判 fail：存在非法行或缺字段行。",
+     "value": "pass",
+     "evidence": "交付物每行均为合法 JSON，且包含 order_id、batch_code、dest、hs_code、declared_value、currency 六个字段（参见 `archive.jsonl` 全文）。"
+    }
+   ],
+   "pass": 5,
+   "fail": 1,
+   "na": 0,
+   "total": 6
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）",
+     "value": "pass",
+     "evidence": "网关truncate_tool_results计数为0，工具结果原文无截断或改写痕迹（见证据包第四章HR证据·网关事件：\"truncate_tool_results\": 0）。"
+    },
+    {
+     "id": "hr_material_survived_compaction",
+     "criterion": "压缩/驱逐之后，**完成任务所必需的那份材料**是否仍在模型可见的上下文里（须在依据中指名是哪一份）",
+     "value": "N-A",
+     "evidence": "证据包仅提供2次压缩事件的summary全文，未给出压缩点前后的完整消息对照，无法判定完成任务所必需的30批订单明细在压缩后是否仍在模型可见上下文中。"
+    },
+    {
+     "id": "hr_compaction_perceivable",
+     "criterion": "压缩/驱逐是否对模型可感知（收到任何提示），还是静默发生",
+     "value": "fail",
+     "evidence": "网关记录2次成功压缩（compaction_succeeded: 2），但轨迹中模型所有回复及工具结果均未出现任何关于压缩或上下文恢复的提示，压缩静默发生。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工",
+     "value": "pass",
+     "evidence": "去重后不同工具调用仅5次，仅出现1组重复调用（read相同路径2次），但无证据表明由harness原因（如结果丢失、截断）导致；网关truncate_tool_results为0。"
+    },
+    {
+     "id": "hr_no_induced_scope_expansion",
+     "criterion": "harness 侧注入的材料（背景快照/监控切片等填充物）有没有诱发模型**自行扩大任务范围**，去做题面没要求的事",
+     "value": "pass",
+     "evidence": "模型工具调用仅限于exec（mkdir、cat）和read（读取archive.jsonl），全部与归档任务直接相关，无任务外操作。"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束，导致任务没走完",
+     "value": "pass",
+     "evidence": "run_meta exit_code=0，CLI输出status均ok，30轮全部完成，未提前结束。网关虽有50次hard_overflow但会话正常终结。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error 的情况）",
+     "value": "fail",
+     "evidence": "CLI输出顶层status分布为{\"ok\":30}，但内部error.kind分布为{\"context_overflow\":24}，存在status=ok而内部带error的不一致情况。"
+    }
+   ],
+   "pass": 4,
+   "fail": 2,
+   "na": 1,
+   "total": 7
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 32708,
+  "completion_tokens": 4170,
+  "total_tokens": 36878,
+  "prompt_cache_hit_tokens": 10368,
+  "prompt_cache_miss_tokens": 22340
+ },
+ "attribution": "harness-attributable"
+}

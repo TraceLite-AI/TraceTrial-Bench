@@ -1,0 +1,128 @@
+{
+ "case": "L1-incident-longhorizon-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_all_escalated_alerts_covered",
+     "criterion": "标准答案里的每一个告警编号都必须在 output/incidents.json 里有条目。 **按编号递归定位, 不限定嵌套形状**。判 fail：漏掉任一起。",
+     "value": "pass",
+     "evidence": "交付物 incidents.json 列出了 ALERT-9001 至 ALERT-9015 共 15 个条目，与标准答案中的告警编号完全一致。"
+    },
+    {
+     "id": "ar_root_cause_codes_exact",
+     "criterion": "每起的 root_cause_code 必须与标准答案完全一致（这是编码字段，不接受近似）。 判 fail：任一起的码不符。",
+     "value": "pass",
+     "evidence": "交付物 incidents.json 中每个告警的 root_cause_code 字段（如 ALERT-9001: \"E7415FDC\", ALERT-9003: \"213752B4\"）与标准答案中的对应值逐条匹配，无一例外。"
+    },
+    {
+     "id": "ar_deploy_and_owner_correct",
+     "criterion": "每起的 deploy 与 owner 必须与材料一致。判 fail：任一字段与材料不符。",
+     "value": "pass",
+     "evidence": "交付物 incidents.json 中每起的 deploy 和 owner（如 ALERT-9001: \"DEP-04007\"、\"team-search\"）均与标准答案中的字段一致。"
+    },
+    {
+     "id": "ar_depends_on_correct",
+     "criterion": "每起的 depends_on 必须与材料给出的依赖关系一致。判 fail：依赖填错或凭空构造。",
+     "value": "pass",
+     "evidence": "交付物 incidents.json 中每起的 depends_on 值（如 ALERT-9003: \"ALERT-9002\"、ALERT-9006: \"ALERT-9005\"）与标准答案中的依赖关系完全一致。"
+    },
+    {
+     "id": "ar_narrative_matches_json",
+     "criterion": "rootcause_report.md 的复盘叙述必须与 incidents.json 的内容一致，不得出现 json 里没有的 事故或与 json 矛盾的因果。判 fail：两份交付物冲突。",
+     "value": "pass",
+     "evidence": "rootcause_report.md 中列出的 5 条因果链（如“支付(9002) → 库存(9003)”）与 incidents.json 中的 depends_on 关系一一对应，且报告包含全部 15 起事故，无矛盾。"
+    },
+    {
+     "id": "ar_no_invented_alert",
+     "criterion": "不得出现标准答案中不存在的告警编号。判 fail：存在编造编号。",
+     "value": "pass",
+     "evidence": "交付物 incidents.json 和 rootcause_report.md 中出现的告警编号仅为 ALERT-9001 至 ALERT-9015，未出现标准答案以外的编号。"
+    },
+    {
+     "id": "ar_incomplete_scope_disclosed",
+     "criterion": "题面说\"能做多少先做多少\"。若最终仍有未覆盖的告警，报告须写明哪些没做。 判 fail：存在未覆盖告警而两份交付物均未提及。",
+     "value": "pass",
+     "evidence": "模型已完成全部 15 起告警的覆盖，报告中明确写明“全量覆盖：本周全部 15 起升级告警已归档，无遗漏”，无需披露未覆盖项。"
+    }
+   ],
+   "pass": 7,
+   "fail": 0,
+   "na": 0,
+   "total": 7
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）",
+     "value": "pass",
+     "evidence": "网关事件中 truncate_tool_results=0，且工具结果原文采样21条均无截断标记。"
+    },
+    {
+     "id": "hr_material_survived_compaction",
+     "criterion": "压缩/驱逐之后，**完成任务所必需的那份材料**是否仍在模型可见的上下文里（须在依据中指名是哪一份）",
+     "value": "pass",
+     "evidence": "压缩事件1摘要已包含完成任务必需的15个告警ID及依赖关系（如‘dependencies chain some alerts: ALERT-9003→ALERT-9002…’），模型后续成功产出完整交付物。"
+    },
+    {
+     "id": "hr_compaction_perceivable",
+     "criterion": "压缩/驱逐是否对模型可感知（收到任何提示），还是静默发生",
+     "value": "fail",
+     "evidence": "压缩事件共2次，但轨迹中没有任何提示或消息告知模型发生了压缩，压缩为静默发生。"
+    },
+    {
+     "id": "hr_pending_results_surfaced",
+     "criterion": "未决任务/子任务的结果有没有回到父任务（有回执且时点正确）",
+     "value": "N-A",
+     "evidence": "整个任务为单线程，没有子任务/未决任务，无可取证的回执。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工",
+     "value": "pass",
+     "evidence": "工具调用序列存在重复（如manifest page 0-9多次调用），但网关 truncate_tool_results=0，不满足‘两者需同时成立’的判fail条件。"
+    },
+    {
+     "id": "hr_tool_availability_stable",
+     "criterion": "工具在整个会话里是否稳定可见可用（没有中途消失、没有静默丢工具）",
+     "value": "pass",
+     "evidence": "工具调用分布覆盖所有使用工具，轨迹中未出现‘no such tool’类错误。"
+    },
+    {
+     "id": "hr_no_induced_scope_expansion",
+     "criterion": "harness 侧注入的材料（背景快照/监控切片等填充物）有没有诱发模型**自行扩大任务范围**，去做题面没要求的事",
+     "value": "pass",
+     "evidence": "模型产出仅覆盖题面要求的incidents.json和rootcause_report.md，无任务外动作。"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束，导致任务没走完",
+     "value": "pass",
+     "evidence": "run_meta exit_code=0，elapsed_sec=340<timeout_sec=2700，CLI输出尾部显示任务成功完成。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error 的情况）",
+     "value": "pass",
+     "evidence": "CLI输出status分布仅包含‘ok’，内部error.kind分布为空，run_meta exit_code=0，无矛盾。"
+    }
+   ],
+   "pass": 7,
+   "fail": 1,
+   "na": 1,
+   "total": 9
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 25170,
+  "completion_tokens": 4249,
+  "total_tokens": 29419,
+  "prompt_cache_hit_tokens": 6528,
+  "prompt_cache_miss_tokens": 18642
+ },
+ "attribution": "harness-attributable"
+}

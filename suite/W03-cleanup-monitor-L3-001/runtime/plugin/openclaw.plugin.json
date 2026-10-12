@@ -1,0 +1,1 @@
+{"id":"ops-monitor-hook","name": "运维监控接入","description": "把执行留痕转成监控告警的输入。","activation":{"onStartup":true},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

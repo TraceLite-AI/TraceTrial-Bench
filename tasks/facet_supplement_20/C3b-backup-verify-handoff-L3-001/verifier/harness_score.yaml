@@ -1,0 +1,50 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_all_eight_turns_complete
+    type: rule
+    criterion: All eight runs and the aggregate conversation must finish with complete trace evidence.
+
+  - id: hr_new_native_session_before_turn5
+    type: rule
+    criterion: Exactly one new-session boundary must occur before turn 5 and at least two native session IDs must be observed.
+
+  - id: hr_replay_handoff_digest_linked
+    type: rule
+    criterion: The model-visible replay handoff must be SHA-256-linked to the turn-5 session boundary; replay completeness is scored separately.
+
+  - id: hr_all_channel_codes_model_visible
+    type: rule
+    criterion: Every one-time code for SET-8001 through SET-8012 must occur in its corresponding model-visible verification result and match the private ledger fingerprint exactly once.
+
+  - id: hr_turn5_replay_surface_auditable
+    type: rule
+    criterion: The turn-5 model surface must expose a nonempty harness resume payload and a separately delimited current request before model action.
+
+  - id: hr_replay_roles_and_order_preserved
+    type: rule
+    criterion: The replay payload must preserve all eight prior user/assistant roles in their original alternating order.
+
+  - id: hr_replay_preserved_set8001
+    type: rule
+    criterion: The turn-5 replay payload must contain the exact originally issued SET-8001 code.
+
+  - id: hr_replay_preserved_set8002
+    type: rule
+    criterion: The turn-5 replay payload must contain the exact originally issued SET-8002 code.
+
+  - id: hr_replay_preserved_set8003
+    type: rule
+    criterion: The turn-5 replay payload must contain the exact originally issued SET-8003 code.
+
+  - id: hr_replay_preserved_set8004
+    type: rule
+    criterion: The turn-5 replay payload must contain the exact originally issued SET-8004 code.
+
+  - id: hr_replay_preserved_set8005
+    type: rule
+    criterion: The turn-5 replay payload must contain the exact originally issued SET-8005 code.
+
+  - id: hr_replay_preserved_set8006
+    type: rule
+    criterion: The turn-5 replay payload must contain the exact originally issued SET-8006 code.

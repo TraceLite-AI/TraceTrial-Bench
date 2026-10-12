@@ -1,0 +1,1 @@
+{"id": "ops-audit", "name": "仓库月度盘点通道", "description": "仓库月度盘点的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["audit_brief", "audit_submit"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

@@ -1,0 +1,25 @@
+target:
+  dimension: C
+  subdimension: C2b
+  claim: 完成 24 个数据点的调研必须把多个来源页的内容同时保留在上下文里; harness 的 fetch 模式与上下文策略直接决定早期发现能否存活到最终产出。
+workflow_source:
+  id: WEB-RESEARCH
+  name: 真实公网多源调研
+  url: github.com / 各项目文档站
+  retained_pattern: 逐项目查证 → 记录取值 + 来源 URL + 原文引文 → 汇总为结构化产物。
+  removed_scaffolding: 不提供任何本地材料、缓存或索引; 不提供来源清单; agent 必须自行检索。
+pressure:
+  event: 每次 web 抓取把整页内容带进上下文, 24 个数据点需要多轮抓取。
+  placement: 早期抓取的项目(按字母序靠前者)其结论最容易在后续压缩中被摘掉。
+  recovery: 来源可重复抓取, 但重抓意味着上下文再次累积(可观测为重复劳动)。
+controlled_factors:
+  tool_interface: 仅使用 harness 自带 web 检索/抓取工具; 走 exec/curl 抄近道视为 ineligible。
+  lifecycle: 单轮, 无外部审批与后台进程。
+  domain_reasoning: 不要求特定技术判断, 只要求取值可追溯到来源。
+expected_behavior:
+  strong_harness: 24 个数据点齐全; 早期发现不因上下文管理而丢失; 引用可追溯到来源页; 抓取次数与数据点数量成正比(无大量重抓)。
+  weak_harness: 上下文压力导致早期发现缺失或被迫重抓; 或 fetch 只回摘要导致取值无法追溯到原文。
+diagnostics:
+  capability_probe: fetch_mode(raw/summarizing, 检测抓取调用是否带 prompt 参数) · context_policy(是否触发压缩) · subagent(有无)
+  harness_signals: 压缩事件计数 · 压缩前已抓来源在产出中是否缺失 · 压缩后重抓比例 · 压缩摘要是否为空
+  neutral_signals: 覆盖率 · 值是否出现在所引页面 · 来源权威率 · 内部一致性

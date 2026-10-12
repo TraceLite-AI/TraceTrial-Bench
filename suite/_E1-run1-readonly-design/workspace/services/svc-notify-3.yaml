@@ -1,0 +1,14 @@
+# svc-notify-3 service config
+apiVersion: platform/v2
+name: svc-notify-3
+port: 8023
+replicas: 2
+tls: true
+debug: false
+runAsUser: app
+healthcheck: /healthz
+dbPasswordRef: secretstore://db/${SVC}
+cpuLimit: 2000m
+memLimit: 1024Mi
+logLevel: error
+restartPolicy: always

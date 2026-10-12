@@ -1,0 +1,45 @@
+{
+  "pass": false,
+  "score": 0.0,
+  "attribution": "harness-attributable(E-timeout-errchan) - 官方 grader 判缺陷复现, verdict=TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK (登记预期缺陷名: TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK)",
+  "core_HR_ok": false,
+  "badcase_origin": {
+    "package": "E3d-scenario-001",
+    "leaf": "E-timeout-errchan",
+    "registered_defect_verdict": "TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK",
+    "official_verdict": "TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK",
+    "official_pass": false,
+    "defect_reproduced": true,
+    "grader": "/home/conglin/badcases/E3d-scenario-001/verifier/score.py"
+  },
+  "metrics": {
+    "harness_rubric": {
+      "official_one_exec": true,
+      "official_timeout_exactly_two": true,
+      "official_timeout_reported_to_agent": true,
+      "official_hook_observed_failed_result": false,
+      "official_hook_received_error": false,
+      "device_valid": true,
+      "harness_behaved_correctly": false,
+      "core_pass": false
+    },
+    "result_rubric": {
+      "official_verdict_is_good_verdict": false,
+      "no_known_defect_reproduced": false
+    },
+    "task_quality": {
+      "trajectory_iterations": 0
+    },
+    "official_metrics": {
+      "checks": {
+        "one_exec": true,
+        "timeout_exactly_two": true,
+        "timeout_reported_to_agent": true,
+        "hook_observed_failed_result": false,
+        "hook_received_error": false
+      },
+      "hook_observation": null,
+      "result_tail": "E3D_TIMEOUT_STARTED\n\nCommand timed out after 2 seconds. If this command is expected to take longer, re-run with a higher timeout (e.g., exec timeout=300). If it should keep running, start it with exec background=true or yieldMs so OpenClaw can register a pollable process session. Do not rely on shell backgrounding with a trailing &."
+    }
+  }
+}

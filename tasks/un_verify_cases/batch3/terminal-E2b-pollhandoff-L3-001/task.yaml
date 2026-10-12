@@ -1,0 +1,37 @@
+id: terminal-E2b-pollhandoff-L3-001
+title: "维护任务交接：前台调用返回后能否继续跟踪到完成"
+scenario:
+  domain: "长任务交接与继续跟踪"
+  primary_subscenario: "前台调用返回后的任务跟踪"
+  secondary_subscenarios:
+    - 真实业务材料
+    - 多轮追问
+    - 交付物程序化对账
+harness:
+  dimension: E
+  subdimension: E2b
+  subdimension_name: "长任务交接与轮询结果保真"
+intensity:
+  level: L3
+  description: >
+    四个维护任务都长于单次前台调用，平台会先把控制权交还并提供继续跟踪渠道。
+    Agent 必须沿平台提供的交接机制跟踪原任务，不能重新启动任务，也不能把进度行当完成。
+    真相由 runner 自己的台账给出：开始时写 started，真正完成才写 completed 和收据；
+    只有拿到原任务收据，才能把任务记为完成。
+budget:
+  max_turns: 7
+  max_tool_calls: 80
+  max_wall_time_sec: 1500
+verifier:
+  entrypoint: verifier/run.sh
+expected_outputs:
+  - workspace/output/window_report.json
+  - workspace/output/carryover.json
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json

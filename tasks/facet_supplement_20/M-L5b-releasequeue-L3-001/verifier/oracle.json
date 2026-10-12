@@ -1,0 +1,8 @@
+{
+  "artifact": "output/ops_tokens.json",
+  "tool": "tok",
+  "mode": "gated",
+  "completed_before_recovery": ["M01", "M02", "M03", "M04"],
+  "pending_at_recovery": ["M05", "M06", "M07", "M08", "M09", "M10", "M11", "M12"],
+  "truth_file": "truth.json"
+}

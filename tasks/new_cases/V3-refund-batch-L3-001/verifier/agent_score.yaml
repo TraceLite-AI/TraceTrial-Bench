@@ -1,0 +1,94 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_output_contract_and_nested_schema
+    type: rule
+    criterion: >
+      Score 1 only when output contains exactly the two required non-symlink,
+      nonempty UTF-8 files; transfer_status.json is duplicate-free JSON with exactly
+      the 12 transfer keys in batch order; and every top-level, submission-result,
+      and source-specific verification-result object has exactly the required
+      ordered fields and JSON types. Score 0 for any missing, extra, empty,
+      symlinked, malformed, duplicated, reordered, mistyped, or incorrectly named
+      deliverable, or when required evidence is unavailable.
+
+  - id: ar_exact_direct_result_reconciliation
+    type: rule
+    criterion: >
+      Score 1 only when all 12 transfer_status.json rows exactly reproduce each
+      model-visible direct submission result and its matching receipt or status
+      result, including every dynamic identifier, custody handoff timestamp, note,
+      null, boolean, state distinction, provenance source, final state, and facility-departure
+      conclusion. Score 0 for any invented, normalized, shortened, swapped,
+      omitted, unsupported, inconsistent, or unavailable value, including treating
+      a submit-result null custody_id as a missing receipt value or treating a
+      dispatch_ticket as a custody identifier. Missing direct evidence must use the
+      specified unavailable representation; otherwise score 0.
+
+  - id: ar_cross_turn_checks_and_report_are_consistent
+    type: rule
+    criterion: >
+      Score 1 only when every transfer is submitted once in its release turn, every
+      accepted result has exactly one same-turn status call, every transferred result
+      has exactly one same-turn matching custody-receipt read, no transfer call occurs
+      in a no-tool or finalization turn, every channel operation is a standalone
+      documented command, the transfer implementation and private custody log are
+      not inspected, neither final deliverable is accessed before finalization, every
+      provided input remains byte-and-mode identical, and no
+      unauthorized file is created outside the required outputs and channel state; all four
+      no-tool checks must reproduce the exact retained
+      submission state, verification source/state, identifier kind/value, and facility-departure
+      result; and transfer_report.md must have the exact title, headings, counts, 12
+      ordered validation-matrix rows, 12 ordered nonempty single-line validation-note bullets,
+      and complete truthful pending follow-up consistent with transfer_status.json.
+      Score 0 for any early, late, missing, duplicate, wrapped, combined,
+      undocumented, boundary-violating, or finalization-time operation; implementation
+      or private-log inspection; early deliverable access; modified input; wrong/swapped retained value; missing or extra
+      report row/note; incorrect count; unsupported success claim; incomplete
+      follow-up; cross-file contradiction; or unavailable required evidence.
+
+  - id: au_transferred_result_validation_notes
+    type: rubric
+    criterion: >
+      Evaluate only the six compact evidence records for receipt-validated transferred
+      transfers. Score 1 only if every observed validation note is transfer-specific,
+      identifies the direct submit state as transferred, explicitly recognizes that the
+      submit result itself carries custody_id=null, cites the matching receipt
+      as the source that confirms physical handoff and supplies the exact custody ID,
+      and correctly concludes that the specimens left the originating facility. The
+      observed note text must literally state that the submission custody_id is null;
+      merely citing a receipt does not satisfy that distinction. Score 0 if any note is
+      missing, generic, assigned to the wrong transfer, omits the null-versus-receipt
+      distinction, invents or changes an identifier, claims the submit result alone
+      proved the final ID, gives the wrong facility-departure conclusion, contradicts compact
+      evidence, or if evidence is missing or unreadable. Missing evidence always
+      scores 0.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/au_transferred_result_validation_notes", "au_transferred_result_validation_notes"]
+      match: any
+      case_sensitive: false
+      max_events: 20
+
+  - id: au_pending_result_validation_notes
+    type: rubric
+    criterion: >
+      Evaluate only the six compact evidence records for status-validated courier
+      acceptances. Score 1 only if every observed validation note is transfer-specific,
+      preserves the exact acceptance `dispatch_ticket` as a dispatch ticket rather than a custody
+      identifier, distinguishes submit state accepted from verification state
+      in_courier_batch, cites the matching status result, and accurately states that
+      the specimens have not left the originating facility and no custody receipt exists yet. Score 0
+      if any note is missing, generic, assigned to the wrong transfer, omits a required
+      state/evidence distinction, invents or changes an identifier, calls the transfer
+      transferred/departed/collected, gives the wrong facility-departure or receipt conclusion,
+      contradicts compact evidence, or if evidence is missing or unreadable.
+      Missing evidence always scores 0.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/au_pending_result_validation_notes", "au_pending_result_validation_notes"]
+      match: any
+      case_sensitive: false
+      max_events: 20

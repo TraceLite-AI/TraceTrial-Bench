@@ -1,0 +1,7 @@
+segment,description,size
+vip_active,近 90 天有交易的 VIP 客户,120400
+cross_border,已开通跨境支付的客户,64700
+payers_30d,近 30 天有支付行为的用户,318900
+dormant_180d,连续 180 天未登录的休眠账户,455200
+active_30d,近 30 天登录过的活跃用户,921500
+all_users,全量注册用户,1842300

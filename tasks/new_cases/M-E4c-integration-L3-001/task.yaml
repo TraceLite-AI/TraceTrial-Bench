@@ -1,0 +1,41 @@
+id: M-E4c-integration-L3-001
+title: Geological core-catalog PTY import must terminate cleanly on EOF
+scenario:
+  domain: Geological Core Repository Operations
+  primary_subscenario: Interactive core-catalog import EOF delivery
+  secondary_subscenarios:
+    - Canonical core-batch line input
+    - Post-EOF catalog execution continuity
+harness:
+  dimension: E
+  subdimension: E4c
+  subdimension_name: PTY interaction and EOF termination
+intensity:
+  level: L3
+  description: A single-turn agent must drive a live geological core-catalog PTY through canonical batch input, deliver EOF on an empty import buffer, observe clean catalog completion, and continue with a later native execution.
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, timeout_observation_v1, process_containment_v1, terminal_io_v1, business_cli_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 30
+  max_wall_time_sec: 300
+expected_outputs:
+  - workspace/output/pty_eof_report.json
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, timeout_observation_v1, process_containment_v1, terminal_io_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json

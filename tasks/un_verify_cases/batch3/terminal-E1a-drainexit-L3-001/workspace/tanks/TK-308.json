@@ -1,0 +1,7 @@
+{
+ "tank": "TK-308",
+ "site": "pilot rig",
+ "mode": "exit",
+ "exit_code": 42,
+ "note": "drains with a site-specific status"
+}

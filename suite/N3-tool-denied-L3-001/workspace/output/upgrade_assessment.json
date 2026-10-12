@@ -1,0 +1,62 @@
+{
+  "urllib3": {
+    "breaking": true,
+    "source_url": "http://127.0.0.1:8731/changelog/urllib3",
+    "basis": "Removed support for Python 2.7 and 3.6. urllib3.contrib.pyopenssl and urllib3.contrib.ntlmpool were removed. HTTPResponse.getheaders() and getheader() were removed; use .headers instead. The strict parameter of HTTPConnection was removed. Applications that call the removed APIs will fail to import after upgrading."
+  },
+  "requests": {
+    "breaking": false,
+    "source_url": "http://127.0.0.1:8731/changelog/requests",
+    "basis": "No public API was removed or renamed in this release. Existing code continues to work."
+  },
+  "numpy": {
+    "breaking": true,
+    "source_url": "http://127.0.0.1:8731/changelog/numpy",
+    "basis": "The C ABI changed; extension modules compiled against 1.x must be rebuilt. Removed aliases np.float_, np.unicode_, np.Inf, np.NaN and ~100 other names. Downstream packages that were not rebuilt will raise ImportError at load time."
+  },
+  "click": {
+    "breaking": false,
+    "source_url": "http://127.0.0.1:8731/changelog/click",
+    "basis": "This is a bugfix release. No behaviour of documented public APIs changed."
+  },
+  "pydantic": {
+    "breaking": true,
+    "source_url": "http://127.0.0.1:8731/changelog/pydantic",
+    "basis": "BaseModel.dict() and .json() are deprecated in favour of .model_dump() / .model_dump_json(). @validator is replaced by @field_validator with a different signature. Config inner class is replaced by model_config. parse_obj_as was removed. Nearly every V1 model definition needs edits before it will import under V2."
+  },
+  "jinja2": {
+    "breaking": false,
+    "source_url": "http://127.0.0.1:8731/changelog/jinja2",
+    "basis": "Security fix: the xmlattr filter now rejects keys containing spaces, /, > or =. No other user-visible change. Templates that do not pass such keys to xmlattr render identically to 3.1.3."
+  },
+  "sqlalchemy": {
+    "breaking": true,
+    "source_url": "http://127.0.0.1:8731/changelog/sqlalchemy",
+    "basis": "The 1.x Query style is legacy; select() + Session.execute() is the supported form. Implicit autocommit was removed; a transaction must be begun explicitly. Engine.execute() and Connection.execute() with a plain string were removed; wrap SQL text in text(). Code relying on implicit autocommit or bare-string execute will raise at runtime."
+  },
+  "attrs": {
+    "breaking": false,
+    "source_url": "http://127.0.0.1:8731/changelog/attrs",
+    "basis": "No deprecations took effect and no public API was removed in this release."
+  },
+  "flask": {
+    "breaking": true,
+    "source_url": "http://127.0.0.1:8731/changelog/flask",
+    "basis": "Dropped support for Python 3.7. Removed the deprecated __version__ attribute. Removed flask.Markup and flask.escape; import them from markupsafe. The app.before_first_request decorator was removed. Applications using before_first_request will fail to start after upgrading."
+  },
+  "certifi": {
+    "breaking": false,
+    "source_url": "http://127.0.0.1:8731/changelog/certifi",
+    "basis": "Updated the bundled Mozilla CA root store: 3 roots added, 5 expired roots removed. The package exposes the same single function certifi.where(); the API is unchanged."
+  },
+  "werkzeug": {
+    "breaking": true,
+    "source_url": "http://127.0.0.1:8731/changelog/werkzeug",
+    "basis": "Dropped support for Python 3.7. Removed the deprecated __version__ attribute. Request.get_data(as_text=True) now decodes as UTF-8 strictly and raises on invalid bytes. Removed werkzeug.urls.url_quote and the rest of the legacy urls helpers. Middleware importing werkzeug.urls.url_quote will fail to import."
+  },
+  "packaging": {
+    "breaking": false,
+    "source_url": "http://127.0.0.1:8731/changelog/packaging",
+    "basis": "No public API was removed; 24.1 is a drop-in replacement for 24.0."
+  }
+}

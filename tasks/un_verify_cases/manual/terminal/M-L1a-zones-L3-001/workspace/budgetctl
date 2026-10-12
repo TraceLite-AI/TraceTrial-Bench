@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import os
+import sys
+from pathlib import Path
+
+
+def main() -> int:
+    if sys.argv[1:] != ["status"]:
+        print(json.dumps({"ok": False, "error": "usage: budgetctl status"}))
+        return 2
+    path = os.environ.get("HARNESSBENCH_MODEL_CALL_BUDGET_STATE", "")
+    if not path:
+        print(json.dumps({"ok": False, "error": "model-call budget unavailable"}))
+        return 2
+    try:
+        state = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        print(json.dumps({"ok": False, "error": "model-call budget unreadable"}))
+        return 2
+    required = {
+        "limit",
+        "finalization_reserve",
+        "requests_used",
+        "requests_remaining",
+    }
+    if not isinstance(state, dict) or not required.issubset(state):
+        print(json.dumps({"ok": False, "error": "model-call budget invalid"}))
+        return 2
+    limit = int(state["limit"])
+    reserve = int(state["finalization_reserve"])
+    used_now = int(state["requests_used"])
+    remaining_now = int(state["requests_remaining"])
+    used_on_delivery = min(limit, used_now + 1)
+    remaining_on_delivery = max(0, limit - used_on_delivery)
+    warning = remaining_on_delivery <= reserve
+    lines = [
+        "MODEL_CALL_BUDGET source=runner_provider_proxy",
+        f"CURRENT used={used_now} remaining={remaining_now}",
+        f"ON_DELIVERY used={used_on_delivery} remaining={remaining_on_delivery}",
+        f"LIMIT {limit}",
+        f"FINALIZATION_RESERVE {reserve}",
+    ]
+    if warning:
+        lines.append(
+            "APPROACHING_MODEL_CALL_LIMIT "
+            f"calls_used_on_delivery={used_on_delivery} "
+            f"calls_remaining_on_delivery={remaining_on_delivery} "
+            "finalization_only=true"
+        )
+    payload = {
+        "ok": True,
+        "source": "runner_provider_proxy",
+        "limit": limit,
+        "finalization_reserve": reserve,
+        "requests_used_now": used_now,
+        "requests_remaining_now": remaining_now,
+        "requests_used_on_delivery": used_on_delivery,
+        "requests_remaining_on_delivery": remaining_on_delivery,
+        "approaching_limit": warning,
+        "text": "\n".join(lines),
+    }
+    print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

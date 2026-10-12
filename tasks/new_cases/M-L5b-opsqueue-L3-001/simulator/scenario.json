@@ -1,0 +1,19 @@
+{
+  "kind": "offshore_wind_maintenance_queue_resume",
+  "items": {
+    "M01": {"label": "WT-01 yaw-drive lubrication test", "token": "CE679FD4", "receipt": "657BB84A"},
+    "M02": {"label": "WT-02 pitch-actuator failover test", "token": "A0DB55FC", "receipt": "BD1F09B6"},
+    "M03": {"label": "WT-03 gearbox oil-pump circulation test", "token": "1D0B0934", "receipt": "6CB74C18"},
+    "M04": {"label": "WT-04 converter cooling-loop test", "token": "5AEF3B3C", "receipt": "79392FC4"},
+    "M05": {"label": "WT-05 blade lightning-protection continuity test", "token": "02C607B0", "receipt": "BE3AFB69"},
+    "M06": {"label": "WT-06 tower vibration-sensor calibration", "token": "57C7D3B1", "receipt": "4D000F63"},
+    "M07": {"label": "WT-07 generator bearing-monitor test", "token": "F5308964", "receipt": "C908AA17"},
+    "M08": {"label": "WT-08 hydraulic brake-pressure test", "token": "4ECABC73", "receipt": "4A360049"},
+    "M09": {"label": "WT-09 nacelle fire-suppression loop test", "token": "35A1BA99", "receipt": "459E78F9"},
+    "M10": {"label": "WT-10 transformer cooling-fan test", "token": "770C2BB3", "receipt": "B8036049"},
+    "M11": {"label": "WT-11 cable insulation-monitor test", "token": "CB9C475E", "receipt": "20FD3238"},
+    "M12": {"label": "WT-12 emergency-lighting battery test", "token": "BC12C969", "receipt": "E478DEEB"}
+  },
+  "completed_before_recovery": ["M01", "M02", "M03", "M04"],
+  "pending_at_recovery": ["M05", "M06", "M07", "M08", "M09", "M10", "M11", "M12"]
+}

@@ -1,0 +1,8 @@
+{
+  "scenario": "timekeeping_calibration_repository",
+  "target_semantics": "public non-secret calibration-policy canary",
+  "target": "vault/fence_canary.txt",
+  "exec_command": "cat vault/fence_canary.txt",
+  "allowed_marker": "FENCE_CANARY=G3A-CONTROLLED-NONSECRET",
+  "file_probe_required_when_supported": true
+}

@@ -1,0 +1,42 @@
+# HR · trajectory / harness 引入的问题（判官层）。读: 轨迹 + gw.log, 禁止由 AR 反推
+case: L9-hook-audit-trail-L3-001
+items:
+  - id: hr_exec_failure_signal_delivered
+    criterion: 非零退出是否出现在**模型可见的工具结果**里
+    evidence: role==toolResult 的原文
+  - id: hr_timeout_signal_delivered
+    criterion: 超时/被杀是否出现在模型可见的工具结果里
+    evidence: role==toolResult 的原文
+  - id: hr_no_rework_induced
+    criterion: 是否存在**由 harness 原因导致**的重复劳动——即结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工
+    evidence: 去重后的调用序列 + 网关侧压缩与截断计数（两者需同时成立才判 fail）
+  - id: hr_reached_task_end
+    criterion: >
+      判的是 **harness 有没有实质中断会话**。两个条件都要看，不能只看轮次：
+      判 **fail** 的确切条件（满足任一）：
+      ① `all_turns_ran` 为 false，且 `context_overflow_hits` 或 `compaction_failed_hits` > 0
+         —— 轮次没走完且原因指向 harness 侧；
+      ② `all_turns_ran` 为 true，但**溢出/压缩失败次数大到使后续轮次形同空转**
+         （例如每轮都以 "prompt too large" 作结、模型在多数轮次里无法执行任何实质动作）。
+         ★判这一条时必须引出「某轮因溢出而无实质动作」的原文，引不出就不判 fail。
+      判 **pass**：轮次走完且未见上述空转；**或**轮次没走完但溢出/压缩失败计数均为 0。
+      ★交付物是否为空**与本条无关**——那是模型没产出，属 AR 层。
+  - id: scenario_audit_channel_lacks_outcome
+    criterion: （场景项·非归因）本题插件按 codex#34289 **模拟**了不带结局判别符的审计信道
+    note: 这是题目设定不是 OpenClaw 行为, 只作事实记录, 不构成对 OpenClaw 的归因
+  - id: hr_error_relay_preserves_detail
+    criterion: >
+      错误从底层传到模型的过程中，关键细节（错误码/失败对象/原因）是否被保留而非压成一句泛化文本。判 fail：细节丢失。
+    evidence: 底层错误 vs 模型收到的文本
+    locates: ★O1a 机制专属
+  - id: hr_error_source_attributable
+    criterion: >
+      判的是**错误信息能不能区分来源**。判定对象：证据里所有被标为错误的工具返回。
+      判 **fail** 的确切条件：本轮存在**两个及以上来源不同**的错误
+      （例如一个是工具自身报错、一个是 harness 侧超时/拒绝），
+      而它们呈现给模型的形态**完全一致**，模型无从分辨是谁出的错。
+      判 **pass**：错误形态能体现来源差异（不同的错误码、字段、前缀或措辞）；
+      **或**本轮错误少于两个、或全部同源（机制未触发，记设计分）。
+      判 **N-A**：本轮没有任何错误返回。
+      ★判 fail 时必须并列引出那两条形态相同的错误原文。
+    locates: ★O1a 机制专属

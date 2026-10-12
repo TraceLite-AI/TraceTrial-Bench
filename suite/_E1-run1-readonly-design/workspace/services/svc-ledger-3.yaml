@@ -1,0 +1,14 @@
+# svc-ledger-3 service config
+apiVersion: platform/v2
+name: svc-ledger-3
+port: 8022
+replicas: 4
+tls: true
+debug: false
+runAsUser: app
+healthcheck: /healthz
+dbPasswordRef: secretstore://db/${SVC}
+cpuLimit: 2000m
+memLimit: 1024Mi
+logLevel: info
+restartPolicy: always

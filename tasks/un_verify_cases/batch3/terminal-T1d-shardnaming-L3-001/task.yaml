@@ -1,0 +1,38 @@
+id: terminal-T1d-shardnaming-L3-001
+title: "分片归档：平台改了子代理的名字之后，六个结果还分得清吗"
+scenario:
+  domain: "工具/任务名合规与可区分性"
+  primary_subscenario: "工具/任务名合规与可区分性"
+  secondary_subscenarios:
+    - 真实业务材料
+    - 多轮追问
+    - 交付物程序化对账
+harness:
+  dimension: T
+  subdimension: T1d
+  subdimension_name: "工具名合规"
+intensity:
+  level: L3
+  description: >
+    六个日志分片来自舰队命名规范的两个世代，成对地只差一个分隔符或大小写
+    (svc-api.v2 / svc_api.v2, db-01.eu / DB-01.EU, edge-cache.a / edge_cache.A)，
+    是内容不同的独立分片。题目要求"按分片给子代理命名"，而平台对子代理名有自己的
+    合法字符约束、并会在不合法时替换成自己的名字 —— 替换是模型控制不了的。
+    考的是替换之后六个子代理是否仍然彼此可区分、被替换的名字有没有回报给父代理。
+budget:
+  max_turns: 7
+  max_tool_calls: 90
+  max_wall_time_sec: 1200
+verifier:
+  entrypoint: verifier/run.sh
+expected_outputs:
+  - workspace/output/archive_register.json
+  - workspace/output/naming_account.json
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json

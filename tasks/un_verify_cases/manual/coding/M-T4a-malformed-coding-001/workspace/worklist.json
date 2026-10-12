@@ -1,0 +1,13 @@
+{
+  "required_order": [
+    "M01", "M02", "M03", "M04",
+    "M05", "M06", "M07", "M08",
+    "M09", "M10", "M11", "M12"
+  ],
+  "batches": {
+    "B1": ["M01", "M02", "M03", "M04"],
+    "B2": ["M05", "M06", "M07", "M08"],
+    "B3": ["M09", "M10", "M11", "M12"]
+  },
+  "note": "Payloads, verify values, malformed-condition labels, and receipts are available only through the native pkgapi tools."
+}

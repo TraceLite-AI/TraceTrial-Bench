@@ -1,0 +1,21 @@
+{
+ "badcase": "T1b-duplicate-tool-name-001",
+ "axis": "T1d",
+ "expected_verdict": "DUPLICATE_TOOL_NAME_ACCEPTED",
+ "github_basis": "cline/cline#10737 + openai/codex#32155（插件注册/调用层缺校验）",
+ "official_grader": "verifier/official/score.py",
+ "rr": {
+  "rr_review_note": {
+   "kind": "file_exists",
+   "path": "output/review_note.md",
+   "desc": "审查意见已产出"
+  },
+  "rr_verdict_stated": {
+   "kind": "regex_in_file",
+   "path": "output/review_note.md",
+   "pattern": "放行|不建议|拒绝|通过|问题",
+   "desc": "给出了放行意见"
+  }
+ },
+ "official_grader_origin": "/Users/conglin/Downloads/cl实验/harnessbench-openclaw-cases/T1b-duplicate-tool-name-001/verifier"
+}

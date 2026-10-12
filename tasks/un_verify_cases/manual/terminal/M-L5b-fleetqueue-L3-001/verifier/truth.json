@@ -1,0 +1,14 @@
+{
+  "M01": {"rank": 8.3, "code": "657BB84A", "label": "Fleet action 01 (completed before recovery)", "expect": "CE679FD4"},
+  "M02": {"rank": 16.7, "code": "BD1F09B6", "label": "Fleet action 02 (completed before recovery)", "expect": "A0DB55FC"},
+  "M03": {"rank": 25.0, "code": "6CB74C18", "label": "Fleet action 03 (completed before recovery)", "expect": "1D0B0934"},
+  "M04": {"rank": 33.3, "code": "79392FC4", "label": "Fleet action 04 (completed before recovery)", "expect": "5AEF3B3C"},
+  "M05": {"rank": 41.7, "code": "BE3AFB69", "label": "Fleet action 05 (pending at recovery)", "expect": "02C607B0"},
+  "M06": {"rank": 50.0, "code": "4D000F63", "label": "Fleet action 06 (pending at recovery)", "expect": "57C7D3B1"},
+  "M07": {"rank": 58.3, "code": "C908AA17", "label": "Fleet action 07 (pending at recovery)", "expect": "F5308964"},
+  "M08": {"rank": 66.7, "code": "4A360049", "label": "Fleet action 08 (pending at recovery)", "expect": "4ECABC73"},
+  "M09": {"rank": 75.0, "code": "459E78F9", "label": "Fleet action 09 (pending at recovery)", "expect": "35A1BA99"},
+  "M10": {"rank": 83.3, "code": "B8036049", "label": "Fleet action 10 (pending at recovery)", "expect": "770C2BB3"},
+  "M11": {"rank": 91.7, "code": "20FD3238", "label": "Fleet action 11 (pending at recovery)", "expect": "CB9C475E"},
+  "M12": {"rank": 100.0, "code": "E478DEEB", "label": "Fleet action 12 (pending at recovery)", "expect": "BC12C969"}
+}

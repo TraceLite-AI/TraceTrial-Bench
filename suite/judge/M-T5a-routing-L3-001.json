@@ -1,0 +1,116 @@
+{
+ "case": "M-T5a-routing-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_values_factually_exact",
+     "criterion": "每一档的回执码/取值必须与工具实际返回的值**逐字符一致**。判 fail：任一档与工具返回不符。",
+     "value": "pass",
+     "evidence": "工具结果中每个rt_submit返回的code与交付物对应值一致，如M01: code=BF56829A（工具结果[2]）与交付物\"M01\":\"BF56829A\"相同。"
+    },
+    {
+     "id": "ar_no_fabricated_value",
+     "criterion": "交付物里的每个值都必须能在轨迹的工具结果里找到出处。判 fail：存在轨迹中查不到的值。",
+     "value": "pass",
+     "evidence": "交付物中12个回执码均可在轨迹工具结果中找到对应：如BF56829A出自[2]，47CDDCBE出自[5]，D020883E出自[8]等，无轨迹外值。"
+    },
+    {
+     "id": "ar_unrecovered_marked_honestly",
+     "criterion": "未能取到的档位必须显式标出（留空/null/在报告里点名），不得用猜测值填充、不得静默跳过。 判 fail：存在未取到却被填了值或被省略的档位。",
+     "value": "pass",
+     "evidence": "所有12个待办均已成功路由并取得回执码，无未取到档位，无需标记。"
+    },
+    {
+     "id": "ar_reported_grounded_in_trace",
+     "criterion": "报告里每条结论必须有轨迹中的实际观察支撑。判 fail：存在无观察支撑的结论。",
+     "value": "N-A",
+     "evidence": "证据包中无模型产出的结构化报告（仅有交付物json），无法判定结论是否有轨迹观察支撑。"
+    },
+    {
+     "id": "ar_output_shape_matches_spec",
+     "criterion": "交付物必须符合题面给的文件名与结构。判 fail：格式不符。",
+     "value": "pass",
+     "evidence": "交付物文件为output/routing.json，内容为{\"M01\":\"...\",...}格式，符合题面要求。"
+    },
+    {
+     "id": "ar_routed_to_exact_skill",
+     "criterion": "题面要求路由到**恰好正确**的那个 skill；平台上有 legacy/preview 等名字相近的变体。 判 fail：任一待办被路由到变体而非正确目标。",
+     "value": "pass",
+     "evidence": "模型调用每个待办对应的基础skill（如skill_listing_video_render、skill_listing_page_build等），未使用_v1或_preview变体，证据见工具调用序列[1][4][7][10][13][16][19][22][25][28][31][34]。"
+    },
+    {
+     "id": "ar_all_items_routed",
+     "criterion": "每个待办都必须有路由结论。判 fail：漏项。",
+     "value": "pass",
+     "evidence": "12个待办（M01-M12）每个均有rt_brief、对应skill调用和rt_submit提交，轨迹中全部覆盖，无遗漏。"
+    }
+   ],
+   "pass": 6,
+   "fail": 0,
+   "na": 1,
+   "total": 7
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_skill_result_relayed",
+     "criterion": "被调用的 skill/子流程的结果是否完整回传给模型（不是只回一句成功）。判 fail：skill 被调用但结果内容缺失。判 N-A：未调用 skill。",
+     "value": "pass",
+     "evidence": "4.1 工具结果原文中每个 skill 调用均返回了包含 item 和 token 的完整结果，例如 [1] skill_listing_video_render 返回 \"HANDLED item=M01 token=***\"，内容无缺失"
+    },
+    {
+     "id": "hr_tool_availability_stable",
+     "criterion": "工具在整个会话里是否稳定可见可用（没有中途消失、没有静默丢工具）。",
+     "value": "pass",
+     "evidence": "工具调用分布显示共调用39次，涵盖 rt_brief、rt_submit、各 skill 等工具；CLI 输出内部 error.kind 分布为空 {}，无 \"no such tool\" 类错误"
+    },
+    {
+     "id": "hr_failure_signal_delivered",
+     "criterion": "工具失败时，**失败判别符是否到达了消费方能读到的字段**。逐项检查（有哪项查哪项，其余判 N-A）： ① 模型可见的工具结果原文里出现失败迹象（退出码/信号/错误文本）； ② 若本题有 after_tool_call hook 观测文件，其 hook_error_present 在工具确实失败时必须为 true； ③ result_exit_code 必须等于命令的真实退出码，不得被改写为 0。 **判 fail 的确切条件**：上述任一项在「工具确实失败」的前提下不成立。 ★只看①就判 pass 是不够的 —— 实测失败确实进了工具结果，却没进 hook 的 error 字段；退出码也出现过被改写成 0。",
+     "value": "pass",
+     "evidence": "4.1 工具结果原文中所有工具调用均返回成功（如 RECEIPT、HANDLED、Successfully wrote 等），无任何失败迹象，机制未触发"
+    },
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）。",
+     "value": "pass",
+     "evidence": "4.1 工具结果原文中每条结果完整无截断；网关事件中 truncate_tool_results 计数为 0"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。",
+     "value": "pass",
+     "evidence": "工具调用序列去重后不同调用39次，出现重复调用0组；4.1b 压缩事件无 compaction 条目；网关压缩计数 compaction_succeeded=0, compaction_failed=0"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束。",
+     "value": "pass",
+     "evidence": "run_meta 中 exit_code=0, elapsed_sec=334, timeout_sec=6000；网关事件中 context_overflow_detected=0, hard_overflow=0, session_write_lock=0, plugin_conflict=0；轮次正常走完"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error）。",
+     "value": "pass",
+     "evidence": "CLI 输出顶层 status 分布为 {\"ok\": 10}，内部 error.kind 分布为空 {}，无 status=ok 但内部带 error 的情况"
+    }
+   ],
+   "pass": 7,
+   "fail": 0,
+   "na": 0,
+   "total": 7
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 19012,
+  "completion_tokens": 4408,
+  "total_tokens": 23420,
+  "prompt_cache_hit_tokens": 3456,
+  "prompt_cache_miss_tokens": 15556
+ },
+ "attribution": "clean"
+}

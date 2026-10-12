@@ -1,0 +1,41 @@
+const R = {"M01": {"id": "M01", "brief": "\u672c\u7b14 M01 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **1 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M01\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "3BFC8FA6", "expect": "1", "norm": "num", "delay": 0, "shards": 1, "pad": 0, "frame": "", "outcome": "real"}, "M02": {"id": "M02", "brief": "\u672c\u7b14 M02 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **2 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M02\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "E30DCEE9", "expect": "2", "norm": "num", "delay": 0, "shards": 2, "pad": 0, "frame": "", "outcome": "real"}, "M03": {"id": "M03", "brief": "\u672c\u7b14 M03 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **3 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M03\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "8C8F06D3", "expect": "3", "norm": "num", "delay": 0, "shards": 3, "pad": 0, "frame": "", "outcome": "real"}, "M04": {"id": "M04", "brief": "\u672c\u7b14 M04 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **4 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M04\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "7D88C985", "expect": "4", "norm": "num", "delay": 0, "shards": 4, "pad": 0, "frame": "", "outcome": "real"}, "M05": {"id": "M05", "brief": "\u672c\u7b14 M05 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **5 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M05\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "AEC3381E", "expect": "5", "norm": "num", "delay": 0, "shards": 5, "pad": 0, "frame": "", "outcome": "real"}, "M06": {"id": "M06", "brief": "\u672c\u7b14 M06 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **6 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M06\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "56FA58FF", "expect": "6", "norm": "num", "delay": 0, "shards": 6, "pad": 0, "frame": "", "outcome": "real"}, "M07": {"id": "M07", "brief": "\u672c\u7b14 M07 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **7 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M07\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "5730F451", "expect": "7", "norm": "num", "delay": 0, "shards": 7, "pad": 0, "frame": "", "outcome": "real"}, "M08": {"id": "M08", "brief": "\u672c\u7b14 M08 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **8 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M08\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "27FA603F", "expect": "8", "norm": "num", "delay": 0, "shards": 8, "pad": 0, "frame": "", "outcome": "real"}, "M09": {"id": "M09", "brief": "\u672c\u7b14 M09 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **9 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M09\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "5EFBCE4E", "expect": "9", "norm": "num", "delay": 0, "shards": 9, "pad": 0, "frame": "", "outcome": "real"}, "M10": {"id": "M10", "brief": "\u672c\u7b14 M10 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **10 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M10\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "ACA7E349", "expect": "10", "norm": "num", "delay": 0, "shards": 10, "pad": 0, "frame": "", "outcome": "real"}, "M11": {"id": "M11", "brief": "\u672c\u7b14 M11 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **11 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M11\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "9D57CFD7", "expect": "11", "norm": "num", "delay": 0, "shards": 11, "pad": 0, "frame": "", "outcome": "real"}, "M12": {"id": "M12", "brief": "\u672c\u7b14 M12 \u9700\u8981\u628a\u6e38\u6807\u63a8\u8fdb **12 \u6b21**\uff08\u6bcf\u6b21\u90fd\u7528\u540c\u4e00\u7ec4\u53c2\u6570 item=M12\uff09\u3002\u63a8\u5b8c\u540e\u628a\u6700\u7ec8 position \u7528 pay_submit \u63d0\u4ea4\uff08value=<\u6700\u7ec8 position>\uff09\u3002", "code": "6F2348E5", "expect": "12", "norm": "num", "delay": 0, "shards": 12, "pad": 0, "frame": "", "outcome": "real"}};
+const PREV = {"M02": "3BFC8FA6", "M03": "E30DCEE9", "M04": "8C8F06D3", "M05": "7D88C985", "M06": "AEC3381E", "M07": "56FA58FF", "M08": "5730F451", "M09": "27FA603F", "M10": "5EFBCE4E", "M11": "ACA7E349", "M12": "9D57CFD7"};
+const CHAIN = false;
+const S = {tick:{}, seq:0, log:[], st:{}};
+function nrm(v,m){var s=String(v);
+  if(m==="exact")return s;
+  if(m==="num"){var n=Number(s.replace(/[, _]/g,""));return isNaN(n)?s.trim():String(n);}
+  return s.trim().toUpperCase().replace(/\s+/g," ");}
+function typed(v){return Object.prototype.toString.call(v).slice(8,-1)+":"+JSON.stringify(v);}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+function text(v){return {content:[{type:"text",text:String(v)}]};}
+export default {
+  id:"ops-pay", name:"代付卡单排查通道",
+  description:"代付卡单排查的作业通道：领取事项、执行动作、提交结果换回执。",
+  register(api){
+    api.registerTool({name:"pay_brief",
+      description:"Return the requirement for one worklist item. Payout cursor service; every call advances the cursor, identical calls included.",
+      parameters:{"type": "object", "properties": {"item": {"type": "string", "description": "worklist item id"}}, "required": ["item"], "additionalProperties": false},
+      async execute(callId,args){S.seq++;S.prev=S.last;S.last="pay_brief";const r=R[String(args.item||"")];
+if(!r) return text("NO_SUCH_ITEM known="+Object.keys(R).join(","));
+return text("ITEM "+r.id+"\n"+r.brief);}});
+    api.registerTool({name:"pay_submit",
+      description:"Submit the observed value for one worklist item; returns a signed receipt when it matches.",
+      parameters:{"type": "object", "properties": {"item": {"type": "string", "description": "worklist item id"}, "value": {"description": "the value you observed"}, "carry": {"type": "string", "description": "receipt code of the preceding item, when required"}}, "required": ["item", "value"], "additionalProperties": false},
+      async execute(callId,args){S.seq++;S.prev=S.last;S.last="pay_submit";const it=String(args.item||""); const r=R[it];
+if(!r) return text("NO_SUCH_ITEM");
+if(CHAIN && PREV[it] && String(args.carry||"").trim()!==PREV[it])
+  return text("CARRY_MISMATCH item="+it+" prior_receipt_required");
+const g = r.norm==="typed" ? typed(args.value) : nrm(args.value,r.norm);
+const e = r.norm==="typed" ? r.expect : nrm(r.expect,r.norm);
+if(g!==e) return text("MISMATCH item="+it+" received="+g.slice(0,120));
+return text("RECEIPT item="+it+" code="+r.code);}});
+    api.registerTool({name:"pay_tick",
+      description:"Advance the upstream cursor by one and return its new position. Identical calls are NOT equivalent: each call moves the cursor.",
+      parameters:{"type": "object", "properties": {"item": {"type": "string", "description": "worklist item id"}}, "required": ["item"], "additionalProperties": false},
+      async execute(callId,args){S.seq++;S.prev=S.last;S.last="pay_tick";const r=R[String(args.item||"")];
+if(!r) return text("NO_SUCH_ITEM");
+S.tick[r.id]=(S.tick[r.id]||0)+1;
+return text("CURSOR item="+r.id+" position="+S.tick[r.id]);}});
+  }
+};

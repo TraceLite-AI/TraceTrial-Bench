@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:ff5b654aea0159e01cfddb4789cd3ca6eedc921ef386476df5c90cf7af7fc157",
+  "image_reference": "harnessbench/case-w04-release-verify-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "W04-release-verify-L3-001"
+}

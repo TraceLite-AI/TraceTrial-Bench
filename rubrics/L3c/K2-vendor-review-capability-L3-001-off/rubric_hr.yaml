@@ -1,0 +1,27 @@
+case: K2-vendor-review-capability-L3-001-off
+items:
+- id: hr_reached_task_end
+  criterion: "判的是 **harness 有没有实质中断会话**。两个条件都要看，不能只看轮次： 判 **fail** 的确切条件（满足任一）： ① `all_turns_ran` 为 false，且 `context_overflow_hits` 或 `compaction_failed_hits` > 0\n   —— 轮次没走完且原因指向 harness 侧；\n② `all_turns_ran` 为 true，但**溢出/压缩失败次数大到使后续轮次形同空转**\n   （例如每轮都以 \"prompt too large\" 作结、模型在多数轮次里无法执行任何实质动作）。\n   ★判这一条时必须引出「某轮因溢出而无实质动作」的原文，引不出就不判 fail。\n判 **pass**：轮次走完且未见上述空转；**或**轮次没走完但溢出/压缩失败计数均为 0。 ★交付物是否为空**与本条无关**——那是模型没产出，属 AR 层。\n"
+- id: hr_denied_tool_removed_cleanly
+  criterion: '本臂禁用了子代理类工具。判 fail 的确切条件：模型反复尝试调用且工具面既不提供也不返回可读拒绝信息，白白消耗预算。OC 移除式禁用导致模型根本没去调 —— 判 pass。
+
+    '
+  axis: 禁用的可读性
+- id: hr_arm_isolation
+  criterion: '两臂只差子代理禁用这一个旋钮，题面、30 份问卷、轮次、模型完全相同。判 fail：比对发现除该旋钮外还有别的差异。
+
+    '
+  axis: 双臂差异隔离
+- id: hr_batch_results_complete
+  criterion: '30 份问卷逐份读取，每次 `read` 结果完整送达或明确标注截断。判 fail：某份实际被截断而无截断标记。
+
+    '
+  axis: 工具结果完整性
+- id: hr_policy_baseline_retained
+  criterion: "判定基线 `docs/POLICY.md` 在审到后段时是否仍可被引用。判 fail：压缩后必须重读才能继续。\npass：上述判定对象所指的那份材料仍可被引用；**或本轮根本没有发生压缩/驱逐**（机制未触发，记设计分）。\nN-A：发生了压缩/驱逐，但拿不到压缩前后的上下文对照。\n★判定顺序（先后不能颠倒）：先问「本轮到底有没有发生压缩/驱逐」——\n  看网关压缩计数与轨迹里的压缩事件。\n  **没发生 → 直接 pass**，不再往下看证据够不够；发生了才继续，此时证据不足才判 N-A。\n  ★「没压缩所以没有前后对照可看」**不是** N-A。\n★判 fail 必须逐字引出证据原文：既要引出该材料压缩前出现过的原文，\n  也要引出它压缩后不可引（或模型重读）的原文。"
+  axis: 压缩材料存活
+- id: hr_no_rework_induced
+  criterion: '同一份问卷被重复读取 3 次以上且原因可归到 harness。模型主动复核不算。
+
+    '
+  axis: 被迫返工

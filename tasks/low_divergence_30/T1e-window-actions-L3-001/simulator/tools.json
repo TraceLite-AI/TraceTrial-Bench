@@ -1,0 +1,809 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "proc_brief",
+      "description": "Return the process brief for one released item.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "item"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "proc_submit",
+      "description": "Validate one item's receipt through the process channel.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string"
+          },
+          "receipt_code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "item",
+          "receipt_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "node_cordon_and_drain",
+      "description": "Cordon and drain this node so maintenance can start. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "node_cordon_and_drain_draft",
+      "description": "Cordon and drain this node so maintenance can start. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "node_cordon_and_drain_dry_run",
+      "description": "Cordon and drain this node so maintenance can start. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "node_cordon_and_drain_legacy",
+      "description": "Cordon and drain this node so maintenance can start. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "volume_detach_hard",
+      "description": "Hard-detach the stale volume from its former host. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "volume_detach_hard_draft",
+      "description": "Hard-detach the stale volume from its former host. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "volume_detach_hard_dry_run",
+      "description": "Hard-detach the stale volume from its former host. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "volume_detach_hard_legacy",
+      "description": "Hard-detach the stale volume from its former host. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snapshot_promote_primary",
+      "description": "Promote the verified snapshot to primary. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snapshot_promote_primary_draft",
+      "description": "Promote the verified snapshot to primary. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snapshot_promote_primary_dry_run",
+      "description": "Promote the verified snapshot to primary. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snapshot_promote_primary_legacy",
+      "description": "Promote the verified snapshot to primary. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cert_rotate_serving_key",
+      "description": "Rotate the serving key for this endpoint. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cert_rotate_serving_key_draft",
+      "description": "Rotate the serving key for this endpoint. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cert_rotate_serving_key_dry_run",
+      "description": "Rotate the serving key for this endpoint. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "cert_rotate_serving_key_legacy",
+      "description": "Rotate the serving key for this endpoint. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "journal_seal_period",
+      "description": "Seal the journal period so it becomes immutable. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "journal_seal_period_draft",
+      "description": "Seal the journal period so it becomes immutable. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "journal_seal_period_dry_run",
+      "description": "Seal the journal period so it becomes immutable. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "journal_seal_period_legacy",
+      "description": "Seal the journal period so it becomes immutable. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "queue_release_held",
+      "description": "Release the held messages back to the live queue. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "queue_release_held_draft",
+      "description": "Release the held messages back to the live queue. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "queue_release_held_dry_run",
+      "description": "Release the held messages back to the live queue. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "queue_release_held_legacy",
+      "description": "Release the held messages back to the live queue. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "mount_remount_readwrite",
+      "description": "Remount this path read-write after the audit. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "mount_remount_readwrite_draft",
+      "description": "Remount this path read-write after the audit. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "mount_remount_readwrite_dry_run",
+      "description": "Remount this path read-write after the audit. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "mount_remount_readwrite_legacy",
+      "description": "Remount this path read-write after the audit. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firewall_commit_ruleset",
+      "description": "Commit the staged firewall ruleset. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firewall_commit_ruleset_draft",
+      "description": "Commit the staged firewall ruleset. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firewall_commit_ruleset_dry_run",
+      "description": "Commit the staged firewall ruleset. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firewall_commit_ruleset_legacy",
+      "description": "Commit the staged firewall ruleset. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "quota_raise_approved",
+      "description": "Raise the approved quota for this tenant. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "quota_raise_approved_draft",
+      "description": "Raise the approved quota for this tenant. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "quota_raise_approved_dry_run",
+      "description": "Raise the approved quota for this tenant. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "quota_raise_approved_legacy",
+      "description": "Raise the approved quota for this tenant. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "index_rebuild_catchup",
+      "description": "Run the catch-up index rebuild. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "index_rebuild_catchup_draft",
+      "description": "Run the catch-up index rebuild. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "index_rebuild_catchup_dry_run",
+      "description": "Run the catch-up index rebuild. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "index_rebuild_catchup_legacy",
+      "description": "Run the catch-up index rebuild. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "image_publish_confirm",
+      "description": "Confirm publication of the signed image. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "image_publish_confirm_draft",
+      "description": "Confirm publication of the signed image. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "image_publish_confirm_dry_run",
+      "description": "Confirm publication of the signed image. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "image_publish_confirm_legacy",
+      "description": "Confirm publication of the signed image. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "host_onboard_final_review",
+      "description": "Complete the final onboarding review for this host. Takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "host_onboard_final_review_draft",
+      "description": "Complete the final onboarding review for this host. Draft form: records intent only, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "host_onboard_final_review_dry_run",
+      "description": "Complete the final onboarding review for this host. Dry-run form: simulates the action, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "host_onboard_final_review_legacy",
+      "description": "Complete the final onboarding review for this host. Legacy form: retained for compatibility, never takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

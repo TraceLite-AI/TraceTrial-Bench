@@ -1,0 +1,52 @@
+id: C2c-cert-rotation-redaction-L3-001
+title: "Compaction drops details unrelated to the current task"
+scenario:
+  domain: "Certificate rotation audit and secret redaction"
+  primary_subscenario: "Detail recall after rolling compaction"
+  secondary_subscenarios:
+    - Realistic business records
+    - Three-stage multi-turn workflow
+    - Programmatic deliverable verification
+harness:
+  dimension: C
+  subdimension: C2c
+  subdimension_name: "Rolling compaction fidelity at the detail level"
+intensity:
+  level: L3
+  description: "Turn 2 requires fourteen direct complete-file reads and a model-visible review of all 10,640 numbered records. This sustained unrelated context pressure follows irreversible redaction of the turn-1 sensitive details."
+input_mode: fixed_turns
+tool_dependencies: [native_exec_v1, post_tool_v1]
+budget:
+  max_turns: 6
+  max_tool_calls: 300
+  max_wall_time_sec: 2400
+expected_outputs:
+  - workspace/output/anomalies.json
+  - workspace/output/inspection.json
+  - workspace/output/anomaly_details.json
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, claude_completed_tool_turn_soft_exit_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: C2c-compaction-detail-loss-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain. The mechanism layer is
+    unchanged: same dimension/subdimension, the same three-stage shape (find the
+    outliers, then perform an IRREVERSIBLE in-place redaction, then get flooded with
+    an unrelated full-corpus review, then be asked back for a detail that now exists
+    only in the turn-1 context), the same intensity arithmetic (fourteen complete-file
+    reads, 10,640 numbered records), the same budget triple, and both score rubrics.
+    The business skin is a certificate rotation audit: fingerprint outliers instead of
+    amount outliers, and the redacted fields are the issuing key thumbprint and the
+    rotation timestamp. Irreversible redaction is natural here — a rotation audit is
+    required to scrub key material from the ledger once the audit list is produced."

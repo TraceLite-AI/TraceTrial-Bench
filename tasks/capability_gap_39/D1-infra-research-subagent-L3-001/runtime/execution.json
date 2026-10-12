@@ -1,0 +1,8 @@
+{
+  "conversation": "multi_turn",
+  "network_mode": "web",
+  "profile": "D1-infra-research-subagent-L3-001",
+  "runnable": true,
+  "schema_version": "native_v1",
+  "timeout_sec": 5400
+}

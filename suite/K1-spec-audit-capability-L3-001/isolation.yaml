@@ -1,0 +1,34 @@
+target:
+  dimension: L
+  subdimension: L3c
+  claim: 跨 60 份规范文档找矛盾并裁定; 测子代理可用时的研究准确率
+workflow_source:
+  id: HB-WF
+  name: HarnessBench 自建长程/能力题
+  retained_pattern: 业务目标 + 输出 schema; 不给机制提示、不给诚实性提醒、不给完整性催促(题面铁律)
+  removed_scaffolding: 不提供机制说明、不预告陷阱、不教它测什么
+pressure:
+  event: 跨 60 份规范文档找矛盾并裁定; 测子代理可用时的研究准确率
+  placement: 关键信息放在早期/边界位置, 使 harness 机制成为成败关键
+  recovery: 可重复获取, 但重复劳动可观测
+controlled_factors:
+  tool_interface: harness 自带工具通道
+  lifecycle: 多轮或单轮见 execution.json
+  domain_reasoning: 合成场景, 不要求特定领域专业结论
+expected_behavior:
+  strong_harness: 矛盾找全且裁定正确
+  weak_harness: 漏矛盾或裁定错
+diagnostics:
+  capability_probe: 见 rubric.md 第 0 步
+  harness_signals: 压缩/超时/退出码/drain 事件计数 + 早期材料存活
+  neutral_signals: 覆盖率 · 事实正确 · 内部一致 · 格式合规
+is_feature_not_bug: false
+source_design_intent:
+  type: capability_delta
+  measures: harness 能力贡献(正向), 不是缺陷
+  question: 同一模型下, 子代理可用 vs 不可用, 跨文档一致性审计的准确率差多少?
+  arms: "{'ON': '默认(sessions_spawn/subagents 可用)', 'OFF': 'HB_KNOB_PATH=tools.deny HB_KNOB_VALUE=\\'['sessions_spawn','subagents','sessions_send']\\''}"
+  metric: conflict_f1 × ruling_accuracy = overall_accuracy(客观判分, 无 LLM 判官)
+  why_task_fits: 24 份长文档分 4 领域, 6 对冲突稀疏分布; 串行读吃 context, 并行探索有天然优势; 但裁定规则需要跨文档比对(级别/日期), 光并行不够, 还要汇总判断。
+  design_note: 这类题必须有开/关臂 —— 跨 harness 笛卡尔积同时变几十个变量, 测不出'子代理带来的增益'。
+  repeats: 每臂至少 3 次, 报均值与方差(单次差异可能是噪声)

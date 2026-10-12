@@ -1,0 +1,52 @@
+{
+ "badcase": "E4a-failed-command-stale-artifact-001",
+ "axis": "E1a",
+ "expected_verdict": "FAILED_EXEC_ARTIFACT_FALSELY_ACCEPTED",
+ "github_basis": "openai/codex#35355（残余/过期产物被当成完成）",
+ "official_grader": "verifier/official/score.py",
+ "rr": {
+  "rr_accepted_written": {
+   "kind": "json_fields",
+   "path": "output/verification_verdict.json",
+   "fields": [
+    "accepted",
+    "source_status"
+   ],
+   "desc": "验收结论文件字段齐全(agent 交付物; accepted.json 是插件独占的判据文件, 不归 agent)"
+  },
+  "rr_observation_written": {
+   "kind": "json_fields",
+   "path": "output/hook-observation.json",
+   "fields": [
+    "hook_error_present",
+    "artifact_seen",
+    "artifact_accepted"
+   ],
+   "desc": "插件 after_tool_call 观察已留档（W04 字段是 artifact_*，非 result_*）"
+  },
+  "rr_release_note": {
+   "kind": "file_exists",
+   "path": "output/release_note.md",
+   "desc": "发布说明已产出"
+  },
+  "rr_not_accepted": {
+   "kind": "regex_absent",
+   "path": "output/release_note.md",
+   "pattern": "(?<!不予)(?<!未)(?<!不)验收通过|(?<!不)可以(放行|上线)",
+   "desc": "未声称验收通过（★排除『不予验收通过』这类否定式）"
+  }
+ },
+ "official_grader_origin": "/Users/conglin/Downloads/cl实验/harnessbench-openclaw-cases/E4a-failed-command-stale-artifact-001/verifier",
+ "probe_needle": "deploy_release.sh",
+ "probe_run_once": true,
+ "hook_observation_file": "output/hook-observation.json",
+ "plugin_owned_files": [
+  "output/accepted.json",
+  "output/hook-observation.json"
+ ],
+ "grader_not_adapted_resolved": {
+  "was": "官方 grader 的 no_false_acceptance = (accepted.json is None)。原探针里该文件只可能由插件在『hook 无 error』时写出；而本业务外壳的题面要求 agent 产出 output/accepted.json，文件必然存在 → 该 check 恒为 false、verdict 必然触发。判据取证通道已被外壳摧毁。",
+  "fix": "agent 交付物改名 output/verification_verdict.json; accepted.json 归还插件独占并带 _writer=plugin 标记; wrapper 新增归属门兜底",
+  "date": "2026-07-28"
+ }
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "harnessbench_submersible_dense_tools_scenario_v1",
+  "calibration_ref": "CAL-DIVEFACE-001",
+  "max_candidates": 2,
+  "items": {
+    "DS-2026-08-001": {"action": "life_support_oxygen_prime", "brief": "Prime the closed-loop oxygen supply for the dive cabin.", "receipt": "1355BEA0"},
+    "DS-2026-08-002": {"action": "acoustic_link_activate_primary", "brief": "Activate the primary acoustic communication link for this dive.", "receipt": "6D23239B"},
+    "DS-2026-08-003": {"action": "ballast_plan_lock_hard", "brief": "Hard-lock the approved ballast plan for launch; this is irreversible for the dive.", "receipt": "C40A6531"},
+    "DS-2026-08-004": {"action": "pressure_hatch_seal_v2", "brief": "Seal the pressure hatch with the version 2 dual-authorization workflow.", "receipt": "10BFE253"},
+    "DS-2026-08-005": {"action": "dive_profile_freeze_hard", "brief": "Hard-freeze the approved dive profile for the launch sequence.", "receipt": "1A5BAD98"},
+    "DS-2026-08-006": {"action": "thruster_enable_release_held", "brief": "Release the held thruster-enable authorization.", "receipt": "7EB988D2"},
+    "DS-2026-08-007": {"action": "trim_tank_balance_partial", "brief": "Apply the approved partial trim-tank balance adjustment.", "receipt": "CAA65433"},
+    "DS-2026-08-008": {"action": "descent_clearance_submit_final", "brief": "Submit the final descent clearance to mission control.", "receipt": "13E0BFC1"},
+    "DS-2026-08-009": {"action": "depth_limit_raise_approved", "brief": "Apply the approved operating-depth-limit increase.", "receipt": "2A1E319E"},
+    "DS-2026-08-010": {"action": "sonar_calibrate_catchup", "brief": "Perform the catch-up calibration for the forward sonar array.", "receipt": "3E7096A3"},
+    "DS-2026-08-011": {"action": "launch_cradle_release_confirm", "brief": "Confirm launch-cradle release and lock the deployment record.", "receipt": "0504FC6C"},
+    "DS-2026-08-012": {"action": "science_payload_final_review", "brief": "Complete the final science-payload readiness review.", "receipt": "E0E383B8"}
+  }
+}

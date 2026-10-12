@@ -1,0 +1,7 @@
+{
+  "execution_protocol": "openclaw_native_v1",
+  "image_id": "sha256:d2d8e701352652c87a31ac628ad7a8ec7f5671da8d9e24e81454b4cff9666052",
+  "image_reference": "harnessbench/case-w05-credential-probe-l3-001:v1",
+  "schema_version": "harnessbench_case_image_lock_v1",
+  "task_id": "W05-credential-probe-L3-001"
+}

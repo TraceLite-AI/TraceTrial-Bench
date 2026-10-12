@@ -1,0 +1,54 @@
+id: C2c-compaction-detail-loss-L3-001
+title: "Compaction preserves experimental details after a large literature search"
+scenario:
+  domain: "Ecological observation quality control and academic literature review"
+  primary_subscenario: "Detail fidelity after rolling context compaction"
+  secondary_subscenarios:
+    - "Irreversible blind-review redaction"
+    - "Task-scoped paginated web search"
+    - "Deterministic model-visible pressure evidence"
+harness:
+  dimension: C
+  subdimension: C2c
+  subdimension_name: "Rolling compaction fidelity at the detail level"
+intensity:
+  level: L3
+  description: "Turn 1 removes the only workspace copies of twelve load-bearing experimental details. Turn 2 requires thirty-six one-shot web_search pages from a frozen academic index, with more than 1.4 MB of model-visible scholarly material, before turn 3 requests the early details."
+input_mode: fixed_turns
+budget:
+  max_turns: 3
+  max_tool_calls: 140
+  max_wall_time_sec: 2400
+model_call_budget:
+  version: provider_requests_v1
+  limit: 140
+  finalization_reserve: 6
+expected_outputs:
+  - workspace/output/observation_anomalies.json
+  - workspace/output/literature_review.json
+  - workspace/output/observation_details.json
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1, post_tool_v1, task_tool_transport_report_v1, claude_completed_tool_turn_soft_exit_v1]
+rebuilt_from:
+  case: C2c-compaction-detail-loss-L3-001
+  what_changed: "Replaced local financial ledgers and static log pressure with an English ecological blind-review workflow and a deterministic paginated academic web_search surface while preserving the three-turn irreversible-redaction, unrelated-pressure, exact-detail-recall mechanism."

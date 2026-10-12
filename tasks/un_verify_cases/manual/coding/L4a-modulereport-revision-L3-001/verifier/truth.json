@@ -1,0 +1,40 @@
+{
+  "released": [
+    "MOD-01",
+    "MOD-02",
+    "MOD-04",
+    "MOD-05",
+    "MOD-07",
+    "MOD-08",
+    "MOD-10",
+    "MOD-11"
+  ],
+  "blocked": [
+    "MOD-03",
+    "MOD-06",
+    "MOD-09",
+    "MOD-12"
+  ],
+  "final_fields": [
+    "module",
+    "loc_count",
+    "released_at"
+  ],
+  "loc_count": {
+    "MOD-01": 142908,
+    "MOD-02": 164666,
+    "MOD-03": 243715,
+    "MOD-04": 984379,
+    "MOD-05": 383483,
+    "MOD-06": 523100,
+    "MOD-07": 454971,
+    "MOD-08": 186632,
+    "MOD-09": 333301,
+    "MOD-10": 836723,
+    "MOD-11": 693605,
+    "MOD-12": 203392
+  },
+  "largest_module": "MOD-04",
+  "largest_loc_count": 984379,
+  "revision_count": 3
+}

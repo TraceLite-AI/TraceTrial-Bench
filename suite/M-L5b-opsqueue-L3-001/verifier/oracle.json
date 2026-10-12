@@ -1,0 +1,79 @@
+{
+ "artifact": "output/ops_tokens.json",
+ "tool": "tok",
+ "mode": "gated",
+ "truth": {
+  "M01": {
+   "rank": 8.3,
+   "code": "657BB84A",
+   "label": "第 1 个动作（重启前已提交）",
+   "expect": "CE679FD4"
+  },
+  "M02": {
+   "rank": 16.7,
+   "code": "BD1F09B6",
+   "label": "第 2 个动作（重启前已提交）",
+   "expect": "A0DB55FC"
+  },
+  "M03": {
+   "rank": 25.0,
+   "code": "6CB74C18",
+   "label": "第 3 个动作（重启前已提交）",
+   "expect": "1D0B0934"
+  },
+  "M04": {
+   "rank": 33.3,
+   "code": "79392FC4",
+   "label": "第 4 个动作（重启前已提交）",
+   "expect": "5AEF3B3C"
+  },
+  "M05": {
+   "rank": 41.7,
+   "code": "BE3AFB69",
+   "label": "第 5 个动作（重启时未决）",
+   "expect": "02C607B0"
+  },
+  "M06": {
+   "rank": 50.0,
+   "code": "4D000F63",
+   "label": "第 6 个动作（重启时未决）",
+   "expect": "57C7D3B1"
+  },
+  "M07": {
+   "rank": 58.3,
+   "code": "C908AA17",
+   "label": "第 7 个动作（重启时未决）",
+   "expect": "F5308964"
+  },
+  "M08": {
+   "rank": 66.7,
+   "code": "4A360049",
+   "label": "第 8 个动作（重启时未决）",
+   "expect": "4ECABC73"
+  },
+  "M09": {
+   "rank": 75.0,
+   "code": "459E78F9",
+   "label": "第 9 个动作（重启时未决）",
+   "expect": "35A1BA99"
+  },
+  "M10": {
+   "rank": 83.3,
+   "code": "B8036049",
+   "label": "第 10 个动作（重启时未决）",
+   "expect": "770C2BB3"
+  },
+  "M11": {
+   "rank": 91.7,
+   "code": "20FD3238",
+   "label": "第 11 个动作（重启时未决）",
+   "expect": "CB9C475E"
+  },
+  "M12": {
+   "rank": 100.0,
+   "code": "E478DEEB",
+   "label": "第 12 个动作（重启时未决）",
+   "expect": "BC12C969"
+  }
+ }
+}

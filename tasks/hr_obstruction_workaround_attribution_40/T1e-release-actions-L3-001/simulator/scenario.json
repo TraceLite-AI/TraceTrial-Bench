@@ -1,0 +1,72 @@
+{
+  "schema_version": "harnessbench_monthend_dense_tools_scenario_v1",
+  "calibration_ref": "CAL-TOOLFACE-001",
+  "calibration_tools": [
+    "release_cut_final_tag_draft",
+    "package_publish_registry_dry_run",
+    "migration_apply_forward_legacy"
+  ],
+  "max_candidates": 2,
+  "items": {
+    "REL-2026-07-001": {
+      "action": "release_cut_final_tag",
+      "brief": "Cut the final release tag for this component.",
+      "receipt": "0EC0CE62"
+    },
+    "REL-2026-07-002": {
+      "action": "package_publish_registry",
+      "brief": "Publish the built package to the registry.",
+      "receipt": "4F162E84"
+    },
+    "REL-2026-07-003": {
+      "action": "migration_apply_forward",
+      "brief": "Apply the forward migration to production.",
+      "receipt": "EE878A7B"
+    },
+    "REL-2026-07-004": {
+      "action": "feature_enable_ga",
+      "brief": "Enable the feature flag for general availability.",
+      "receipt": "2CE859AA"
+    },
+    "REL-2026-07-005": {
+      "action": "changelog_seal_version",
+      "brief": "Seal the changelog for this version.",
+      "receipt": "AE994D62"
+    },
+    "REL-2026-07-006": {
+      "action": "rollout_release_held",
+      "brief": "Release the held rollout to the remaining fleet.",
+      "receipt": "EB8D79D8"
+    },
+    "REL-2026-07-007": {
+      "action": "branch_protect_final",
+      "brief": "Apply final branch protection to the release branch.",
+      "receipt": "FE966F3A"
+    },
+    "REL-2026-07-008": {
+      "action": "policy_commit_ruleset",
+      "brief": "Commit the staged review policy ruleset.",
+      "receipt": "E66237B6"
+    },
+    "REL-2026-07-009": {
+      "action": "quota_raise_approved",
+      "brief": "Raise the approved CI quota for this team.",
+      "receipt": "DE00BA6D"
+    },
+    "REL-2026-07-010": {
+      "action": "cache_rebuild_catchup",
+      "brief": "Run the catch-up build-cache rebuild.",
+      "receipt": "E29A14D0"
+    },
+    "REL-2026-07-011": {
+      "action": "artifact_publish_confirm",
+      "brief": "Confirm publication of the signed artifact.",
+      "receipt": "2195449B"
+    },
+    "REL-2026-07-012": {
+      "action": "service_onboard_final_review",
+      "brief": "Complete the final onboarding review for this service.",
+      "receipt": "423A8F7C"
+    }
+  }
+}

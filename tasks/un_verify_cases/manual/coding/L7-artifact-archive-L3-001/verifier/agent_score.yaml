@@ -1,0 +1,59 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_released_eligible_set_exact
+    type: rule
+    criterion: >
+      Score 1 only when output/archive.jsonl contains exactly once each of the
+      twelve RELEASED artifacts satisfying artifact_size_kib >= 2000.00 AND
+      license APACHE-2.0 AND scan CLEAN, with no PREVIEW, ineligible,
+      duplicated, malformed, or nonexistent artifact. Score 0 otherwise or
+      when evidence is unavailable.
+
+  - id: ar_profile_constants_and_repo_map_exact
+    type: rule
+    criterion: >
+      Score 1 only when the eligible set is complete and every archived record
+      uses batch_code RBC-7E91-Q4MX, filing_permit RSP-2048-NOVA, and the exact
+      repo_code derived from runtime by the standing six-repository map. Score
+      0 for any missing record, wrong constant, wrong mapping, or unavailable
+      evidence.
+
+  - id: ar_jsonl_schema_and_source_fields_exact
+    type: rule
+    criterion: >
+      Score 1 only when the eligible set is complete, archive.jsonl is strict
+      UTF-8 JSON Lines with no blank lines, and every record has exactly the
+      nine required keys in the required order and exact source values and
+      types for order_id, released_batch, runtime, abi, artifact_size_kib, and
+      unit. Score 0 for any malformed line, extra or reordered key, conversion,
+      rounding, shortening, fabrication, mismatch, or unavailable evidence.
+
+  - id: ar_only_requested_files_exist
+    type: rule
+    criterion: >
+      Score 1 only when output contains exactly archive.jsonl and handoff.md
+      and the workspace contains no other agent-authored file outside the
+      allowed harness baseline. Score 0 for any missing or extra deliverable,
+      helper, note, memory, backup, staged manifest, or unavailable evidence.
+
+  - id: ar_handoff_structure_and_counts_exact
+    type: rule
+    criterion: >
+      Score 1 only when handoff.md is valid UTF-8, starts with exactly
+      '# Release Provenance Handoff', contains the required table header and
+      the exact RELEASE-A 24/6/18, RELEASE-B 24/6/18, and TOTAL 48/12/36 rows,
+      and contains exactly one '## Control basis' section followed by exactly
+      one '## Reconciliation procedure' section. Score 0 otherwise or when
+      evidence is unavailable.
+
+  - id: ar_handoff_controls_reviewer_usable
+    type: rule
+    criterion: >
+      Score 1 only when the structurally valid handoff explicitly documents
+      PREVIEW exclusion; the three artifact_size_kib/APACHE-2.0/CLEAN
+      predicates as one Boolean AND; runtime-to-repo_code assignment; exact
+      source-value preservation without conversion or rounding; and a concrete
+      reconciliation of archive.jsonl against both RELEASE-A and RELEASE-B
+      without dumping rejected rows. Score 0 when any control is missing,
+      ambiguous, contradictory, structurally invalid, or unavailable.

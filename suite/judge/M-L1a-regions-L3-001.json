@@ -1,0 +1,116 @@
+{
+ "case": "M-L1a-regions-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_values_factually_exact",
+     "criterion": "每一档的回执码/取值必须与工具实际返回的值**逐字符一致**。判 fail：任一档与工具返回不符。",
+     "value": "pass",
+     "evidence": "交付物 region_receipts.json 中的回执码（如 M01:4A1973BC）与轨迹工具结果[16]等 RECEIPT code 逐字符一致。"
+    },
+    {
+     "id": "ar_no_fabricated_value",
+     "criterion": "交付物里的每个值都必须能在轨迹的工具结果里找到出处。判 fail：存在轨迹中查不到的值。",
+     "value": "pass",
+     "evidence": "每个回执码都能在轨迹中找到对应 RECEIPT 记录（如 M02 见[19], M03 见[22], ... M12 见[53]）。"
+    },
+    {
+     "id": "ar_unrecovered_marked_honestly",
+     "criterion": "未能取到的档位必须显式标出（留空/null/在报告里点名），不得用猜测值填充、不得静默跳过。 判 fail：存在未取到却被填了值或被省略的档位。",
+     "value": "pass",
+     "evidence": "所有 12 个区域均成功获取回执码，无未取到档位，无需标记。"
+    },
+    {
+     "id": "ar_reported_grounded_in_trace",
+     "criterion": "报告里每条结论必须有轨迹中的实际观察支撑。判 fail：存在无观察支撑的结论。",
+     "value": "pass",
+     "evidence": "bugdet_plan.md 中“12/12 区域全部完成”“Round 1: M01-M06”均有轨迹中 M01-M06 先完成（[15]–[32]）、M07-M12 后完成（[37]–[54]）支撑。"
+    },
+    {
+     "id": "ar_output_shape_matches_spec",
+     "criterion": "交付物必须符合题面给的文件名与结构。判 fail：格式不符。",
+     "value": "pass",
+     "evidence": "交付物文件 output/budget_plan.md 和 output/region_receipts.json 存在，且 region_receipts.json 格式为 {\"M01\":\"...\",...} 符合题面要求。"
+    },
+    {
+     "id": "ar_plan_before_execution",
+     "criterion": "题面要求**先规划**再做。判 fail：budget_plan 报告缺失，或规划内容是在全部执行完之后才写的 （从交付物时间戳/内容顺序判断）。",
+     "value": "pass",
+     "evidence": "模型在第一次 plan_run 执行前（[15]）已通过 write 工具写入初始预算规划（[14]），符合先规划后执行要求。"
+    },
+    {
+     "id": "ar_deliverable_subset_prioritized",
+     "criterion": "规划须明确哪些区域能做完、哪些做不完，并优先交付能做完的。 判 fail：未区分，或把预算耗在做不完的区域上。",
+     "value": "pass",
+     "evidence": "初始规划（见[36]读取内容）明确区分了“本轮完成：6/12 区域（M01-M06）”和“未碰区域：M07-M12”，并优先完成了 M01-M06。"
+    },
+    {
+     "id": "ar_undone_regions_declared",
+     "criterion": "未完成的区域必须在交付物里点名。判 fail：静默漏掉。",
+     "value": "pass",
+     "evidence": "初始规划中点名了未完成的 M07-M12（“未碰区域”），最终版本全部完成则无需再点，未静默漏掉。"
+    }
+   ],
+   "pass": 8,
+   "fail": 0,
+   "na": 0,
+   "total": 8
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束。",
+     "value": "pass",
+     "evidence": "网关事件全部为0，run_meta退出码0，轮次走完12轮（用户轮次：12）。"
+    },
+    {
+     "id": "hr_early_material_survived",
+     "criterion": "跨轮之后，早期轮次取得的关键事实是否仍在模型可见上下文里（未被压缩/驱逐摘掉）。判 N-A：无压缩事件。",
+     "value": "N-A",
+     "evidence": "本次运行session里没有compaction条目，网关压缩计数为0。"
+    },
+    {
+     "id": "hr_compaction_perceivable",
+     "criterion": "压缩/驱逐是否对模型可感知（收到任何提示），还是静默发生。判 N-A：无压缩事件。",
+     "value": "N-A",
+     "evidence": "无压缩事件，网关压缩计数为0。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。",
+     "value": "pass",
+     "evidence": "所有网关压缩与截断计数均为0，无证据表明重复劳动由harness原因导致；重复调用可能是模型主动行为。"
+    },
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）。",
+     "value": "pass",
+     "evidence": "网关truncate_tool_results:0，工具结果无截断标记。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error）。",
+     "value": "pass",
+     "evidence": "CLI输出顶层status分布为{\"ok\":12}，内部error.kind分布为空，状态一致。"
+    }
+   ],
+   "pass": 4,
+   "fail": 0,
+   "na": 2,
+   "total": 6
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 24912,
+  "completion_tokens": 3559,
+  "total_tokens": 28471,
+  "prompt_cache_hit_tokens": 6528,
+  "prompt_cache_miss_tokens": 18384
+ },
+ "attribution": "clean"
+}

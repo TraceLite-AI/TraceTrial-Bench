@@ -1,0 +1,1 @@
+{"id": "ops-vendor", "name": "供应商回包解析通道", "description": "供应商回包解析的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["vendor_brief", "vendor_submit", "vendor_pull"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

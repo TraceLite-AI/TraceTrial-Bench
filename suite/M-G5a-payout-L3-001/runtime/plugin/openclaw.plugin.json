@@ -1,0 +1,1 @@
+{"id": "ops-mask", "name": "代付批次对外材料通道", "description": "代付批次对外材料的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["mask_brief", "mask_submit", "mask_fetch"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

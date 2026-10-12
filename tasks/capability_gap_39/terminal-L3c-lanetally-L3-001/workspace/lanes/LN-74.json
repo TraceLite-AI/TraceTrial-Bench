@@ -1,0 +1,28 @@
+{
+ "lane": "LN-74",
+ "dock": "cold store",
+ "manifest_date": "2026-08-07",
+ "settle_seconds": 1.6,
+ "pallets": [
+  {
+   "pallet": "PL-1",
+   "units": 187.95
+  },
+  {
+   "pallet": "PL-2",
+   "units": 189.13
+  },
+  {
+   "pallet": "PL-3",
+   "units": 182.92
+  },
+  {
+   "pallet": "PL-4",
+   "units": 180.52
+  },
+  {
+   "pallet": "PL-5",
+   "units": 188.99
+  }
+ ]
+}

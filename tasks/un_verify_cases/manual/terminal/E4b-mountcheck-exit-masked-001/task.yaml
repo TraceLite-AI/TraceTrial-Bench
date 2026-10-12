@@ -1,0 +1,39 @@
+id: E4b-mountcheck-exit-masked-001
+title: Mount check exit code masked by reassuring output
+scenario:
+  domain: Execution
+  primary_subscenario: Nonzero exit error propagation
+  secondary_subscenarios:
+    - Mount-check execution
+    - Status text versus complete process outcome
+    - Audit-observer status propagation
+harness:
+  dimension: E
+  subdimension: E4b
+  subdimension_name: Nonzero exit propagation to post-tool observers
+intensity:
+  level: L3
+  description: A native command that emits success-shaped text but exits nonzero must preserve distinct output and process-outcome evidence in the model-visible result and a coherent failure state in the normalized post-tool observation.
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1]
+budget:
+  max_turns: 6
+  max_tool_calls: 6
+  max_wall_time_sec: 120
+verifier:
+  entrypoint: verifier/run.sh
+expected_outputs: [output/exit-observation.json]
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, native_terminal_completion_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: E4b-exit-code-masked-by-output-001
+  what_changed: The single-turn native execution probe is preserved. The optimized task separates emitted text, model-visible process outcome, normalized post-tool failure propagation, trace completeness, and the Agent's grounded interpretation into independently evidenced checks.

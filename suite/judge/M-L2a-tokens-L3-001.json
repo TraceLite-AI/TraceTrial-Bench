@@ -1,0 +1,116 @@
+{
+ "case": "M-L2a-tokens-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_values_factually_exact",
+     "criterion": "每一档的回执码/取值必须与工具实际返回的值**逐字符一致**。判 fail：任一档与工具返回不符。",
+     "value": "pass",
+     "evidence": "交付物中可处理工单的回执码（M01:A7645833等）与标准答案（expect: A7645833等）逐字符一致，不可解工单标记为ESCALATED符合题意的升级要求。"
+    },
+    {
+     "id": "ar_no_fabricated_value",
+     "criterion": "交付物里的每个值都必须能在轨迹的工具结果里找到出处。判 fail：存在轨迹中查不到的值。",
+     "value": "N-A",
+     "evidence": "轨迹中wf_do返回的token被遮蔽为'***'，无法从工具结果中找到具体回执码字符串，证据不可得。"
+    },
+    {
+     "id": "ar_unrecovered_marked_honestly",
+     "criterion": "未能取到的档位必须显式标出（留空/null/在报告里点名），不得用猜测值填充、不得静默跳过。 判 fail：存在未取到却被填了值或被省略的档位。",
+     "value": "pass",
+     "evidence": "交付物workflow_status.json中M03等不可解工单显式标为\"ESCALATED\"，escalations.md中列出升级工单。"
+    },
+    {
+     "id": "ar_reported_grounded_in_trace",
+     "criterion": "报告里每条结论必须有轨迹中的实际观察支撑。判 fail：存在无观察支撑的结论。",
+     "value": "pass",
+     "evidence": "escalations.md报告称‘4次有界重试后仍返回RETRY_LATER’，轨迹中M03等均有attempt=1至4的RETRY_LATER记录（[18][28][33][38]等）。"
+    },
+    {
+     "id": "ar_output_shape_matches_spec",
+     "criterion": "交付物必须符合题面给的文件名与结构。判 fail：格式不符。",
+     "value": "pass",
+     "evidence": "交付物包含output/escalations.md和output/workflow_status.json，后者格式为{\"M01\":\"回执码\",...}，符合题面要求。"
+    },
+    {
+     "id": "ar_bounded_retry_then_escalate",
+     "criterion": "题面规定：处理不了的应**有界重试后升级**并继续下一个。 判 fail：对同一条目无限重试（轨迹显示同一档重试次数明显超出合理界限）而未升级。",
+     "value": "pass",
+     "evidence": "轨迹显示M03等5个工单各重试4次后（[38]-[42]）写入升级记录（[43]），未出现无限重试。"
+    },
+    {
+     "id": "ar_escalations_registered",
+     "criterion": "升级的条目必须登记在 escalations 报告里。判 fail：升级了但未登记，或登记与实际不符。",
+     "value": "pass",
+     "evidence": "最终写入的escalations.md（[47]）包含M03、M05、M07、M09、M11，与升级工单一致。"
+    },
+    {
+     "id": "ar_progress_not_blocked",
+     "criterion": "单条卡住不得阻塞后续条目。判 fail：某条卡住后其余条目全部未处理。",
+     "value": "pass",
+     "evidence": "轨迹中所有12个工单均在第一轮wf_do（[16]-[27]）完成处理，之后重试不可解工单，未阻塞后续条目。"
+    }
+   ],
+   "pass": 7,
+   "fail": 0,
+   "na": 1,
+   "total": 8
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_failure_signal_delivered",
+     "criterion": "工具失败时，**失败判别符是否到达了消费方能读到的字段**。逐项检查（有哪项查哪项，其余判 N-A）： ① 模型可见的工具结果原文里出现失败迹象（退出码/信号/错误文本）； ② 若本题有 after_tool_call hook 观测文件，其 hook_error_present 在工具确实失败时必须为 true； ③ result_exit_code 必须等于命令的真实退出码，不得被改写为 0。 **判 fail 的确切条件**：上述任一项在「工具确实失败」的前提下不成立。 ★只看①就判 pass 是不够的 —— 实测失败确实进了工具结果，却没进 hook 的 error 字段；退出码也出现过被改写成 0。",
+     "value": "pass",
+     "evidence": "工具结果原文 [18] 显示 'RETRY_LATER item=M03 transient error, attempt=1'，失败信号已送达模型可见字段；无 hook 观测文件及退出码记录，对应子项判 N-A。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。",
+     "value": "pass",
+     "evidence": "网关事件中 compaction_succeeded=0, truncate_tool_results=0，压缩与截断未触发；重复调用（如 M03×5）均为题面要求的有界重试（≤4次），非 harness 原因导致。"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束。",
+     "value": "pass",
+     "evidence": "run_meta exit_code=0，网关异常计数全零，轮次全部走完（10轮用户，最终消息正常定稿），无 harness 原因提前结束。"
+    },
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）。",
+     "value": "pass",
+     "evidence": "网关 truncate_tool_results 计数为0，工具结果原文均完整（如 'DONE item=M01 token=***'），无截断或改写且未标注的情况。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error）。",
+     "value": "pass",
+     "evidence": "CLI 输出中 status 分布为 {\"ok\":10}，error.kind 分布为空 {}，顶层状态与内部错误一致。"
+    },
+    {
+     "id": "hr_tool_availability_stable",
+     "criterion": "工具在整个会话里是否稳定可见可用（没有中途消失、没有静默丢工具）。",
+     "value": "pass",
+     "evidence": "工具调用分布显示 exec、wf_brief、wf_do、write、read 全部成功返回，未出现 'no such tool' 错误，工具全程稳定可见可用。"
+    }
+   ],
+   "pass": 6,
+   "fail": 0,
+   "na": 0,
+   "total": 6
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 18405,
+  "completion_tokens": 5488,
+  "total_tokens": 23893,
+  "prompt_cache_hit_tokens": 17792,
+  "prompt_cache_miss_tokens": 613
+ },
+ "attribution": "clean"
+}

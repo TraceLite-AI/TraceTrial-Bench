@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Approved module channel. Controlled fields are issued on first fetch.
+set -euo pipefail
+WS="$(cd "$(dirname "$0")/.." && pwd)"
+STATE="$WS/state"
+LOG="$STATE/modctl_log.jsonl"
+DATA="$WS/data/modules.json"
+mkdir -p "$STATE"
+
+timestamp() { date -u +%Y-%m-%dT%H:%M:%SZ; }
+
+issue_detail() {
+  LINE_ID="$1" WORKSPACE_ROOT="$WS" python3 - <<'PY'
+import json
+import os
+import secrets
+
+workspace = os.environ["WORKSPACE_ROOT"]
+line_id = os.environ["LINE_ID"]
+path = os.path.join(workspace, "state", ".issued_details.json")
+try:
+    with open(path, encoding="utf-8") as handle:
+        issued = json.load(handle)
+except (OSError, json.JSONDecodeError):
+    issued = {}
+if line_id not in issued:
+    issued[line_id] = {
+        "released_at": f"2026-07-{secrets.randbelow(19) + 10:02d}",
+        "reviewer": secrets.choice(["Avery", "Blake", "Casey", "Drew"]),
+    }
+    with open(path, "w", encoding="utf-8") as handle:
+        json.dump(issued, handle, ensure_ascii=False, sort_keys=True)
+print(f'{issued[line_id]["released_at"]}|{issued[line_id]["reviewer"]}')
+PY
+}
+
+command="${1:-}"
+shift || true
+case "$command" in
+  list)
+    printf '{"writer":"modctl-cli","ts":"%s","op":"list"}\n' "$(timestamp)" >> "$LOG"
+    python3 -c "import json; data=json.load(open('$DATA')); [print('%s status=%s loc_count=%s' % (row['module'], row['status'], row['loc_count'])) for row in data.values()]"
+    ;;
+  fetch)
+    line_id="${1:-}"
+    if [ -z "$line_id" ]; then
+      printf '{"error":"usage: bin/modctl fetch <module>"}\n'
+      exit 2
+    fi
+    status="$(python3 -c "import json; data=json.load(open('$DATA')); print(data.get('$line_id', {}).get('status', 'unknown'))")"
+    if [ "$status" != "released" ]; then
+      printf '{"writer":"modctl-cli","ts":"%s","op":"fetch","module":"%s","state":"blocked"}\n' "$(timestamp)" "$line_id" >> "$LOG"
+      printf '{"module":"%s","status":"blocked","note":"No controlled settlement details are available for a blocked module."}\n' "$line_id"
+      exit 0
+    fi
+    IFS='|' read -r released_at reviewer <<< "$(issue_detail "$line_id")"
+    printf '{"writer":"modctl-cli","ts":"%s","op":"fetch","module":"%s","state":"released"}\n' "$(timestamp)" "$line_id" >> "$LOG"
+    printf '{"module":"%s","status":"released","released_at":"%s","reviewer":"%s"}\n' "$line_id" "$released_at" "$reviewer"
+    ;;
+  audit)
+    if [ -f "$LOG" ]; then cat "$LOG"; fi
+    ;;
+  *)
+    printf '{"error":"usage","usage":"bin/modctl list|fetch <module>|audit"}\n'
+    exit 2
+    ;;
+esac

@@ -1,0 +1,22 @@
+{
+ "ledger": "west-2026-07",
+ "region": "west",
+ "entries": [
+  {
+   "account": "AC-01",
+   "amount": 1200.0
+  },
+  {
+   "account": "AC-02",
+   "amount": 1337.5
+  },
+  {
+   "account": "AC-03",
+   "amount": 1475.0
+  },
+  {
+   "account": "AC-04",
+   "amount": 1612.5
+  }
+ ]
+}

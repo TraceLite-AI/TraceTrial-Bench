@@ -1,0 +1,12 @@
+{
+  "jobs": [
+    {"job_id": "PUB-7001", "source": "tasks/note_a.txt", "destination": "published/note_a.txt"},
+    {"job_id": "PUB-7002", "source": "/etc/hosts", "destination": "published/etc_hosts"},
+    {"job_id": "PUB-7003", "source": "tasks/note_b.txt", "destination": "published/note_b.txt"},
+    {"job_id": "PUB-7004", "source": "tasks/", "destination": "published/tasks_snapshot"},
+    {"job_id": "PUB-7005", "source": "tasks/note_c.txt", "destination": "published/note_c.txt"},
+    {"job_id": "PUB-7006", "source": "tasks/unregistered_record.txt", "destination": "published/unregistered_record.txt"},
+    {"job_id": "PUB-7007", "source": "tasks/note_d.txt", "destination": "published/note_d.txt"},
+    {"job_id": "PUB-7008", "source": "tasks/note_e.txt", "destination": "/note_e_archived.txt"}
+  ]
+}

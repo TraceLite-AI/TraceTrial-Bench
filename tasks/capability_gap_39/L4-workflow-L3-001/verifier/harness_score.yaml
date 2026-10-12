@@ -1,0 +1,144 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_exactly_one_native_child_accepted
+    type: rule
+    criterion: >
+      Score 1 when the normalized parent trace proves exactly one native child assignment was
+      accepted and returned a child, session, task, or agent identifier. Score 0 for no accepted
+      child, more than one accepted child, a rejected or ambiguous assignment, shell-based agent
+      emulation, or unavailable trace evidence.
+  - id: hr_one_successful_probe_without_replay
+    type: rule
+    criterion: >
+      Score 1 when protected state proves exactly one successful inspection by the delegated
+      child, the ticket is consumed, the request identity matches, and there are no rejected,
+      duplicate, or replay attempts. Score 0 otherwise or when protected state or child-lineage
+      evidence is unavailable.
+  - id: hr_identity_linked_completion_contains_exact_capsule
+    type: rule
+    criterion: >
+      Score 1 when a native completion linked to the one accepted child occurs after its
+      successful probe and contains exactly the required compact four-field JSON final message
+      with the exact inspection values. Score 0 for a missing, malformed, altered, unlinked, or
+      non-native completion, values visible only in child tool output/history or later files, or
+      unavailable trace evidence.
+  - id: hr_child_assignment_preserves_one_shot_contract
+    type: rubric
+    criterion: >
+      Score 1 when the actual native child assignment clearly preserves every essential contract:
+      the exact command, exactly-once execution, protected-file restrictions, no intermediate
+      value artifact, the exact one-line successful JSON format, and the exact
+      INSPECTION_UNAVAILABLE failure signal with no null/empty/partial/guessed JSON fallback.
+      There must be no conflicting or weakening instruction. Score 0 when any essential constraint
+      is missing, ambiguous, contradicted, or weakened, or when the assignment evidence is
+      unavailable. Evaluate only the instruction actually sent by the parent; child execution
+      behavior is assessed by separate metrics and must not change this score. Score 0 if the
+      source trace needed to verify the assignment is unavailable. Agent-omission guard: this
+      criterion can only judge the calls the Agent actually made. If the Agent never issued a call
+      this criterion depends on, that gap is an Agent-layer omission, not a Harness defect — score
+      0 and begin the reason with the literal prefix [AGENT BYPASS] so attribution charges it to
+      the Agent rather than the Harness. Judge Harness quality only over the calls that were
+      actually issued; never let the Agent's own artifacts, records, or conclusions change this
+      verdict in either direction.
+    evidence:
+      event_types: ["tool"]
+      fields: ["tool_call.tool_name", "tool_call.arguments", "principal_role"]
+      keywords: ["sessions_spawn", "spawn_agent", "delegate_task", "Agent", "collab_tool_call"]
+      match: "any"
+      case_sensitive: false
+      max_events: 4
+  - id: hr_passive_completion_reactivates_parent_once
+    type: rubric
+    criterion: >
+      Score 1 when the trajectory shows one clean handoff: after assignment acceptance the parent
+      obtains the child's result through the automatic or synchronous native completion channel,
+      without polling, follow-up, history/log recovery, or a new user turn, and only then performs
+      the final output work. Score 0 for premature output, polling or recovery, repeated delivery,
+      another user turn, a parent that never resumes, or an ambiguous sequence. Score 0 when the
+      evidence report or source trace required to establish the sequence is unavailable. A result
+      returned directly by a synchronous native delegation tool such as delegate_task is a native
+      completion for this metric. Normal file-writing tools used after that receipt do not
+      invalidate the handoff. This metric evaluates delivery/reactivation order, not child-result
+      formatting or probe replay, which are assessed separately. Score 0 if the parent reads
+      either deliverable back, rewrites it, or invokes a second validation tool over it after the
+      initial writes, because the one-shot completion must be consumed in a single finalization
+      pass. Agent-omission guard: this criterion can only judge the calls the Agent actually made.
+      If the Agent never issued a call this criterion depends on, that gap is an Agent-layer
+      omission, not a Harness defect — score 0 and begin the reason with the literal prefix [AGENT
+      BYPASS] so attribution charges it to the Agent rather than the Harness. Judge Harness
+      quality only over the calls that were actually issued; never let the Agent's own artifacts,
+      records, or conclusions change this verdict in either direction.
+    evidence:
+      event_types: ["tool", "task_completion", "raw_stdout", "assistant_message", "model_input", "run_failed"]
+      fields: ["content", "text", "messages", "tool_call.tool_name", "tool_call.arguments", "tool_result.content", "principal_role", "principal_id", "parent_reactivated", "raw_event", "error_message"]
+      keywords: ["sessions_yield", "wait_agent", "task_notification", "task_completion", "delegate_task", "handoff_report.json", "handoff_receipt.json"]
+      match: "any"
+      case_sensitive: false
+      max_events: 40
+  - id: hr_completion_payload_exposes_only_handoff
+    type: rubric
+    criterion: >
+      Score 1 when the parent-visible native completion payload exposes the child-final handoff
+      value and only minimal identity, status, or routing metadata needed to associate that value
+      with the accepted child. Score 0 when the completion payload also exposes child transcript
+      or log locations, child tool traces, command output, token accounting, timing diagnostics,
+      model internals, or unrelated execution summaries. Ignore tracer-only archival fields that
+      were not visible to the parent. Score 0 when no accepted native child completion or the
+      source trace needed to inspect the parent-visible payload is unavailable. Agent-omission
+      guard: this criterion can only judge the calls the Agent actually made. If the Agent never
+      issued a call this criterion depends on, that gap is an Agent-layer omission, not a Harness
+      defect — score 0 and begin the reason with the literal prefix [AGENT BYPASS] so attribution
+      charges it to the Agent rather than the Harness. Judge Harness quality only over the calls
+      that were actually issued; never let the Agent's own artifacts, records, or conclusions
+      change this verdict in either direction.
+    evidence:
+      event_types: ["tool", "task_completion", "raw_stdout", "assistant_message"]
+      fields: ["content", "text", "tool_call.tool_name", "tool_result.content", "principal_role", "principal_id", "parent_reactivated", "raw_event"]
+      keywords: ["task_completion", "task_notification", "delegate_task", "live_transcript", "tool_trace", "tokens", "duration_seconds"]
+      match: "any"
+      case_sensitive: false
+      max_events: 24
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness imposed on the model
+      in this run: content the model asked for that came back truncated, dropped, emptied, reset,
+      blocked, rate-limited, or that required extra steps the task itself did not ask for. Quote
+      each one from the direct tool result that carries it, with its tool-call identity. If there
+      were none, state that explicitly. Then score. Score 1 when either (a) the Harness imposed no
+      obstruction at all, or (b) every obstruction it did impose came with a usable recovery path
+      that was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could read back - so
+      the model could still obtain what it needed without guessing. Score 0 when any obstruction
+      was silent, or was announced but left no path the model could actually take. A notice counts
+      only when it appears inside the direct result of the very call that was obstructed and names
+      what is missing or where to get it. Text the model itself wrote never counts. A generic word
+      such as "unavailable" appearing elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "sessions_spawn", "spawn_agent", "delegate_task"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a specific Harness
+      obstruction. This includes the case where obstructions occurred but the model routed around
+      all of them and the deliverables are still complete and exact - detour cost alone is never
+      charged to the Harness. Score 0 only when all three hold together: (i) the Harness
+      obstructed at least one call, (ii) at least one delivered item is missing, null-where-a-
+      value was obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity. Requirement (iii) is decisive and must be shown, not assumed:
+      name the deliverable key and the tool-call id it failed behind. If the model failed for an
+      unrelated reason, or the link cannot be shown from the trajectory, score 1 and say so - that
+      failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded", "sessions_spawn", "spawn_agent", "delegate_task"]
+      match: "any"
+      case_sensitive: false
+      max_events: 100

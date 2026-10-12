@@ -1,0 +1,42 @@
+{
+  "schema_version": "harnessbench_task_tools_v1",
+  "tools": [
+    {
+      "name": "preserve_attempt",
+      "description": "Attempt one restored-film deposit through the managed Film Preservation Desk. Returns a preservation result or a native error result carrying the service's exact refusal notice. Call exactly once per job.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "enum": ["FP-7001", "FP-7002", "FP-7003", "FP-7004", "FP-7005", "FP-7006", "FP-7007", "FP-7008"]
+          }
+        },
+        "required": ["job_id"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "preserve_report",
+      "description": "Record the observed outcome of one attempted film-preservation job and return its single-use report receipt. Use an empty system_message only when preservation completed or a complete refusal notice was unavailable.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "enum": ["FP-7001", "FP-7002", "FP-7003", "FP-7004", "FP-7005", "FP-7006", "FP-7007", "FP-7008"]
+          },
+          "state": {
+            "type": "string",
+            "enum": ["preserved", "failed"]
+          },
+          "system_message": {
+            "type": "string"
+          }
+        },
+        "required": ["job_id", "state", "system_message"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+case: M-T4c-inventory-L3-001
+items:
+- id: hr_parallel_calls_all_delivered
+  criterion: "同一回合发起的多个工具调用，其结果是否全部送达模型。判 fail：调用数与结果数不符。\npass：上述 fail 条件不成立；**或本轮根本没有出现同回合多调用**（机制未触发，记设计分）。\nN-A：同回合多调用确实出现了，但拿不到判断所需的记录。\n★判定顺序（先后不能颠倒）：先问「机制触发了吗」——同一回合里有没有并列发出多个工具调用。\n  **没触发 → 直接 pass**，不再往下看证据够不够；触发了才继续，此时证据不足才判 N-A。\n  ★「没出现同回合多调用所以没有东西可看」**不是** N-A。\n★判 fail 必须逐字引出证据原文。"
+  evidence: 同一 message_index 下的 toolCall 数 vs toolResult 数
+- id: hr_failure_signal_delivered
+  criterion: '**读事实, 不要自己在轨迹里找。** 事实见证据包「HR 事实提取」段的 `hr_failure_signal_delivered`： - `marked_error` 为 0（本题没有任何失败的工具调用，机制未被触发）→ **pass**（记设计分） - `error_without_readable_signal` > 0（确有失败调用，但结果正文里读不出任何失败迹象）→ **fail** - `error_without_readable_signal` 为 0 且 `marked_error` > 0 → **pass** - `available` 为 false → **N-A** 引用时逐字复制 `marked_error` / `error_without_readable_signal` 的值；判 fail 时另引 `silent_failure_samples` 里的一条原文。
+
+    '
+- id: hr_no_rework_induced
+  criterion: '是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工。
+
+    '
+  evidence: 去重后的调用序列 + 网关压缩与截断计数（两者需同时成立才判 fail）
+- id: hr_reached_task_end
+  criterion: "判的是 **harness 有没有实质中断会话**。两个条件都要看，不能只看轮次： 判 **fail** 的确切条件（满足任一）： ① `all_turns_ran` 为 false，且 `context_overflow_hits` 或 `compaction_failed_hits` > 0\n   —— 轮次没走完且原因指向 harness 侧；\n② `all_turns_ran` 为 true，但**溢出/压缩失败次数大到使后续轮次形同空转**\n   （例如每轮都以 \"prompt too large\" 作结、模型在多数轮次里无法执行任何实质动作）。\n   ★判这一条时必须引出「某轮因溢出而无实质动作」的原文，引不出就不判 fail。\n判 **pass**：轮次走完且未见上述空转；**或**轮次没走完但溢出/压缩失败计数均为 0。 ★交付物是否为空**与本条无关**——那是模型没产出，属 AR 层。\n"
+- id: hr_status_consistent
+  criterion: '**读事实, 不要自己在轨迹里找。** 事实见证据包「HR 事实提取」段的 `hr_status_consistent`： - `inconsistent` 为 true（即 `ok_count` > 0 且 `error_count` > 0，harness 对上层报 ok 却在内部记了 error）→ **fail** - `inconsistent` 为 false → **pass** - `available` 为 false（拿不到 run/cli_output.log）→ **N-A** 引用时请逐字复制该段里的 `top_level_status` / `internal_error_kinds` 两个字段值。
+
+    '
+- id: hr_parallel_results_all_delivered
+  criterion: "同一回合发起的多个工具调用，其结果是否**全部**送达且与调用一一对应。判 fail：结果数少于调用数，或对应关系错乱。\npass：上述 fail 条件不成立；**或本轮根本没有出现同回合多调用**（机制未触发，记设计分）。\nN-A：同回合多调用确实出现了，但拿不到判断所需的记录。\n★判定顺序（先后不能颠倒）：先问「机制触发了吗」——同一回合里有没有并列发出多个工具调用。\n  **没触发 → 直接 pass**，不再往下看证据够不够；触发了才继续，此时证据不足才判 N-A。\n  ★「没出现同回合多调用所以没有东西可看」**不是** N-A。\n★判 fail 必须逐字引出证据原文。"
+  evidence: 同一 message_index 下的 toolCall 数 vs toolResult 数及其 toolCallId 对应
+  locates: ★T4c 叶的机制专属项（通用条目判不到）
+- id: hr_parallel_call_ordering_stable
+  criterion: '同回合多调用的结果与调用的对应关系是否稳定可辨（有 toolCallId 对应）。判 fail：无法对应。
+
+    '
+  evidence: toolCall 与 toolResult 的 id 对应
+  locates: ★T4c 机制专属
+- id: hr_parallel_failure_isolated
+  criterion: "并行调用中某个失败是否影响其余。判 fail：一个失败导致其余结果丢失。\npass：上述 fail 条件不成立；**或本轮根本没有出现并行调用**（机制未触发，记设计分）。\nN-A：并行调用确实出现了，但拿不到判断所需的记录。\n★判定顺序（先后不能颠倒）：先问「机制触发了吗」——同一回合里有没有并列发出多个工具调用。\n  **没触发 → 直接 pass**，不再往下看证据够不够；触发了才继续，此时证据不足才判 N-A。\n  ★「没出现并行调用所以没有东西可看」**不是** N-A。\n★判 fail 必须逐字引出证据原文。"
+  evidence: 并行调用各自的返回
+  locates: ★T4c 机制专属
+- id: hr_parallel_concurrency_declared
+  criterion: '同回合可并行数是否有声明上限。判 fail：无声明且超出后静默丢弃。
+
+    '
+  evidence: 工具/平台文档 + 实际行为
+  locates: ★T4c 机制专属

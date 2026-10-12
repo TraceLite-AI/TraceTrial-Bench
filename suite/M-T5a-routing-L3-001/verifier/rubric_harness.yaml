@@ -1,0 +1,58 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: rt_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: T5a
+    dim: procedural
+    layer: HR
+    criterion: "12 个业务待办是否**全部**经 `rt` 工具通道真正恢复（12 个意图一次路由正确的比例（路由精度曲线））"
+  - id: rt_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: T5a
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的业务待办（rank>50%）是否全部经通道恢复（后半段（上下文被 36 个 skill 描述占据后）的正确比例）"
+  - id: rt_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: T1e
+    dim: procedural
+    layer: HR
+    criterion: "`rt_submit` 回执是否全部经工具通道送达模型"
+  - id: rt_no_hard_wall
+    kind: gate
+    core: false
+    axis: T5a
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某业务待办难度之后全部不可达的硬墙
+  - id: rt_failure_observable
+    kind: gate
+    core: false
+    axis: T5a
+    dim: procedural
+    layer: HR
+    criterion: 业务待办失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: rt_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: T5d
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `rt` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_routing_economy
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: T5a
+    dim: procedural
+    layer: HR
+    criterion: 平均尝试 ≤2 个 skill 的条目比例（未靠试遍）

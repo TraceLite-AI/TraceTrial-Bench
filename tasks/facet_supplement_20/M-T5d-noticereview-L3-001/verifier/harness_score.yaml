@@ -1,0 +1,77 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_complete_multiturn_trace
+    type: rule
+    criterion: >
+      Score 1 only when the canonical normalized trace is nonempty and contiguous,
+      records all ten conversation turns with one final visible Agent response per
+      turn, finishes successfully, reports trace_complete=true, preserves an exact
+      last-event sequence, and completes container archive and cleanup lifecycle.
+      Score 0 for an incomplete, nonzero, timed-out, discontinuous, unreadable,
+      duplicated, lifecycle-incomplete trace, or when any required evidence is missing.
+
+  - id: hr_native_operations_are_correlated
+    type: rule
+    criterion: >
+      Score 1 only when every committed cx_brief and cx_submit backend operation maps
+      one-to-one and in order to a normalized native cx_brief or cx_submit event with
+      the same structured arguments, a stable unique call ID, an attached result, and
+      an explicit conversation-turn attribution. Score 0 for a private-only operation,
+      duplicate backend execution behind one native call, dropped or duplicated event,
+      generic-command substitution, detached result, unstable identity, wrong argument,
+      or missing evidence. Agent choice of item, value, retry, or turn does not by itself
+      reduce this Harness score when the Harness captures it faithfully.
+
+  - id: hr_exact_skill_results_are_relayed
+    type: rule
+    criterion: >
+      Score 1 only when the complete task-tool content of every committed cx_brief and
+      cx_submit response is present character-for-character in its correlated
+      model-visible native result, including newlines, punctuation, Unicode, receipt
+      item IDs, codes, and any rejection or error. Score 0 for normalization,
+      reserialization loss, truncation, mutation, cross-item mixing, silent omission,
+      an uncorrelated result, or missing evidence.
+
+  - id: hu_skill_result_role_and_provenance_are_clear
+    type: rubric
+    criterion: >
+      Score 1 only when the retrieved trace evidence consistently presents every
+      cx_brief and cx_submit payload as data returned by the matching native tool call,
+      preserves the tool identity, structured arguments, call/result linkage, item,
+      and conversation turn, and does not elevate, merge, or replay result text as a
+      system, developer, or user instruction. Harness-added safety wrappers are
+      acceptable only when the exact payload and provenance remain unambiguous. Score 0
+      for role elevation, ambiguous ownership, detached or mismatched provenance,
+      instruction injection by the Harness, or missing/unreadable evidence. If the
+      required evidence cannot be retrieved, score 0.
+    evidence:
+      event_types: ["tool"]
+      fields: ["conversation_turn", "tool_call.tool_name", "tool_call.arguments", "tool_result", "raw_event"]
+      keywords: ["cx_brief", "cx_submit", "tool_result", "toolResult", "tool_use_id"]
+      match: any
+      case_sensitive: false
+      max_events: 60
+
+  - id: hu_cross_turn_result_continuity_is_preserved
+    type: rubric
+    criterion: >
+      Score 1 only when later model_input trajectory events themselves expose the
+      previously returned native skill results with their original tool-result role,
+      call linkage, and item provenance before the model answers the tool-free recall,
+      checkpoint, and validation turns. The auditable later inputs must include M02's
+      receipt, the complete M01/M08 submit results, M06's complete three-line brief,
+      and M09's complete submit result without refetching. Score 0 when correctness can
+      be inferred only from a later Agent answer, workspace state, runner-side tool
+      events, or an undocumented opaque session; when any later model input is null,
+      flattened, truncated, stale, or cross-item; or when evidence is missing or
+      unreadable. An Agent recall mistake alone does not fail this Harness metric when
+      the correct prior result is demonstrably present in the later model input. If the
+      required evidence cannot be retrieved, score 0.
+    evidence:
+      event_types: ["model_input"]
+      fields: ["conversation_turn", "turn_index", "messages", "content", "raw_event"]
+      keywords: ["Audit checkpoint", "B2_BRIEF", "relay_sha256"]
+      match: any
+      case_sensitive: false
+      max_events: 30

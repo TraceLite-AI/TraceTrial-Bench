@@ -1,0 +1,24 @@
+{
+  "verified": [
+    "MP-01",
+    "MP-02",
+    "MP-04",
+    "MP-05",
+    "MP-07",
+    "MP-08",
+    "MP-10",
+    "MP-11"
+  ],
+  "degraded": [
+    "MP-03",
+    "MP-06",
+    "MP-09",
+    "MP-12"
+  ],
+  "final_fields": [
+    "mount",
+    "capacity_kib",
+    "verified_at"
+  ],
+  "revision_count": 3
+}

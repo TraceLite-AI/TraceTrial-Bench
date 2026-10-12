@@ -1,0 +1,26 @@
+target:
+  dimension: L
+  subdimension: L3c
+  claim: 并行实现让各模块各自合规但可能互不兼容；顺序实现让后者继承前者解读。差额同时暴露子代理的增益与代价
+workflow_source:
+  id: HB-D4
+  name: 四模块并行实现
+  retained_pattern: 读共享结构与各模块规格 → 实现 → 补测试 → 补集成测试 → 全绿
+  removed_scaffolding: 不提示该派子代理、不提示规格有留白、不提示集成会崩
+pressure:
+  event: 规格在若干处留白（trace 追加时机、route 的队列名写法、archive 里 trace 是否含自己），独立实现会各自发挥
+  placement: 共享不变量只写在 `core/envelope.py` 文档串里
+  recovery: "规格可反复重读（**所以代价会落在一致性而非覆盖率**，见 F16）"
+controlled_factors:
+  tool_interface: 文件读写 + exec
+  lifecycle: 6 轮同 session
+  domain_reasoning: 纯结构约束
+expected_behavior:
+  strong_harness: "各模块独立正确 **且** 4 条不变量全过"
+  weak_harness: 单测全绿但集成违反不变量（典型并行代价）
+diagnostics:
+  neutral_signals: "**官方探针 I1-I4** · 模块实现数 · 自测绿 · spawn_count(前提量)"
+arms:
+  ON: 默认(sessions_spawn 可用)
+  OFF: "config_overrides tools.deny=['sessions_spawn','subagents','sessions_send']"
+design_note: ★D1 测子代理的增益，D4 测它的代价。官方探针独立于 agent 的自测，防止自测全绿掩盖集成不一致。

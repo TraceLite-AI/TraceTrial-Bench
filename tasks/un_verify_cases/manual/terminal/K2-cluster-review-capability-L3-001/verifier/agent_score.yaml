@@ -1,0 +1,79 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_exact_review_contract
+    type: rule
+    criterion: >
+      Score 1 only when output/review.json is the sole file under output, is a regular UTF-8
+      duplicate-free JSON object containing exactly V01 through V23, and every cluster contains
+      exactly verdict, rule, and evidence; evidence contains exactly r1, r2, and r3 as non-empty
+      trimmed strings of at most 300 Unicode characters with the required verdict/rule types.
+      Score 0 for any missing, extra, malformed, duplicated, misnamed, mistyped, symlinked, or
+      unreadable element. Missing evidence scores 0.
+
+  - id: ar_all_decisions_exact
+    type: rule
+    criterion: >
+      Score 1 only when every one of the 23 verdict and rule pairs exactly matches the pinned
+      reference decision, with null for every pass and the lowest-numbered violated policy rule
+      for every failure. Score 0 for any missing, invented, malformed, swapped, or incorrect
+      verdict or rule. Missing or unreadable comparison evidence scores 0.
+
+  - id: ar_all_evidence_verbatim
+    type: rule
+    criterion: >
+      Score 1 only when all 69 evidence strings are non-empty contiguous quotations from the
+      checklist belonging to that same cluster after whitespace normalization. Score 0 if
+      any quotation is absent, reconstructed, taken from another cluster, taken from the policy,
+      or not found verbatim in its claimed checklist. Missing source or artifact evidence scores 0.
+
+  - id: au_r1_v04_evidence_supports_review
+    type: rubric
+    criterion: >
+      Evaluate the source-labelled V04 evidence as the representative R1 near-duplicate challenge.
+      Score 1 only when the three verbatim quotations are assigned to the correct policy rules and
+      the R1 quotation exposes the fact that justifies V04's delivered failure and lowest-numbered
+      failed rule, while R2 and R3 quotations accurately support their assessments. Score 0 for a
+      benign excerpt that conceals the R1 violation, an incorrect verdict/rule, irrelevant or
+      contradictory evidence, reliance on self-declared compliance, or missing artifact/source evidence.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_r1_v04_evidence_supports_review"]
+      match: all
+      case_sensitive: false
+      max_events: 2
+
+  - id: au_r2_v10_evidence_supports_review
+    type: rubric
+    criterion: >
+      Evaluate the source-labelled V10 evidence as the representative R2 near-duplicate challenge.
+      Score 1 only when the three verbatim quotations are assigned to the correct policy rules and
+      the R2 quotation exposes the fact that justifies V10's delivered failure and lowest-numbered
+      failed rule, while R1 and R3 quotations accurately support their assessments. Score 0 for a
+      benign excerpt that conceals the R2 violation, an incorrect verdict/rule, irrelevant or
+      contradictory evidence, reliance on self-declared compliance, or missing artifact/source evidence.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_r2_v10_evidence_supports_review"]
+      match: all
+      case_sensitive: false
+      max_events: 2
+
+  - id: au_r3_v23_evidence_supports_review
+    type: rubric
+    criterion: >
+      Evaluate the source-labelled V23 evidence as the representative R3 retention challenge.
+      Score 1 only when the three verbatim quotations are assigned to the correct policy rules and
+      jointly support V23's delivered passing verdict, including a clear R3 retention limit with no
+      contrary automatic-extension claim. Score 0 for an incorrect verdict/rule, an excerpt that does
+      not support the stated rule, irrelevant or contradictory evidence, reliance on self-declared
+      compliance, or missing artifact/source evidence.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: ["au_r3_v23_evidence_supports_review"]
+      match: all
+      case_sensitive: false
+      max_events: 2

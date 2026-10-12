@@ -1,0 +1,48 @@
+id: L3d-pending-child-at-exit-terminal-001
+title: "Pending child at parent-process exit"
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: Sub-agent Lifecycle
+  secondary_subscenarios:
+    - Process exit semantics
+    - Pending-child drain
+    - Honest non-completion signaling
+harness:
+  dimension: L
+  subdimension: L3d
+  subdimension_name: Pending child at exit
+intensity:
+  level: L3
+  description: A delayed native child must remain pending across one explicit parent-invocation return boundary, then be identity-correlated and drained by pushed completion or explicitly reported as unresolved.
+budget:
+  max_turns: 12
+  max_tool_calls: 24
+  max_wall_time_sec: 240
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  - workspace/out/child_report.json
+  - workspace/out/final_status.json
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_child_delegation_v1, native_child_lifecycle_observation_v1, native_async_child_dispatch_v1, native_child_return_boundary_v1, native_pushed_child_completion_v1]
+rebuilt_from:
+  case: L3d-pending-child-at-exit-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same single-turn shape, the same one asynchronous child
+    dispatch followed by exactly one yield across the parent exit boundary, the same 60-second
+    child delay with the same durable started/completed lifecycle probe, the same private
+    nonce plus computed-total pair that the coordinator may not recover from files, the same
+    two-field child report and four-field final status with the same completed/pending
+    branches, the same budget triple, both score rubrics, and score.py rule logic.
+    Only the skin changes: the delegated work becomes a snapshot-integrity verification (tools/run_snapshot_verify.sh over input/snapshot_index.csv) and the child is named snapshot-verifier."

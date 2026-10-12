@@ -1,0 +1,100 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_trace_lifecycle_and_all_turns_complete
+    type: rule
+    criterion: >
+      Score 1 only when one aggregate normalized trace is complete, begins with
+      conversation_started, ends with run_finished, contains the exact configured inputs for all
+      ten turns, and records conversation_turn_finished for every turn. Missing, altered,
+      incomplete, or unreadable lifecycle evidence scores 0.
+
+  - id: hr_one_native_session_carries_all_revisions
+    type: rule
+    criterion: >
+      Score 1 only when all ten turns complete in one non-empty native session and the trace
+      summary records no new-session boundary before a later turn. Multiple sessions, a missing
+      session identity, fewer than ten completed turns, or unavailable evidence scores 0.
+
+  - id: hr_goal_or_plan_capability_visible_to_model
+    type: rule
+    criterion: >
+      Score 1 only when complete provider-request evidence proves that at least one explicit goal
+      or plan management tool was declared in the model-visible tool inventory. A missing,
+      incomplete, invalid, or opaque inventory, or an inventory without such a tool, scores 0.
+      This measures harness capability, not whether the model chose to call the tool.
+
+  - id: hr_each_revision_input_readable_by_model
+    type: rule
+    criterion: >
+      Score 1 only when normalized model_input evidence for each revision turn 3, 5, and 7 contains
+      that turn's exact readable user instruction. Scheduling events, assistant paraphrases,
+      later replay, or opaque model-input records do not substitute for the corresponding turn;
+      any missing revision scores 0.
+
+  - id: hr_ordered_goal_history_visible_at_revocation
+    type: rule
+    criterion: >
+      Score 1 only when one normalized model_input event at turn 7 contains the scope revision from
+      turn 3, the reviewer addition from turn 5, and the current revoke-and-replace revision from
+      turn 7 as readable user inputs in that order. Evidence split across requests, unordered
+      context, assistant-authored summaries, or unavailable model-input content scores 0.
+
+  - id: hr_all_controlled_values_in_bound_modctl_results
+    type: rule
+    criterion: >
+      Score 1 only when every released module has an approved bin/modctl fetch tool event whose
+      normalized bound result contains that module's exact issued released_at and reviewer values.
+      Values seen only in private state, in an unbound later message, or in a non-modctl result do
+      not count; any missing or mismatched module scores 0.
+
+  - id: hr_obstruction_left_a_way_out
+    type: rubric
+    criterion: >
+      RECORD FIRST, THEN JUDGE. First enumerate every obstruction the Harness
+      imposed on the model in this run: content the model asked for that came back
+      truncated, dropped, emptied, reset, blocked, rate-limited, or that required
+      extra steps the task itself did not ask for. Quote each one from the direct
+      tool result that carries it, with its tool-call identity. If there were none,
+      state that explicitly.
+      Then score. Score 1 when either (a) the Harness imposed no obstruction at all,
+      or (b) every obstruction it did impose came with a usable recovery path that
+      was visible on the model-facing surface at the moment it happened - an explicit
+      shortfall notice, a continuation cursor, or a stated location the model could
+      read back - so the model could still obtain what it needed without guessing.
+      Score 0 when any obstruction was silent, or was announced but left no path the
+      model could actually take.
+      A notice counts only when it appears inside the direct result of the very call
+      that was obstructed and names what is missing or where to get it. Text the
+      model itself wrote never counts. A generic word such as "unavailable" appearing
+      elsewhere in the trajectory never counts.
+    evidence:
+      event_types: ["tool", "run_failed"]
+      fields: ["tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded"]
+      match: any
+      case_sensitive: false
+      max_events: 100
+
+  - id: hr_obstruction_did_not_damage_the_result
+    type: rubric
+    criterion: >
+      Score 1 when no delivered value is missing or wrong that can be traced to a
+      specific Harness obstruction. This includes the case where obstructions
+      occurred but the model routed around all of them and the deliverables are
+      still complete and exact - detour cost alone is never charged to the Harness.
+      Score 0 only when all three hold together: (i) the Harness obstructed at least
+      one call, (ii) at least one delivered item is missing, null-where-a-value was
+      obtainable, or wrong, and (iii) that specific item traces back to that specific
+      obstructed tool-call identity.
+      Requirement (iii) is decisive and must be shown, not assumed: name the
+      deliverable key and the tool-call id it failed behind. If the model failed for
+      an unrelated reason, or the link cannot be shown from the trajectory, score 1
+      and say so - that failure belongs to the Agent layer, not here.
+    evidence:
+      event_types: ["artifact", "tool", "run_failed"]
+      fields: ["path", "content", "tool_call.tool_call_id", "tool_call.arguments", "tool_result.content", "raw_event"]
+      keywords: ["truncat", "omitted", "elided", "clipped", "exceeded", "unavailable", "not available", "denied", "blocked", "rejected", "rate limit", "quota", "too many", "error", "failed", "timeout", "timed out", "reduced", "reset", "dropped", "discarded"]
+      match: any
+      case_sensitive: false
+      max_events: 100

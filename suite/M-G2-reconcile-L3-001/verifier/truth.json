@@ -1,0 +1,74 @@
+{
+ "M01": {
+  "rank": 8.3,
+  "code": "118325E0",
+  "label": "导出本月应收账龄",
+  "expect": "F19A358A"
+ },
+ "M02": {
+  "rank": 16.7,
+  "code": "0CDD34CD",
+  "label": "核对逾期客户数",
+  "expect": "7841F00F"
+ },
+ "M03": {
+  "rank": 25.0,
+  "code": "DBBC0F87",
+  "label": "计提坏账准备",
+  "expect": "4BFDAE98"
+ },
+ "M04": {
+  "rank": 33.3,
+  "code": "11C6C80E",
+  "label": "生成对账临时表",
+  "expect": "7EF5F3D6"
+ },
+ "M05": {
+  "rank": 41.7,
+  "code": "09787D06",
+  "label": "汇总各账期金额",
+  "expect": "9682B92F"
+ },
+ "M06": {
+  "rank": 50.0,
+  "code": "1C5C1632",
+  "label": "回填对账结果",
+  "expect": "14B56B7F"
+ },
+ "M07": {
+  "rank": 58.3,
+  "code": "E07C0FE4",
+  "label": "导出差异明细",
+  "expect": "B9401EDE"
+ },
+ "M08": {
+  "rank": 66.7,
+  "code": "ECBA66EC",
+  "label": "锁定本期账",
+  "expect": "6E2AC585"
+ },
+ "M09": {
+  "rank": 75.0,
+  "code": "BEAF8143",
+  "label": "生成审计快照",
+  "expect": "7D761657"
+ },
+ "M10": {
+  "rank": 83.3,
+  "code": "1BD48013",
+  "label": "校验快照行数",
+  "expect": "03A1D587"
+ },
+ "M11": {
+  "rank": 91.7,
+  "code": "98AD92B9",
+  "label": "清理临时表",
+  "expect": "E8585ED0"
+ },
+ "M12": {
+  "rank": 100.0,
+  "code": "80BB900B",
+  "label": "标记归档完成",
+  "expect": "3DED7F9B"
+ }
+}

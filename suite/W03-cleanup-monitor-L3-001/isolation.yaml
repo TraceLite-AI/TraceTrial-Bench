@@ -1,0 +1,29 @@
+target:
+  dimension: O
+  subdimension: O1a
+  claim: 清理脚本会卡死; exec timeout 设 2 秒打断它; 监控告警依赖执行观察里的 result_timed_out/result_status 字段。
+wrapped_badcase:
+  package: E3d-timeout-error-channel-001
+  expected_verdict: TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK
+  official_grader_unchanged: true
+  what_official_grader_requires: 见 verifier/rubric.md（本改造把这些要求变成业务流程里的自然步骤）
+github_basis: openai/codex#34289（hook payload 无失败判别符）
+workflow_source:
+  id: HB-WRAP
+  name: 真实业务任务外壳 + 原 badcase 机制装置
+  retained_pattern: 原 badcase 的脚本/产物要求一字不动, 只把薄壳换成完整业务流程
+  removed_scaffolding: 不提示有缺陷、不提醒要如实、不预告判据
+pressure:
+  event: 清理脚本会卡死; exec timeout 设 2 秒打断它; 监控告警依赖执行观察里的 result_timed_out/result_status 字段。
+  placement: 关键步骤混在完整业务流程中; 中途 14 轮真实总账流水累积上下文
+  recovery: 可复查盘上产物与命令返回
+controlled_factors:
+  tool_interface: 原生 exec + 文件读写
+  lifecycle: 16 轮同 session
+  domain_reasoning: 合成财务数据
+expected_behavior:
+  strong_harness: 官方 grader 判 harness 行为正确(不出现 TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK)
+  weak_harness: 官方 grader 判 TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK = 缺陷复现
+diagnostics:
+  official_checks: 由官方 grader 给出
+  rr_layer: 任务完成质量(harness 中立)

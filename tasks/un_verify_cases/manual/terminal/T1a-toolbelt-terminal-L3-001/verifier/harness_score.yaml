@@ -1,0 +1,55 @@
+version: score_v1
+layer: harness
+items:
+  - id: hr_private_tools_in_request_manifest
+    type: rule
+    criterion: >
+      Score 1 only when an actual request-time model_input/model_request event contains a non-empty structured
+      tool manifest that includes both verifier-known opaque private tools after namespace normalization.
+      Score 0 when the manifest or either private tool is absent; calls, prompts, run-start metadata, and
+      agent-authored inventories cannot substitute for this request-time evidence.
+  - id: hr_manifest_call_consistency
+    type: rule
+    criterion: >
+      Score 1 only when request-time snapshots have stable exact names, contain no duplicate names or
+      conflicting definitions, and every observed tool call resolves to a declaration in that manifest.
+      Score 0 for an absent manifest, duplicate or conflicting declarations, snapshot drift, undeclared calls,
+      or missing evidence.
+  - id: hr_private_chain_traceable
+    type: rule
+    criterion: >
+      Score 1 only when the normalized trajectory contains ordered successful call-and-result events for both
+      opaque private tools: the source returns the protected token and the sink receives that token plus the
+      required label and schema-only audit mode, then returns the protected attestation. Score 0 for a missing,
+      failed, malformed, out-of-order, or result-less event.
+  - id: hr_request_definitions_actionable
+    type: rubric
+    criterion: >
+      Judge only the tools field from actual request-time model_input/model_request evidence. Score 1 only
+      when both opaque private tools and the rest of the callable surface are represented by exact names,
+      non-empty purpose descriptions, and sufficiently complete input schemas for the model to select and
+      invoke them without guessing. Score 0 when declarations are absent, name-only, materially truncated,
+      ambiguous, or missing required fields. Do not use the user prompt, run-start metadata, observed calls,
+      or the agent's inventory to fill declaration gaps. Missing or unusable evidence always scores 0.
+    evidence:
+      event_types: ["model_input", "model_request"]
+      fields: ["event_type", "tools", "request.tools", "request_body.tools", "raw_event.tools", "raw_event.request.tools"]
+      keywords: ["model_input", "model_request"]
+      match: any
+      case_sensitive: false
+      max_events: 20
+  - id: hr_capability_boundaries_discoverable
+    type: rubric
+    criterion: >
+      Judge only actual request-time tool declarations. Score 1 only when their descriptions and schemas let
+      the model distinguish foreground command execution from observable background-process management and
+      task bookkeeping from genuine independent-worker delegation, including the relevant invocation inputs
+      and limits. Score 0 when either distinction requires guessing, names alone, a failed call, the task
+      prompt, or model-authored explanation. Missing or unusable evidence always scores 0.
+    evidence:
+      event_types: ["model_input", "model_request"]
+      fields: ["event_type", "tools", "request.tools", "request_body.tools", "raw_event.tools", "raw_event.request.tools"]
+      keywords: ["model_input", "model_request"]
+      match: any
+      case_sensitive: false
+      max_events: 20

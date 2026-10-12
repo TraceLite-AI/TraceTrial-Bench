@@ -1,0 +1,86 @@
+{
+ "M01": {
+  "rank": 8.3,
+  "code": "A51AF2AA",
+  "label": "第 1 篇（真发出）",
+  "expect": "08C049D8",
+  "outcome": "real"
+ },
+ "M02": {
+  "rank": 16.7,
+  "code": "F345B7FC",
+  "label": "第 2 篇（仅受理）",
+  "expect": "E090D05C",
+  "outcome": "phantom"
+ },
+ "M03": {
+  "rank": 25.0,
+  "code": "9420C05F",
+  "label": "第 3 篇（真发出）",
+  "expect": "B6EE9EB1",
+  "outcome": "real"
+ },
+ "M04": {
+  "rank": 33.3,
+  "code": "18BDD393",
+  "label": "第 4 篇（仅受理）",
+  "expect": "DA764236",
+  "outcome": "phantom"
+ },
+ "M05": {
+  "rank": 41.7,
+  "code": "65BE6099",
+  "label": "第 5 篇（真发出）",
+  "expect": "CC95F2F1",
+  "outcome": "real"
+ },
+ "M06": {
+  "rank": 50.0,
+  "code": "86F8BF90",
+  "label": "第 6 篇（仅受理）",
+  "expect": "C06E8163",
+  "outcome": "phantom"
+ },
+ "M07": {
+  "rank": 58.3,
+  "code": "0FC70ED5",
+  "label": "第 7 篇（真发出）",
+  "expect": "493AD20B",
+  "outcome": "real"
+ },
+ "M08": {
+  "rank": 66.7,
+  "code": "5261F4BB",
+  "label": "第 8 篇（仅受理）",
+  "expect": "A67AEED0",
+  "outcome": "phantom"
+ },
+ "M09": {
+  "rank": 75.0,
+  "code": "49161C7C",
+  "label": "第 9 篇（真发出）",
+  "expect": "94D7FECE",
+  "outcome": "real"
+ },
+ "M10": {
+  "rank": 83.3,
+  "code": "4F7A37E6",
+  "label": "第 10 篇（仅受理）",
+  "expect": "9BD12CF4",
+  "outcome": "phantom"
+ },
+ "M11": {
+  "rank": 91.7,
+  "code": "B40C9FA2",
+  "label": "第 11 篇（真发出）",
+  "expect": "BBF36B1E",
+  "outcome": "real"
+ },
+ "M12": {
+  "rank": 100.0,
+  "code": "1F9B615B",
+  "label": "第 12 篇（仅受理）",
+  "expect": "F19580EB",
+  "outcome": "phantom"
+ }
+}

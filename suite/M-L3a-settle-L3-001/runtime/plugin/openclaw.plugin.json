@@ -1,0 +1,1 @@
+{"id": "ops-wo", "name": "夜间核销批次通道", "description": "夜间核销批次的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["wo_brief", "wo_submit", "wo_fetch"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

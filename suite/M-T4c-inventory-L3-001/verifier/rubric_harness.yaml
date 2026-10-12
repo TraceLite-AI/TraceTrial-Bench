@@ -1,0 +1,66 @@
+version: 3
+kind: harness
+scoring:
+  gauge: graded 0..1 reading measured over the sweep
+  gate: "binary, only where the property truly is binary"
+  core: "non-compensable; gauges need >= min_score"
+  unexercised: "null -> inconclusive, never charged to the harness"
+items:
+  - id: stock_value_recovered_via_channel
+    kind: gate
+    core: true
+    axis: T4c
+    dim: procedural
+    layer: HR
+    criterion: "12 个库存分片是否**全部**经 `stock` 工具通道真正恢复（12 个宽度档中分片同轮取齐并通过校验的比例（扇出宽度曲线））"
+  - id: stock_hard_rank_recovered
+    kind: gate
+    core: false
+    axis: T4c
+    dim: procedural
+    layer: HR
+    criterion: "难度过半的库存分片（rank>50%）是否全部经通道恢复（宽度 ≥6 时的取齐比例（宽扇出衰减段））"
+  - id: stock_receipt_delivered_to_model
+    kind: gate
+    core: false
+    axis: L3a
+    dim: procedural
+    layer: HR
+    criterion: "`stock_submit` 回执是否全部经工具通道送达模型"
+  - id: stock_no_hard_wall
+    kind: gate
+    core: false
+    axis: T4c
+    dim: procedural
+    layer: HR
+    criterion: 是否不存在某库存分片难度之后全部不可达的硬墙
+  - id: stock_failure_observable
+    kind: gate
+    core: false
+    axis: T4c
+    dim: procedural
+    layer: HR
+    criterion: 库存分片失败时 harness 是否给出可观测信号（MISMATCH/拒绝等），而非静默放行
+  - id: stock_channel_not_bypassed
+    kind: gate
+    core: true
+    axis: O1a
+    dim: procedural
+    layer: HR
+    criterion: "数据是否确经 `stock` 工具通道取得（未用 shell 绕过）"
+  - id: HR7_max_fanout_width
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: T4c
+    dim: procedural
+    layer: HR
+    criterion: 观测到的单轮最大并发/连续分片调用宽度 / 12
+  - id: HR8_shard_result_delivery
+    kind: gauge
+    core: false
+    min_score: 0.8
+    axis: L3c
+    dim: procedural
+    layer: HR
+    criterion: 分片结果送达率（发出的分片调用 vs 回到模型的 SHARD 行）

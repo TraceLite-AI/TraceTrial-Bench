@@ -1,0 +1,27 @@
+{
+ "sensor": "SNS-4204",
+ "site": "cooling loop",
+ "certified_on": "2026-08-06",
+ "readings": [
+  {
+   "pass": "P1",
+   "ppm": 44.706
+  },
+  {
+   "pass": "P2",
+   "ppm": 45.02
+  },
+  {
+   "pass": "P3",
+   "ppm": 43.922
+  },
+  {
+   "pass": "P4",
+   "ppm": 43.686
+  },
+  {
+   "pass": "P5",
+   "ppm": 41.098
+  }
+ ]
+}

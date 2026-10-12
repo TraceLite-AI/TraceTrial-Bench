@@ -1,0 +1,17 @@
+{
+  "scenario": "food_safety_sample_custody_audit",
+  "items": [
+    {"id": "M01", "label": "Register sealed sample intake"},
+    {"id": "M02", "label": "Quarantine duplicate sample container"},
+    {"id": "M03", "label": "Record sample homogenization"},
+    {"id": "M04", "label": "Authorize sterile aliquot preparation"},
+    {"id": "M05", "label": "Log reagent blank control"},
+    {"id": "M06", "label": "Confirm calibration standard"},
+    {"id": "M07", "label": "Release extraction batch"},
+    {"id": "M08", "label": "Record instrument sequence"},
+    {"id": "M09", "label": "Approve confirmatory rerun"},
+    {"id": "M10", "label": "Validate quality-control recovery"},
+    {"id": "M11", "label": "Archive chromatogram package"},
+    {"id": "M12", "label": "Close and lock sample case"}
+  ]
+}

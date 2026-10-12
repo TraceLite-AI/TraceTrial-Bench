@@ -1,0 +1,7 @@
+{
+  "schema_version": "c1c_testreport_export_v1",
+  "complete_export_limit": 1,
+  "max_range_lines": 200,
+  "total_failing": 12,
+  "total_testcases": 9012
+}

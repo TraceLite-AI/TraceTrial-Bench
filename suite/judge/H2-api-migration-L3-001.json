@@ -1,0 +1,116 @@
+{
+ "case": "H2-api-migration-L3-001",
+ "judge_model": "deepseek-official/deepseek-reasoner",
+ "layers": {
+  "AR": {
+   "verdicts": [
+    {
+     "id": "ar_renames_applied_per_guide",
+     "criterion": "迁移指南里明文给出的改名映射，逐条检查目标文件：新名出现且旧名不再作为赋值目标。 判 fail：任一条映射未落地。（本条只记录事实，不对原因下结论——原因由 HR 层判定）",
+     "value": "fail",
+     "evidence": "源码中 ledger.py 的 model_config 只有 extra='forbid', frozen=True，没有标准答案要求的 str_min_length；consign.py 的 model_config 只有 validate_assignment=True，没有 str_min_length；batch.py 的 model_config 只有 title，没有 json_schema_extra。多个重命名映射未在目标文件中落地。"
+    },
+    {
+     "id": "ar_unchanged_keys_preserved",
+     "criterion": "指南标为\"保持不变\"的配置项不得被改动。判 fail：任一项被改。",
+     "value": "pass",
+     "evidence": "证据包源码 escrow.py 中 `model_config = ConfigDict(frozen=True)` 保留 frozen；customer.py 保留 use_enum_values='True'；batch.py 保留 title。所有目标文件中 unchanged 配置项均未被改动。"
+    },
+    {
+     "id": "ar_removed_keys_not_carried",
+     "criterion": "指南标为\"已移除\"的项不得出现在迁移后的代码里。判 fail：仍存在。",
+     "value": "pass",
+     "evidence": "证据包源码 batch.py 中 model_config 无 fields；consign.py 无 smart_union；invoice.py 无 fields；ledger.py 无 allow_mutation；order.py 无 allow_mutation。所有 removed keys 均未出现在迁移后代码中。"
+    },
+    {
+     "id": "ar_non_target_api_untouched",
+     "criterion": "与本次迁移无关的模块/接口不得被改动。判 fail：迁移范围外的文件被修改。",
+     "value": "pass",
+     "evidence": "工具调用 write 记录仅写入 models/ 下的 .py 文件和 output/migration_report.md，未写入 common/envelope.py、tools/ 等非目标文件。"
+    },
+    {
+     "id": "ar_no_syntax_break",
+     "criterion": "迁移后所有目标文件必须能被解析（语法正确）。判 fail：任一文件语法错误。",
+     "value": "pass",
+     "evidence": "工具调用结果 [54] 显示 `PYDANTIC V2 MIGRATION OK`，[56] 显示导入验证全部通过，语法正确。"
+    },
+    {
+     "id": "ar_unmapped_items_noted",
+     "criterion": "指南里没有直接对应关系的项，报告必须写明\"无对应/需人工决定\"。 判 fail：存在这类项而报告未提及。",
+     "value": "pass",
+     "evidence": "交付物报告中有 '无直接 v2 对应项的配置' 汇总表，列出 fields、schema_extra、validate_all、keep_untouched、smart_union、min_anystr_length、max_anystr_length 并说明无对应项。"
+    },
+    {
+     "id": "ar_report_cites_guide",
+     "criterion": "报告中每类改动需引用指南里的对应依据（条目名或段落）。 判 fail：报告只列改动不给指南依据。",
+     "value": "pass",
+     "evidence": "逐模型详情表格中每行均有 '指南条目' 列，如 'Changes to BaseModel'、'copy() → model_copy()'、'同名字段保留'、'无直接对应项'，引用了指南中的条目或说明。"
+    }
+   ],
+   "pass": 6,
+   "fail": 1,
+   "na": 0,
+   "total": 7
+  },
+  "HR": {
+   "verdicts": [
+    {
+     "id": "hr_result_integrity",
+     "criterion": "工具结果有没有被截断或改写**而未加标注**（模型看到的与真实输出不一致却无提示）",
+     "value": "pass",
+     "evidence": "网关事件中 truncate_tool_results 为 0，且 web_fetch 结果有 \"truncated\": true 标注，未发现未标注的截断或改写。"
+    },
+    {
+     "id": "hr_material_survived_compaction",
+     "criterion": "压缩/驱逐之后，**完成任务所必需的那份材料**是否仍在模型可见的上下文里（须在依据中指名是哪一份）",
+     "value": "N-A",
+     "evidence": "网关事件中 compaction_succeeded 为 0，无成功压缩事件，材料未被压缩驱逐。"
+    },
+    {
+     "id": "hr_compaction_perceivable",
+     "criterion": "压缩/驱逐是否对模型可感知（收到任何提示），还是静默发生",
+     "value": "N-A",
+     "evidence": "compaction_succeeded 为 0，模型轨迹中未出现任何关于压缩的提示，压缩未成功且无感知。"
+    },
+    {
+     "id": "hr_no_rework_induced",
+     "criterion": "是否存在**由 harness 原因导致**的重复劳动——结果丢失/上下文被压缩/工具变得不可见，迫使模型重做已做过的事。模型主动复核、二次确认属正常行为，**不算**返工",
+     "value": "pass",
+     "evidence": "工具调用序列中 v2_check.py 被重复调用 4 次，但属于模型主动复查与修复，非由 harness 原因（如结果丢失或压缩）导致。"
+    },
+    {
+     "id": "hr_no_induced_scope_expansion",
+     "criterion": "harness 侧注入的材料（背景快照/监控切片等填充物）有没有诱发模型**自行扩大任务范围**，去做题面没要求的事",
+     "value": "pass",
+     "evidence": "未发现 harness 侧注入任何背景快照或监控切片等填充材料，模型所有动作均限于迁移任务范围内。"
+    },
+    {
+     "id": "hr_reached_task_end",
+     "criterion": "会话是否因 **harness 原因**（上下文溢出/压缩失败/会话锁/进程被杀）提前结束，导致任务没走完",
+     "value": "pass",
+     "evidence": "run_meta 中 exit_code 为 0，elapsed_sec 未超时，会话共 8 轮正常结束，最终模型完成定稿。"
+    },
+    {
+     "id": "hr_status_consistent",
+     "criterion": "harness 报给上层的顶层状态与其内部错误是否一致（是否存在 status=ok 但内部带 error 的情况）",
+     "value": "pass",
+     "evidence": "CLI 输出中顶层 status 分布为 {\"ok\":4}，内部 error.kind 出现一次但最终 stopReason 为 stop，finishReason 为 stop，无矛盾。"
+    }
+   ],
+   "pass": 5,
+   "fail": 0,
+   "na": 2,
+   "total": 7
+  }
+ },
+ "evidence_complete": true,
+ "evidence_truncated_files": 0,
+ "usage": {
+  "prompt_tokens": 44232,
+  "completion_tokens": 6753,
+  "total_tokens": 50985,
+  "prompt_cache_hit_tokens": 18560,
+  "prompt_cache_miss_tokens": 25672
+ },
+ "attribution": "model-side"
+}

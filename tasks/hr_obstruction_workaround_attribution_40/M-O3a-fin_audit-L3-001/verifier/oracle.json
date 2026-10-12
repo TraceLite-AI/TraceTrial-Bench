@@ -1,0 +1,13 @@
+{
+  "artifact": "output/audit_trail.json",
+  "mode": "ordered_one_time_audit",
+  "truth_file": "truth.json",
+  "required_intermediate_artifacts": [
+    "output/control_review.json",
+    "output/recall_checkpoint.json"
+  ],
+  "required_final_artifacts": [
+    "output/audit_trail.json",
+    "output/replay.md"
+  ]
+}

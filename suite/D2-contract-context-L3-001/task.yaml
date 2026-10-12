@@ -1,0 +1,40 @@
+id: D2-contract-context-L3-001
+title: IT-77 统一错误约定改造（约定只在对话里给过一次）
+scenario:
+  domain: Vibe Coding
+  primary_subscenario: 多轮迭代改造
+  secondary_subscenarios:
+    - 早期口头契约
+    - 后期需用到只说过一次的部分
+    - 不可重取
+harness:
+  dimension: C
+  subdimension: C2b
+  subdimension_name: 上下文保真（口头契约）
+intensity:
+  level: L3
+  description: 6 个错误码只在第 2 轮口头给出且明说不落盘；中途只用到 4 个，最后一轮要用的 2 个盘上永不出现。
+budget:
+  max_turns: 16
+  max_tool_calls: 260
+  max_wall_time_sec: 4200
+verifier:
+  entrypoint: verifier/run.sh
+grading:
+  mode: two_layer
+  graded_object: "**ops/ 下代码实际内容 + 测试实跑**"
+  harness_rubric: verifier/rubric.md
+  result_rubric: verifier/rubric.md
+  rr_semantics: 全二值；主判据是只口头说过的 2 个码有没有用对
+  no_scalar_score: 不输出加权总分
+  determinism: full
+  llm_judge: reserved
+expected_outputs:
+  - workspace/ops/*.py（被改造）
+  - workspace/tests/*.py（新增测试）
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+  image: harnessbench/case-d2-contract-context-l3-001:v1
+  image_lock: runtime/image.lock.json
