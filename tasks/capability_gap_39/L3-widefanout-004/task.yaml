@@ -1,0 +1,36 @@
+id: L3-widefanout-004
+title: "码头点数：十二条通道同时点，回来的数还认得清是哪条的吗"
+scenario:
+  domain: "并发子代理结果聚合"
+  primary_subscenario: "并发子代理结果聚合"
+  secondary_subscenarios:
+    - 真实业务材料
+    - 多轮追问
+    - 交付物程序化对账
+harness:
+  dimension: L
+  subdimension: L3
+  subdimension_name: "子代理结果聚合"
+intensity:
+  level: L3
+  description: >
+    十二条通道各派一个原生子代理同时点数，结算耗时不等、完成顺序刻意不同于派发顺序。
+    十二条通道的均值全挤在窄带里 —— 结果串了台从数字上看不出来，
+    只有每次点数单独签发的 seal 能分辨。一通道一点、重点拒发、无补发路径。
+budget:
+  max_turns: 7
+  max_tool_calls: 90
+  max_wall_time_sec: 1200
+verifier:
+  entrypoint: verifier/run.sh
+expected_outputs:
+  - workspace/output/lane_tally.json
+  - workspace/output/concurrency_account.json
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json

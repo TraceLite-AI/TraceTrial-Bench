@@ -1,0 +1,16 @@
+{
+  "conversation": {
+    "mode": "fixed_turns",
+    "turns": "turns.json",
+    "new_session_before_turns": [4, 7],
+    "new_session_context": "replay"
+  },
+  "network_mode": "none",
+  "profile": "C5-assets-001",
+  "requires": [
+    "gateway"
+  ],
+  "runnable": true,
+  "schema_version": "native_v1",
+  "timeout_sec": 2400
+}

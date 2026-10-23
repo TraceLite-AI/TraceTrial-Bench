@@ -99,7 +99,7 @@ cp configs/models.example.toml model.toml && chmod 600 model.toml
   --mode docker --model-registry ./model.toml --output-dir outputs/runs
 
 # 4. 完整评测（论文用的 95 道题）
-.venv/bin/harnessbench run --task-manifest tasks/lean96.manifest \
+.venv/bin/harnessbench run --task-manifest tasks/lean95.manifest \
   --harness openclaw --model deepseek --judge-model deepseek \
   --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
 
@@ -125,7 +125,8 @@ cp configs/models.example.toml model.toml && chmod 600 model.toml
 
 ```text
 tasks/              评测题目
-  lean96.manifest     论文用的题单（96 条，其中 T1b-hostrecord-duplicate-001 不计入结果，实为 95 道）
+  lean95.manifest     论文正式题单（95 道，采用统一后的题名与节点编号）
+  lean96.manifest     历史 96 题清单（含不计入论文结果的 hostrecord 题）
   capability_gap_39/  hr_obstruction_workaround_attribution_40/
   low_divergence_30/  facet_supplement_20/            四个题族
 harnessbench/       命令行、Docker 运行器、判分器、LLM 判官、机制链、报告
@@ -136,6 +137,8 @@ configs/            模型配置示例（不含真实密钥）
 suite/ cases/ rubrics/ test_task/   早期题集，留作参考
 docs/               判据与归因文档；docs/notes/ 是开发笔记
 ```
+
+题名统一为 `<节点>-<描述>-<三位序号>`。95 道题与 40 个节点的新旧对应见[命名对照](docs/task-naming.md)。题名开头的 `L3-` 表示 Lifecycle 第 3 个节点，难度元数据保持原值。
 
 ## 引用
 

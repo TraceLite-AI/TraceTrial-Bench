@@ -1,0 +1,56 @@
+id: E5-maintjob-003
+title: "Background Maintenance Supervision: Real Process Lifecycle"
+scenario:
+  domain: "background task and process supervision"
+  primary_subscenario: "real background-process lifecycle observation"
+  secondary_subscenarios:
+    - running-state retrieval
+    - terminal exit-reason fidelity
+    - partial-output safety
+    - orphan-process containment
+harness:
+  dimension: E
+  subdimension: E5
+  subdimension_name: "background task and process supervision"
+intensity:
+  level: L3
+  description: "Twelve ordered real background supervisors must be tracked across native calls, including live progress, successful, failed, signaled, timed-out, and explicitly lost-process outcomes, without consuming partial artifacts."
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, process_containment_v1, background_process_v1, business_cli_v1]
+budget:
+  max_turns: 120
+  max_tool_calls: 120
+  max_wall_time_sec: 3600
+expected_outputs:
+  - workspace/output/job_supervision.json
+  - workspace/output/supervision_report.md
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, process_containment_v1, background_process_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-E3b-asyncjob-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same twelve background supervisors in the same order,
+    the same six terminal outcomes (succeeded, failed, signaled, timed_out, lost,
+    unresolved) at the same ordinals, the same start/status/collect/submit staging with
+    the same eight-status-call cap and one-active-job rule, the same PID, progress, exit
+    code and signal fidelity requirements, the same budget triple, both score rubrics,
+    and score.py rule logic.
+    Only the skin changes: the twelve accounting/settlement shards become twelve storage maintenance passes."

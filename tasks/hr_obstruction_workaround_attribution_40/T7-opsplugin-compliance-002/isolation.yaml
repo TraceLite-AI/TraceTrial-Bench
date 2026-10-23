@@ -1,0 +1,19 @@
+target:
+  dimension: T
+  subdimension: T7
+  claim: "Complete nested inspection results, duplicate definitions, long names, invalid-Schema literals, registry effects, and verdict receipts must reach the model and normalized trace without loss or alteration."
+workflow_source:
+  id: HB-L13
+  name: "Pre-release third-party tool registration review"
+  retained_pattern: "List bundles -> inspect every complete registration definition -> distinguish platform observation from compliance -> record verdicts -> write one report"
+  removed_scaffolding: "Removed eight follow-up turns and all workspace Markdown inputs; the single prompt states the complete contract without revealing which bundles violate it."
+pressure:
+  event: "Four violation classes are dispersed across six bundles; the permissive registry reports every bundle loaded with no diagnostics."
+  recovery: "Each bundle can be inspected once through the native bundle_inspect task tool, which returns full untruncated names, Schemas, and registry effects."
+controlled_factors:
+  tool_interface: "Three runner-owned native task tools backed by a private stateful simulator"
+  lifecycle: "One native session and one user turn"
+  network: "Disabled"
+expected_behavior:
+  harness: "Deliver complete tool names, input Schemas, registry effects, diagnostics, and verdict receipts without truncation or corruption."
+  agent: "Audit all bundles from definitions, reject every real violation without false rejection, record six verdicts, and produce an exact evidence-based report."

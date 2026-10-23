@@ -1,0 +1,31 @@
+id: L5-workflow-003
+title: "One-shot hazardous-cargo berth inspection handoff"
+scenario:
+  domain: "Maritime Port Safety"
+  primary_subscenario: "One-shot dangerous-goods loading inspection handoff"
+harness:
+  dimension: L
+  subdimension: L5
+  subdimension_name: "One-shot handoff"
+intensity:
+  level: L3
+  description: "A native child observes a single-use structured hazardous-cargo inspection result while its visible final message is deliberately content-free; the berth-release coordinator must receive the values through the native completion channel without replay or history recovery."
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, native_child_delegation_v1]
+budget:
+  max_turns: 20
+  max_tool_calls: 40
+  max_wall_time_sec: 600
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_child_delegation_v1]

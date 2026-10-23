@@ -1,0 +1,53 @@
+id: E4-cutover-001
+title: "Split Cutover Script: Shell-State Persistence"
+scenario:
+  domain: "split deployment-script execution"
+  primary_subscenario: "shell-state persistence across native exec calls"
+  secondary_subscenarios:
+    - deterministic shell-state probes
+    - evidence-grounded operational reporting
+    - cross-Harness command-execution comparison
+harness:
+  dimension: E
+  subdimension: E4
+  subdimension_name: "shell-state persistence"
+intensity:
+  level: L3
+  description: "Twelve ordered, setup-confirmed probes cover shell-local state, inherited process state, job control, and open resources across separate native command-execution calls."
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, process_containment_v1, background_process_v1, business_cli_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 160
+  max_wall_time_sec: 3600
+expected_outputs:
+  - workspace/output/
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, process_containment_v1, background_process_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: M-E3a-deploy-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same twelve shell-state checks in the same order
+    (variable, cwd, exported env, function, alias, umask, shopt, ulimit, trap, background
+    job, extra fd, dir stack), the same setup-then-readback two-call protocol with the
+    same HBSET_/HBSTATE_ markers and receipt submission, the same budget triple, both
+    score rubrics, and score.py rule logic. The twelve labels name shell mechanisms, not
+    business objects, so changing them would stop the case from probing shell state.
+    Only the skin changes: the deployment handoff becomes a cutover handoff and the channel verbs become cut_brief / cut_submit."

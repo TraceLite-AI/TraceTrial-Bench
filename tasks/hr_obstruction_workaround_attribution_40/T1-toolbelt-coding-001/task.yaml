@@ -1,0 +1,56 @@
+id: T1-toolbelt-coding-001
+title: "Tool Surface Inventory: report exactly what the model can use"
+scenario:
+  domain: "operations work-order handling"
+  primary_subscenario: "tool exposure to the model"
+  secondary_subscenarios:
+    - "independent tool-manifest capture"
+    - "capability-boundary handling"
+    - "artifact and trace reconciliation"
+harness:
+  dimension: T
+  subdimension: T1
+  subdimension_name: "tools exposed to the model"
+intensity:
+  level: L3
+  description: "One turn requires a complete inventory of the model-visible tool interface and seven probes spanning an opaque schema-dependent private-tool chain, file, command, search, background-process, and subagent capabilities. The verifier reconciles request-time declarations, ordered call/results, trusted receipts, side effects, and the model's report."
+input_mode: single_turn
+tool_dependencies: [task_tools_v1, native_exec_v1, post_tool_v1, background_process_v1, process_containment_v1, native_child_delegation_v1]
+budget:
+  max_turns: 1
+  max_tool_calls: 120
+  max_wall_time_sec: 2400
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  - workspace/output/tool_exposure_report.json
+  - workspace/output/probe_results.json
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: .harnessbench/simulator-cli
+task_tools:
+  version: mcp_stdio_v1
+  manifest: simulator/tools.json
+execution_probe:
+  version: lifecycle_v1
+  requires: [task_tools_v1]
+rebuilt_from:
+  case: T1a-toolbelt-inventory-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain. The mechanism layer is unchanged: same
+    dimension/subdimension, the same seven probes in the same order (controlled token pair,
+    read, write, search, exec, background, delegate), the same done/blocked dispatch protocol
+    with its evidence requirement, the same exposure-marker write as the only permitted
+    state-side write, the same budget triple, both score rubrics, and score.py rule logic.
+    Only the skin changes: the work order becomes a build-agent tool-surface verification (WO-6301); the probes themselves target the harness tool interface and are kept verbatim, because changing them would stop the case from measuring tool exposure at all."

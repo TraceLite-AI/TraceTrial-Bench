@@ -12,6 +12,9 @@
 ★NO_CHAIN 里的题不是漏了, 是读完确认「按判据结构就不该有链」, 理由逐条记在案。
 """
 
+from harnessbench.task_names import TASK_ID_RENAMES
+
+
 # ── 有链的题 ───────────────────────────────────────────────────────
 # 格式: 题号 -> [(HR判据, AR判据, 机制, confidence), ...]
 CHAINS: dict[str, list[tuple[str, str, str, str]]] = {
@@ -1322,3 +1325,12 @@ NO_CHAIN: dict[str, str] = {
         "模型如实记录「非结论性」即为正确。terminal 变体因有 ar_receipts_exact_and_model_grounded"
         "（锚在私有真值）而有链，本题没有对应条目。",
 }
+
+
+# Published names and historical result IDs share exactly the same criteria.
+# Keep old keys for archived suites and score-only runs using existing traces.
+for _old_id, _new_id in TASK_ID_RENAMES.items():
+    if _old_id in CHAINS:
+        CHAINS[_new_id] = CHAINS[_old_id]
+    if _old_id in NO_CHAIN:
+        NO_CHAIN[_new_id] = NO_CHAIN[_old_id]

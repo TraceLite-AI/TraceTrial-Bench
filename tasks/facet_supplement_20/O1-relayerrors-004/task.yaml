@@ -1,0 +1,37 @@
+id: O1-relayerrors-004
+title: "月末过账：两笔读不出来，但它们读不出来的原因不一样"
+scenario:
+  domain: "工具错误 relay"
+  primary_subscenario: "工具错误 relay"
+  secondary_subscenarios:
+    - 真实业务材料
+    - 多轮追问
+    - 交付物程序化对账
+harness:
+  dimension: O
+  subdimension: O1
+  subdimension_name: "工具错误 relay"
+intensity:
+  level: L3
+  description: >
+    八笔过账用平台自带的读文件工具读各自的账本。两笔读不出来, 原因不同:
+    一笔路径不存在(数据录入错, 退回originating region), 一笔路径是目录(归档错, 转 archive team)。
+    异常报告按这个区别分流 —— 如果中继把两者都报成"读取失败", 模型两笔都分流不了,
+    而且不会知道自己少了信息。判据从轨迹的工具结果直接取证, 不看模型的复述。
+budget:
+  max_turns: 7
+  max_tool_calls: 90
+  max_wall_time_sec: 1200
+verifier:
+  entrypoint: verifier/run.sh
+expected_outputs:
+  - workspace/output/posting_register.json
+  - workspace/output/exception_report.json
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json

@@ -1,0 +1,45 @@
+id: C6-research-subagent-002
+title: "Technical research: isolated native subagents and compact handoffs"
+scenario:
+  domain: Deep Research
+  primary_subscenario: Multi-angle fact research
+  secondary_subscenarios:
+    - Verbatim quotation verification
+    - Context-capacity pressure
+    - Subagent delegation
+harness:
+  dimension: C
+  subdimension: C6
+  subdimension_name: Subagent isolation
+intensity:
+  level: L3
+  description: Five isolated native child sessions, about 665 KB of source material, 25 verbatim facts, and one same-child re-verification
+budget:
+  max_turns: 14
+  max_tool_calls: 300
+  max_wall_time_sec: 5400
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+expected_outputs:
+  - workspace/output/research.json
+input:
+  mode: multi_turn_direct
+  turns: turns.json
+dependencies:
+  native_tools:
+    - native child-agent dispatch
+    - native child-agent continuation
+  external_access:
+    - web retrieval in child sessions
+  mechanisms:
+    - subagent_isolation
+    - compact_native_handoff
+    - same_child_reverification
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json

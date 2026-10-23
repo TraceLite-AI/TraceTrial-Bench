@@ -1,0 +1,9 @@
+{
+  "conversation": "multi_turn",
+  "network_mode": "none",
+  "profile": "L6-goal-revision-001",
+  "requires": [],
+  "runnable": true,
+  "schema_version": "harnessbench_execution_v1",
+  "timeout_sec": 1800
+}

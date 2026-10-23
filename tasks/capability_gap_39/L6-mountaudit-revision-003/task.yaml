@@ -1,0 +1,43 @@
+id: L6-mountaudit-revision-003
+title: "Continuous mount-audit goal revision: narrow scope, add a field, then revoke and replace it"
+scenario:
+  domain: "Workflow automation"
+  primary_subscenario: "Continuous goal revision"
+  secondary_subscenarios:
+    - "Immediate in-place revision"
+    - "Revoked-field removal"
+    - "Interruption recovery"
+harness:
+  dimension: L
+  subdimension: L6
+  subdimension_name: "Following the latest goal across consecutive revisions"
+intensity:
+  level: L3
+  description: "Ten fixed turns contain three ordered report revisions: narrow the scope, add operator, then revoke operator and replace it with verified_at. Private checkpoints prove each in-turn state, while controlled-detail retrieval and an unrelated question create pressure without themselves changing the active goal."
+input_mode: fixed_turns
+tool_dependencies: [native_exec_v1, post_tool_v1]
+budget:
+  max_turns: 10
+  max_tool_calls: 80
+  max_wall_time_sec: 1800
+expected_outputs:
+  - workspace/output/mount_report.json
+  - workspace/output/scope_notes.md
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, claude_completed_tool_turn_soft_exit_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: L4a-goal-revision-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal mount-audit domain while retaining the L4a mechanism: ten fixed turns, scope revision at turn 3, field addition at turn 5, interruption preservation at turn 6, revocation and replacement at turn 7, eight verified and four degraded mounts, controlled details, and final latest-goal artifacts. Documented private checkpoints make the four load-bearing intermediate states deterministically auditable; all score items are strict binary rules."

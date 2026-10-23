@@ -1,0 +1,54 @@
+id: C4-backup-verify-handoff-003
+title: "Backup verification handoff: retaining one-time seal codes across a session boundary"
+scenario:
+  domain: "Fact fidelity after a session boundary"
+  primary_subscenario: "Retention of exact one-time values across a resumed workflow"
+  secondary_subscenarios: ["Realistic business records", "Eight-turn workflow", "Programmatic deliverable verification"]
+harness:
+  dimension: C
+  subdimension: C4
+  subdimension_name: "Fact fidelity after session resume"
+intensity:
+  level: L3
+  description: "Twelve backup sets are verified in two groups. A new native session starts before turn 5. The first six random seal codes are emitted only before that boundary; repeat verifications are rejected and audit does not return codes."
+input:
+  mode: multi_turn_direct
+  turns: turns.json
+  session_boundary:
+    before_turns: [5]
+    context: replay
+dependencies:
+  workspace_tools: ["bin/verify check", "bin/verify audit"]
+  mechanisms: [native_session_resume, model_visible_context_replay]
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, claude_completed_tool_turn_soft_exit_v1]
+budget:
+  max_turns: 11
+  max_tool_calls: 120
+  max_wall_time_sec: 2400
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: openclaw_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: C3b-resume-fidelity-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the terminal domain. The mechanism layer is
+    unchanged: same dimension/subdimension, the same eight-turn shape with the native
+    session boundary before turn 5, the same standalone checkpoint line before the
+    first tool call, the explicit ban on writing the values to a sidecar note or
+    memory file, the same intensity arithmetic (twelve sets, first six codes issued
+    only before the boundary), the same budget triple, and both score rubrics.
+    The channel keeps its contract verbatim: random one-time issuance with no
+    reversible formula, repeat calls rejected with already_inspected, and audit that
+    returns only IDs and timestamps — never the code — with sha256[:16] fingerprints
+    as the only persisted trace.
+    The business skin is nightly backup verification: seal codes per backup set
+    instead of QC codes per lot. A shift handoff is the natural session boundary here."

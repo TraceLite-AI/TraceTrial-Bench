@@ -1,0 +1,18 @@
+target:
+  dimension: L
+  subdimension: L6
+  claim: "Whether the agent keeps the latest goal after consecutive revisions that narrow scope, add a field, and then revoke and replace that field."
+workflow_source:
+  id: HB-L4a
+  name: "Monthly reservoir-dam reinforcement bid-lot settlement reconciliation"
+  retained_pattern: "Inspect authoritative data -> maintain one report -> apply three revisions in place -> finalize latest scope"
+  removed_scaffolding: "The task no longer relies on a Markdown runbook; required CLI usage is stated in the first user turn."
+pressure:
+  event: "Three bid-lot report revisions arrive in separate turns, and an unrelated maximum-certified-amount question interrupts the workflow before the revocation."
+  placement: "The revoked approver value remains visible in earlier channel results, making stale-field accumulation observable."
+load_bearing_truth:
+  rule: "Bid-lot settlement statuses and certified-work amounts come from workspace data; controlled details are issued only by bin/recon."
+  landing: "The final report must contain settled construction bid lots only with exact line, amount_minor, and settled_at fields and no approver field."
+expected_behavior:
+  strong: "The same report is revised after every change and the final artifacts contain only the latest scope and fields."
+  weak: "Pending bid lots remain, approver survives revocation, settled_at is missing or invented, or revision notes describe an obsolete project-report goal."

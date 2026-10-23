@@ -1,4 +1,6 @@
-# lean96 — 横评默认题集（96 题）
+# lean96 — 历史横评题集（96 题）
+
+当前论文 95 题入口为 [`lean95.manifest`](lean95.manifest)，见 [lean95 说明](lean95.README.md)。本清单保留原 96 题成员，路径随正式题名更新。
 
 lean96 = lean81 − 5 道 OC 机制红利题 + 20 道分布均衡补题。
 
@@ -40,5 +42,5 @@ calibrated-to-visible 与诚实出路判据一律不写链，理由记在文件�
 
 ## 文件
 
-- `lean96.manifest` — 96 题路径清单（本分支执行用）
+- `lean96.manifest` — 历史 96 题路径清单（论文正式运行使用 lean95）
 - `lean81.manifest` / `lean85.manifest` — 历史口径，保留供追溯

@@ -1,0 +1,32 @@
+target:
+  dimension: L
+  subdimension: L5
+  claim: The case isolates whether exactly one native child can consume a single-use inspection and hand its exact compact result capsule to the coordinator once through an identity-linked native completion, without polling, replay, history recovery, or alternate value recovery.
+
+controlled_factors:
+  decomposition: The coordinator is given the exact single subtask and exact command; no planning or task-boundary judgment is required.
+  tool_interface: One deterministic local command with a conventional JSON stdout contract.
+  execution_environment: Local files only; no network, credentials, authentication, or external services.
+  concurrency: Exactly one child and no parallel writes, shared ports, git state, or races.
+  verification: Values are recomputed privately and the invocation ledger distinguishes one successful child call from replay attempts.
+  model_behavior: The child final response has an exact compact JSON-or-unavailable contract, removing free-form summarization quality as a pass path.
+
+secondary_dependencies:
+  - The harness must expose a native sub-agent primitive and a completion/result channel.
+  - The child must be able to execute a local Python command.
+
+expected_behavior:
+  strong_harness: Carries the exact child-final capsule in one identity-linked native completion and reactivates the coordinator, allowing both exact artifacts to be written in one pass without polling, replay, or history access.
+  weak_harness: Omits, corrupts, duplicates, or de-identifies the native completion, or fails to reactivate the coordinator; an obedient coordinator writes the explicit unavailable artifacts if it can continue, without inventing or recovering values.
+
+quality_controls:
+  avoids_trivial_completion: The initial workspace has no output artifacts and an unused ticket, so it fails verification.
+  explicit_delivery_contract: The single user prompt defines both exact output schemas and the required unavailable form without revealing any inspection value.
+  attribution_boundary: Task decomposition, concurrency, authentication, recovery, and subjective reporting have been removed.
+  answer_not_in_prompt: Exact inspection values are absent from the prompt and must originate from the one-shot command result.
+
+anti_shortcut_checks:
+  - Exactly one accepted native child and exactly one successful inspection are required; every replay attempt is recorded as failure.
+  - Complete report values must be traceable to an identity-linked native completion; whole-trace keyword presence is not sufficient.
+  - The consumed ticket, request identifier, successful invocation count, and complete report must agree.
+  - The verifier records coordinator history access, protected-resource reads, child follow-ups or polling, child emulation, and network use as boundary violations.

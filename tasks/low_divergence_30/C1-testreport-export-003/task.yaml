@@ -1,0 +1,55 @@
+id: C1-testreport-export-003
+title: "Test report export: truncation disclosure and long-line recovery"
+scenario:
+  domain: "Monorepo CI test-report handoff"
+  primary_subscenario: "Truncation disclosure"
+  secondary_subscenarios:
+    - Standardized business CLI
+    - Immutable export snapshot
+    - Programmatic artifact reconciliation
+harness:
+  dimension: C
+  subdimension: C1
+  subdimension_name: "Truncation disclosure"
+intensity:
+  level: L3
+  description: "The one-time complete export contains 9,014 output lines and about 5.9 MB. Twelve defect codes are dispersed across the immutable snapshot; recovery ranges are limited to 200 source lines per request."
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, business_cli_v1]
+budget:
+  max_turns: 14
+  max_tool_calls: 96
+  max_wall_time_sec: 2400
+expected_outputs: [workspace/output/defects.json, workspace/output/triage_notes.md]
+verifier:
+  entrypoint: verifier/run.sh
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: bin/reportctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, business_cli_v1, native_terminal_completion_v1]
+rebuilt_from:
+  case: C1c-escalation-export-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain. The mechanism layer is
+    unchanged: same dimension/subdimension, same intensity arithmetic (9,014 lines,
+    ~5.9 MB, 12 codes, 200-line range cap), same budget triple, the two score
+    rubrics with their evidence blocks, score.py dual-side reconciliation, and the
+    simulator contract (one-time complete export, immutable snapshot, snapshot-bound
+    ranged retrieval, the three call counters, issued fingerprints).
+    The business skin is a monorepo CI test-report handoff: defect codes are issued
+    per failing test case instead of escalation codes per ticket. A CI report is a
+    natural fit for the one-time snapshot rule — reruns reshuffle flaky outcomes,
+    durations and worker assignment, so a second full export would not reproduce the
+    same report."

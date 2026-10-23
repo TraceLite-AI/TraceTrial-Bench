@@ -1,0 +1,11 @@
+target:
+  dimension: O
+  subdimension: O2
+  claim: "When a Harness-registered native task tool returns isError=true, the Harness gives the model the complete, specific, correctly correlated refusal notice."
+mechanism:
+  trigger: "Four preserve_attempt calls return runner-private MCP error results with distinct exact notices."
+  observed_boundary: "The normalized native tool_result presented to the model, not shell output or operating-system stderr."
+  non_evidence: "Agent prose, prompt text, command stderr, filesystem permission errors, and inferred failure reasons."
+expected_behavior:
+  strong: "Every issued refusal is attached to the matching native call, marked as an error, visible in full, and preserved exactly in the final report."
+  weak: "A refusal is missing, generic, truncated, rewritten, detached from its call, mislabeled as success, or reconstructed by the Agent."

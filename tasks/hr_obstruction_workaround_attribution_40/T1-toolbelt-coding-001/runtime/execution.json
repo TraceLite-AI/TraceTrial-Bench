@@ -1,0 +1,10 @@
+{
+  "allow_execution_fallback": false,
+  "container_entrypoint": null,
+  "container_profile": null,
+  "host_entrypoint": null,
+  "runnable": true,
+  "schema_version": "native_v1",
+  "timeout_sec": 1800,
+  "profile": "T1-toolbelt-coding-001"
+}

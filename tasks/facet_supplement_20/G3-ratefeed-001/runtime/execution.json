@@ -1,0 +1,8 @@
+{
+ "conversation": "multi_turn",
+ "network_mode": "default",
+ "profile": "G3-ratefeed-001",
+ "runnable": true,
+ "schema_version": "openclaw_native_v1",
+ "timeout_sec": 1200
+}

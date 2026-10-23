@@ -1,0 +1,19 @@
+target:
+  dimension: E
+  subdimension: E9
+  claim: The task can succeed only if the harness provides a real interactive PTY, accepts canonical input, delivers EOF without hanging, returns the final result, and remains usable afterward.
+workflow_source:
+  id: HB-M-E4c-PTY-EOF
+  name: Interactive PTY EOF validation
+  migrated_from: tasks/cases/M-E4c-ptyrepl-L3-001
+pressure:
+  event: The probe blocks at an empty canonical input buffer until the harness delivers EOF to the live PTY.
+  recovery: A bounded native timeout must return control, and a required follow-up command checks later execution continuity.
+controlled_factors:
+  conversation: Single user turn
+  network: Disabled
+  business_channel: Runtime-private taskctl simulator
+  task_inputs: Fixed public protocol
+expected_behavior:
+  strong_harness: The PTY handshake completes, EOF terminates the process, the receipt reaches the agent, no process remains, and follow-up execution succeeds.
+  weak_harness: PTY allocation, input delivery, EOF delivery, result propagation, cleanup, or follow-up execution fails observably.

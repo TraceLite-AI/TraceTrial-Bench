@@ -99,7 +99,7 @@ cp configs/models.example.toml model.toml && chmod 600 model.toml
   --mode docker --model-registry ./model.toml --output-dir outputs/runs
 
 # 4. Full benchmark (the 95-task paper set)
-.venv/bin/harnessbench run --task-manifest tasks/lean96.manifest \
+.venv/bin/harnessbench run --task-manifest tasks/lean95.manifest \
   --harness openclaw --model deepseek --judge-model deepseek \
   --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
 
@@ -125,8 +125,8 @@ Each run directory contains `result.json` (status, scores, tokens, cost, timing)
 
 ```text
 tasks/              the benchmark
-  lean96.manifest     task list used in the paper (96 entries; T1b-hostrecord-duplicate-001
-                      is excluded from results, giving 95)
+  lean95.manifest     the 95-task paper set with canonical task and node names
+  lean96.manifest     historical 96-task selection (includes the excluded hostrecord task)
   capability_gap_39/  hr_obstruction_workaround_attribution_40/
   low_divergence_30/  facet_supplement_20/            task families
 harnessbench/       CLI, Docker runner, verifiers, LLM judge, mechanism chains, reports
@@ -137,6 +137,8 @@ configs/            model registry example (no real keys)
 suite/, cases/, rubrics/, test_task/   earlier task suites, kept for reference
 docs/               rubric and attribution docs; docs/notes/ holds development notes (Chinese)
 ```
+
+Task IDs use `<node>-<description>-<NNN>`. See [the naming map](docs/task-naming.md) for all 95 old/new names and 40 nodes. `L3-` is Lifecycle node 3; the difficulty metadata is unchanged.
 
 ## Citation
 

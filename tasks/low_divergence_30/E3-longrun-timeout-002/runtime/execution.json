@@ -1,0 +1,9 @@
+{
+  "conversation": "multi_turn",
+  "network_mode": "none",
+  "profile": "E3-longrun-timeout-002",
+  "requires": ["native_exec_v1", "post_tool_v1", "timeout_observation_v1", "process_containment_v1", "business_cli_v1"],
+  "runnable": true,
+  "schema_version": "harnessbench_execution_v1",
+  "timeout_sec": 900
+}

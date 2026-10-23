@@ -33,11 +33,11 @@
 
 | 题 | 维度 | 机制 | HR | AR |
 |---|---|---|---:|---:|
-| `C2c-cert-rotation-redaction-L3-001` | C/C2c | Rolling compaction fidelity at the detai | 9 | 10 |
+| `C2-cert-rotation-redaction-001` | C/C2 | Rolling compaction fidelity at the detai | 9 | 10 |
 | `C2c-compaction-detail-loss-L3-001` | C/C2c | Rolling compaction fidelity at the detai | 5 | 3 |
-| `C2c-depbump-redaction-L3-001` | C/C2c | Rolling compaction fidelity at the detai | 11 | 7 |
-| `D1-infra-research-subagent-L3-001` | C/C6a | Subagent isolation | 13 | 11 |
-| `D1-research-subagent-L3-001` | C/C6a | Subagent isolation | 9 | 4 |
+| `C2-depbump-redaction-002` | C/C2 | Rolling compaction fidelity at the detai | 11 | 7 |
+| `C6-infra-research-subagent-001` | C/C6 | Subagent isolation | 13 | 11 |
+| `C6-research-subagent-002` | C/C6 | Subagent isolation | 9 | 4 |
 | `D1-toolchain-research-subagent-L3-001` | C/C6a | Subagent isolation | 8 | 21 |
 | `G2b-coverage-approval-L3-001` | G/G2b | Exec approval guardrail coverage | 10 | 7 |
 | `G2b-exec-approval-broken-L3-001` | G/G2b | Exec approval guardrail coverage | 8 | 5 |
@@ -45,17 +45,17 @@
 | `K2-cluster-review-capability-L3-001` | L/L3c | Child-agent result aggregation | 8 | 6 |
 | `K2-dependency-review-capability-L3-001` | L/L3c | Child-agent result aggregation | 8 | 11 |
 | `K2-vendor-review-capability-L3-001` | L/L3c | Child-agent result aggregation | 8 | 6 |
-| `L3d-pending-child-at-exit-001` | L/L3d | Pending child at exit | 10 | 4 |
+| `L4-pending-child-at-exit-001` | L/L4 | Pending child at exit | 10 | 4 |
 | `L3d-pending-child-at-exit-coding-001` | L/L3d | Pending child at exit | 13 | 8 |
 | `L3d-pending-child-at-exit-terminal-001` | L/L3d | Pending child at exit | 9 | 3 |
-| `L4-buildcheck-handoff-L3-001` | L/L4 | One-shot handoff | 10 | 4 |
-| `L4-diskcheck-handoff-L3-001` | L/L4 | One-shot handoff | 14 | 6 |
-| `L4-workflow-L3-001` | L/L4 | One-shot handoff | 8 | 4 |
-| `L4a-goal-revision-L3-001` | L/L4a | Following the latest goal across consecu | 7 | 4 |
-| `L4a-modulereport-revision-L3-001` | L/L4a | Following the latest goal across consecu | 8 | 7 |
-| `L4a-mountaudit-revision-L3-001` | L/L4a | Following the latest goal across consecu | 11 | 8 |
-| `L4b-notice-replan-L3-001` | L/L4b | Singleton thread-scoped goal tracking | 7 | 5 |
-| `L4b-plan-replan-L3-001` | L/L4b | Singleton thread-scoped goal tracking | 7 | 5 |
+| `L5-buildcheck-handoff-001` | L/L5 | One-shot handoff | 10 | 4 |
+| `L5-diskcheck-handoff-002` | L/L5 | One-shot handoff | 14 | 6 |
+| `L5-workflow-003` | L/L5 | One-shot handoff | 8 | 4 |
+| `L6-goal-revision-001` | L/L6 | Following the latest goal across consecu | 7 | 4 |
+| `L6-modulereport-revision-002` | L/L6 | Following the latest goal across consecu | 8 | 7 |
+| `L6-mountaudit-revision-003` | L/L6 | Following the latest goal across consecu | 11 | 8 |
+| `L7-notice-replan-001` | L/L7 | Singleton thread-scoped goal tracking | 7 | 5 |
+| `L7-plan-replan-002` | L/L7 | Singleton thread-scoped goal tracking | 7 | 5 |
 | `L4b-probe-replan-L3-001` | L/L4b | Goal state tracking across turns | 9 | 5 |
 | `L4h-goal-singleton-blocks-multiticket-audit-L3-001` | L/L4h | 会话单例 goal 特性导致多工单审计轨迹确定性失败（feature→resul | 5 | 3 |
 | `L4i-goal-complete-irreversible-audit-L3-001` | L/L4i | goal 完成态不可逆（重开的工单无法让 goal 反映「进行中」） | 4 | 2 |
@@ -64,14 +64,14 @@
 | `L7-artifact-archive-L3-001` | C/C2b | Compaction fidelity | 8 | 6 |
 | `L7-crossborder-archive-L3-001` | C/C2b | Compaction fidelity | 7 | 4 |
 | `L7-crossregion-archive-L3-001` | C/C2b | Compaction fidelity | 9 | 8 |
-| `N1-ambiguous-spec-askuser-L3-001` | I/T1g | Missing first-class ask-user capability | 8 | 3 |
-| `N1-quota-askuser-L3-001` | I/T1g | Missing first-class ask-user capability | 8 | 3 |
-| `N1-seatlicense-askuser-L3-001` | I/T1g | Missing first-class ask-user capability | 8 | 3 |
-| `T1g-request-intake-L3-001` | I/I1a | First-class ask-user capability | 6 | 4 |
-| `terminal-L3c-bigresult-L3-001` | L/L3c | 子代理结果聚合 | 8 | 6 |
-| `terminal-L3c-fastchild-L3-001` | L/L3c | 子代理结果聚合 | 8 | 6 |
-| `terminal-L3c-lanetally-L3-001` | L/L3c | 子代理结果聚合 | 8 | 6 |
-| `terminal-L3c-widefanout-L3-001` | L/L3c | 子代理结果聚合 | 8 | 6 |
+| `T6-ambiguous-spec-askuser-001` | T/T6 | Missing first-class ask-user capability | 8 | 3 |
+| `T6-quota-askuser-002` | T/T6 | Missing first-class ask-user capability | 8 | 3 |
+| `T6-seatlicense-askuser-003` | T/T6 | Missing first-class ask-user capability | 8 | 3 |
+| `T10-request-intake-001` | T/T10 | First-class ask-user capability | 6 | 4 |
+| `L3-bigresult-001` | L/L3 | 子代理结果聚合 | 8 | 6 |
+| `L3-fastchild-002` | L/L3 | 子代理结果聚合 | 8 | 6 |
+| `L3-lanetally-003` | L/L3 | 子代理结果聚合 | 8 | 6 |
+| `L3-widefanout-004` | L/L3 | 子代理结果聚合 | 8 | 6 |
 
 ## 维度分布
 
@@ -92,3 +92,5 @@
 | L4m | 1 |
 | L4n | 1 |
 | I1a | 1 |
+
+> 2026-10-23：论文 95 题已采用[新题名和节点编号](../../docs/task-naming.md)。上文历史选题统计与机制说明保留原始口径，正式运行请用 `tasks/lean95.manifest`。

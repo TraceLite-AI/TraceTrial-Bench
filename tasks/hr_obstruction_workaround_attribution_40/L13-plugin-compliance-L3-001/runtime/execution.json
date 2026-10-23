@@ -1,9 +1,0 @@
-{
-  "conversation": "single_turn",
-  "network_mode": "none",
-  "profile": "L13-plugin-compliance-L3-001",
-  "requires": ["task_tools_v1"],
-  "runnable": true,
-  "schema_version": "harnessbench_execution_v1",
-  "timeout_sec": 600
-}

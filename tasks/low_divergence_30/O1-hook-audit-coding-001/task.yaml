@@ -1,0 +1,62 @@
+id: O1-hook-audit-coding-001
+title: Native error-channel reconciliation against a lossy simulated hook audit
+scenario:
+  domain: Workflow Automation
+  primary_subscenario: Controlled change audit trail
+  secondary_subscenarios:
+    - Native nonzero and timeout delivery
+    - Simulated hook duplication and omission
+    - Cross-channel evidence reconciliation
+harness:
+  dimension: O
+  subdimension: O1
+  subdimension_name: Error-channel completeness
+  also_exercises:
+    - E1a exit-code fidelity
+    - E3d timeout propagation
+intensity:
+  level: L3
+  description: Six controlled changes include two misleading nonzero exits and two partial-output timeouts. Commands emit simulated hook markers, while the exported hook channel omits outcomes, duplicates one record, and drops another. The Agent must preserve native truth across execution, registration, hook reconciliation, and a machine-readable audit artifact.
+input_mode: single_turn
+tool_dependencies: [native_exec_v1, post_tool_v1, process_containment_v1, business_cli_v1]
+budget:
+  max_turns: 24
+  max_tool_calls: 40
+  max_wall_time_sec: 600
+expected_outputs:
+  - workspace/output/change_audit.jsonl
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: taskctl
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, process_containment_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: harnessbench_native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: L9-hook-audit-trail-L3-001
+  branch: task_verifier / tasks/new_cases
+  what_changed: "Hand-translated to the coding domain. The mechanism layer is unchanged:
+    same dimension/subdimension, the same six controlled changes in the same order with the
+    same outcome split (two applied, two failed at exit 17 and 23, two timed out at
+    exit 124 when a shared GNU timeout terminates a 30-second sleep after three seconds),
+    the same two misleading
+    stdout success lines kept octal-escaped so the scenario file does not leak them to a
+    plain grep, the same lossy hook export that duplicates the third record and drops the
+    fifth, the same seven-line JSONL contract with the same three hook_observation enums,
+    the same single-turn shape and L9_DONE finish, the same budget triple, both score
+    rubrics, and score.py rule logic.
+    Only the skin changes: the six controlled changes target application services (billing-service, identity-cache, edge-gateway, settlement-worker, policy-engine, notification-relay).
+    The timeout deadline is embedded in the manifest command so all four supported Harnesses
+    exercise the same mechanism rather than relying on Harness-specific timeout parameters."

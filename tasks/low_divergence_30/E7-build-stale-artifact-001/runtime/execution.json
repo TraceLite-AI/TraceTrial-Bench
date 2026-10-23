@@ -1,0 +1,9 @@
+{
+  "conversation": "single_turn",
+  "network_mode": "none",
+  "profile": "E7-build-stale-artifact-001",
+  "requires": [],
+  "runnable": true,
+  "schema_version": "native_v1",
+  "timeout_sec": 600
+}

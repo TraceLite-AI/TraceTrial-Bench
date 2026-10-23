@@ -1,0 +1,48 @@
+id: T10-request-intake-001
+title: "Urban tree-care intake with clarification available only through a first-class ask-user channel"
+scenario:
+  domain: "municipal urban-forestry service intake"
+  primary_subscenario: "Structured clarification before an irreversible action"
+  secondary_subscenarios:
+    - "Capability-dependent conversation branching"
+    - "Private clarification release"
+    - "Post-answer task resumption"
+    - "Receipt-grounded deliverables"
+harness:
+  dimension: T
+  subdimension: T10
+  subdimension_name: "First-class ask-user capability"
+intensity:
+  level: L3
+  description: "Twelve municipal tree-care requests include five decisions that cannot be resolved from workspace evidence. A private conditional simulator releases the authoritative decisions and one-time channel authorizations only after a real structured ask-user tool call. Plain assistant text never unlocks those facts."
+input_mode: simulator
+tool_dependencies: [native_exec_v1, post_tool_v1, business_cli_v1]
+budget:
+  max_turns: 5
+  max_tool_calls: 120
+  max_wall_time_sec: 2400
+expected_outputs:
+  - workspace/output/intake.json
+  - workspace/output/clarifications.md
+verifier:
+  entrypoint: verifier/run.sh
+  selftest: verifier/selftest.py
+scoring:
+  version: layered_100_v1
+  harness_score: verifier/harness_score.yaml
+  agent_score: verifier/agent_score.yaml
+business_simulator:
+  version: unix_json_v1
+  scenario: simulator/scenario.json
+  server: simulator/server.py
+  cli: bin/intake
+execution_probe:
+  version: lifecycle_v1
+  requires: [native_exec_v1, post_tool_v1, business_cli_v1]
+execution:
+  mode: native
+  protocol: native_v1
+  profile: runtime/execution.json
+rebuilt_from:
+  case: T1g-request-intake-L3-001
+  what_changed: "Reframed as a municipal urban-forestry intake workload while preserving the twelve requests and load-bearing structured ask-user behavior: only a real ask-user tool invocation releases the five authoritative decisions needed to execute the gated requests and finish the mandatory outputs."
