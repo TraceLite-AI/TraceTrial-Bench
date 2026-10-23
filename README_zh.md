@@ -87,14 +87,6 @@ Claude Code 的 Agent Pass 最高，OpenClaw 的 Harness Macro 最高。四种 h
 
 </details>
 
-<p align="center">
-  <a href="docs/assets/reliability-analysis-overview.webp">
-    <img src="docs/assets/reliability-analysis-overview.webp" alt="七个维度的分层表现、运行结果构成与候选关联比例" width="100%" />
-  </a>
-</p>
-
-<p align="center"><sub>可靠性分析：分层表现、失败构成与候选关联。候选关联不等于经证据确认的因果传播。 · <a href="https://tracelite.ai/trial-by-trace.html">官方技术报告</a></sub></p>
-
 ## 快速上手
 
 **环境要求**：Python ≥ 3.11 和 Docker。以下命令使用 Linux shell；Windows 用户请在 WSL 中运行。

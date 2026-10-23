@@ -87,14 +87,6 @@ Per-model results and case studies are available in the [technical report](https
 
 </details>
 
-<p align="center">
-  <a href="docs/assets/reliability-analysis-overview.webp">
-    <img src="docs/assets/reliability-analysis-overview.webp" alt="Layer-wise performance, outcome composition and candidate-link incidence across seven dimensions" width="100%" />
-  </a>
-</p>
-
-<p align="center"><sub>Reliability analysis: layer-wise scores, outcome composition and candidate links. Candidate links are not evidence-validated causal propagation. · <a href="https://tracelite.ai/trial-by-trace.html">Technical report</a></sub></p>
-
 ## Quick start
 
 **Prerequisites:** Python ≥ 3.11 and Docker. Commands below use a Linux shell; on Windows, use WSL.
