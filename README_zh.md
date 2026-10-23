@@ -20,7 +20,6 @@
   <a href="#主要结果">主要结果</a> ·
   <a href="#快速上手">快速上手</a> ·
   <a href="#评测题集">评测题集</a> ·
-  <a href="#评分与归因">评分与归因</a> ·
   <a href="#引用">引用</a>
 </p>
 
@@ -87,6 +86,14 @@ Claude Code 的 Agent Pass 最高，OpenClaw 的 Harness Macro 最高。四种 h
 分模型结果和案例分析见[技术报告](https://tracelite.ai/trial-by-trace.html)与[排行榜](https://tracelite.ai/leaderboard.html)。
 
 </details>
+
+<p align="center">
+  <a href="docs/assets/reliability-analysis-overview.webp">
+    <img src="docs/assets/reliability-analysis-overview.webp" alt="七个维度的分层表现、运行结果构成与候选关联比例" width="100%" />
+  </a>
+</p>
+
+<p align="center"><sub>可靠性分析：分层表现、失败构成与候选关联。候选关联不等于经证据确认的因果传播。 · <a href="https://tracelite.ai/trial-by-trace.html">官方技术报告</a></sub></p>
 
 ## 快速上手
 
@@ -171,27 +178,6 @@ chmod 600 model.toml
 **正式评测使用 [95 题清单](tasks/lean95.manifest)。** [题集说明](tasks/lean95.README.md)介绍选题口径，[命名对照](docs/task-naming.md)列出全部新旧题名和节点映射。
 
 题名格式为 `<节点>-<描述>-<三位序号>`，例如 `C1-escalation-export-001`。开头的 `L3-` 表示 Lifecycle 第 3 个节点，难度元数据保持原值。历史 `lean96.manifest` 额外保留了未计入论文结果的 hostrecord 题。
-
-## 评分与归因
-
-```text
-Harness 分 = 50 × Harness 层通过条数 / Harness 层总条数
-Agent 分   = 50 × Agent 层通过条数   / Agent 层总条数
-总分       = Harness 分 + Agent 分          （100 分 = 全部通过）
-```
-
-- **规则判据**：由每道题私有的 `score.py` 判为 0 或 1。
-- **Rubric 判据**：从规范化轨迹中提取证据，由 LLM 判官判为 0 或 1。
-- **失败归因**：借助[逐题机制链](harnessbench/task_mechanism_chains.py)，在证据支持因果联系时，将 harness 缺陷与模型失败关联起来。
-- **基础设施错误**：判官 API 失败、轨迹缺失等记为 `error`，不计为零分。
-
-<p align="center">
-  <a href="docs/assets/reliability-analysis-overview.webp">
-    <img src="docs/assets/reliability-analysis-overview.webp" alt="七个维度的分层表现、运行结果构成与候选关联比例" width="100%" />
-  </a>
-</p>
-
-<p align="center"><sub>可靠性分析：分层表现、失败构成与候选关联。候选关联不等于经证据确认的因果传播。 · <a href="https://tracelite.ai/trial-by-trace.html">官方技术报告</a></sub></p>
 
 ## 仓库导航
 

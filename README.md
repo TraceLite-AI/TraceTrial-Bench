@@ -20,7 +20,6 @@ Code and tasks for *Trial by Trace: Benchmarking AI Agent Harnesses for Reliabil
   <a href="#results">Results</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="#benchmark">Benchmark</a> ·
-  <a href="#scoring">Scoring</a> ·
   <a href="#citation">Citation</a>
 </p>
 
@@ -87,6 +86,14 @@ Claude Code has the highest Agent Pass rate; OpenClaw has the highest Harness Ma
 Per-model results and case studies are available in the [technical report](https://tracelite.ai/trial-by-trace.html) and on the [leaderboard](https://tracelite.ai/leaderboard.html).
 
 </details>
+
+<p align="center">
+  <a href="docs/assets/reliability-analysis-overview.webp">
+    <img src="docs/assets/reliability-analysis-overview.webp" alt="Layer-wise performance, outcome composition and candidate-link incidence across seven dimensions" width="100%" />
+  </a>
+</p>
+
+<p align="center"><sub>Reliability analysis: layer-wise scores, outcome composition and candidate links. Candidate links are not evidence-validated causal propagation. · <a href="https://tracelite.ai/trial-by-trace.html">Technical report</a></sub></p>
 
 ## Quick start
 
@@ -171,27 +178,6 @@ Each task targets one of **7 reliability dimensions**. Prompts provide a goal, m
 **Start with the [95-task manifest](tasks/lean95.manifest).** The [task-set guide](tasks/lean95.README.md) explains the selection; the [naming map](docs/task-naming.md) lists every old/new ID and node mapping.
 
 Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-001`. A leading `L3-` denotes Lifecycle node 3; difficulty metadata is unchanged. The historical `lean96.manifest` retains the additional hostrecord task excluded from the paper results.
-
-## Scoring
-
-```text
-Harness score = 50 × (harness criteria passed / harness criteria total)
-Agent score   = 50 × (agent criteria passed   / agent criteria total)
-Total         = Harness score + Agent score          (100 = full pass)
-```
-
-- **Rule criteria** are checked by a private `score.py` per task (0 or 1).
-- **Rubric criteria** are judged by an LLM judge using evidence from the normalized trace (0 or 1).
-- **Attribution** uses [task-specific mechanism chains](harnessbench/task_mechanism_chains.py) to connect harness defects to agent failures when the evidence supports a causal link.
-- **Infrastructure errors**, such as judge API failures or missing traces, are marked `error` rather than counted as zero.
-
-<p align="center">
-  <a href="docs/assets/reliability-analysis-overview.webp">
-    <img src="docs/assets/reliability-analysis-overview.webp" alt="Layer-wise performance, outcome composition and candidate-link incidence across seven dimensions" width="100%" />
-  </a>
-</p>
-
-<p align="center"><sub>Reliability analysis: layer-wise scores, outcome composition and candidate links. Candidate links are not evidence-validated causal propagation. · <a href="https://tracelite.ai/trial-by-trace.html">Technical report</a></sub></p>
 
 ## Repository guide
 
