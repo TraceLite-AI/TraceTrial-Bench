@@ -1,42 +1,58 @@
 <div align="center">
 
+<img src="docs/assets/readme-banner.svg" alt="TraceTrial-Bench — AI agent harness reliability and failure attribution" width="100%" />
+
 # TraceTrial-Bench
 
 **When an AI agent fails, was it the model — or the harness around it?**
 
 Code and tasks for *Trial by Trace: Benchmarking AI Agent Harnesses for Reliability and Failure Attribution*
 
-[![Report](https://img.shields.io/badge/Report-tracelite.ai-black)](https://tracelite.ai/trial-by-trace.html)
-[![Leaderboard](https://img.shields.io/badge/Leaderboard-live-black)](https://tracelite.ai/leaderboard.html)
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Space-Trial--by--Trace-yellow)](https://huggingface.co/spaces/TraceLite-AI/Trial-by-Trace)
-[![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-lightgrey)](#citation)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Report](https://img.shields.io/badge/Read_the_Report-0f766e?style=flat-square)](https://tracelite.ai/trial-by-trace.html)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-1e3a5f?style=flat-square)](https://tracelite.ai/leaderboard.html)
+[![Hugging Face](https://img.shields.io/badge/Hugging_Face-Space-facc15?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/spaces/TraceLite-AI/Trial-by-Trace)
+[![License: MIT](https://img.shields.io/badge/License-MIT-64748b?style=flat-square)](LICENSE)
 
-English | [中文](README_zh.md)
+**English** · [简体中文](README_zh.md)
 
 </div>
 
----
+<p align="center">
+  <a href="#overview">Overview</a> ·
+  <a href="#results">Results</a> ·
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#benchmark">Benchmark</a> ·
+  <a href="#scoring">Scoring</a> ·
+  <a href="#citation">Citation</a>
+</p>
 
-## In one minute
+<table>
+  <tr>
+    <td align="center" width="25%"><strong>95</strong><br/>Tasks</td>
+    <td align="center" width="25%"><strong>40</strong><br/>Mechanism nodes</td>
+    <td align="center" width="25%"><strong>7</strong><br/>Reliability dimensions</td>
+    <td align="center" width="25%"><strong>3,420</strong><br/>Paper runs</td>
+  </tr>
+</table>
 
-A coding/ops agent is **a model plus a harness**. Claude Code, Codex, OpenClaw and DeepSeek Harness are harnesses: the program that runs tools, manages context, asks for approval, spawns sub-agents and decides when the job is done.
+## Overview
 
-Most benchmarks report one number: *did the task succeed?* That hides **who** caused a failure. A model can solve a task even though the harness silently dropped an error, and a harness can do everything right while the model gives up.
+A coding/ops agent is **a model plus a harness**. The harness runs tools, manages context, asks for approval, spawns sub-agents and decides when the job is done. Claude Code, Codex, OpenClaw and DeepSeek Harness are the four harnesses evaluated in the paper.
 
-TraceTrial-Bench scores the **execution trace** instead of only the final answer:
+Task success alone hides the source of a failure. A model can finish despite a silently dropped error; it can also fail when the harness behaves correctly. TraceTrial-Bench examines the **execution trace** and scores these two layers separately.
 
-| | |
-|---|---|
-| **What we run** | 95 tasks, each built around one concrete harness mechanism (timeouts, stderr, approvals, context compaction, sub-agents, credentials …) |
-| **Where** | 4 harnesses × 9 models = 36 combinations, 3,420 runs, all in Docker |
-| **How we score** | Two layers per run: **Harness** (did the harness behave correctly?) and **Agent** (did the model do the task correctly?) |
-| **What you get** | A per-run verdict on whether a failure is *harness-caused*, *agent-caused*, or *absorbed* (harness defect hit, but the model worked around it) |
+| Stage | What TraceTrial-Bench does |
+| :--- | :--- |
+| **Run** | Executes 95 mechanism-focused tasks across 4 harnesses × 9 models, giving 36 combinations and 3,420 Docker runs. |
+| **Inspect** | Normalizes traces and extracts evidence about tool calls, context, execution and task outcomes. |
+| **Score** | Evaluates **Harness** behavior and **Agent** task performance independently. |
+| **Attribute** | Identifies harness-caused failures, agent-caused failures and harness defects that the agent worked around. |
 
-## Key findings
+## Results
 
-- **Task success hides harness failures.** In 31.1% of runs the task succeeds, yet at least one harness criterion fails. Only 8.4% of runs pass every criterion in both layers.
-- **Different harnesses lead on different things.** Claude Code completes the most tasks; OpenClaw is the most reliable harness. Harness Macro scores spread 12.2 points (59.8% to 72.0%).
+> **31.1%** of runs succeed at the task despite failing at least one harness criterion. Only **8.4%** pass every criterion in both layers.
+
+Claude Code has the highest Agent Pass rate; OpenClaw has the highest Harness Macro score. Harness Macro spans **12.2 percentage points**, from 59.8% to 72.0%.
 
 | Harness | Agent Pass | Agent Score | Harness Macro | Clean | Overall |
 |---|---:|---:|---:|---:|---:|
@@ -45,27 +61,104 @@ TraceTrial-Bench scores the **execution trace** instead of only the final answer
 | DeepSeek Harness | 40.0 | 73.3 | 68.8 | 9.8 | 71.0 |
 | OpenClaw | 38.2 | 71.7 | **72.0** | **11.7** | 71.8 |
 
-<sub>All values are percentages, averaged over 9 models × 95 tasks (855 cells per harness). Agent Pass = every Agent criterion passes; Clean = every criterion in both layers passes; Overall = mean of Agent Score and Harness Macro.</sub>
+<sub>All values are percentages, averaged over 9 models × 95 tasks (855 cells per harness). Bold marks the best value in each column.</sub>
 
-Per-model results and case studies are in the [report](https://tracelite.ai/trial-by-trace.html) and on the [leaderboard](https://tracelite.ai/leaderboard.html).
+<details>
+<summary><strong>How to read the metrics</strong></summary>
 
-## What the tasks test
+- **Agent Pass:** every Agent criterion passes.
+- **Clean:** every criterion in both layers passes.
+- **Overall:** mean of Agent Score and Harness Macro.
 
-Each task targets one of **7 reliability dimensions**:
+Per-model results and case studies are available in the [technical report](https://tracelite.ai/trial-by-trace.html) and on the [leaderboard](https://tracelite.ai/leaderboard.html).
 
-| Dimension | What it covers | Tasks |
-|---|---|---:|
-| **C**ontext | Information preservation, isolation, and recovery | 15 |
-| **E**xecution | Process semantics and faithful result delivery | 27 |
-| **G**overnance | Permissions, policies, and security boundaries | 9 |
-| **L**ifecycle | Session transitions, delegation, and state recovery | 19 |
-| **O**bservability | Faithful diagnostic and failure channels | 7 |
-| **T**ools | Tool interfaces, discovery, and transport fidelity | 17 |
-| **V**erification | Completion claims versus authoritative outcomes | 1 |
+</details>
 
-Task prompts never tell the agent about the mechanism. They give only a goal, materials and a deliverable, so the trace shows how the harness behaves under realistic pressure.
+## Quick start
 
-## How a run is scored
+**Prerequisites:** Python ≥ 3.11 and Docker. Commands below use a Linux shell; on Windows, use WSL.
+
+### 1. Install and configure
+
+```bash
+git clone https://github.com/TraceLite-AI/TraceTrial-Bench.git
+cd TraceTrial-Bench
+python3 -m venv .venv
+.venv/bin/pip install -e .
+cp configs/models.example.toml model.toml
+chmod 600 model.toml
+```
+
+Edit `model.toml` with your provider endpoint, model identifier and API key. The commands below use its `deepseek` alias. Keep this credential file private.
+
+### 2. Build a harness and run one task
+
+```bash
+.venv/bin/harnessbench image build --harness openclaw \
+  --model-registry ./model.toml --output-dir outputs/image-builds
+
+.venv/bin/harnessbench run --smoke --harness openclaw --model deepseek \
+  --mode docker --model-registry ./model.toml --output-dir outputs/runs
+```
+
+### 3. Run the paper benchmark
+
+```bash
+.venv/bin/harnessbench run --task-manifest tasks/lean95.manifest \
+  --harness openclaw --model deepseek --judge-model deepseek \
+  --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
+```
+
+### 4. Inspect the report
+
+```bash
+.venv/bin/harnessbench report outputs/runs/<run-directory>
+```
+
+| Output | Contents |
+| :--- | :--- |
+| `result.json` | Status, scores, tokens, cost and timing |
+| Normalized trace | Model and harness execution evidence |
+| `artifacts/verifier_output/score.json` | Rule-check results |
+| `artifacts/llm_judge/combined_score.json` | Harness and Agent layer scores |
+
+<details>
+<summary><strong>Supported harnesses and additional options</strong></summary>
+
+Versions are pinned in [`docker/harnessbench/`](docker/harnessbench/). Repeat `--harness` to build more than one harness image.
+
+| Harness | Pinned version | Scope |
+| :--- | :--- | :--- |
+| Claude Code | 2.1.220 | Paper evaluation |
+| Codex | 0.145.0 | Paper evaluation |
+| OpenClaw | 2026.6.9 | Paper evaluation |
+| DeepSeek Harness | 0.1.0-rc.6 | Paper evaluation |
+| Hermes | 0.19.0 | Experimental; not in the paper |
+
+Use `--evaluation-mode run-only`, `score-only` or `run-and-score` to separate execution from scoring. Additional options include `--resume` and `--skip-on-rate-limit`; see `.venv/bin/harnessbench run --help`.
+
+</details>
+
+## Benchmark
+
+Each task targets one of **7 reliability dimensions**. Prompts provide a goal, materials and a deliverable without revealing the mechanism being tested.
+
+| Code | Dimension | What it covers | Tasks | Nodes |
+| :---: | :--- | :--- | ---: | ---: |
+| **C** | Context | Information preservation, isolation and recovery | 15 | 6 |
+| **E** | Execution | Process semantics and faithful result delivery | 27 | 9 |
+| **G** | Governance | Permissions, policies and security boundaries | 9 | 4 |
+| **L** | Lifecycle | Session transitions, delegation and state recovery | 19 | 8 |
+| **O** | Observability | Faithful diagnostic and failure channels | 7 | 2 |
+| **T** | Tools | Tool interfaces, discovery and transport fidelity | 17 | 10 |
+| **V** | Verification | Completion claims versus authoritative outcomes | 1 | 1 |
+| | **Total** | | **95** | **40** |
+
+**Start with the [95-task manifest](tasks/lean95.manifest).** The [task-set guide](tasks/lean95.README.md) explains the selection; the [naming map](docs/task-naming.md) lists every old/new ID and node mapping.
+
+Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-001`. A leading `L3-` denotes Lifecycle node 3; difficulty metadata is unchanged. The historical `lean96.manifest` retains the additional hostrecord task excluded from the paper results.
+
+## Scoring
 
 ```text
 Harness score = 50 × (harness criteria passed / harness criteria total)
@@ -74,75 +167,34 @@ Total         = Harness score + Agent score          (100 = full pass)
 ```
 
 - **Rule criteria** are checked by a private `score.py` per task (0 or 1).
-- **Rubric criteria** are judged by an LLM judge on evidence extracted from the normalized trace (0 or 1).
-- Infrastructure errors (judge API failure, missing trace) are marked `error`, never silently counted as 0.
-- Each harness criterion carries a **mechanism chain**, so a failed criterion can be attributed to the harness or the agent (`harnessbench/task_mechanism_chains.py`).
+- **Rubric criteria** are judged by an LLM judge using evidence from the normalized trace (0 or 1).
+- **Attribution** uses [task-specific mechanism chains](harnessbench/task_mechanism_chains.py) to connect harness defects to agent failures when the evidence supports a causal link.
+- **Infrastructure errors**, such as judge API failures or missing traces, are marked `error` rather than counted as zero.
 
-## Quick start
+## Repository guide
 
-Requires Python ≥ 3.11 and Docker.
+| Path | Purpose |
+| :--- | :--- |
+| [`tasks/`](tasks/) | Benchmark tasks and published manifests |
+| [`harnessbench/`](harnessbench/) | CLI, Docker runner, scoring, attribution and reports |
+| [`harness_tracer/`](harness_tracer/) | Harness adapters and normalized traces |
+| [`verifier/`](verifier/) | Evidence layer (`trace_ir`) and API traffic capture |
+| [`docker/`](docker/) | Pinned harness images |
+| [`configs/`](configs/) | Model registry example |
+| [`docs/`](docs/) | Rubric, attribution and naming documentation |
 
-```bash
-git clone https://github.com/TraceLite-AI/TraceTrial-Bench.git
-cd TraceTrial-Bench
-python3 -m venv .venv && .venv/bin/pip install -e .
+<details>
+<summary><strong>Task families and historical material</strong></summary>
 
-# 1. Register your models (keep this file private; it holds API keys)
-cp configs/models.example.toml model.toml && chmod 600 model.toml
+The published tasks are organized into `capability_gap_39/`, `hr_obstruction_workaround_attribution_40/`, `low_divergence_30/` and `facet_supplement_20/` under `tasks/`. Use the manifest to select the paper set.
 
-# 2. Build a harness image (repeat --harness for more)
-.venv/bin/harnessbench image build --harness openclaw \
-  --model-registry ./model.toml --output-dir outputs/image-builds
+`suite/`, `cases/`, `rubrics/` and `test_task/` contain earlier suites retained for reference. `docs/notes/` holds development notes in Chinese.
 
-# 3. Smoke test: one task, run + score
-.venv/bin/harnessbench run --smoke --harness openclaw --model deepseek \
-  --mode docker --model-registry ./model.toml --output-dir outputs/runs
-
-# 4. Full benchmark (the 95-task paper set)
-.venv/bin/harnessbench run --task-manifest tasks/lean95.manifest \
-  --harness openclaw --model deepseek --judge-model deepseek \
-  --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
-
-# 5. HTML report for a finished run
-.venv/bin/harnessbench report outputs/runs/<run-directory>
-```
-
-Supported harnesses (pinned in `docker/harnessbench/`):
-
-| Harness | Version |
-|---|---|
-| Claude Code | 2.1.220 |
-| Codex | 0.145.0 |
-| OpenClaw | 2026.6.9 |
-| DeepSeek Harness | 0.1.0-rc.6 |
-| Hermes *(experimental, not in the paper)* | 0.19.0 |
-
-Useful options: `--evaluation-mode run-only | score-only | run-and-score` (run now, score later), `--resume`, `--skip-on-rate-limit`. See `harnessbench run --help`.
-
-Each run directory contains `result.json` (status, scores, tokens, cost, timing), the normalized trace, `artifacts/verifier_output/score.json` (rule checks) and `artifacts/llm_judge/combined_score.json` (Harness/Agent layer scores).
-
-## Repository layout
-
-```text
-tasks/              the benchmark
-  lean95.manifest     the 95-task paper set with canonical task and node names
-  lean96.manifest     historical 96-task selection (includes the excluded hostrecord task)
-  capability_gap_39/  hr_obstruction_workaround_attribution_40/
-  low_divergence_30/  facet_supplement_20/            task families
-harnessbench/       CLI, Docker runner, verifiers, LLM judge, mechanism chains, reports
-harness_tracer/     adapters that turn each harness's logs into one normalized trace
-verifier/           evidence layer (trace_ir) and API traffic capture
-docker/             pinned harness images
-configs/            model registry example (no real keys)
-suite/, cases/, rubrics/, test_task/   earlier task suites, kept for reference
-docs/               rubric and attribution docs; docs/notes/ holds development notes (Chinese)
-```
-
-Task IDs use `<node>-<description>-<NNN>`. See [the naming map](docs/task-naming.md) for all 95 old/new names and 40 nodes. `L3-` is Lifecycle node 3; the difficulty metadata is unchanged.
+</details>
 
 ## Citation
 
-The arXiv version is on its way. Until then, please cite:
+The arXiv version is forthcoming. Until then, please cite the technical report:
 
 ```bibtex
 @misc{tracelite2026trialbytrace,
@@ -159,8 +211,12 @@ The arXiv version is on its way. Until then, please cite:
 }
 ```
 
-## About
+---
 
-Built by [TraceLite AI](https://tracelite.ai), an academic-driven open research team working on the building blocks of agent evaluation and post-training: forensics, attribution, environments, rewards and data generation. Contact: contact@tracelite.ai.
+<div align="center">
 
-Released under the [MIT License](LICENSE).
+Built by **[TraceLite AI](https://tracelite.ai)** · [Contact](mailto:contact@tracelite.ai) · [MIT License](LICENSE)
+
+<sub>Open research on agent evaluation and post-training: forensics, attribution, environments, rewards and data generation.</sub>
+
+</div>
