@@ -143,23 +143,6 @@ Edit `model.toml` with your provider endpoint, model identifier and API key. The
 | `artifacts/verifier_output/score.json` | Rule-check results |
 | `artifacts/llm_judge/combined_score.json` | Harness and Agent layer scores |
 
-<details>
-<summary><strong>Supported harnesses and additional options</strong></summary>
-
-Versions are pinned in [`docker/harnessbench/`](docker/harnessbench/). Repeat `--harness` to build more than one harness image.
-
-| Harness | Pinned version | Scope |
-| :--- | :--- | :--- |
-| Claude Code | 2.1.220 | Paper evaluation |
-| Codex | 0.145.0 | Paper evaluation |
-| OpenClaw | 2026.6.9 | Paper evaluation |
-| DeepSeek Harness | 0.1.0-rc.6 | Paper evaluation |
-| Hermes | 0.19.0 | Experimental; not in the paper |
-
-Use `--evaluation-mode run-only`, `score-only` or `run-and-score` to separate execution from scoring. Additional options include `--resume` and `--skip-on-rate-limit`; see `.venv/bin/harnessbench run --help`.
-
-</details>
-
 ## Benchmark
 
 Each task targets one of **7 reliability dimensions**. Prompts provide a goal, materials and a deliverable without revealing the mechanism being tested.

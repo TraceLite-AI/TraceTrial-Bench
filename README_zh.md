@@ -143,23 +143,6 @@ chmod 600 model.toml
 | `artifacts/verifier_output/score.json` | 规则判据结果 |
 | `artifacts/llm_judge/combined_score.json` | Harness 与 Agent 两层评分 |
 
-<details>
-<summary><strong>支持的 harness 与更多运行选项</strong></summary>
-
-版本锁定在 [`docker/harnessbench/`](docker/harnessbench/)。构建多个 harness 镜像时，可重复指定 `--harness`。
-
-| Harness | 锁定版本 | 范围 |
-| :--- | :--- | :--- |
-| Claude Code | 2.1.220 | 论文评测 |
-| Codex | 0.145.0 | 论文评测 |
-| OpenClaw | 2026.6.9 | 论文评测 |
-| DeepSeek Harness | 0.1.0-rc.6 | 论文评测 |
-| Hermes | 0.19.0 | 实验性支持，未纳入论文 |
-
-通过 `--evaluation-mode run-only`、`score-only` 或 `run-and-score` 分离运行与评分。其他选项包括 `--resume` 和 `--skip-on-rate-limit`，详见 `.venv/bin/harnessbench run --help`。
-
-</details>
-
 ## 评测题集
 
 每道题对应 **7 个可靠性维度**之一。题面只提供目标、材料与交付物，不透露被测机制。
