@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/readme-banner.svg" alt="TraceTrial-Bench — AI agent harness reliability and failure attribution" width="100%" />
-
-# TraceTrial-Bench
+<img src="docs/assets/tracetrial-logo.png" alt="TraceTrial-Bench" width="640" />
 
 **When an AI agent fails, was it the model — or the harness around it?**
 
@@ -41,6 +39,14 @@ A coding/ops agent is **a model plus a harness**. The harness runs tools, manage
 
 Task success alone hides the source of a failure. A model can finish despite a silently dropped error; it can also fail when the harness behaves correctly. TraceTrial-Bench examines the **execution trace** and scores these two layers separately.
 
+<p align="center">
+  <a href="docs/assets/tracetrial-benchmark-main-v2.webp">
+    <img src="docs/assets/tracetrial-benchmark-main-v2.webp" alt="TraceTrial-Bench framework: task design, native execution, evidence acquisition and failure attribution" width="100%" />
+  </a>
+</p>
+
+<p align="center"><sub>Framework overview: mechanism-focused tasks, multi-source evidence and run-level attribution. Click to view at full size. · <a href="https://tracelite.ai/trial-by-trace.html">Technical report</a></sub></p>
+
 | Stage | What TraceTrial-Bench does |
 | :--- | :--- |
 | **Run** | Executes 95 mechanism-focused tasks across 4 harnesses × 9 models, giving 36 combinations and 3,420 Docker runs. |
@@ -53,6 +59,14 @@ Task success alone hides the source of a failure. A model can finish despite a s
 > **31.1%** of runs succeed at the task despite failing at least one harness criterion. Only **8.4%** pass every criterion in both layers.
 
 Claude Code has the highest Agent Pass rate; OpenClaw has the highest Harness Macro score. Harness Macro spans **12.2 percentage points**, from 59.8% to 72.0%.
+
+<p align="center">
+  <a href="docs/assets/overall-score-model-harness.webp">
+    <img src="docs/assets/overall-score-model-harness.webp" alt="Overall scores for nine models and four harnesses" width="100%" />
+  </a>
+</p>
+
+<p align="center"><sub>Overall performance: model scores average over four harnesses; harness scores average over nine models. · <a href="https://tracelite.ai/trial-by-trace.html">Technical report</a></sub></p>
 
 | Harness | Agent Pass | Agent Score | Harness Macro | Clean | Overall |
 |---|---:|---:|---:|---:|---:|
@@ -170,6 +184,14 @@ Total         = Harness score + Agent score          (100 = full pass)
 - **Rubric criteria** are judged by an LLM judge using evidence from the normalized trace (0 or 1).
 - **Attribution** uses [task-specific mechanism chains](harnessbench/task_mechanism_chains.py) to connect harness defects to agent failures when the evidence supports a causal link.
 - **Infrastructure errors**, such as judge API failures or missing traces, are marked `error` rather than counted as zero.
+
+<p align="center">
+  <a href="docs/assets/reliability-analysis-overview.webp">
+    <img src="docs/assets/reliability-analysis-overview.webp" alt="Layer-wise performance, outcome composition and candidate-link incidence across seven dimensions" width="100%" />
+  </a>
+</p>
+
+<p align="center"><sub>Reliability analysis: layer-wise scores, outcome composition and candidate links. Candidate links are not evidence-validated causal propagation. · <a href="https://tracelite.ai/trial-by-trace.html">Technical report</a></sub></p>
 
 ## Repository guide
 

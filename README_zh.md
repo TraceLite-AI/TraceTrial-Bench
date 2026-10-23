@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/readme-banner.svg" alt="TraceTrial-Bench — AI agent harness reliability and failure attribution" width="100%" />
-
-# TraceTrial-Bench
+<img src="docs/assets/tracetrial-logo.png" alt="TraceTrial-Bench" width="640" />
 
 **AI Agent 出错时，是模型的问题，还是 harness 的问题？**
 
@@ -41,6 +39,14 @@
 
 任务是否成功，无法单独解释失败来自哪里：harness 可能吞掉了报错，但模型依然绕过障碍完成任务；harness 也可能行为正确，而模型执行失败。TraceTrial-Bench 检查**完整执行轨迹**，将这两层表现分别评分。
 
+<p align="center">
+  <a href="docs/assets/tracetrial-benchmark-main-v2.webp">
+    <img src="docs/assets/tracetrial-benchmark-main-v2.webp" alt="TraceTrial-Bench 四阶段框架：任务设计、原生执行、证据采集与失败归因" width="100%" />
+  </a>
+</p>
+
+<p align="center"><sub>评测框架：从机制导向题目到多源证据与运行级归因。点击图片查看原尺寸。 · <a href="https://tracelite.ai/trial-by-trace.html">官方技术报告</a></sub></p>
+
 | 环节 | TraceTrial-Bench 做什么 |
 | :--- | :--- |
 | **运行** | 95 道机制导向题目 × 4 个 harness × 9 个模型，覆盖 36 种组合、3,420 次 Docker 运行。 |
@@ -53,6 +59,14 @@
 > **31.1%** 的运行完成了任务，但至少有一条 harness 判据未通过；两层全部判据都通过的运行仅占 **8.4%**。
 
 Claude Code 的 Agent Pass 最高，OpenClaw 的 Harness Macro 最高。四种 harness 的 Harness Macro 相差 **12.2 个百分点**，从 59.8% 到 72.0%。
+
+<p align="center">
+  <a href="docs/assets/overall-score-model-harness.webp">
+    <img src="docs/assets/overall-score-model-harness.webp" alt="九个模型与四个 harness 的 Overall Score 对比" width="100%" />
+  </a>
+</p>
+
+<p align="center"><sub>总体成绩：模型结果跨四个 harness 平均，harness 结果跨九个模型平均。 · <a href="https://tracelite.ai/trial-by-trace.html">官方技术报告</a></sub></p>
 
 | Harness | Agent Pass | Agent Score | Harness Macro | Clean | Overall |
 |---|---:|---:|---:|---:|---:|
@@ -76,7 +90,7 @@ Claude Code 的 Agent Pass 最高，OpenClaw 的 Harness Macro 最高。四种 h
 
 ## 快速上手
 
-**环境要求：**Python ≥ 3.11 和 Docker。以下命令使用 Linux shell；Windows 用户请在 WSL 中运行。
+**环境要求**：Python ≥ 3.11 和 Docker。以下命令使用 Linux shell；Windows 用户请在 WSL 中运行。
 
 ### 1. 安装与配置
 
@@ -166,10 +180,18 @@ Agent 分   = 50 × Agent 层通过条数   / Agent 层总条数
 总分       = Harness 分 + Agent 分          （100 分 = 全部通过）
 ```
 
-- **规则判据：**由每道题私有的 `score.py` 判为 0 或 1。
-- **Rubric 判据：**从规范化轨迹中提取证据，由 LLM 判官判为 0 或 1。
-- **失败归因：**借助[逐题机制链](harnessbench/task_mechanism_chains.py)，在证据支持因果联系时，将 harness 缺陷与模型失败关联起来。
-- **基础设施错误：**判官 API 失败、轨迹缺失等记为 `error`，不计为零分。
+- **规则判据**：由每道题私有的 `score.py` 判为 0 或 1。
+- **Rubric 判据**：从规范化轨迹中提取证据，由 LLM 判官判为 0 或 1。
+- **失败归因**：借助[逐题机制链](harnessbench/task_mechanism_chains.py)，在证据支持因果联系时，将 harness 缺陷与模型失败关联起来。
+- **基础设施错误**：判官 API 失败、轨迹缺失等记为 `error`，不计为零分。
+
+<p align="center">
+  <a href="docs/assets/reliability-analysis-overview.webp">
+    <img src="docs/assets/reliability-analysis-overview.webp" alt="七个维度的分层表现、运行结果构成与候选关联比例" width="100%" />
+  </a>
+</p>
+
+<p align="center"><sub>可靠性分析：分层表现、失败构成与候选关联。候选关联不等于经证据确认的因果传播。 · <a href="https://tracelite.ai/trial-by-trace.html">官方技术报告</a></sub></p>
 
 ## 仓库导航
 
