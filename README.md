@@ -191,15 +191,6 @@ Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-
 | [`configs/`](configs/) | Model registry example |
 | [`docs/`](docs/) | Rubric, attribution and naming documentation |
 
-<details>
-<summary><strong>Task families and historical material</strong></summary>
-
-The published tasks are organized into `capability_gap_39/`, `hr_obstruction_workaround_attribution_40/`, `low_divergence_30/` and `facet_supplement_20/` under `tasks/`. Use the manifest to select the paper set.
-
-`suite/`, `cases/`, `rubrics/` and `test_task/` contain earlier suites retained for reference. `docs/notes/` holds development notes in Chinese.
-
-</details>
-
 ## Citation
 
 The arXiv version is forthcoming. Until then, please cite the technical report:

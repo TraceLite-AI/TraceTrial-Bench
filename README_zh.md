@@ -191,15 +191,6 @@ chmod 600 model.toml
 | [`configs/`](configs/) | 模型注册表示例 |
 | [`docs/`](docs/) | 判据、归因与命名说明 |
 
-<details>
-<summary><strong>题目分组与历史材料</strong></summary>
-
-正式题目分布在 `tasks/` 下的 `capability_gap_39/`、`hr_obstruction_workaround_attribution_40/`、`low_divergence_30/` 和 `facet_supplement_20/` 四个题族中，论文题集以 manifest 为准。
-
-`suite/`、`cases/`、`rubrics/` 和 `test_task/` 保留早期题集供参考，`docs/notes/` 存放中文开发笔记。
-
-</details>
-
 ## 引用
 
 arXiv 版本即将上线，在此之前请引用技术报告：
