@@ -15,7 +15,7 @@ from harness_tracer.provider_requests import (
 )
 
 
-SMOKE_TASK = Path("test_task/C1a-academic-L3-001")
+SMOKE_TASK = Path("Task/C1-escalation-export-001")
 
 
 @dataclass(frozen=True)

@@ -55,7 +55,7 @@ def build_parser() -> argparse.ArgumentParser:
     task_source.add_argument(
         "--smoke",
         action="store_true",
-        help="run the fixed C1a-academic-L3-001 layered 100-point smoke task",
+        help="run C1-escalation-export-001 from the final task collection as a smoke run",
     )
     task_source.add_argument(
         "--task-manifest",

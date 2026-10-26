@@ -106,7 +106,7 @@ chmod 600 model.toml
 .venv/bin/tracetrial_bench image build --harness openclaw \
   --model-registry ./model.toml --output-dir outputs/image-builds
 
-.venv/bin/tracetrial_bench run --smoke --harness openclaw --model deepseek \
+.venv/bin/tracetrial_bench run --task Task/C1-escalation-export-001 --harness openclaw --model deepseek \
   --mode docker --model-registry ./model.toml --output-dir outputs/runs
 ```
 

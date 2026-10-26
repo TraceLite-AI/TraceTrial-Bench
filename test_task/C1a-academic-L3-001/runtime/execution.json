@@ -1,9 +1,0 @@
-{
-  "conversation": "single_turn",
-  "network_mode": "none",
-  "profile": "C1a-academic-L3-001-native",
-  "requires": ["shell_tool", "large_tool_result_transport", "native_trace"],
-  "runnable": true,
-  "schema_version": "openclaw_native_v1",
-  "timeout_sec": 1800
-}
