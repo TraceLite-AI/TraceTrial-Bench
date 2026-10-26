@@ -35,7 +35,7 @@ class ContainerImageWorkerContextTests(unittest.TestCase):
         for harness, definition in DEFAULT_IMAGES.items():
             with self.subTest(harness=harness):
                 dockerfile = (
-                    ROOT / "docker" / "harnessbench" / definition.dockerfile
+                    ROOT / "docker" / "tracetrial_bench" / definition.dockerfile
                 ).read_text(encoding="utf-8")
                 self.assertIn(
                     'RUN python3 -c "import tracetrial_bench.container_worker"',

@@ -182,7 +182,7 @@ Total_score   = Harness_score + Agent_score
 - **`harness_tracer/`**：harness 适配器和规范化 trace。
 - **`verifier/`**：判据执行器与统一取证层。
 - **`docs/`**：题号映射、rubric 与归因逻辑文档。
-- `docker/harnessbench/`：各 harness 的运行镜像定义。
+- `docker/tracetrial_bench/`：各 harness 的运行镜像定义。
 - `test_task/C1a-academic-L3-001/`：独立 smoke 测试夹具。
 - `configs/models.example.toml`：不含真实密钥的模型注册表示例。
 
@@ -253,11 +253,11 @@ usage；清单带有来源、模型可见性和完整性标记，评分器不得
 
 | Harness | 固定版本 | Dockerfile |
 |---|---:|---|
-| OpenClaw | `2026.6.9` | `docker/harnessbench/openclaw.Dockerfile` |
-| Hermes | `0.19.0` | `docker/harnessbench/hermes.Dockerfile` |
-| Codex | `0.145.0` | `docker/harnessbench/codex.Dockerfile` |
-| Claude Code | `2.1.220` | `docker/harnessbench/claudecode.Dockerfile` |
-| DeepSeek Harness | `0.1.0-rc.6` | `docker/harnessbench/deepseek.Dockerfile` |
+| OpenClaw | `2026.6.9` | `docker/tracetrial_bench/openclaw.Dockerfile` |
+| Hermes | `0.19.0` | `docker/tracetrial_bench/hermes.Dockerfile` |
+| Codex | `0.145.0` | `docker/tracetrial_bench/codex.Dockerfile` |
+| Claude Code | `2.1.220` | `docker/tracetrial_bench/claudecode.Dockerfile` |
+| DeepSeek Harness | `0.1.0-rc.6` | `docker/tracetrial_bench/deepseek.Dockerfile` |
 
 一次性构建全部 harness 镜像：
 

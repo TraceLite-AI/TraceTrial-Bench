@@ -208,7 +208,7 @@ class HarnessImageManager:
         build_config: ContainerBuildConfig,
     ) -> None:
         dockerfile_source = (
-            self.repository_root / "docker" / "harnessbench" / definition.dockerfile
+            self.repository_root / "docker" / "tracetrial_bench" / definition.dockerfile
         )
         if not dockerfile_source.is_file():
             raise ContainerRuntimeError(
@@ -300,7 +300,7 @@ def compute_image_context_sha256(
     repository = repository_root.resolve()
     sources = (
         (
-            repository / "docker" / "harnessbench" / definition.dockerfile,
+            repository / "docker" / "tracetrial_bench" / definition.dockerfile,
             Path("Dockerfile"),
         ),
         *(
