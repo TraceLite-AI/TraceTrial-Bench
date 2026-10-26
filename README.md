@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/tracetrial-logo.png" alt="TraceTrial-Bench" width="640" />
+<img src="assets/tracetrial-logo.png" alt="TraceTrial-Bench" width="640" />
 
 **When an AI agent fails, was it the model — or the harness around it?**
 
@@ -25,7 +25,7 @@ Code and tasks for *Trial by Trace: Benchmarking AI Agent Harnesses for Reliabil
 </p>
 
 <p align="center">
-  <img src="docs/assets/tracetrial-stats-en.svg" alt="95 tasks, 40 mechanism nodes, 7 reliability dimensions, and 3,420 paper runs" width="880" />
+  <img src="assets/tracetrial-stats-en.svg" alt="95 tasks, 40 mechanism nodes, 7 reliability dimensions, and 3,420 paper runs" width="880" />
 </p>
 
 ## Overview
@@ -35,8 +35,8 @@ A coding/ops agent is **a model plus a harness**. The harness runs tools, manage
 Task success alone hides the source of a failure. A model can finish despite a silently dropped error; it can also fail when the harness behaves correctly. TraceTrial-Bench examines the **execution trace** and scores these two layers separately.
 
 <p align="center">
-  <a href="docs/assets/tracetrial-benchmark-main-v2.webp">
-    <img src="docs/assets/tracetrial-benchmark-main-v2.webp" alt="TraceTrial-Bench framework: task design, native execution, evidence acquisition and failure attribution" width="100%" />
+  <a href="assets/tracetrial-benchmark-main-v2.webp">
+    <img src="assets/tracetrial-benchmark-main-v2.webp" alt="TraceTrial-Bench framework: task design, native execution, evidence acquisition and failure attribution" width="100%" />
   </a>
 </p>
 
@@ -56,8 +56,8 @@ Task success alone hides the source of a failure. A model can finish despite a s
 Claude Code has the highest Agent Pass rate; OpenClaw has the highest Harness Macro score. Harness Macro spans **12.2 percentage points**, from 59.8% to 72.0%.
 
 <p align="center">
-  <a href="docs/assets/overall-score-model-harness.webp">
-    <img src="docs/assets/overall-score-model-harness.webp" alt="Overall scores for nine models and four harnesses" width="100%" />
+  <a href="assets/overall-score-model-harness.webp">
+    <img src="assets/overall-score-model-harness.webp" alt="Overall scores for nine models and four harnesses" width="100%" />
   </a>
 </p>
 
@@ -146,7 +146,7 @@ Each task targets one of **7 reliability dimensions**. Prompts provide a goal, m
 | **V** | Verification | Completion claims versus authoritative outcomes | 1 | 1 |
 | | **Total** | | **95** | **40** |
 
-**Start with the [95-task manifest](Task/final.manifest).** The manifest follows the top-to-bottom task order in the paper heatmap on page 45; the [naming map](docs/task-naming.md) lists every old/new ID and node mapping.
+**Start with the [95-task manifest](Task/final.manifest).** The manifest follows the top-to-bottom task order in the paper heatmap on page 45.
 
 Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-001`. A leading `L3-` denotes Lifecycle node 3; difficulty metadata is unchanged. The historical `lean96.manifest` retains the additional hostrecord task excluded from the paper results.
 
@@ -160,7 +160,6 @@ Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-
 | [`verifier/`](verifier/) | Evidence layer (`trace_ir`) and API traffic capture |
 | [`docker/`](docker/) | Pinned harness images |
 | [`configs/`](configs/) | Model registry example |
-| [`docs/`](docs/) | Rubric, attribution and naming documentation |
 
 ## Citation
 

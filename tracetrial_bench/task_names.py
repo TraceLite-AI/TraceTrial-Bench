@@ -1,6 +1,6 @@
 """Published task IDs and their historical scoring aliases (2026-10-23)."""
 
-# See docs/task-naming.md for node mapping and migration scope.
+# Keep historical IDs as aliases for previously recorded scoring results.
 TASK_ID_RENAMES: dict[str, str] = {
     'C1c-escalation-export-L3-001': 'C1-escalation-export-001',
     'C1c-log-archive-export-L3-001': 'C1-log-archive-export-002',

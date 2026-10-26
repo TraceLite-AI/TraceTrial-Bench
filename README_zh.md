@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/tracetrial-logo.png" alt="TraceTrial-Bench" width="640" />
+<img src="assets/tracetrial-logo.png" alt="TraceTrial-Bench" width="640" />
 
 **AI Agent 出错时，是模型的问题，还是 harness 的问题？**
 
@@ -25,7 +25,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/assets/tracetrial-stats-zh.svg" alt="95 道评测题目、40 个机制节点、7 个可靠性维度、3,420 次论文评测运行" width="880" />
+  <img src="assets/tracetrial-stats-zh.svg" alt="95 道评测题目、40 个机制节点、7 个可靠性维度、3,420 次论文评测运行" width="880" />
 </p>
 
 ## 项目概览
@@ -35,8 +35,8 @@
 任务是否成功，无法单独解释失败来自哪里：harness 可能吞掉了报错，但模型依然绕过障碍完成任务；harness 也可能行为正确，而模型执行失败。TraceTrial-Bench 检查**完整执行轨迹**，将这两层表现分别评分。
 
 <p align="center">
-  <a href="docs/assets/tracetrial-benchmark-main-v2.webp">
-    <img src="docs/assets/tracetrial-benchmark-main-v2.webp" alt="TraceTrial-Bench 四阶段框架：任务设计、原生执行、证据采集与失败归因" width="100%" />
+  <a href="assets/tracetrial-benchmark-main-v2.webp">
+    <img src="assets/tracetrial-benchmark-main-v2.webp" alt="TraceTrial-Bench 四阶段框架：任务设计、原生执行、证据采集与失败归因" width="100%" />
   </a>
 </p>
 
@@ -56,8 +56,8 @@
 Claude Code 的 Agent Pass 最高，OpenClaw 的 Harness Macro 最高。四种 harness 的 Harness Macro 相差 **12.2 个百分点**，从 59.8% 到 72.0%。
 
 <p align="center">
-  <a href="docs/assets/overall-score-model-harness.webp">
-    <img src="docs/assets/overall-score-model-harness.webp" alt="九个模型与四个 harness 的 Overall Score 对比" width="100%" />
+  <a href="assets/overall-score-model-harness.webp">
+    <img src="assets/overall-score-model-harness.webp" alt="九个模型与四个 harness 的 Overall Score 对比" width="100%" />
   </a>
 </p>
 
@@ -146,7 +146,7 @@ chmod 600 model.toml
 | **V** | Verification 核验 | 完成声明与权威结果是否一致 | 1 | 1 |
 | | **合计** | | **95** | **40** |
 
-**正式评测使用 [95 题清单](Task/final.manifest)。** 清单按论文第 45 页热力图从上到下排序，[命名对照](docs/task-naming.md)列出全部新旧题名和节点映射。
+**正式评测使用 [95 题清单](Task/final.manifest)。** 清单按论文第 45 页热力图从上到下排序。
 
 题名格式为 `<节点>-<描述>-<三位序号>`，例如 `C1-escalation-export-001`。开头的 `L3-` 表示 Lifecycle 第 3 个节点，难度元数据保持原值。历史 `lean96.manifest` 额外保留了未计入论文结果的 hostrecord 题。
 
@@ -160,7 +160,6 @@ chmod 600 model.toml
 | [`verifier/`](verifier/) | 取证层（`trace_ir`）与 API 流量捕获 |
 | [`docker/`](docker/) | 锁定版本的 harness 镜像 |
 | [`configs/`](configs/) | 模型注册表示例 |
-| [`docs/`](docs/) | 判据、归因与命名说明 |
 
 ## 引用
 
