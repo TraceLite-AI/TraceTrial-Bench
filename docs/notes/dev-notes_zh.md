@@ -175,21 +175,18 @@ Total_score   = Harness_score + Agent_score
 
 ## 仓库布局
 
-三个活跃目录（当前工作都在这）：
+当前目录以最终论文题集为准：
 
-- **`suite/`**：76 题工作套件 —— 题目、runner、judge、设计文档（原 `suite-70-plus-runner` 分支整树挂入）。题目在改版中，以此为准。
-- **`verifier/`**：判据执行器 v3 —— gate+ask 两层判据、trace_ir 统一取证层、api_tap 流量捕获。入口 `verifier/run_all.sh`，出 trace 前先读 `verifier/TRACE_REQUIREMENTS.md`。
-- **`docs/`**：rubric 与归因逻辑文档。
-
-历史/基础设施目录：
-
-- `tracetrial_bench/`：CLI、批量运行、Docker、本机 runner、三类评分、结果与报告。
-- `harness_tracer/`：harness 适配器和规范化 trace。
-- `docker/harnessbench/`：OpenClaw、Hermes、Codex、Claude Code 和 DeepSeek Harness 运行镜像定义。
-- `cases/`：早期挑选的 10 道展示题（全量以 `suite/` 为准）。
-- `rubrics/`：早期按叶子整理的 74 题 rubric（判据现行版以 `verifier/` 为准）。
-- `test_task/C1a-academic-L3-001/`：早期代表题。
+- **`Task/`**：论文最终 95 题，每题一个子目录；`Task/final.manifest` 按论文第 45 页热力图从上到下排序。
+- **`tracetrial_bench/`**：CLI、批量运行、Docker、本机 runner、评分、结果与报告。
+- **`harness_tracer/`**：harness 适配器和规范化 trace。
+- **`verifier/`**：判据执行器与统一取证层。
+- **`docs/`**：题号映射、rubric 与归因逻辑文档。
+- `docker/harnessbench/`：各 harness 的运行镜像定义。
+- `test_task/C1a-academic-L3-001/`：独立 smoke 测试夹具。
 - `configs/models.example.toml`：不含真实密钥的模型注册表示例。
+
+旧的 `cases/`、`suite/`、`tasks/` 已移除，历史版本可从 Git 历史查看。
 
 ## 分支约定
 
@@ -400,7 +397,7 @@ verifier/LLM Judge，并在 `result.json` 中保存 `status: "skipped"` 及脱�
 
 ```bash
 .venv/bin/tracetrial_bench run \
-  --task tasks/new_cases/<task-id> \
+  --task Task/<task-id> \
   --harness codex \
   --model deepseek \
   --mode docker \

@@ -1,4 +1,0 @@
-filesystem: workspace
-network: false
-# SCENARIO: Public-transit passenger-information watchdog readiness drill.
-# BUILD_STATUS: BUILT

@@ -113,7 +113,7 @@ Edit `model.toml` with your provider endpoint, model identifier and API key. The
 ### 3. Run the paper benchmark
 
 ```bash
-.venv/bin/tracetrial_bench run --task-manifest tasks/lean95.manifest \
+.venv/bin/tracetrial_bench run --task-manifest Task/final.manifest \
   --harness openclaw --model deepseek --judge-model deepseek \
   --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
 ```
@@ -146,7 +146,7 @@ Each task targets one of **7 reliability dimensions**. Prompts provide a goal, m
 | **V** | Verification | Completion claims versus authoritative outcomes | 1 | 1 |
 | | **Total** | | **95** | **40** |
 
-**Start with the [95-task manifest](tasks/lean95.manifest).** The [task-set guide](tasks/lean95.README.md) explains the selection; the [naming map](docs/task-naming.md) lists every old/new ID and node mapping.
+**Start with the [95-task manifest](Task/final.manifest).** The [task-set guide](Task/README.md) explains the selection; the [naming map](docs/task-naming.md) lists every old/new ID and node mapping.
 
 Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-001`. A leading `L3-` denotes Lifecycle node 3; difficulty metadata is unchanged. The historical `lean96.manifest` retains the additional hostrecord task excluded from the paper results.
 
@@ -154,7 +154,7 @@ Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-
 
 | Path | Purpose |
 | :--- | :--- |
-| [`tasks/`](tasks/) | Benchmark tasks and published manifests |
+| [`Task/`](Task/) | Benchmark tasks and published manifests |
 | [`tracetrial_bench/`](tracetrial_bench/) | CLI, Docker runner, scoring, attribution and reports |
 | [`harness_tracer/`](harness_tracer/) | Harness adapters and normalized traces |
 | [`verifier/`](verifier/) | Evidence layer (`trace_ir`) and API traffic capture |

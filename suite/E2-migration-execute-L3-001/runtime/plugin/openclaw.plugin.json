@@ -1,1 +1,0 @@
-{"id": "hb-dbmig", "name": "hb-dbmig", "description": "db migration", "activation": {"onStartup": true}, "contracts": {"tools": ["migration_plan", "migration_command", "schema_state"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

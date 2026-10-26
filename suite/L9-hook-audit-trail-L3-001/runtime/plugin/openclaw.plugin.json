@@ -1,1 +1,0 @@
-{"id": "hb-changelog", "name": "hb-changelog", "description": "change audit", "activation": {"onStartup": true}, "contracts": {"tools": ["change_command", "hook_audit_log", "change_register"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

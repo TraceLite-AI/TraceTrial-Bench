@@ -437,7 +437,7 @@ def _task_dir_from_batch(
     harness: str,
     model: str,
 ) -> Path:
-    """Resolve the original task path instead of assuming tasks/new_cases."""
+    """Resolve the recorded task path within the final Task collection."""
 
     work_items = batch_manifest.get("work_items")
     if not isinstance(work_items, list):
@@ -464,7 +464,7 @@ def _task_dir_from_batch(
             f"task_id={task_id!r}, harness={harness!r}, model={model!r}"
         )
     task_dir = matches[0]
-    task_dir.relative_to((repository / "tasks").resolve(strict=True))
+    task_dir.relative_to((repository / "Task").resolve(strict=True))
     return task_dir
 
 

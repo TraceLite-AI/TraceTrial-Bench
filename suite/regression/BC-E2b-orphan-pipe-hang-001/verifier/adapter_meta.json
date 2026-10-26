@@ -1,1 +1,0 @@
-{"package": "E2b-orphan-pipe-hang-001", "leaf": "E2b", "expected_verdict": "EXEC_TIMEOUT_NO_KILLPG", "desc": "超时不killpg泄漏子进程组", "pass_means": "defect_reproduced", "official_score_py": "/home/conglin/badcases/E2b-orphan-pipe-hang-001/verifier/score.py", "driver": "own_runner"}

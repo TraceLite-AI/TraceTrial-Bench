@@ -1,7 +1,0 @@
-{
- "tank": "TK-304",
- "site": "sealed manway",
- "mode": "exit",
- "exit_code": 126,
- "note": "reports the drain path is not executable"
-}

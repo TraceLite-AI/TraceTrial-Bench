@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:0a1bc2eab538d714b9b896c32f7ecf37f1a851e2fd13d6b0e7822409e32fa931",
-  "image_reference": "harnessbench/case-e4-data-repair-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "E4-data-repair-L3-001"
-}

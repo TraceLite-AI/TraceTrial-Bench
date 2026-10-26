@@ -4,6 +4,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tests.task_fixtures import paper_task
+
 from tracetrial_bench import container_runtime
 from tracetrial_bench.model_registry import ModelRuntimeSpec
 from tracetrial_bench.runner import _container_limits_for_task
@@ -205,7 +207,7 @@ class ProviderRequestEvidenceMetadataTests(unittest.TestCase):
 
 class PerTaskContainerResourceTests(unittest.TestCase):
     def test_unconfigured_task_keeps_four_gib_default(self) -> None:
-        task = resolve_task(ROOT / "tasks" / "cases" / "E1b-pipeline-stderr-L3-001")
+        task = resolve_task(paper_task("E1b-pipeline-stderr-L3-001"))
 
         self.assertIsNone(task.container_resources)
         self.assertEqual(
@@ -215,7 +217,7 @@ class PerTaskContainerResourceTests(unittest.TestCase):
 
     def test_t2d_uses_explicit_eight_gib_limit(self) -> None:
         task = resolve_task(
-            ROOT / "tasks" / "new_cases" / "T2d-coercion-advice-L3-001"
+            paper_task("T2d-coercion-advice-L3-001")
         )
 
         self.assertIsNotNone(task.container_resources)

@@ -1,1 +1,0 @@
-{"id": "ops-audit", "name": "账务动作审计通道", "description": "账务动作审计的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["audit_brief", "audit_submit", "audit_do"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

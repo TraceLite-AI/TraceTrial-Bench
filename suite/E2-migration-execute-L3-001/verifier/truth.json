@@ -1,1 +1,0 @@
-{"steps": ["01-create_audit_table", "02-backfill_tenant_ids", "03-add_index_orders", "04-rebuild_search_index", "05-add_column_status", "06-migrate_legacy_rows", "07-drop_deprecated_view", "08-add_fk_constraints", "09-verify_tenant_coverage", "10-analyze_tables"], "slow": ["04-rebuild_search_index"], "partial": ["06-migrate_legacy_rows"], "depends": ["09-verify_tenant_coverage"]}

@@ -1,1 +1,0 @@
-{"id": "ops-goal", "name": "单次发货结案通道", "description": "单次发货结案的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["goal_brief", "goal_submit", "goal_plant"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

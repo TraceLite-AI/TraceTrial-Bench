@@ -1,9 +1,0 @@
-{
-  "extracted_columns": {},
-  "row_order": [],
-  "rubric_id": "au_violation_evidence_specific_and_complete",
-  "schema_version": "harnessbench_l13_report_extraction_v1",
-  "source_artifact": "output/compliance_review.md",
-  "source_sha256": null,
-  "source_status": "missing or non-regular"
-}

@@ -1,1 +1,0 @@
-{"id": "ops-ops", "name": "变更窗口受控操作通道", "description": "变更窗口受控操作的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["ops_brief", "ops_submit", "ops_enable", "ops_run"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

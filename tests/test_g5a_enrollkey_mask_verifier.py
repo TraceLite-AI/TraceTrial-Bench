@@ -10,18 +10,16 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tests.task_fixtures import paper_task
+
 from tracetrial_bench.execution_capabilities import adapter_extra_args, capability_report
 from tracetrial_bench.task_resolver import resolve_task
+from tracetrial_bench.score_config import load_score_sheet
 
 
 ROOT = Path(__file__).resolve().parents[1]
 TASK_DIR = (
-    ROOT
-    / "tasks"
-    / "un_verify_cases"
-    / "manual"
-    / "terminal"
-    / "G5a-enrollkey-mask-L3-001"
+    paper_task("G5a-enrollkey-mask-L3-001")
 )
 VERIFIER_DIR = TASK_DIR / "verifier"
 SCORE_PATH = VERIFIER_DIR / "score.py"
@@ -40,20 +38,25 @@ class G5aEnrollkeyMaskVerifierTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.verifier = _load_verifier()
 
-    def test_all_metrics_are_fixed_binary_rules_and_match_verifier_output(self) -> None:
+    def test_published_rule_metrics_match_verifier_output(self) -> None:
         configured: dict[str, list[str]] = {}
         for layer in ("harness", "agent"):
-            text = (VERIFIER_DIR / f"{layer}_score.yaml").read_text(encoding="utf-8")
-            configured[layer] = re.findall(r"^  - id: (\S+)$", text, re.MULTILINE)
-            self.assertEqual(
-                len(re.findall(r"^    type: rule$", text, re.MULTILINE)),
-                len(configured[layer]),
+            sheet = load_score_sheet(
+                VERIFIER_DIR / f"{layer}_score.yaml", expected_layer=layer
             )
-            self.assertNotRegex(text, r"(?i)\bN/A\b|applicab|type:\s*rubric")
+            configured[layer] = [item.id for item in sheet.rule_items]
+            if layer == "harness":
+                self.assertEqual(
+                    [item.id for item in sheet.rubric_items],
+                    ["hr_obstruction_left_a_way_out", "hr_obstruction_did_not_damage_the_result"],
+                )
+            else:
+                self.assertFalse(sheet.rubric_items)
 
         with tempfile.TemporaryDirectory() as temporary:
             environment = dict(os.environ)
             environment.pop("HARNESSBENCH_RUN_DIR", None)
+            environment["PYTHONUTF8"] = "1"
             completed = subprocess.run(
                 [sys.executable, str(SCORE_PATH), "--workspace", temporary],
                 check=False,
@@ -70,8 +73,8 @@ class G5aEnrollkeyMaskVerifierTests(unittest.TestCase):
             self.assertTrue(all(item["score"] in {0, 1} for item in results))
             self.assertTrue(all(not item["reason"].startswith("[N/A]") for item in results))
 
-        self.assertEqual(len(configured["harness"]), 26)
-        self.assertEqual(len(configured["agent"]), 43)
+        self.assertEqual(len(configured["harness"]), 4)
+        self.assertEqual(len(configured["agent"]), 8)
 
     def test_strict_json_rejects_duplicate_keys(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

@@ -4,16 +4,19 @@ import unittest
 import importlib.util
 from pathlib import Path
 
+from tests.task_fixtures import paper_task
+
 from tracetrial_bench.security_capabilities import _approval_observations
 
 
-SCORE_PATH = Path(
-    "tasks/new_cases/G2b-exec-approval-broken-L3-001/verifier/score.py"
-)
-SPEC = importlib.util.spec_from_file_location("g2b_score", SCORE_PATH)
-assert SPEC is not None and SPEC.loader is not None
-SCORE = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(SCORE)
+def _load_score():
+    path = paper_task("G2b-exec-approval-broken-L3-001") / "verifier" / "score.py"
+    spec = importlib.util.spec_from_file_location("g2b_score", path)
+    assert spec is not None and spec.loader is not None
+    score = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(score)
+    return score
+
 
 
 class G2bTypedApprovalEvidenceTests(unittest.TestCase):
@@ -73,7 +76,7 @@ class G2bTypedApprovalEvidenceTests(unittest.TestCase):
             }
         ]
 
-        _, main, child = SCORE.target_rows(rows)
+        _, main, child = _load_score().target_rows(rows)
 
         self.assertEqual(main, [])
         self.assertEqual(child, [])
@@ -88,7 +91,7 @@ class G2bTypedApprovalEvidenceTests(unittest.TestCase):
             },
         }
 
-        self.assertTrue(SCORE.is_spawn(event))
+        self.assertTrue(_load_score().is_spawn(event))
 
 
 if __name__ == "__main__":

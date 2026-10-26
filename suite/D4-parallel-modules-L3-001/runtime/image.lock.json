@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:7ac00e7a847e63467c8712423769c514ced6d1a5fbe862b663a8c3593322dcdd",
-  "image_reference": "harnessbench/case-d4-parallel-modules-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "D4-parallel-modules-L3-001"
-}

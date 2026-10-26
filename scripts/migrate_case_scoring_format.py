@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mechanically migrate parseable tasks/cases entries to layered scoring.
+"""Mechanically migrate an explicitly supplied legacy task archive to layered scoring.
 
 The legacy rubric and scorer files remain untouched.  New score sheets retain
 the existing item ids and criterion text, while score_adapter.py translates the
@@ -424,7 +424,7 @@ def _migrate_case(case_dir: Path) -> tuple[int, int]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", type=Path, default=Path("tasks/cases"))
+    parser.add_argument("--root", type=Path, required=True, help="path to an external legacy task archive; not the final Task collection")
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
     root = args.root.resolve()

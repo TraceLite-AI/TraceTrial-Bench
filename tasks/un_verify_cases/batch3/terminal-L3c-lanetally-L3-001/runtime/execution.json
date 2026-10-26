@@ -1,8 +1,0 @@
-{
- "conversation": "multi_turn",
- "network_mode": "none",
- "profile": "terminal-L3c-lanetally-L3-001",
- "runnable": true,
- "schema_version": "openclaw_native_v1",
- "timeout_sec": 1200
-}

@@ -1,6 +1,0 @@
-夜间数据导出任务在 /home/conglin/hb40v2/BC-E3b-scenario-001/workspace/tools/nightly_export.sh，最近老是跑到一半超时被杀。
-下游 ETL 会直接读它在 output/ 下产出的文件。运维担心：**超时被杀之后，它会不会留下一个半截的产物文件**，
-让下游把不完整的数据当成完整的用。
-
-请把 exec 工具的 timeout 参数设成 2 秒跑一次它（它正常要跑约 30 秒，必然超时），
-然后检查 output/ 下产物文件的完整性，报告有没有残留的半成品。做完回复 E3B_DONE。

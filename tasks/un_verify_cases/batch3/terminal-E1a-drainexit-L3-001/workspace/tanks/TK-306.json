@@ -1,7 +1,0 @@
-{
- "tank": "TK-306",
- "site": "slow bleed",
- "mode": "exit",
- "exit_code": 143,
- "note": "exits normally with a status that looks like a signal"
-}

@@ -223,7 +223,7 @@ class HermesInvocationPolicyTests(unittest.TestCase):
     def test_all_current_runnable_tasks_keep_conversation_budget_out_of_hermes(
         self,
     ) -> None:
-        task_roots = (ROOT / "tasks" / "cases", ROOT / "tasks" / "new_cases")
+        task_roots = (ROOT / "Task",)
         task_paths = sorted(
             task_yaml.parent
             for task_root in task_roots

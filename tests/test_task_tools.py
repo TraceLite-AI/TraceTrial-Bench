@@ -7,6 +7,8 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+from tests.task_fixtures import paper_task
 from unittest import mock
 
 from harness_tracer.adapters import adapter_for
@@ -25,7 +27,7 @@ from tracetrial_bench.workspace import prepare_run_dir
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CASE = ROOT / "tasks" / "cases" / "C1c-escalation-export-L3-001"
+CASE = paper_task("C1c-escalation-export-L3-001")
 TOOLS = {
     "schema_version": "harnessbench_task_tools_v1",
     "tools": [
@@ -271,14 +273,18 @@ class TaskToolContractTests(unittest.TestCase):
                         config.index("@deepseek-ai/dsh-sdk-jsonrpc-server"),
                     )
 
-    def test_new_case_runbooks_cover_the_four_formal_harnesses(self) -> None:
-        runbooks = sorted((ROOT / "tasks" / "new_cases").glob("*/run.md"))
-        self.assertTrue(runbooks)
+    def test_published_runbooks_reference_final_task_directories(self) -> None:
+        import re
+
+        runbooks = sorted((ROOT / "Task").glob("*/run.md"))
+        self.assertEqual(len(runbooks), 95)
         for runbook in runbooks:
             content = runbook.read_text(encoding="utf-8")
-            for harness in ("openclaw", "codex", "claudecode", "deepseek"):
-                with self.subTest(runbook=runbook.parent.name, harness=harness):
-                    self.assertEqual(content.count(f"--harness {harness}"), 1)
+            references = re.findall(r"--task\s+(\S+)", content)
+            self.assertTrue(references, runbook)
+            for referenced in references:
+                with self.subTest(runbook=runbook.parent.name, referenced=referenced):
+                    self.assertEqual((ROOT / referenced).resolve(), runbook.parent.resolve())
             self.assertNotIn("--harness hermes", content)
 
     def test_codex_and_claude_adapters_consume_internal_mcp_arguments(self) -> None:

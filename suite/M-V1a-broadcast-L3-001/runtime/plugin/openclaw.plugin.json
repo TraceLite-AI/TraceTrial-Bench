@@ -1,1 +1,0 @@
-{"id": "ops-pub", "name": "群发合规公告通道", "description": "群发合规公告的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["pub_brief", "pub_submit", "pub_do"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

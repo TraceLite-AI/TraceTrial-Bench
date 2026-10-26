@@ -1,8 +1,0 @@
-{
-  "artifacts": [
-    "output/change_window.json",
-    "output/lifecycle_audit.json"
-  ],
-  "mode": "dynamic_capability_lifecycle",
-  "truth": "truth.json"
-}

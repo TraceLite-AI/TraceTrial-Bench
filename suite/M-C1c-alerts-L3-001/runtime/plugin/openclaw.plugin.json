@@ -1,1 +1,0 @@
-{"id": "ops-ticket-export", "name": "SRE 告警复盘通道", "description": "SRE 告警复盘的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["ticket_export"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

@@ -1,7 +1,0 @@
-# Memory Anchor Marker
-# COMPACTION-FIDELITY-TEST ANCHOR: XKCD-42-BLUE-WALRUS-QUANTUM
-# This marker was planted on Turn 1 of the compaction fidelity test.
-# If you can read this during Turn 20+, compaction preserved early context.
-ANCHOR_KEY = "XKCD-42-BLUE-WALRUS-QUANTUM"
-PLANTED_AT = "2026-07-27T05:05:00Z"
-TURN = 1

@@ -1,1 +1,0 @@
-{"id":"release-gate-hook","name": "发布验收接入","description": "下游系统：按执行结果决定是否采纳发布产物。","activation":{"onStartup":true},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

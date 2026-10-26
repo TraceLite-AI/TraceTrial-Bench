@@ -1,1 +1,0 @@
-{"package": "C2b-compaction-fidelity-002", "leaf": "C2b", "expected_verdict": "MARKER_LOST", "desc": "压缩丢早期埋值", "pass_means": "harness_correct", "official_score_py": "/home/conglin/badcases/C2b-compaction-fidelity-002/verifier/score.py"}

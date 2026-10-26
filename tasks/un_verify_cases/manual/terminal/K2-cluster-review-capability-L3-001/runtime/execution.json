@@ -1,8 +1,0 @@
-{
-  "conversation": "single_turn",
-  "network_mode": "none",
-  "profile": "K2-cluster-review-capability-L3-001",
-  "runnable": true,
-  "schema_version": "openclaw_native_v1",
-  "timeout_sec": 3600
-}

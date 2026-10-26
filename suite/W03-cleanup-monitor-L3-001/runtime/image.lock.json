@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:d6422c668a0c80a0ff4be80773385333b224d30be4eb13f297fe7326f3bed96d",
-  "image_reference": "harnessbench/case-w03-cleanup-monitor-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "W03-cleanup-monitor-L3-001"
-}

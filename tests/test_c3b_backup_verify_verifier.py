@@ -10,19 +10,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tests.task_fixtures import paper_task
+
 from tracetrial_bench.execution_capabilities import adapter_extra_args, capability_report
 from tracetrial_bench.task_resolver import resolve_task
 
 
 ROOT = Path(__file__).resolve().parents[1]
 VERIFIER_DIR = (
-    ROOT
-    / "tasks"
-    / "un_verify_cases"
-    / "manual"
-    / "terminal"
-    / "C3b-backup-verify-handoff-L3-001"
-    / "verifier"
+    paper_task("C3b-backup-verify-handoff-L3-001") / "verifier"
 )
 SCORE_PATH = VERIFIER_DIR / "score.py"
 TASK_DIR = VERIFIER_DIR.parent

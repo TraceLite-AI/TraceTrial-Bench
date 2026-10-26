@@ -1,7 +1,0 @@
-{
-  "schema_version": "t1c_substation_reserved_name_probe_v1",
-  "control_token": "GRID-PF",
-  "native_command": "printf SUBSTATION_NATIVE_OK",
-  "native_output": "SUBSTATION_NATIVE_OK",
-  "reserved_names": ["exec", "exec_command", "shell", "bash", "terminal"]
-}

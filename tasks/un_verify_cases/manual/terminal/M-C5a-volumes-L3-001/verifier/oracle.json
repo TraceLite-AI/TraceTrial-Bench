@@ -1,7 +1,0 @@
-{
-  "artifact": "output/receipt_archive.json",
-  "tool": "ast",
-  "mode": "gated",
-  "archive_version": 2,
-  "truth_file": "truth.json"
-}

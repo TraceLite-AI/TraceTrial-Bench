@@ -1,1 +1,0 @@
-{"id": "ops-wf", "name": "批量令牌处理通道", "description": "批量令牌处理的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["wf_brief", "wf_submit", "wf_do"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

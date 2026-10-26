@@ -1,7 +1,0 @@
-{
- "tank": "TK-305",
- "site": "decommissioned",
- "mode": "exit",
- "exit_code": 127,
- "note": "reports the drain path is missing"
-}

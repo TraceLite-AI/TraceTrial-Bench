@@ -1,1 +1,0 @@
-{"bundles": ["VB-101", "VB-102", "VB-103", "VB-104", "VB-105", "VB-106"], "violations": {"VB-102": "duplicate_tool_name", "VB-103": "reserved_tool_name", "VB-105": "overlong_tool_name"}}

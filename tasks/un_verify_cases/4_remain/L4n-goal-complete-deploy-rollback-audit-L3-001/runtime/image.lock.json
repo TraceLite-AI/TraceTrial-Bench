@@ -1,8 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:aabb2ef6cb4ce19a013a6887591c35d06cf4ce66fcb1f059a1f061f8672de214",
-  "image_reference": "harnessbench/case-l4n-goal-complete-deploy-rollback-audit-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "L4n-goal-complete-deploy-rollback-audit-L3-001",
-  "_note": "submission placeholder \u2014 image_id \u7531 CI tracetrial_bench image build \u91cd\u5efa(\u63d0\u4ea4\u7aef\u65e0 docker daemon)"
-}

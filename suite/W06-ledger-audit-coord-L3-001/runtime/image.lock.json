@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:9eef4b83e7b10a5d754990fae07a63dd75d1b55444a9c29f3d132d0578850f0c",
-  "image_reference": "harnessbench/case-w06-ledger-audit-coord-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "W06-ledger-audit-coord-L3-001"
-}

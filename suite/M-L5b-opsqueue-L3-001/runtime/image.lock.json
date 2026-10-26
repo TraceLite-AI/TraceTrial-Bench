@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:48fe6c4cde8c23a93bca66afaeac499a09b13ea7c3bdb6677c7f3dcdd44a3adf",
-  "image_reference": "harnessbench/case-m-l5b-opsqueue-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "M-L5b-opsqueue-L3-001"
-}

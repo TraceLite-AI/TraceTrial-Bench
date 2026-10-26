@@ -1,2 +1,0 @@
-archive record delta
-second line of content

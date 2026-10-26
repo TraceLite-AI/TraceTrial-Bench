@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:fd3c7b88bf81cbae77352af3d01d57e0ff4f407e799a59a695b7d6f8861faba1",
-  "image_reference": "harnessbench/case-l7-crossborder-archive-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "L7-crossborder-archive-L3-001"
-}

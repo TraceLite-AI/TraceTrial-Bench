@@ -9,12 +9,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tests.task_fixtures import paper_task
+
 from tracetrial_bench.score_config import load_score_sheet
 
 
 REPOSITORY = Path(__file__).resolve().parents[1]
-NEW_CASES = REPOSITORY / "tasks" / "new_cases"
-MANUAL_CODING = REPOSITORY / "tasks" / "un_verify_cases" / "manual" / "coding"
+NEW_CASES = REPOSITORY / "Task"
+MANUAL_CODING = REPOSITORY / "Task"
 
 
 class ScoreConfigTests(unittest.TestCase):
@@ -52,10 +54,7 @@ items:
 
     def test_d1_harness_score_sheet_parses_url_keywords(self) -> None:
         path = (
-            NEW_CASES
-            / "D1-research-subagent-L3-001"
-            / "verifier"
-            / "harness_score.yaml"
+            paper_task("D1-research-subagent-L3-001") / "verifier" / "harness_score.yaml"
         )
 
         sheet = load_score_sheet(path, expected_layer="harness")
@@ -74,7 +73,7 @@ items:
         )
 
     def test_c3b_verifier_rule_ids_match_score_sheet_order(self) -> None:
-        task_dir = NEW_CASES / "C3b-resume-fidelity-L3-001"
+        task_dir = paper_task("C3b-resume-fidelity-L3-001")
         verifier_dir = task_dir / "verifier"
         harness_sheet = load_score_sheet(
             verifier_dir / "harness_score.yaml",
@@ -119,7 +118,7 @@ items:
         self.assertEqual(pre_boundary["score"], 0)
 
     def test_artifact_sign_verifier_ids_match_binary_score_sheets(self) -> None:
-        task_dir = MANUAL_CODING / "C3b-artifact-sign-handoff-L3-001"
+        task_dir = paper_task("C3b-artifact-sign-handoff-L3-001")
         verifier_dir = task_dir / "verifier"
         harness_sheet = load_score_sheet(
             verifier_dir / "harness_score.yaml",
@@ -168,8 +167,8 @@ items:
         self.assertTrue(scores)
         self.assertTrue(all(score in {0, 1} for score in scores))
 
-    def test_e3d_timeout_verifier_ids_match_binary_score_sheets(self) -> None:
-        task_dir = MANUAL_CODING / "E3d-suite-timeout-channel-001"
+    def test_e3d_timeout_verifier_ids_match_published_rule_items(self) -> None:
+        task_dir = paper_task("E3d-suite-timeout-channel-001")
         verifier_dir = task_dir / "verifier"
         harness_sheet = load_score_sheet(
             verifier_dir / "harness_score.yaml",
@@ -179,7 +178,10 @@ items:
             verifier_dir / "agent_score.yaml",
             expected_layer="agent",
         )
-        self.assertFalse(harness_sheet.rubric_items)
+        self.assertEqual(
+            [item.id for item in harness_sheet.rubric_items],
+            ["hr_obstruction_left_a_way_out", "hr_obstruction_did_not_damage_the_result"],
+        )
         self.assertFalse(agent_sheet.rubric_items)
 
         with tempfile.TemporaryDirectory() as temporary:

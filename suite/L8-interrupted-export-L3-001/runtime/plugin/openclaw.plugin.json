@@ -1,1 +1,0 @@
-{"id": "hb-export", "name": "hb-export", "description": "export pipeline", "activation": {"onStartup": true}, "contracts": {"tools": ["export_command"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

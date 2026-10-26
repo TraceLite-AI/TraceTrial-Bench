@@ -1,1 +1,0 @@
-{"id": "hb-regression", "name": "hb-regression", "description": "regression orchestration", "activation": {"onStartup": true}, "contracts": {"tools": ["shard_list", "shard_dispatch", "host_readback", "signoff"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

@@ -1,7 +1,0 @@
-{
- "tank": "TK-307",
- "site": "emergency stop",
- "mode": "signal",
- "exit_code": 143,
- "note": "is killed by SIGTERM rather than exiting"
-}

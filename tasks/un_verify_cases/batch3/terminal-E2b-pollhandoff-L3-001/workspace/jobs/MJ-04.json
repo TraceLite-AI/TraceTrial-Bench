@@ -1,7 +1,0 @@
-{
- "job": "MJ-04",
- "task": "archive reseal",
- "runtime_seconds": 55,
- "steps": 11,
- "owner": "platform ops"
-}

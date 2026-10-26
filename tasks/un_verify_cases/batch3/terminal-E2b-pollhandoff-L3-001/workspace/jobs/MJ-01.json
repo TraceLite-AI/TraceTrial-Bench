@@ -1,7 +1,0 @@
-{
- "job": "MJ-01",
- "task": "index rebuild",
- "runtime_seconds": 25,
- "steps": 5,
- "owner": "platform ops"
-}

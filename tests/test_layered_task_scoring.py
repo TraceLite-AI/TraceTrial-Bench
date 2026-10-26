@@ -6,6 +6,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tests.task_fixtures import paper_task
+
 from tracetrial_bench.evaluator import run_verifier
 from tracetrial_bench.llm_judge import JudgeRuntime, run_layered_judge
 from tracetrial_bench.score_config import load_score_sheet
@@ -29,7 +31,7 @@ class MigratedTaskScoringTests(unittest.TestCase):
         for task_name, evidence_text in fixtures.items():
             with self.subTest(task=task_name), tempfile.TemporaryDirectory() as temporary:
                 root = Path(temporary)
-                task = resolve_task(repository / "tasks" / "cases" / task_name)
+                task = resolve_task(paper_task(task_name))
                 layout = prepare_run_dir(task, root / "run", private_dir=root / "private")
                 shutil.copytree(layout.workspace_dir, layout.baseline_dir)
                 assert task.scoring is not None

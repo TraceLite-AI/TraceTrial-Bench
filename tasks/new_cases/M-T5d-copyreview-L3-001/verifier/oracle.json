@@ -1,6 +1,0 @@
-{
-  "artifact": "output/copy_receipts.json",
-  "tool": "cx_submit",
-  "mode": "native_gated",
-  "truth_file": "truth.json"
-}

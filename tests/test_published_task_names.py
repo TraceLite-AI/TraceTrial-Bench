@@ -28,7 +28,7 @@ class PublishedTaskNameTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.paths = resolve_task_inputs(
-            tasks=(), smoke=False, task_manifest=ROOT / 'tasks/lean95.manifest',
+            tasks=(), smoke=False, task_manifest=ROOT / 'Task/final.manifest',
             repository_root=ROOT,
         )
 
@@ -81,11 +81,14 @@ class PublishedTaskNameTests(unittest.TestCase):
         self.assertNotEqual(TASK_ID_RENAMES['T1g-request-intake-L3-001'].split('-')[0],
                             TASK_ID_RENAMES['N1-quota-askuser-L3-001'].split('-')[0])
 
-    def test_paper_selection_excludes_only_hostrecord(self):
-        historical = (ROOT / 'tasks/lean96.manifest').read_text(encoding='utf-8').splitlines()
-        names = [Path(p).name for p in historical if p and not p.startswith('#')]
-        self.assertEqual(len(names), 96)
-        self.assertEqual(set(names) - {p.name for p in self.paths}, {'T1b-hostrecord-duplicate-001'})
+    def test_final_collection_is_complete_and_paper_ordered(self):
+        names = [p.name for p in self.paths]
+        directories = {p.name for p in (ROOT / "Task").iterdir() if p.is_dir()}
+        self.assertEqual(directories, set(names))
+        self.assertNotIn("T1b-hostrecord-duplicate-001", names)
+        expected_nodes = [node for node, count in EXPECTED_COUNTS.items() for _ in range(count)]
+        self.assertEqual([name.split("-")[0] for name in names], expected_nodes)
+
 
 
 if __name__ == '__main__':

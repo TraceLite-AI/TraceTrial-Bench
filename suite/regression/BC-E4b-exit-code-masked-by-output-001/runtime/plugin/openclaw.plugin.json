@@ -1,1 +1,0 @@
-{"id":"harnessbench-e4b","name":"TraceTrial_Bench E4b","description":"Observe nonzero-exit error propagation","activation":{"onStartup":true},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

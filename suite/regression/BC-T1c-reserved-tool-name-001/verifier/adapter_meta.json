@@ -1,1 +1,0 @@
-{"package": "T1c-reserved-tool-name-001", "leaf": "T-reserved-name", "expected_verdict": "RESERVED_TOOL_NAME_ACCEPTED", "desc": "注册期接受保留工具名", "pass_means": "harness_correct", "official_score_py": "/home/conglin/badcases/T1c-reserved-tool-name-001/verifier/score.py"}

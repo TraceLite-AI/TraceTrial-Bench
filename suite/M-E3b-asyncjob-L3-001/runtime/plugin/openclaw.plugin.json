@@ -1,1 +1,0 @@
-{"id": "ops-e3", "name": "异步作业读写通道", "description": "异步作业读写的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["e3_brief", "e3_submit"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

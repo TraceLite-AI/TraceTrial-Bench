@@ -11,6 +11,8 @@ import time
 import unittest
 from pathlib import Path
 
+from tests.task_fixtures import paper_task
+
 from tracetrial_bench.business_simulator import (
     BUSINESS_ENDPOINT_ENV,
     BusinessSimulatorRuntime,
@@ -24,8 +26,7 @@ from tracetrial_bench.workspace import prepare_run_dir
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CASE = ROOT / "tasks" / "new_cases" / "C1c-escalation-export-L3-001"
-PTY_CASE = ROOT / "tasks" / "new_cases" / "M-E4c-integration-L3-001"
+CASE = paper_task("C1c-escalation-export-L3-001")
 ESCALATION = re.compile(
     r"^LINE=(\d{6}) ESCALATED ticket=(\S+).* escalation_code=([0-9A-F]{10})$",
     re.MULTILINE,
@@ -55,7 +56,7 @@ class BusinessCliContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             copied_case = root / "case"
-            shutil.copytree(PTY_CASE, copied_case)
+            shutil.copytree(paper_task("M-E4c-integration-L3-001"), copied_case)
             scenario_path = copied_case / "simulator" / "scenario.json"
             scenario = json.loads(scenario_path.read_text(encoding="utf-8"))
             scenario["read_timeout_sec"] = 0.1

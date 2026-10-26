@@ -9,6 +9,8 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+from tests.task_fixtures import paper_task
 from types import SimpleNamespace
 
 import tracetrial_bench.security_capabilities as security_capabilities
@@ -37,9 +39,9 @@ from harness_tracer.adapters.openclaw import OpenClawAdapter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CASES = ROOT / "tasks" / "cases"
-NEW_CASES = ROOT / "tasks" / "new_cases"
-MANUAL_CASES = ROOT / "tasks" / "un_verify_cases" / "manual"
+CASES = ROOT / "Task"
+NEW_CASES = ROOT / "Task"
+MANUAL_CASES = ROOT / "Task"
 LIFECYCLE_CASES = (
     "E3d-timeout-error-channel-001",
     "E4a-failed-command-stale-artifact-001",
@@ -69,7 +71,7 @@ class ExecutionCapabilityTests(unittest.TestCase):
             "C1c-testreport-export-L3-001",
             "C3b-artifact-sign-handoff-L3-001",
         ):
-            task = resolve_task(MANUAL_CASES / "coding" / task_id)
+            task = resolve_task(paper_task(task_id))
             self.assertIn(
                 "native_terminal_completion_v1",
                 task.execution_probe.requires,
@@ -87,14 +89,14 @@ class ExecutionCapabilityTests(unittest.TestCase):
 
     def test_six_lifecycle_tasks_match_all_formal_harnesses(self) -> None:
         for task_id in LIFECYCLE_CASES:
-            task = resolve_task(CASES / task_id)
+            task = resolve_task(paper_task(task_id))
             self.assertIsNotNone(task.execution_probe, task_id)
             for harness in FORMAL_HARNESSES:
                 report = require_capabilities(task, harness)
                 self.assertTrue(report["compatible"], (task_id, harness, report))
 
     def test_unconfigured_task_keeps_default_path(self) -> None:
-        task = resolve_task(CASES / "E1b-pipeline-stderr-L3-001")
+        task = resolve_task(paper_task("E1b-pipeline-stderr-L3-001"))
         report = capability_report(task, "codex")
         self.assertTrue(report["compatible"])
         self.assertTrue(report["default_path_unchanged"])
@@ -102,7 +104,7 @@ class ExecutionCapabilityTests(unittest.TestCase):
 
     def test_compaction_observation_contract_is_common_to_four_harnesses(self) -> None:
         task = resolve_task(
-            MANUAL_CASES / "terminal" / "L7-crossregion-archive-L3-001"
+            paper_task("L7-crossregion-archive-L3-001")
         )
         capability = "native_context_compaction_observation_v1"
         self.assertIn(capability, task.execution_probe.requires)
@@ -114,8 +116,8 @@ class ExecutionCapabilityTests(unittest.TestCase):
             require_capabilities(task, "future-harness")
 
     def test_native_child_delegation_is_explicit_and_task_scoped(self) -> None:
-        ordinary = resolve_task(NEW_CASES / "C3b-resume-fidelity-L3-001")
-        handoff = resolve_task(NEW_CASES / "L4-workflow-L3-001")
+        ordinary = resolve_task(paper_task("C3b-resume-fidelity-L3-001"))
+        handoff = resolve_task(paper_task("L4-workflow-L3-001"))
 
         self.assertEqual(execution_adapter_extra_args(ordinary, "codex"), {})
         self.assertEqual(
@@ -134,7 +136,7 @@ class ExecutionCapabilityTests(unittest.TestCase):
             self.assertTrue(report["compatible"], (harness, report))
 
     def test_pending_child_exit_requires_async_boundary_and_push(self) -> None:
-        task = resolve_task(NEW_CASES / "L3d-pending-child-at-exit-001")
+        task = resolve_task(paper_task("L3d-pending-child-at-exit-001"))
         required = {
             "native_child_delegation_v1",
             "native_child_lifecycle_observation_v1",
@@ -172,7 +174,7 @@ class ExecutionCapabilityTests(unittest.TestCase):
         }
         for task_file in sorted(NEW_CASES.glob("*/task.yaml")):
             task = resolve_task(task_file.parent)
-            if task.task_id == "L3d-pending-child-at-exit-001":
+            if task.task_id == "L4-pending-child-at-exit-001":
                 continue
             for harness in ("claudecode", "deepseek"):
                 leaked = private_switches.intersection(
@@ -181,9 +183,9 @@ class ExecutionCapabilityTests(unittest.TestCase):
                 self.assertFalse(leaked, (task.task_id, harness, leaked))
 
     def test_claude_completed_tool_turn_soft_exit_is_task_scoped(self) -> None:
-        ordinary = resolve_task(NEW_CASES / "C3b-resume-fidelity-L3-001")
+        ordinary = resolve_task(paper_task("C3b-resume-fidelity-L3-001"))
         academic_compaction = resolve_task(
-            NEW_CASES / "C2c-compaction-detail-loss-L3-001"
+            paper_task("C2c-compaction-detail-loss-L3-001")
         )
 
         self.assertEqual(execution_adapter_extra_args(ordinary, "claudecode"), {})
@@ -218,12 +220,12 @@ class ExecutionCapabilityTests(unittest.TestCase):
             self.assertNotIn("--harnessbench-native-child-delegation", command)
 
     def test_unknown_harness_fails_closed_for_probe_task(self) -> None:
-        task = resolve_task(CASES / "E3d-timeout-error-channel-001")
+        task = resolve_task(paper_task("E3d-timeout-error-channel-001"))
         with self.assertRaisesRegex(ValueError, "lacks execution capabilities"):
             require_capabilities(task, "future-harness")
 
     def test_probe_evidence_is_additive_and_normalized(self) -> None:
-        task = resolve_task(CASES / "E4a-failed-command-stale-artifact-001")
+        task = resolve_task(paper_task("E4a-failed-command-stale-artifact-001"))
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             artifacts = root / "artifacts"
@@ -274,7 +276,7 @@ class ExecutionCapabilityTests(unittest.TestCase):
             self.assertTrue(observation["stderr_channel_present"])
 
     def test_score_only_probe_evidence_is_digest_bound(self) -> None:
-        task = resolve_task(CASES / "E4a-failed-command-stale-artifact-001")
+        task = resolve_task(paper_task("E4a-failed-command-stale-artifact-001"))
         with tempfile.TemporaryDirectory() as temporary:
             run_dir = Path(temporary)
             path = run_dir / "artifacts" / "execution_probe" / "evidence.json"
@@ -311,13 +313,13 @@ class ExecutionCapabilityTests(unittest.TestCase):
 
 class LifecycleBusinessChannelTests(unittest.TestCase):
     def _plugin(self, task_id: str):
-        path = CASES / task_id / "simulator" / "server.py"
+        path = paper_task(task_id) / "simulator" / "server.py"
         spec = importlib.util.spec_from_file_location("task_simulator", path)
         assert spec is not None and spec.loader is not None
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         scenario = json.loads(
-            (CASES / task_id / "simulator" / "scenario.json").read_text(encoding="utf-8")
+            (paper_task(task_id) / "simulator" / "scenario.json").read_text(encoding="utf-8")
         )
         return module, scenario, module.initial_state(scenario)
 
@@ -354,7 +356,7 @@ class LifecycleBusinessChannelTests(unittest.TestCase):
 
     def test_six_business_state_tasks_match_all_formal_harnesses(self) -> None:
         for task_id in BUSINESS_STATE_CASES:
-            task = resolve_task(CASES / task_id)
+            task = resolve_task(paper_task(task_id))
             self.assertIsNotNone(task.business_simulator, task_id)
             self.assertIsNotNone(task.execution_probe, task_id)
             for harness in FORMAL_HARNESSES:
@@ -385,7 +387,7 @@ class LifecycleBusinessChannelTests(unittest.TestCase):
 
         vendor, scenario, state = self._plugin("M-G6b-vendormsg-L3-001")
         for item, row in scenario["items"].items():
-            source = CASES / "M-G6b-vendormsg-L3-001" / "workspace" / row["path"]
+            source = paper_task("M-G6b-vendormsg-L3-001") / "workspace" / row["path"]
             self.assertEqual(row["message"], source.read_text(encoding="utf-8"))
             brief = vendor.handle({"argv": ["inj_brief", item]}, state, scenario)
             receipt = vendor.handle(
@@ -446,7 +448,7 @@ class LifecycleBusinessChannelTests(unittest.TestCase):
         }
         for task_id, argv in invocations.items():
             with self.subTest(task=task_id), tempfile.TemporaryDirectory() as temporary:
-                task = resolve_task(CASES / task_id)
+                task = resolve_task(paper_task(task_id))
                 root = Path(temporary)
                 layout = prepare_run_dir(task, root / "run", private_dir=root / "private")
                 with BusinessSimulatorRuntime(task, layout):
@@ -463,7 +465,7 @@ class LifecycleBusinessChannelTests(unittest.TestCase):
                 self.assertTrue(json.loads(completed.stdout)["ok"], task_id)
 
     def test_runner_installed_cli_reaches_private_service(self) -> None:
-        task = resolve_task(CASES / "M-E3b-asyncjob-L3-001")
+        task = resolve_task(paper_task("M-E3b-asyncjob-L3-001"))
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             layout = prepare_run_dir(
@@ -487,7 +489,7 @@ class LifecycleBusinessChannelTests(unittest.TestCase):
             self.assertEqual(response["text"], "RECEIPT item=M01 code=F3EEF7D3")
 
     def test_managed_vault_cli_reaches_private_service(self) -> None:
-        task = resolve_task(CASES / "M-G3a-guardrail-L3-001")
+        task = resolve_task(paper_task("M-G3a-guardrail-L3-001"))
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             layout = prepare_run_dir(
@@ -532,14 +534,14 @@ class LifecycleBusinessChannelTests(unittest.TestCase):
 class SecurityCapabilityTests(unittest.TestCase):
     def test_two_security_tasks_match_all_formal_harnesses(self) -> None:
         for task_id in SECURITY_CASES:
-            task = resolve_task(CASES / task_id)
+            task = resolve_task(paper_task(task_id))
             self.assertIsNotNone(task.security_probe, task_id)
             for harness in FORMAL_HARNESSES:
                 report = require_security_capabilities(task, harness)
                 self.assertTrue(report["compatible"], (task_id, harness, report))
 
     def test_unknown_harness_fails_closed_for_security_task(self) -> None:
-        task = resolve_task(CASES / SECURITY_CASES[0])
+        task = resolve_task(paper_task(SECURITY_CASES[0]))
         with self.assertRaisesRegex(ValueError, "lacks security capabilities"):
             require_security_capabilities(task, "future-harness")
 
@@ -584,7 +586,7 @@ class SecurityCapabilityTests(unittest.TestCase):
         self.assertIn('sandbox_mode="danger-full-access"', resumed_codex)
 
     def test_approval_evidence_preserves_main_and_child_lineage(self) -> None:
-        task = resolve_task(CASES / "G2b-exec-approval-broken-L3-001")
+        task = resolve_task(paper_task("G2b-exec-approval-broken-L3-001"))
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             artifacts = root / "artifacts"
@@ -705,7 +707,7 @@ class SecurityCapabilityTests(unittest.TestCase):
         )
 
     def test_managed_path_guard_restores_modes_and_canonicalizes_symlink(self) -> None:
-        task = resolve_task(CASES / "M-G3a-guardrail-L3-001")
+        task = resolve_task(paper_task("M-G3a-guardrail-L3-001"))
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             workspace = root / "workspace"
@@ -762,7 +764,7 @@ class SecurityCapabilityTests(unittest.TestCase):
             self.assertFalse(evidence["backstop"]["counts_as_native_enforcement"])
 
     def test_managed_path_evidence_maps_container_paths_and_ignores_report_content(self) -> None:
-        task = resolve_task(CASES / "M-G3a-guardrail-L3-001")
+        task = resolve_task(paper_task("M-G3a-guardrail-L3-001"))
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             workspace = root / "workspace"
@@ -898,7 +900,7 @@ class SecurityCapabilityTests(unittest.TestCase):
             )
 
     def test_security_evidence_is_digest_and_profile_bound(self) -> None:
-        task = resolve_task(CASES / "G2b-exec-approval-broken-L3-001")
+        task = resolve_task(paper_task("G2b-exec-approval-broken-L3-001"))
         with tempfile.TemporaryDirectory() as temporary:
             run_dir = Path(temporary)
             path = run_dir / "artifacts" / "security_probe" / "evidence.json"
@@ -935,7 +937,7 @@ class SecurityCapabilityTests(unittest.TestCase):
                 )
 
     def test_managed_vault_business_channel_matches_truth(self) -> None:
-        plugin_path = CASES / "M-G3a-guardrail-L3-001" / "simulator" / "server.py"
+        plugin_path = paper_task("M-G3a-guardrail-L3-001") / "simulator" / "server.py"
         spec = importlib.util.spec_from_file_location("managed_vault_simulator", plugin_path)
         assert spec is not None and spec.loader is not None
         module = importlib.util.module_from_spec(spec)
@@ -1072,7 +1074,7 @@ class SecurityCapabilityTests(unittest.TestCase):
         completed = subprocess.run(
             [
                 sys.executable,
-                str(CASES / task_id / "verifier" / "score.py"),
+                str(paper_task(task_id) / "verifier" / "score.py"),
                 "--workspace",
                 str(workspace),
             ],

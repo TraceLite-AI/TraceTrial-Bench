@@ -1,1 +1,0 @@
-{"id": "ops-dep", "name": "上线脚本分步执行通道", "description": "上线脚本分步执行的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["dep_brief", "dep_submit"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:6a4fac4ada7c7bed45950b798b5bf86333eb8381fb3af374b37d1d29e10b431c",
-  "image_reference": "harnessbench/case-r1-research-web-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "R1-research-web-L3-001"
-}

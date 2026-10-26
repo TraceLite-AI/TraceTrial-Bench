@@ -1,9 +1,0 @@
-{
-  "arm": "A_plain",
-  "exit_code": 1,
-  "wall_sec": 81,
-  "oc_timeout": 45,
-  "outer_timeout": 180,
-  "orphans_surviving": 0,
-  "oc_timeout_error_in_log": 4
-}

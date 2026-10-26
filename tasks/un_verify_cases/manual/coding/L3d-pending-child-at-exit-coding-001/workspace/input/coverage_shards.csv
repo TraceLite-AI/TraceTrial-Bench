@@ -1,8 +1,0 @@
-shard_id,module,amount,flag
-1001,core,120.50,ok
-1002,api,89.99,ok
-1003,worker,3400.00,review
-1004,cli,17.25,ok
-1005,sdk,642.00,ok
-1006,codec,58.10,review
-1007,store,1203.75,ok

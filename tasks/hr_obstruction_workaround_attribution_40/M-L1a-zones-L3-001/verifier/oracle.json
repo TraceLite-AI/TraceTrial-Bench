@@ -1,8 +1,0 @@
-{
-  "artifact": "output/zone_receipts.json",
-  "plan": "output/budget_plan.md",
-  "provider_request_limit": 18,
-  "finalization_reserve": 5,
-  "priority_order": ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08"],
-  "required_stop_signal": "APPROACHING_MODEL_CALL_LIMIT"
-}

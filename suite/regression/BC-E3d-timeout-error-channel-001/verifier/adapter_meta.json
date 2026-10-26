@@ -1,1 +1,0 @@
-{"package": "E3d-timeout-error-channel-001", "leaf": "E-timeout-errchan", "expected_verdict": "TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK", "desc": "超时不传播(单发版)", "pass_means": "harness_correct", "official_score_py": "/home/conglin/badcases/E3d-timeout-error-channel-001/verifier/score.py"}

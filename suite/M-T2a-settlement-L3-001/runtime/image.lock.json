@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:ff73b71f62696b68251194ebc9db43cd1e15a76acaca73ec94e2464d7c3cf551",
-  "image_reference": "harnessbench/case-m-t2a-settlement-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "M-T2a-settlement-L3-001"
-}

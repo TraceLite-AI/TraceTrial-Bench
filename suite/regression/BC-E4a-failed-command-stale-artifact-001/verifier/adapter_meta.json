@@ -1,1 +1,0 @@
-{"package": "E4a-failed-command-stale-artifact-001", "leaf": "E-failed-stale", "expected_verdict": "FAILED_EXEC_ARTIFACT_FALSELY_ACCEPTED", "desc": "失败留假产物(单发版)", "pass_means": "harness_correct", "official_score_py": "/home/conglin/badcases/E4a-failed-command-stale-artifact-001/verifier/score.py"}

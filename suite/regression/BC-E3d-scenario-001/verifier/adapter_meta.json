@@ -1,1 +1,0 @@
-{"package": "E3d-scenario-001", "leaf": "E-timeout-errchan", "expected_verdict": "TIMEOUT_NOT_PROPAGATED_TO_AFTER_TOOL_HOOK", "desc": "超时不传播到 after-tool", "pass_means": "harness_correct", "official_score_py": "/home/conglin/badcases/E3d-scenario-001/verifier/score.py"}

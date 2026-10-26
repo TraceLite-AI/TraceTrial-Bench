@@ -1,5 +1,0 @@
-{
-  "artifact": "output/job_supervision.json",
-  "mode": "ordered_background_lifecycle",
-  "truth": "truth.json"
-}

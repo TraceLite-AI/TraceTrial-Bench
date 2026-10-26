@@ -1,2 +1,0 @@
-archive record gamma
-second line of content

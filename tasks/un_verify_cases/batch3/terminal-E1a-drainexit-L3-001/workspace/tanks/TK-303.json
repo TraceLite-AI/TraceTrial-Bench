@@ -1,7 +1,0 @@
-{
- "tank": "TK-303",
- "site": "overflow weir",
- "mode": "exit",
- "exit_code": 2,
- "note": "refuses on a usage fault"
-}

@@ -1,6 +1,0 @@
-{
-  "settled": ["BL-01", "BL-02", "BL-04", "BL-05", "BL-07", "BL-08", "BL-10", "BL-11"],
-  "pending": ["BL-03", "BL-06", "BL-09", "BL-12"],
-  "final_fields": ["line", "amount_minor", "settled_at"],
-  "revision_count": 3
-}

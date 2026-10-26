@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:3381373e5aaa3781bcead9beaea31bab8f0f2512dbbc0e548241df1ea91e5ebd",
-  "image_reference": "harnessbench/case-d3-source-conflict-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "D3-source-conflict-L3-001"
-}

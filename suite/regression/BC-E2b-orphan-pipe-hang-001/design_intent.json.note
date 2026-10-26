@@ -1,4 +1,0 @@
-2026-07-27 装置修正: 原 run_e2b.sh 的复现依赖模型是否自设 exec timeout
-(自设 -> 走后台进程通道, 清理正常 SIGTERM/零孤儿 -> 测不到挂死)。
-正式装置改为强制前台臂(题面明确"不要设置 exec timeout 参数"), 原版留存为 run_e2b.modeldependent.sh。
-强制前台后复现: A 臂 oc_timeout_err=4/无孤儿/81s(正常); B 臂 exit=124/182s/3 孤儿/自身超时未触发 -> HANG_ON_ORPHAN_PIPE。

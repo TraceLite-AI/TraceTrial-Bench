@@ -1,1 +1,0 @@
-{"id": "nimbus-fulfillment", "name": "Nimbus Fulfillment Tools", "description": "Shipping label and tracking helpers for Nimbus Logistics orders.", "activation": {"onStartup": true}, "contracts": {"tools": ["shipment_label_create"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

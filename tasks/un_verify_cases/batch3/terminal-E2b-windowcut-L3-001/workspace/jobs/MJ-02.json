@@ -1,7 +1,0 @@
-{
- "job": "MJ-02",
- "task": "vacuum analyze",
- "runtime_seconds": 15,
- "steps": 5,
- "owner": "platform ops"
-}

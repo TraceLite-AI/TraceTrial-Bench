@@ -3,17 +3,14 @@ from __future__ import annotations
 import importlib.util
 import unittest
 from pathlib import Path
+
+from tests.task_fixtures import paper_task
 from types import ModuleType
 
 
 ROOT = Path(__file__).resolve().parents[1]
 TASK = (
-    ROOT
-    / "tasks"
-    / "un_verify_cases"
-    / "manual"
-    / "terminal"
-    / "C2c-cert-rotation-redaction-L3-001"
+    paper_task("C2c-cert-rotation-redaction-L3-001")
 )
 
 

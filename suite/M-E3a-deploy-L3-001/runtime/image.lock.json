@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:469e95647428b6094cc02927ffe1e77d046f4bd432b911e5b5642d14d1f2fac2",
-  "image_reference": "harnessbench/case-m-e3a-deploy-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "M-E3a-deploy-L3-001"
-}

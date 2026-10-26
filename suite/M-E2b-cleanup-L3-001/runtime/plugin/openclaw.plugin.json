@@ -1,1 +1,0 @@
-{"id": "ops-e2", "name": "夜间清理命令通道", "description": "夜间清理命令的作业通道：领取事项、执行动作、提交结果换回执。", "activation": {"onStartup": true}, "contracts": {"tools": ["e2_brief", "e2_submit"]}, "configSchema": {"type": "object", "properties": {}, "additionalProperties": false}}

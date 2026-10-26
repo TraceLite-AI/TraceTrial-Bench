@@ -113,7 +113,7 @@ chmod 600 model.toml
 ### 3. 运行论文正式题集
 
 ```bash
-.venv/bin/tracetrial_bench run --task-manifest tasks/lean95.manifest \
+.venv/bin/tracetrial_bench run --task-manifest Task/final.manifest \
   --harness openclaw --model deepseek --judge-model deepseek \
   --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
 ```
@@ -146,7 +146,7 @@ chmod 600 model.toml
 | **V** | Verification 核验 | 完成声明与权威结果是否一致 | 1 | 1 |
 | | **合计** | | **95** | **40** |
 
-**正式评测使用 [95 题清单](tasks/lean95.manifest)。** [题集说明](tasks/lean95.README.md)介绍选题口径，[命名对照](docs/task-naming.md)列出全部新旧题名和节点映射。
+**正式评测使用 [95 题清单](Task/final.manifest)。** [题集说明](Task/README.md)介绍选题口径，[命名对照](docs/task-naming.md)列出全部新旧题名和节点映射。
 
 题名格式为 `<节点>-<描述>-<三位序号>`，例如 `C1-escalation-export-001`。开头的 `L3-` 表示 Lifecycle 第 3 个节点，难度元数据保持原值。历史 `lean96.manifest` 额外保留了未计入论文结果的 hostrecord 题。
 
@@ -154,7 +154,7 @@ chmod 600 model.toml
 
 | 路径 | 用途 |
 | :--- | :--- |
-| [`tasks/`](tasks/) | 评测题目与发布清单 |
+| [`Task/`](Task/) | 评测题目与发布清单 |
 | [`tracetrial_bench/`](tracetrial_bench/) | CLI、Docker 运行器、评分、归因与报告 |
 | [`harness_tracer/`](harness_tracer/) | Harness 适配器与规范化轨迹 |
 | [`verifier/`](verifier/) | 取证层（`trace_ir`）与 API 流量捕获 |

@@ -1,7 +1,0 @@
-{
-  "execution_protocol": "openclaw_native_v1",
-  "image_id": "sha256:46d7bf68c720ffdbf1b615a1c536152bfcc55d705177c41558b552d0f572f128",
-  "image_reference": "harnessbench/case-m-t5d-copyreview-l3-001:v1",
-  "schema_version": "harnessbench_case_image_lock_v1",
-  "task_id": "M-T5d-copyreview-L3-001"
-}
