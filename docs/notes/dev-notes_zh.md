@@ -428,8 +428,9 @@ CLI 探活。需要快速检查参数时使用：
 - `artifacts/private_evidence/scoring_inputs/manifest.json`：续评基线与评分输入哈希。
 - `artifacts/scoring_error.json`：评分管线异常时的脱敏错误记录。
 
-每次运行都会从根目录 [`cost.json`](cost.json) 读取模型原价，并在
-`result.json.metrics` 保存 `token_usage`、`total_cost` 和 `cache_savings`。
+每次运行会在 `result.json.metrics` 保存 `token_usage`、`total_cost` 和 `cache_savings`。
+仓库不再附带价格表；根目录可选的本地 `cost.json` 可用于费用估算。缺少价格表时，
+`total_cost` 使用提供方返回的费用（如有），否则标记为 `N/A`。
 `token_usage.calls` 是逐次模型调用统计。model-registry Docker 运行会在 provider 响应
 usage 完整覆盖所有请求时优先采用这一共享边界的数据；否则保留原生 trace 汇总，并在
 `provider_request_evidence.usage` 中明确保存 partial/N/A。汇总字段包括 `input_tokens`、
@@ -441,7 +442,7 @@ provider 响应显式返回缓存计数，就认为该 provider/model 支持此�
 缓存计数的调用按 0 汇总；逐调用的 `cached_input_tokens_source` 和汇总层的
 `cache_measurement` 会标记 provider 原值及推断出的 0，原始
 `provider_request_evidence` 仍保留 `N/A`。如果整次运行都没有缓存计数，则缓存数和
-命中率仍明确保存为 `N/A`。总花费按全部输入使用普通输入价格保守估算，并在
+命中率仍明确保存为 `N/A`。有可用价格表时，总花费按全部输入使用普通输入价格保守估算，并在
 `total_cost.status` 标记为 `estimated`。
 
 `cache_savings.reused_input_tokens` 表示缓存复用量；金额使用价格快照计算，
