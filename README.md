@@ -168,7 +168,7 @@ Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-
 
 ## Citation
 
-The arXiv version is forthcoming. Until then, please cite the technical report:
+Please cite our paper on [arXiv](https://arxiv.org/abs/2610.32285):
 
 ```bibtex
 @misc{tracelite2026trialbytrace,
@@ -181,7 +181,10 @@ The arXiv version is forthcoming. Until then, please cite the technical report:
             Chen, Anxin and Wei, Zixian and Ruan, Xiang and Xu, Ruizhi and
             Shi, Ruqian and Xiao, Baihua and Zhou, Sicheng},
   year   = {2026},
-  url    = {https://tracelite.ai/trial-by-trace.html}
+  eprint = {2610.32285},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.AI},
+  url    = {https://arxiv.org/abs/2610.32285}
 }
 ```
 

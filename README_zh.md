@@ -168,7 +168,7 @@ chmod 600 model.toml
 
 ## 引用
 
-arXiv 版本即将上线，在此之前请引用技术报告：
+请引用我们发布在 [arXiv](https://arxiv.org/abs/2610.32285) 上的论文：
 
 ```bibtex
 @misc{tracelite2026trialbytrace,
@@ -181,7 +181,10 @@ arXiv 版本即将上线，在此之前请引用技术报告：
             Chen, Anxin and Wei, Zixian and Ruan, Xiang and Xu, Ruizhi and
             Shi, Ruqian and Xiao, Baihua and Zhou, Sicheng},
   year   = {2026},
-  url    = {https://tracelite.ai/trial-by-trace.html}
+  eprint = {2610.32285},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.AI},
+  url    = {https://arxiv.org/abs/2610.32285}
 }
 ```
 
