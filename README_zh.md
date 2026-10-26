@@ -188,6 +188,18 @@ chmod 600 model.toml
 }
 ```
 
+## Star 数量趋势
+
+<p align="center">
+  <a href="https://www.star-history.com/?repos=TraceLite-AI%2FTraceTrial-Bench&amp;type=date">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=TraceLite-AI/TraceTrial-Bench&amp;type=Date&amp;theme=dark" />
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=TraceLite-AI/TraceTrial-Bench&amp;type=Date" />
+      <img src="https://api.star-history.com/svg?repos=TraceLite-AI/TraceTrial-Bench&amp;type=Date" alt="TraceTrial-Bench GitHub Star 数量历史统计图" width="800" />
+    </picture>
+  </a>
+</p>
+
 ---
 
 <div align="center">

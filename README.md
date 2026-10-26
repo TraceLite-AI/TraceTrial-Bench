@@ -188,6 +188,18 @@ Please cite our paper on [arXiv](https://arxiv.org/abs/2610.32285):
 }
 ```
 
+## Star History
+
+<p align="center">
+  <a href="https://www.star-history.com/?repos=TraceLite-AI%2FTraceTrial-Bench&amp;type=date">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=TraceLite-AI/TraceTrial-Bench&amp;type=Date&amp;theme=dark" />
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=TraceLite-AI/TraceTrial-Bench&amp;type=Date" />
+      <img src="https://api.star-history.com/svg?repos=TraceLite-AI/TraceTrial-Bench&amp;type=Date" alt="TraceTrial-Bench GitHub Star history chart" width="800" />
+    </picture>
+  </a>
+</p>
+
 ---
 
 <div align="center">
