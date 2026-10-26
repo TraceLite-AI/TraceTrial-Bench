@@ -146,7 +146,7 @@ Each task targets one of **7 reliability dimensions**. Prompts provide a goal, m
 | **V** | Verification | Completion claims versus authoritative outcomes | 1 | 1 |
 | | **Total** | | **95** | **40** |
 
-**Start with the [95-task manifest](Task/final.manifest).** The [task-set guide](Task/README.md) explains the selection; the [naming map](docs/task-naming.md) lists every old/new ID and node mapping.
+**Start with the [95-task manifest](Task/final.manifest).** The manifest follows the top-to-bottom task order in the paper heatmap on page 45; the [naming map](docs/task-naming.md) lists every old/new ID and node mapping.
 
 Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-001`. A leading `L3-` denotes Lifecycle node 3; difficulty metadata is unchanged. The historical `lean96.manifest` retains the additional hostrecord task excluded from the paper results.
 

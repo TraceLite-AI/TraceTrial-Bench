@@ -146,7 +146,7 @@ chmod 600 model.toml
 | **V** | Verification 核验 | 完成声明与权威结果是否一致 | 1 | 1 |
 | | **合计** | | **95** | **40** |
 
-**正式评测使用 [95 题清单](Task/final.manifest)。** [题集说明](Task/README.md)介绍选题口径，[命名对照](docs/task-naming.md)列出全部新旧题名和节点映射。
+**正式评测使用 [95 题清单](Task/final.manifest)。** 清单按论文第 45 页热力图从上到下排序，[命名对照](docs/task-naming.md)列出全部新旧题名和节点映射。
 
 题名格式为 `<节点>-<描述>-<三位序号>`，例如 `C1-escalation-export-001`。开头的 `L3-` 表示 Lifecycle 第 3 个节点，难度元数据保持原值。历史 `lean96.manifest` 额外保留了未计入论文结果的 hostrecord 题。
 
