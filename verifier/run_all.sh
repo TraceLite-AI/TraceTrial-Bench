@@ -1,5 +1,5 @@
 #!/bin/bash
-# HarnessBench verifier 一键跑批 —— 新 trace 落地后执行这一个脚本。
+# TraceTrial_Bench verifier 一键跑批 —— 新 trace 落地后执行这一个脚本。
 #
 # 顺序（每步失败即停）：
 #   1. 程序判据层跑 3 遍，逐字节比对 —— 不确定就不出数

@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.container_images import (
+from tracetrial_bench.container_images import (
     DEFAULT_IMAGES,
     WORKER_SOURCE_PATHS,
     _copy_worker_source,
@@ -38,14 +38,14 @@ class ContainerImageWorkerContextTests(unittest.TestCase):
                     ROOT / "docker" / "harnessbench" / definition.dockerfile
                 ).read_text(encoding="utf-8")
                 self.assertIn(
-                    'RUN python3 -c "import harnessbench.container_worker"',
+                    'RUN python3 -c "import tracetrial_bench.container_worker"',
                     dockerfile,
                 )
 
     def test_reduced_worker_build_context_imports_container_worker(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             context = Path(temporary)
-            _copy_worker_source(ROOT / "harnessbench", context / "harnessbench")
+            _copy_worker_source(ROOT / "tracetrial_bench", context / "tracetrial_bench")
             shutil.copytree(
                 ROOT / "harness_tracer",
                 context / "harness_tracer",
@@ -58,7 +58,7 @@ class ContainerImageWorkerContextTests(unittest.TestCase):
                 "LC_ALL": "C.UTF-8",
             }
             completed = subprocess.run(
-                [sys.executable, "-c", "import harnessbench.container_worker"],
+                [sys.executable, "-c", "import tracetrial_bench.container_worker"],
                 cwd=context,
                 env=environment,
                 capture_output=True,

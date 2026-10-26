@@ -11,22 +11,22 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-import harnessbench.security_capabilities as security_capabilities
-from harnessbench.execution_capabilities import (
+import tracetrial_bench.security_capabilities as security_capabilities
+from tracetrial_bench.execution_capabilities import (
     adapter_extra_args as execution_adapter_extra_args,
     capability_report,
     persist_execution_probe_evidence,
     require_capabilities,
 )
-from harnessbench.security_capabilities import (
+from tracetrial_bench.security_capabilities import (
     ManagedPathGuard,
     persist_security_probe_evidence,
     require_capabilities as require_security_capabilities,
 )
-from harnessbench.business_simulator import BusinessSimulatorRuntime
-from harnessbench.task_resolver import resolve_task
-from harnessbench.workspace import prepare_run_dir
-from harnessbench.runner import (
+from tracetrial_bench.business_simulator import BusinessSimulatorRuntime
+from tracetrial_bench.task_resolver import resolve_task
+from tracetrial_bench.workspace import prepare_run_dir
+from tracetrial_bench.runner import (
     _resolve_execution_probe_evidence,
     _resolve_security_probe_evidence,
 )

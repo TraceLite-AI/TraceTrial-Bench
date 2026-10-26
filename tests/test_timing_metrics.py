@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from harnessbench.timing_metrics import calculate_timing_metrics
+from tracetrial_bench.timing_metrics import calculate_timing_metrics
 
 
 def test_calculates_task_metrics_from_complete_model_call_timing() -> None:

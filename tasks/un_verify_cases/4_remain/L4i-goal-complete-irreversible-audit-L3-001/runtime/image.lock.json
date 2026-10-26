@@ -4,5 +4,5 @@
   "image_reference": "harnessbench/case-l4i-goal-complete-irreversible-audit-l3-001:v1",
   "schema_version": "harnessbench_case_image_lock_v1",
   "task_id": "L4i-goal-complete-irreversible-audit-L3-001",
-  "_note": "submission placeholder \u2014 image_id \u7531 CI harnessbench image build \u91cd\u5efa(\u63d0\u4ea4\u7aef\u65e0 docker daemon)"
+  "_note": "submission placeholder \u2014 image_id \u7531 CI tracetrial_bench image build \u91cd\u5efa(\u63d0\u4ea4\u7aef\u65e0 docker daemon)"
 }

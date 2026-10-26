@@ -7,7 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from harnessbench.runner import _write_container_infrastructure_trace
+from tracetrial_bench.runner import _write_container_infrastructure_trace
 
 
 class ContainerInfrastructureTraceTests(unittest.TestCase):

@@ -3,7 +3,7 @@
 Run the four supported Harnesses from the repository root:
 
 ```bash
-/opt/anaconda3/bin/python3.13 -m harnessbench.cli run \
+/opt/anaconda3/bin/python3.13 -m tracetrial_bench.cli run \
   --task tasks/low_divergence_30/G4-deploytoken-mask-001 \
   --harness codex --harness openclaw --harness cc --harness dsh \
   --model deepseek --reasoning-intensity high --timeout 2400 \

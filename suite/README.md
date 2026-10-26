@@ -1,4 +1,4 @@
-# HarnessBench Cases
+# TraceTrial_Bench Cases
 
 > 目标：区分「模型问题」和「harness 问题」，产出可剥离 harness 贡献的干净归因数据。
 > **不是挖 bug** —— harness 的贡献可以是正的（如某个组件让研究结果更准）。
@@ -321,4 +321,4 @@ W 系列真正的产出是 ③ + 判断力项 `rr_probe_run_exactly_once`（从 
 - rubric 规格：`~/Downloads/cl实验/hb-generators/RUBRIC_SPEC.md`
 - 67 包 → 40 轴映射：`~/Downloads/cl实验/hb-generators/AXIS_MAP.md`
 - 40 轴题（另一套生成器，尚未迁入本目录）：GCP `~/hb40v2/*-v2-001`
-- 跨 harness 结果：`~/Downloads/HarnessBench/HarnessBench-跨harness粗筛结果.md`
+- 跨 harness 结果：`~/Downloads/TraceTrial_Bench/TraceTrial_Bench-跨harness粗筛结果.md`

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from harnessbench.step_metrics import NOT_AVAILABLE, calculate_step_count
+from tracetrial_bench.step_metrics import NOT_AVAILABLE, calculate_step_count
 
 
 class StepMetricsTests(unittest.TestCase):

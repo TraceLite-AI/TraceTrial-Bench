@@ -4,7 +4,7 @@ Run the four requested Harnesses against the same model and deterministic binary
 score sheets. `cc` normalizes to `claudecode`; `dsh` normalizes to `deepseek`.
 
 ```bash
-/opt/anaconda3/bin/python3.13 -m harnessbench.cli run \
+/opt/anaconda3/bin/python3.13 -m tracetrial_bench.cli run \
   --task tasks/low_divergence_30/E2-nodesweep-stderr-001 \
   --harness codex --harness openclaw --harness cc --harness dsh \
   --model deepseek --reasoning-intensity high --timeout 2400 \

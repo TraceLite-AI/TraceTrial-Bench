@@ -1,6 +1,6 @@
 export default {
   id: "harnessbench-t1b",
-  name: "HarnessBench T1b",
+  name: "TraceTrial_Bench T1b",
   description: "Duplicate tool-name registration probe",
   register(api) {
     const spec = {

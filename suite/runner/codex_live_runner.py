@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run HarnessBench case packages against a real local OpenClaw installation.
+"""Run TraceTrial_Bench case packages against a real local OpenClaw installation.
 
 Unlike the legacy batch runner, this runner keeps an explicit evidence manifest
 and captures parent/child transcripts plus durable task state when a case uses

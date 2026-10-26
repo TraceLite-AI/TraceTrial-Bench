@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="112" viewBox="0 0 880 112" role="img" aria-labelledby="title desc">
+  <title id="title">TraceTrial-Bench at a glance</title>
+  <desc id="desc">95 tasks, 40 mechanism nodes, 7 reliability dimensions, and 3,420 paper runs</desc>
+  <style>
+    .card { fill: #f6f9fc; stroke: #dce5ed; }
+    .value { fill: #0f766e; font: 700 34px -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+    .label { fill: #43566b; font: 500 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif; }
+    @media (prefers-color-scheme: dark) {
+      .card { fill: #151e2a; stroke: #2c3c4e; }
+      .value { fill: #5eead4; }
+      .label { fill: #bdccdc; }
+    }
+  </style>
+  <g transform="translate(0 0)">
+    <rect class="card" x="1" y="1" width="206" height="110" rx="12"/>
+    <text class="value" x="104" y="52" text-anchor="middle">95</text>
+    <text class="label" x="104" y="82" text-anchor="middle">Tasks</text>
+  </g>
+  <g transform="translate(224 0)">
+    <rect class="card" x="1" y="1" width="206" height="110" rx="12"/>
+    <text class="value" x="104" y="52" text-anchor="middle">40</text>
+    <text class="label" x="104" y="82" text-anchor="middle">Mechanism nodes</text>
+  </g>
+  <g transform="translate(448 0)">
+    <rect class="card" x="1" y="1" width="206" height="110" rx="12"/>
+    <text class="value" x="104" y="52" text-anchor="middle">7</text>
+    <text class="label" x="104" y="82" text-anchor="middle">Reliability dimensions</text>
+  </g>
+  <g transform="translate(672 0)">
+    <rect class="card" x="1" y="1" width="206" height="110" rx="12"/>
+    <text class="value" x="104" y="52" text-anchor="middle">3,420</text>
+    <text class="label" x="104" y="82" text-anchor="middle">Paper runs</text>
+  </g>
+</svg>

@@ -15,27 +15,27 @@ from harness_tracer.process import ProcessRunner
 from harness_tracer.runner import RunConfig as TraceRunConfig
 from harness_tracer.runner import TraceRunner
 
-from harnessbench.conversation_runner import (
+from tracetrial_bench.conversation_runner import (
     ConversationRunConfig,
     ConversationSimulator,
     ConversationTraceRunner,
 )
-from harnessbench.business_simulator import (
+from tracetrial_bench.business_simulator import (
     BUSINESS_ENDPOINT_ENV,
     SOCKET_FILENAME,
     probe_business_endpoint,
     validate_business_endpoint,
 )
-from harnessbench.container_environment import (
+from tracetrial_bench.container_environment import (
     add_loopback_no_proxy,
     resolve_transport_environment,
 )
-from harnessbench.deepseek_config import render_deepseek_cordis_config
-from harnessbench.deepseek_runner import (
+from tracetrial_bench.deepseek_config import render_deepseek_cordis_config
+from tracetrial_bench.deepseek_runner import (
     DeepSeekTraceRunner,
     patch_root_summary_containment,
 )
-from harnessbench.litellm_gateway import (
+from tracetrial_bench.litellm_gateway import (
     GATEWAY_HOST,
     GATEWAY_PORT,
     GATEWAY_TOKEN_ENV,
@@ -46,28 +46,28 @@ from harnessbench.litellm_gateway import (
     protect_process_credentials,
     redact_output_secrets,
 )
-from harnessbench.model_registry import (
+from tracetrial_bench.model_registry import (
     INTERNAL_API_KEY_ENV,
     SUPPORTED_CONTAINER_HARNESSES,
     ModelRuntimeSpec,
 )
-from harnessbench.model_call_budget import (
+from tracetrial_bench.model_call_budget import (
     MODEL_CALL_BUDGET_PORT,
     ModelCallBudgetInfo,
     ModelCallBudgetProxy,
     validate_model_call_budget,
 )
-from harnessbench.openclaw_gateway import (
+from tracetrial_bench.openclaw_gateway import (
     OPENCLAW_GATEWAY_PORT,
     OPENCLAW_GATEWAY_TOKEN_ENV,
     OpenClawGateway,
 )
-from harnessbench.provider_request_recorder import (
+from tracetrial_bench.provider_request_recorder import (
     PROVIDER_REQUEST_RECORDER_PORT,
     ProviderRequestRecorderInfo,
     ProviderRequestRecorderProxy,
 )
-from harnessbench.task_tool_mcp import (
+from tracetrial_bench.task_tool_mcp import (
     BRIDGE_RELATIVE_PATH,
     CONFIG_ENV as TASK_TOOL_CONFIG_ENV,
     ENDPOINT_ENV as TASK_TOOL_ENDPOINT_ENV,
@@ -484,7 +484,7 @@ def materialize_harness_state(
                 f"model_provider = {json.dumps(provider_name)}",
                 "",
                 f"[model_providers.{provider_name}]",
-                'name = "HarnessBench LiteLLM"',
+                'name = "TraceTrial_Bench LiteLLM"',
                 f"base_url = {json.dumps(gateway_url + '/v1')}",
                 f"env_key = {json.dumps(GATEWAY_TOKEN_ENV)}",
                 'wire_api = "responses"',

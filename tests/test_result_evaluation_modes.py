@@ -5,9 +5,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-import harnessbench.result as result_module
-import harnessbench.batch as batch_module
-from harnessbench.types import (
+import tracetrial_bench.result as result_module
+import tracetrial_bench.batch as batch_module
+from tracetrial_bench.types import (
     EvaluationResult,
     HarnessRunSpec,
     ModelBinding,

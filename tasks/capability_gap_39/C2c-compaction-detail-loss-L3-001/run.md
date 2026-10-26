@@ -3,7 +3,7 @@
 Run the four selected Harnesses in parallel from the repository root. The shared command deliberately omits `--reasoning-intensity` so every selected Harness uses its supported default thinking mode.
 
 ```bash
-harnessbench run \
+tracetrial_bench run \
   --task tasks/new_cases/C2c-compaction-detail-loss-L3-001 \
   --harness claudecode \
   --harness codex \

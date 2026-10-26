@@ -34,7 +34,7 @@ from harness_tracer.timeutils import utc_now_iso
 from harness_tracer.writer import EventWriter
 
 
-DEFAULT_BRIDGE = Path("/opt/harnessbench-src/harnessbench/deepseek_bridge.mjs")
+DEFAULT_BRIDGE = Path("/opt/harnessbench-src/tracetrial_bench/deepseek_bridge.mjs")
 DEFAULT_RUNTIME = Path(
     "/opt/deepseek-runtime/node_modules/.bin/dsh-jsonrpc-agent"
 )

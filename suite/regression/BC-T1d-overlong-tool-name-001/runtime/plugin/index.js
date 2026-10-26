@@ -1,5 +1,5 @@
 export default {
-  id: "harnessbench-t1d", name: "HarnessBench T1d", description: "Over-long tool name probe",
+  id: "harnessbench-t1d", name: "TraceTrial_Bench T1d", description: "Over-long tool name probe",
   register(api) {
     api.registerTool({
       name: "hb_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",

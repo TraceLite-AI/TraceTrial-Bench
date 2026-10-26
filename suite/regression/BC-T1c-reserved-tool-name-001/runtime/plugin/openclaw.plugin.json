@@ -1,1 +1,1 @@
-{"id":"harnessbench-t1c","name":"HarnessBench T1c","description":"Reserved native tool-name registration probe","activation":{"onStartup":true},"contracts":{"tools":["exec"]},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}
+{"id":"harnessbench-t1c","name":"TraceTrial_Bench T1c","description":"Reserved native tool-name registration probe","activation":{"onStartup":true},"contracts":{"tools":["exec"]},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

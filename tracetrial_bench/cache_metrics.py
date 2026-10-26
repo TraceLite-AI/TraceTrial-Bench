@@ -3,7 +3,7 @@ from __future__ import annotations
 from decimal import Decimal
 from typing import Mapping
 
-from harnessbench.model_registry import ModelPricing
+from tracetrial_bench.model_registry import ModelPricing
 
 
 CACHE_SAVINGS_SCHEMA = "harnessbench_cache_savings_v1"

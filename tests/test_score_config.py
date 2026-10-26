@@ -9,7 +9,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.score_config import load_score_sheet
+from tracetrial_bench.score_config import load_score_sheet
 
 
 REPOSITORY = Path(__file__).resolve().parents[1]

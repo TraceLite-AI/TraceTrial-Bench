@@ -6,11 +6,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.evaluator import run_verifier
-from harnessbench.llm_judge import JudgeRuntime, run_layered_judge
-from harnessbench.score_config import load_score_sheet
-from harnessbench.task_resolver import resolve_task
-from harnessbench.workspace import prepare_run_dir
+from tracetrial_bench.evaluator import run_verifier
+from tracetrial_bench.llm_judge import JudgeRuntime, run_layered_judge
+from tracetrial_bench.score_config import load_score_sheet
+from tracetrial_bench.task_resolver import resolve_task
+from tracetrial_bench.workspace import prepare_run_dir
 
 
 class MigratedTaskScoringTests(unittest.TestCase):

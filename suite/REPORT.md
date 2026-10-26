@@ -1,4 +1,4 @@
-# HarnessBench 归因报告 · 2026-07-28 更新
+# TraceTrial_Bench 归因报告 · 2026-07-28 更新
 
 > 汇总入口。底稿：`FINDINGS.md`（每条结论的证据链）· `README.md`（**28 条**装置纪律）
 
@@ -75,7 +75,7 @@
 
 ## 逐 case 自动归因
 
-# HarnessBench 归因报告
+# TraceTrial_Bench 归因报告
 
 已出分 **30** 个 case
 

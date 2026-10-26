@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.trace_report import generate_trace_report
+from tracetrial_bench.trace_report import generate_trace_report
 
 
 class TraceReportTokenTests(unittest.TestCase):

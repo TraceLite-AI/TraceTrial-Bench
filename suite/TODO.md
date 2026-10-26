@@ -1,4 +1,4 @@
-# HarnessBench 待办清单 · 2026-07-28
+# TraceTrial_Bench 待办清单 · 2026-07-28
 
 ## 一、要造的 case —— 上下文 × 子代理，落到 vibe coding / deep research
 

@@ -1,6 +1,6 @@
 # C1a-academic-L3-001 运行与验收
 
-本题必须由 HarnessBench runner 启动。不要把 `simulator/server.py` 直接交给
+本题必须由 TraceTrial_Bench runner 启动。不要把 `simulator/server.py` 直接交给
 Agent，也不要脱离 runner 单独执行 verifier。
 
 ## 配对运行
@@ -10,7 +10,7 @@ Agent，也不要脱离 runner 单独执行 verifier。
 `.instance_seeds.json`；文件格式为 `{"seeds":["<runner-private-seed>"]}`。
 
 ```bash
-python -m harnessbench.cli run \
+python -m tracetrial_bench.cli run \
   --task test_task/C1a-academic-L3-001 \
   --harness codex \
   --harness claudecode \

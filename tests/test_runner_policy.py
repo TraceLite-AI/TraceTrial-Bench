@@ -4,8 +4,8 @@ import unittest
 from pathlib import Path
 
 from harness_tracer.adapters.hermes import HermesAdapter
-from harnessbench.runner_policy import resolve_harness_invocation
-from harnessbench.task_resolver import resolve_task
+from tracetrial_bench.runner_policy import resolve_harness_invocation
+from tracetrial_bench.task_resolver import resolve_task
 
 
 ROOT = Path(__file__).resolve().parents[1]

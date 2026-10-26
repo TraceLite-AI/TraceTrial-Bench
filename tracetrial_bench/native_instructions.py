@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from harnessbench.types import TaskSpec
+from tracetrial_bench.types import TaskSpec
 
 
 def install_native_instructions(

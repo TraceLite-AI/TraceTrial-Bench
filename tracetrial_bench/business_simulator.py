@@ -56,8 +56,8 @@ from harness_tracer.summary import build_summary, write_last_message, write_summ
 from harness_tracer.timeutils import utc_now_iso
 from harness_tracer.writer import EventWriter
 
-from harnessbench.task_tool_mcp import ENDPOINT_SCHEMA
-from harnessbench.types import BusinessSimulatorSpec, TaskSpec
+from tracetrial_bench.task_tool_mcp import ENDPOINT_SCHEMA
+from tracetrial_bench.types import BusinessSimulatorSpec, TaskSpec
 
 
 SOCKET_FILENAME = ".harnessbench-business-simulator.sock"

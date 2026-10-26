@@ -244,8 +244,8 @@ def _html_safe_json(value: object) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        prog="python -m harnessbench.trace_report",
-        description="Generate a self-contained HTML report for one HarnessBench run.",
+        prog="python -m tracetrial_bench.trace_report",
+        description="Generate a self-contained HTML report for one TraceTrial_Bench run.",
     )
     parser.add_argument("run_dir", type=Path)
     args = parser.parse_args(argv)
@@ -264,7 +264,7 @@ _HTML_TEMPLATE = r"""<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-  <title>HarnessBench Trace Report</title>
+  <title>TraceTrial_Bench Trace Report</title>
   <style>
     :root {
       color-scheme: dark;
@@ -544,7 +544,7 @@ _HTML_TEMPLATE = r"""<!doctype html>
 <body>
   <main class="shell">
     <section class="hero" aria-labelledby="report-title">
-      <div class="eyebrow">HarnessBench · Trace report</div>
+      <div class="eyebrow">TraceTrial_Bench · Trace report</div>
       <div class="hero-line">
         <div>
           <h1 id="report-title">Run analysis</h1>

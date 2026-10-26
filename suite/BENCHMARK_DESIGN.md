@@ -1,4 +1,4 @@
-# HarnessBench 设计方案
+# TraceTrial_Bench 设计方案
 
 > 2026-07-30 定稿。取代 `DESIGN_v2.md` / `RUBRIC_SPEC_v2.md`。
 

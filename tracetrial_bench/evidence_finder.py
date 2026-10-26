@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
 
-from harnessbench.score_config import EvidenceSelector
+from tracetrial_bench.score_config import EvidenceSelector
 
 
 MAX_ARTIFACT_BYTES = 1_000_000

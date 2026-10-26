@@ -1,4 +1,4 @@
-# HarnessBench Verifier v3（gate + ask）
+# TraceTrial_Bench Verifier v3（gate + ask）
 
 judge 一个 agent harness 的两层判据执行器。**归因，不是挖 bug**：
 目标是把「模型问题」和「harness 问题」分开，缺陷信号必须来自 harness 自己的行为。

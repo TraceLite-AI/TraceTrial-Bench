@@ -13,8 +13,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
-from harnessbench.conversation_runner import ConversationRunConfig, ConversationTraceRunner
-from harnessbench.deepseek_runner import (
+from tracetrial_bench.conversation_runner import ConversationRunConfig, ConversationTraceRunner
+from tracetrial_bench.deepseek_runner import (
     DeepSeekSdkBridge,
     DeepSeekBridgeTimeout,
     DeepSeekTraceRunner,
@@ -339,7 +339,7 @@ export class DeepSeekHarness {
                 {"id": 4, "method": "close", "params": {}},
             ]
             completed = subprocess.run(
-                ["node", str(Path("harnessbench/deepseek_bridge.mjs").resolve())],
+                ["node", str(Path("tracetrial_bench/deepseek_bridge.mjs").resolve())],
                 input="".join(json.dumps(request) + "\n" for request in requests),
                 text=True,
                 capture_output=True,

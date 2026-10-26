@@ -4,7 +4,7 @@ Run the task from the repository root with the four requested Harness aliases. T
 canonicalizes `cc` to `claudecode` and `dsh` to `deepseek` in saved results:
 
 ```bash
-harnessbench run \
+tracetrial_bench run \
   --task tasks/capability_gap_39/L5-buildcheck-handoff-001 \
   --harness codex --harness openclaw --harness cc --harness dsh \
   --model deepseek --reasoning-intensity high --timeout 600 \

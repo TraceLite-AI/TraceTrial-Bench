@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""HarnessBench 统一 verifier runner —— 74 道题一把跑完，输出规范化。
+"""TraceTrial_Bench 统一 verifier runner —— 74 道题一把跑完，输出规范化。
 
 ## 为什么需要它
 题库里有**两代 scorer**，接口和输出形状都不同：

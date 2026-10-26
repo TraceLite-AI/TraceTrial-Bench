@@ -16,7 +16,7 @@ from harness_tracer.provider_requests import (
     trace_tool_inventory_payloads,
 )
 from harness_tracer.runner import RunConfig, TraceRunner
-from harnessbench.provider_request_recorder import (
+from tracetrial_bench.provider_request_recorder import (
     LEGACY_PROVIDER_TIMING_SCHEMA,
     PROVIDER_DECODE_BASIS,
     PROVIDER_TIMING_SCHEMA,

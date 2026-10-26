@@ -18,31 +18,31 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import Callable, Mapping
 
-from harnessbench.business_simulator import (
+from tracetrial_bench.business_simulator import (
     CONTAINER_HOST_ALIAS,
     validate_business_endpoint,
 )
-from harnessbench.cache_metrics import attach_cache_savings
-from harnessbench.container_environment import (
+from tracetrial_bench.cache_metrics import attach_cache_savings
+from tracetrial_bench.container_environment import (
     TRANSPORT_ENV_NAMES,
 )
-from harnessbench.litellm_gateway import GATEWAY_TOKEN_ENV
-from harnessbench.model_call_budget import (
+from tracetrial_bench.litellm_gateway import GATEWAY_TOKEN_ENV
+from tracetrial_bench.model_call_budget import (
     MODEL_CALL_BUDGET_SCHEMA,
     validate_model_call_budget,
 )
-from harnessbench.model_registry import (
+from tracetrial_bench.model_registry import (
     INTERNAL_API_KEY_ENV,
     SUPPORTED_CONTAINER_HARNESSES,
     ContainerBuildConfig,
     ModelRuntimeSpec,
 )
-from harnessbench.provider_request_recorder import (
+from tracetrial_bench.provider_request_recorder import (
     validate_provider_request_summary,
 )
-from harnessbench.provider_usage import attach_provider_token_usage
-from harnessbench.task_tool_mcp import _validate_endpoint
-from harnessbench.workspace import validate_workspace_for_host_verifier
+from tracetrial_bench.provider_usage import attach_provider_token_usage
+from tracetrial_bench.task_tool_mcp import _validate_endpoint
+from tracetrial_bench.workspace import validate_workspace_for_host_verifier
 from harness_tracer.provider_requests import (
     PROVIDER_REQUEST_EVIDENCE_SCHEMA,
     PROVIDER_REQUEST_EVIDENCE_VERSION,
@@ -750,7 +750,7 @@ class DockerHarnessRuntime:
                 container_id,
                 "python3",
                 "-m",
-                "harnessbench.container_worker",
+                "tracetrial_bench.container_worker",
             ],
             timeout=worker_timeout,
             input_text=json.dumps(payload, ensure_ascii=False),
@@ -876,7 +876,7 @@ class DockerHarnessRuntime:
     def _resolve_default_image(
         request: ContainerRunRequest, build_log: Path
     ) -> HarnessImage:
-        from harnessbench.container_images import HarnessImageManager
+        from tracetrial_bench.container_images import HarnessImageManager
 
         return HarnessImageManager().ensure(
             request.harness,

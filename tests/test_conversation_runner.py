@@ -5,14 +5,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.conversation_runner import (
+from tracetrial_bench.conversation_runner import (
     ConversationRunConfig,
     ConversationSimulator,
     ConversationTraceRunner,
     _turn_extra_args,
 )
-from harnessbench.runner import BenchmarkRunConfig, BenchmarkRunner
-from harnessbench.task_resolver import read_fixed_turns, resolve_task
+from tracetrial_bench.runner import BenchmarkRunConfig, BenchmarkRunner
+from tracetrial_bench.task_resolver import read_fixed_turns, resolve_task
 from harness_tracer.adapters.codex import CodexAdapter
 
 

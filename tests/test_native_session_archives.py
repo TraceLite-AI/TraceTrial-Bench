@@ -12,7 +12,7 @@ from harness_tracer.adapters.hermes import _consume_native_trace
 from harness_tracer.native_sessions import archive_claudecode_session
 from harness_tracer.process import CompletedProcessData
 from harness_tracer.writer import EventWriter
-from harnessbench.conversation_runner import _import_turn_events
+from tracetrial_bench.conversation_runner import _import_turn_events
 
 
 class NativeSessionArchiveTests(unittest.TestCase):

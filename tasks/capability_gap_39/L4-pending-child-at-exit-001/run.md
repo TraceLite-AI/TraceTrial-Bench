@@ -5,10 +5,10 @@ normalized trace expose asynchronous dispatch, a distinct parent return boundary
 and pushed child completion:
 
 ```bash
-harnessbench run --task tasks/capability_gap_39/L4-pending-child-at-exit-001 --harness codex --model deepseek --timeout 240 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir output/case_0808
-harnessbench run --task tasks/capability_gap_39/L4-pending-child-at-exit-001 --harness claudecode --model deepseek --timeout 240 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir output/case_0808
-harnessbench run --task tasks/capability_gap_39/L4-pending-child-at-exit-001 --harness openclaw --model deepseek --timeout 240 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir output/case_0808
-harnessbench run --task tasks/capability_gap_39/L4-pending-child-at-exit-001 --harness deepseek --model deepseek --timeout 240 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir output/case_0808
+tracetrial_bench run --task tasks/capability_gap_39/L4-pending-child-at-exit-001 --harness codex --model deepseek --timeout 240 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir output/case_0808
+tracetrial_bench run --task tasks/capability_gap_39/L4-pending-child-at-exit-001 --harness claudecode --model deepseek --timeout 240 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir output/case_0808
+tracetrial_bench run --task tasks/capability_gap_39/L4-pending-child-at-exit-001 --harness openclaw --model deepseek --timeout 240 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir output/case_0808
+tracetrial_bench run --task tasks/capability_gap_39/L4-pending-child-at-exit-001 --harness deepseek --model deepseek --timeout 240 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir output/case_0808
 ```
 
 For this task only, Claude Code enables partial native events and normalizes an

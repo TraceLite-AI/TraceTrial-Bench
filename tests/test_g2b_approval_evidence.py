@@ -4,7 +4,7 @@ import unittest
 import importlib.util
 from pathlib import Path
 
-from harnessbench.security_capabilities import _approval_observations
+from tracetrial_bench.security_capabilities import _approval_observations
 
 
 SCORE_PATH = Path(

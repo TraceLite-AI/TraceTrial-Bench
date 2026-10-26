@@ -10,13 +10,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.execution_capabilities import (
+from tracetrial_bench.execution_capabilities import (
     _post_tool_failure_gate_decision,
     _post_tool_observation,
     adapter_extra_args,
     capability_report,
 )
-from harnessbench.task_resolver import resolve_task
+from tracetrial_bench.task_resolver import resolve_task
 
 
 ROOT = Path(__file__).resolve().parents[1]

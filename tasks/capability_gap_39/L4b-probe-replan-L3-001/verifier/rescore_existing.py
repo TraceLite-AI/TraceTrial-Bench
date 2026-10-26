@@ -13,13 +13,13 @@ from typing import Any
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[5]))
 
-from harnessbench.attribution import DeviceHealth, LayerVerdicts, classify
-from harnessbench.llm_judge import (
+from tracetrial_bench.attribution import DeviceHealth, LayerVerdicts, classify
+from tracetrial_bench.llm_judge import (
     _attribution_rules,
     _finalize_layer,
     _mechanism_causal_links,
 )
-from harnessbench.score_config import load_score_sheet
+from tracetrial_bench.score_config import load_score_sheet
 
 
 SPEC = importlib.util.spec_from_file_location("l4b_probe_rescore", HERE / "score.py")

@@ -1,6 +1,6 @@
 """Tests for attribution classification.
 
-Each test corresponds to one design rule in `harnessbench/attribution.py`, and
+Each test corresponds to one design rule in `tracetrial_bench/attribution.py`, and
 each rule is there because its absence produced a wrong finding in practice.
 The comments say which wrong finding, so a future reader can tell whether a
 change is a fix or a regression.
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import unittest
 
-from harnessbench.attribution import (
+from tracetrial_bench.attribution import (
     CausalLink,
     DeviceHealth,
     LayerVerdicts,

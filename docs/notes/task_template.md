@@ -1,4 +1,4 @@
-# HarnessBench 新题目模板
+# TraceTrial_Bench 新题目模板
 
 ## 目录
 

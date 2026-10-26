@@ -16,8 +16,8 @@ from typing import Callable, Mapping
 from urllib.error import URLError
 from urllib.request import ProxyHandler, Request, build_opener
 
-from harnessbench.container_environment import add_loopback_no_proxy
-from harnessbench.model_registry import INTERNAL_API_KEY_ENV, ModelRuntimeSpec
+from tracetrial_bench.container_environment import add_loopback_no_proxy
+from tracetrial_bench.model_registry import INTERNAL_API_KEY_ENV, ModelRuntimeSpec
 
 
 GATEWAY_HOST = "127.0.0.1"
@@ -930,7 +930,7 @@ class LiteLLMGateway:
         command = [
             LITELLM_PYTHON,
             "-m",
-            "harnessbench.litellm_gateway",
+            "tracetrial_bench.litellm_gateway",
             "--config",
             str(self.config_path),
             "--host",

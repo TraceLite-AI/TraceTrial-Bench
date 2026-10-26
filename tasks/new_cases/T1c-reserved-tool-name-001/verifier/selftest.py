@@ -146,8 +146,8 @@ def reason(payload, layer, item_id):
 
 
 def assert_operator_provenance_evidence() -> None:
-    from harnessbench.evidence_finder import EvidenceFinder
-    from harnessbench.score_config import load_score_sheet
+    from tracetrial_bench.evidence_finder import EvidenceFinder
+    from tracetrial_bench.score_config import load_score_sheet
 
     inventory = [
         {

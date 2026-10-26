@@ -8,21 +8,21 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
-from harnessbench.batch import execute_batch, expand_work_items, resolve_task_inputs
-from harnessbench.container_images import HarnessImageManager
-from harnessbench.container_runtime import ContainerRuntimeError
-from harnessbench.model_registry import (
+from tracetrial_bench.batch import execute_batch, expand_work_items, resolve_task_inputs
+from tracetrial_bench.container_images import HarnessImageManager
+from tracetrial_bench.container_runtime import ContainerRuntimeError
+from tracetrial_bench.model_registry import (
     SUPPORTED_CONTAINER_HARNESSES,
     ModelRegistry,
     default_model_registry_path,
 )
-from harnessbench.models import normalize_harness_name
-from harnessbench.runner import (
+from tracetrial_bench.models import normalize_harness_name
+from tracetrial_bench.runner import (
     BenchmarkRunConfig,
     BenchmarkRunner,
     BenchmarkScoreConfig,
 )
-from harnessbench.trace_report import generate_trace_report
+from tracetrial_bench.trace_report import generate_trace_report
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -39,7 +39,7 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="harnessbench")
+    parser = argparse.ArgumentParser(prog="tracetrial_bench")
     subparsers = parser.add_subparsers(dest="command")
 
     run = subparsers.add_parser("run", help="run one or more benchmark tasks")

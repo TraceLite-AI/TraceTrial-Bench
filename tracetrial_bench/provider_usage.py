@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 from typing import Any, Mapping
 
-from harnessbench.provider_request_recorder import PROVIDER_USAGE_SCHEMA
+from tracetrial_bench.provider_request_recorder import PROVIDER_USAGE_SCHEMA
 
 
 NOT_AVAILABLE = "N/A"

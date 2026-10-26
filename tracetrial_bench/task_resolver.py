@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from harnessbench.types import (
+from tracetrial_bench.types import (
     BusinessSimulatorSpec,
     ContainerResourcesSpec,
     ConversationSpec,

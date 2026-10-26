@@ -8,19 +8,19 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from harnessbench.container_runtime import ContainerRuntimeError, HarnessImage
-from harnessbench.llm_judge import (
+from tracetrial_bench.container_runtime import ContainerRuntimeError, HarnessImage
+from tracetrial_bench.llm_judge import (
     JudgeRuntime,
     _judge_request_payload,
     _parse_binary_judge,
     run_layered_judge,
 )
-from harnessbench.evidence_finder import EvidenceFinder
-from harnessbench.score_config import EvidenceSelector
-from harnessbench.runner import _build_task_runtime_image
-from harnessbench.task_resolver import resolve_task
-from harnessbench.types import EvaluationResult, TaskSpec, VerifierSpec
-from harnessbench.workspace import prepare_run_dir
+from tracetrial_bench.evidence_finder import EvidenceFinder
+from tracetrial_bench.score_config import EvidenceSelector
+from tracetrial_bench.runner import _build_task_runtime_image
+from tracetrial_bench.task_resolver import resolve_task
+from tracetrial_bench.types import EvaluationResult, TaskSpec, VerifierSpec
+from tracetrial_bench.workspace import prepare_run_dir
 
 
 class TaskRuntimeImageTests(unittest.TestCase):
@@ -44,7 +44,7 @@ class TaskRuntimeImageTests(unittest.TestCase):
             )
 
             with patch(
-                "harnessbench.runner._ensure_current_harness_base_image"
+                "tracetrial_bench.runner._ensure_current_harness_base_image"
             ) as ensure_base:
                 with self.assertRaisesRegex(ValueError, "ARG BASE_IMAGE"):
                     _build_task_runtime_image(
@@ -87,10 +87,10 @@ class TaskRuntimeImageTests(unittest.TestCase):
             )
             with (
                 patch(
-                    "harnessbench.runner._ensure_current_harness_base_image",
+                    "tracetrial_bench.runner._ensure_current_harness_base_image",
                     return_value=current_image,
                 ) as ensure_base,
-                patch("harnessbench.runner.subprocess.run") as run,
+                patch("tracetrial_bench.runner.subprocess.run") as run,
             ):
                 run.return_value = subprocess.CompletedProcess(
                     args=[],
@@ -152,10 +152,10 @@ class TaskRuntimeImageTests(unittest.TestCase):
             )
             with (
                 patch(
-                    "harnessbench.runner._ensure_current_harness_base_image",
+                    "tracetrial_bench.runner._ensure_current_harness_base_image",
                     return_value=current_image,
                 ),
-                patch("harnessbench.runner.subprocess.run") as run,
+                patch("tracetrial_bench.runner.subprocess.run") as run,
             ):
                 run.side_effect = subprocess.TimeoutExpired(
                     cmd=["docker", "image", "build"],

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from harnessbench.provider_request_recorder import PROVIDER_USAGE_SCHEMA
-from harnessbench.provider_usage import (
+from tracetrial_bench.provider_request_recorder import PROVIDER_USAGE_SCHEMA
+from tracetrial_bench.provider_usage import (
     CACHE_MISSING_POLICY,
     PROVIDER_TOKEN_USAGE_SOURCE,
     attach_provider_token_usage,

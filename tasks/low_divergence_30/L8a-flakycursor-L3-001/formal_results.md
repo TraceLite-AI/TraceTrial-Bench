@@ -6,7 +6,7 @@ The prompt was intentionally left unchanged. The task already exercises the L8a 
 mechanism: recoverable failure, same-cursor idempotent retry, delivered-cursor polling,
 fresh-session audit recovery, and stopping only on delivered terminal evidence. The
 execution protocol and runtime schema were renamed from the OpenClaw-specific label to
-the shared HarnessBench native protocol. All four Harnesses use the ordinary structured
+the shared TraceTrial_Bench native protocol. All four Harnesses use the ordinary structured
 shell channel for `bin/runctl probe` and `bin/runctl audit`.
 
 The verifier was frozen before these runs. Its 7 Harness rules and 11 Agent rules are all

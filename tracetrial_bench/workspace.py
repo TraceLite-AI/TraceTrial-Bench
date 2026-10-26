@@ -12,9 +12,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Mapping
 
-from harnessbench.business_simulator import install_agent_cli
-from harnessbench.task_tool_mcp import install_task_tool_bridge
-from harnessbench.types import TaskSpec
+from tracetrial_bench.business_simulator import install_agent_cli
+from tracetrial_bench.task_tool_mcp import install_task_tool_bridge
+from tracetrial_bench.types import TaskSpec
 
 
 MAX_WORKSPACE_REDACTION_PASSES = 8

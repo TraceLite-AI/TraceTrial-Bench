@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from harnessbench.types import TaskSpec
+from tracetrial_bench.types import TaskSpec
 
 
 SCHEMA_VERSION = "harnessbench_execution_capabilities_v1"

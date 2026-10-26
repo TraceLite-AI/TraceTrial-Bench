@@ -6,6 +6,7 @@
 
 论文代码与题集 · *Trial by Trace: Benchmarking AI Agent Harnesses for Reliability and Failure Attribution*
 
+[![Paper](https://img.shields.io/badge/arXiv-2610.32285-b31b1b?style=flat-square)](https://arxiv.org/abs/2610.32285)
 [![Report](https://img.shields.io/badge/Read_the_Report-0f766e?style=flat-square)](https://tracelite.ai/trial-by-trace.html)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-1e3a5f?style=flat-square)](https://tracelite.ai/leaderboard.html)
 [![Hugging Face](https://img.shields.io/badge/Hugging_Face-Space-facc15?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/spaces/TraceLite-AI/Trial-by-Trace)
@@ -23,14 +24,9 @@
   <a href="#引用">引用</a>
 </p>
 
-<table>
-  <tr>
-    <td align="center" width="25%"><strong>95</strong><br/>评测题目</td>
-    <td align="center" width="25%"><strong>40</strong><br/>机制节点</td>
-    <td align="center" width="25%"><strong>7</strong><br/>可靠性维度</td>
-    <td align="center" width="25%"><strong>3,420</strong><br/>论文评测运行</td>
-  </tr>
-</table>
+<p align="center">
+  <img src="docs/assets/tracetrial-stats-zh.svg" alt="95 道评测题目、40 个机制节点、7 个可靠性维度、3,420 次论文评测运行" width="880" />
+</p>
 
 ## 项目概览
 
@@ -107,17 +103,17 @@ chmod 600 model.toml
 ### 2. 构建镜像并运行一道题
 
 ```bash
-.venv/bin/harnessbench image build --harness openclaw \
+.venv/bin/tracetrial_bench image build --harness openclaw \
   --model-registry ./model.toml --output-dir outputs/image-builds
 
-.venv/bin/harnessbench run --smoke --harness openclaw --model deepseek \
+.venv/bin/tracetrial_bench run --smoke --harness openclaw --model deepseek \
   --mode docker --model-registry ./model.toml --output-dir outputs/runs
 ```
 
 ### 3. 运行论文正式题集
 
 ```bash
-.venv/bin/harnessbench run --task-manifest tasks/lean95.manifest \
+.venv/bin/tracetrial_bench run --task-manifest tasks/lean95.manifest \
   --harness openclaw --model deepseek --judge-model deepseek \
   --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
 ```
@@ -125,7 +121,7 @@ chmod 600 model.toml
 ### 4. 查看报告
 
 ```bash
-.venv/bin/harnessbench report outputs/runs/<运行目录>
+.venv/bin/tracetrial_bench report outputs/runs/<运行目录>
 ```
 
 | 输出 | 内容 |
@@ -159,7 +155,7 @@ chmod 600 model.toml
 | 路径 | 用途 |
 | :--- | :--- |
 | [`tasks/`](tasks/) | 评测题目与发布清单 |
-| [`harnessbench/`](harnessbench/) | CLI、Docker 运行器、评分、归因与报告 |
+| [`tracetrial_bench/`](tracetrial_bench/) | CLI、Docker 运行器、评分、归因与报告 |
 | [`harness_tracer/`](harness_tracer/) | Harness 适配器与规范化轨迹 |
 | [`verifier/`](verifier/) | 取证层（`trace_ir`）与 API 流量捕获 |
 | [`docker/`](docker/) | 锁定版本的 harness 镜像 |

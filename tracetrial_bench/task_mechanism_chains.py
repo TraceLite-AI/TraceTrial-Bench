@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.12
 """40 道逐题机制链 —— 我逐条读完 40 道判据后手写的。
 
-写法遵循 ~/Downloads/HarnessBench-机制链设计.md:
+写法遵循 ~/Downloads/TraceTrial_Bench-机制链设计.md:
   Q1 这条 AR 判据的真值锚在哪? 锚在「模型可见面」的一律不写链
      (harness 藏了信息 -> 可见面就没有 -> 模型据此作答是对的 -> AR 不会 fail)
   Q2 哪条 HR 判据 fail 会污染通往那个真值的通路?
@@ -12,7 +12,7 @@
 ★NO_CHAIN 里的题不是漏了, 是读完确认「按判据结构就不该有链」, 理由逐条记在案。
 """
 
-from harnessbench.task_names import TASK_ID_RENAMES
+from tracetrial_bench.task_names import TASK_ID_RENAMES
 
 
 # ── 有链的题 ───────────────────────────────────────────────────────

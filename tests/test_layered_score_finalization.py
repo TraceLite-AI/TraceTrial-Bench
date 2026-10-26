@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import unittest
 
-from harnessbench.llm_judge import _finalize_layer
-from harnessbench.score_config import ScoreItem, ScoreSheet
+from tracetrial_bench.llm_judge import _finalize_layer
+from tracetrial_bench.score_config import ScoreItem, ScoreSheet
 
 
 def _sheet(*ids: str) -> ScoreSheet:

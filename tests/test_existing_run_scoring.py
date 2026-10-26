@@ -10,18 +10,18 @@ import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-import harnessbench.runner as runner_module
-import harnessbench.workspace as workspace_module
-from harnessbench.container_runtime import ContainerExecution, HarnessImage
-from harnessbench.runner import BenchmarkRunConfig, BenchmarkRunner
-from harnessbench.types import (
+import tracetrial_bench.runner as runner_module
+import tracetrial_bench.workspace as workspace_module
+from tracetrial_bench.container_runtime import ContainerExecution, HarnessImage
+from tracetrial_bench.runner import BenchmarkRunConfig, BenchmarkRunner
+from tracetrial_bench.types import (
     BusinessSimulatorSpec,
     ExecutionProbeSpec,
     NativeInstructionsSpec,
     TaskSpec,
     VerifierSpec,
 )
-from harnessbench.workspace import RunLayout
+from tracetrial_bench.workspace import RunLayout
 
 
 class ScoreableExecutionTests(unittest.TestCase):
@@ -653,7 +653,7 @@ class ScoreOnlyTests(ExistingRunContextTests):
         self._write_metadata()
 
         with patch(
-            "harnessbench.runner.score_layout",
+            "tracetrial_bench.runner.score_layout",
             side_effect=FileNotFoundError("missing verifier secret"),
         ):
             result = BenchmarkRunner().score(
@@ -704,7 +704,7 @@ class ScoreOnlyTests(ExistingRunContextTests):
         self._write_metadata()
 
         with patch(
-            "harnessbench.runner.update_scored_result",
+            "tracetrial_bench.runner.update_scored_result",
             side_effect=OSError("result commit failed"),
         ):
             result = BenchmarkRunner().score(
@@ -743,7 +743,7 @@ class ScoreOnlyTests(ExistingRunContextTests):
         self._write_metadata()
 
         with patch(
-            "harnessbench.runner.generate_trace_report",
+            "tracetrial_bench.runner.generate_trace_report",
             side_effect=OSError("report write failed"),
         ):
             result = BenchmarkRunner().score(
@@ -878,7 +878,7 @@ class SharedScoringTests(unittest.TestCase):
                 baseline_dir=private_dir / ".baseline_workspace",
             )
             try:
-                scoring_module = importlib.import_module("harnessbench.scoring")
+                scoring_module = importlib.import_module("tracetrial_bench.scoring")
             except ModuleNotFoundError as exc:
                 self.fail(f"shared scoring module is missing: {exc}")
 
@@ -919,7 +919,7 @@ class SharedScoringTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (run_dir / "result.json").write_text("{}\n", encoding="utf-8")
-            scoring_module = importlib.import_module("harnessbench.scoring")
+            scoring_module = importlib.import_module("tracetrial_bench.scoring")
             reset = getattr(scoring_module, "reset_scoring_artifacts", None)
 
             self.assertTrue(callable(reset), "reset_scoring_artifacts must exist")
@@ -1279,7 +1279,7 @@ class RunnerPhaseTests(unittest.TestCase):
 
 
 class RepresentativeTaskParityTests(unittest.TestCase):
-    @patch("harnessbench.runner._build_task_runtime_image")
+    @patch("tracetrial_bench.runner._build_task_runtime_image")
     def test_run_only_then_score_only_matches_run_and_score_verifier_output(
         self,
         build_task_image: Mock,
@@ -1385,7 +1385,7 @@ class RepresentativeTaskParityTests(unittest.TestCase):
             self.assertEqual(split_three_score["max_score"], 100.0)
             self.assertEqual(build_task_image.call_count, 2)
 
-    @patch("harnessbench.runner._build_task_runtime_image")
+    @patch("tracetrial_bench.runner._build_task_runtime_image")
     def test_score_only_rejects_tampered_simulator_evidence(
         self,
         build_task_image: Mock,

@@ -36,7 +36,7 @@ lean96 调整为 14:23:59。
 
 ### 归因链
 
-20 道新题的机制链已写入 `harnessbench/task_mechanism_chains.py`
+20 道新题的机制链已写入 `tracetrial_bench/task_mechanism_chains.py`
 （54 条，逐题按三问判定式手写，同族题参照池内先例、锚全部换成本题业务词；
 calibrated-to-visible 与诚实出路判据一律不写链，理由记在文件注释）。
 

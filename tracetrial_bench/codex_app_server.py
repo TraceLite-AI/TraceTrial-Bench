@@ -222,7 +222,7 @@ class CodexAppServerClient:
                 "id": message.get("id"),
                 "error": {
                     "code": -32601,
-                    "message": f"HarnessBench does not service {message.get('method')}",
+                    "message": f"TraceTrial_Bench does not service {message.get('method')}",
                 },
             }
         )
@@ -315,7 +315,7 @@ class CodexStagedContextDriver:
                     "environments": [],
                     "runtimeWorkspaceRoots": [str(self.cwd)],
                     "developerInstructions": (
-                        "This is a controlled HarnessBench run. Use only the supplied session "
+                        "This is a controlled TraceTrial_Bench run. Use only the supplied session "
                         "history and the mounted workspace. Do not access external services."
                     ),
                 },
@@ -602,7 +602,7 @@ class CodexFreshSessionsDriver:
                     phase=f"episode_{index}",
                     permissions=":workspace",
                     developer_instructions=(
-                        "This is one isolated HarnessBench memory-lifecycle session. "
+                        "This is one isolated TraceTrial_Bench memory-lifecycle session. "
                         "Use only this event and durable files below "
                         "workspace/.harness-memory. Do not inspect benchmark-private "
                         "inputs or external services. Persist the event before acknowledging."
@@ -678,7 +678,7 @@ class CodexFreshSessionsDriver:
                 phase="final_query",
                 permissions=final_permissions,
                 developer_instructions=(
-                    "This is a new, isolated final HarnessBench session. Recover the "
+                    "This is a new, isolated final TraceTrial_Bench session. Recover the "
                     "answer only from the task prompt and durable state below "
                     "workspace/.harness-memory. "
                     + (
@@ -964,7 +964,7 @@ class CodexDelegatedRolesDriver(CodexFreshSessionsDriver):
                     permissions=":read-only",
                     workdir=role_dir,
                     developer_instructions=(
-                        f"You are the isolated HarnessBench role {role_id}. Use only "
+                        f"You are the isolated TraceTrial_Bench role {role_id}. Use only "
                         "the mounted role view. You cannot inspect the parent, another "
                         "role, benchmark-private inputs, or external services. Return "
                         "only JSON matching the supplied schema."
@@ -1050,7 +1050,7 @@ class CodexDelegatedRolesDriver(CodexFreshSessionsDriver):
                 phase="parent_join",
                 permissions=parent_permissions,
                 developer_instructions=(
-                    "You are the parent integration role in an isolated HarnessBench "
+                    "You are the parent integration role in an isolated TraceTrial_Bench "
                     "join. Use only the task prompt and runner-collected handoffs under "
                     "workspace/collected. Do not inspect private role workspaces. "
                     + (

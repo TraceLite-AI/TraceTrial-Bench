@@ -7,22 +7,22 @@ from types import SimpleNamespace
 
 import pytest
 
-import harnessbench.batch as batch_module
+import tracetrial_bench.batch as batch_module
 from harness_tracer.provider_requests import (
     PROVIDER_REQUEST_EVIDENCE_SCHEMA,
     PROVIDER_REQUEST_EVIDENCE_VERSION,
     extract_structured_tool_inventory,
     read_provider_request_events,
 )
-from harnessbench.container_runtime import (
+from tracetrial_bench.container_runtime import (
     ContainerArchiveError,
     ContainerRuntimeError,
     DockerHarnessRuntime,
     load_salvaged_provider_request_evidence,
     persist_provider_request_salvage,
 )
-from harnessbench.rate_limit_policy import detect_provider_rate_limit
-from harnessbench.runner import BenchmarkRunConfig, BenchmarkRunner
+from tracetrial_bench.rate_limit_policy import detect_provider_rate_limit
+from tracetrial_bench.runner import BenchmarkRunConfig, BenchmarkRunner
 
 
 def _row(sequence: int, status: int) -> dict[str, object]:

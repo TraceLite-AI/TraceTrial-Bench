@@ -14,7 +14,7 @@ import re
 from pathlib import Path
 from typing import Any, Mapping
 
-from harnessbench import container_worker_base as base
+from tracetrial_bench import container_worker_base as base
 
 
 SERVER_NAME = "hb_duplicate_probe"

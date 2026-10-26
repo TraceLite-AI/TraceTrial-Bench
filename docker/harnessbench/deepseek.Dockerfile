@@ -48,7 +48,7 @@ RUN apt-get update \
 
 ARG HARNESSBENCH_CONTEXT_SHA256
 
-COPY harnessbench /opt/harnessbench-src/harnessbench
+COPY tracetrial_bench /opt/harnessbench-src/tracetrial_bench
 COPY harness_tracer /opt/harnessbench-src/harness_tracer
 
 ENV PATH="/opt/deepseek-runtime/node_modules/.bin:${PATH}" \
@@ -57,8 +57,8 @@ ENV PATH="/opt/deepseek-runtime/node_modules/.bin:${PATH}" \
     LC_ALL=C.UTF-8 \
     PYTHONUNBUFFERED=1
 
-RUN python3 -c "import harnessbench.container_worker" \
-    && node --check /opt/harnessbench-src/harnessbench/deepseek_bridge.mjs
+RUN python3 -c "import tracetrial_bench.container_worker" \
+    && node --check /opt/harnessbench-src/tracetrial_bench/deepseek_bridge.mjs
 
 LABEL org.harnessbench.harness="deepseek" \
       org.harnessbench.harness.version="0.1.0-rc.6" \

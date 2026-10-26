@@ -12,7 +12,7 @@ function workspaceFromCommand(command, scriptName) {
 
 export default {
   id: "harnessbench-e4a",
-  name: "HarnessBench E4a",
+  name: "TraceTrial_Bench E4a",
   description: "A downstream artifact consumer driven by after_tool_call error state.",
   register(api) {
     api.on("after_tool_call", (event) => {

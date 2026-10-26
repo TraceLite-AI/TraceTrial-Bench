@@ -4,7 +4,7 @@ target:
   claim: 跨 60 份规范文档找矛盾并裁定; 测子代理可用时的研究准确率
 workflow_source:
   id: HB-WF
-  name: HarnessBench 自建长程/能力题
+  name: TraceTrial_Bench 自建长程/能力题
   retained_pattern: 业务目标 + 输出 schema; 不给机制提示、不给诚实性提醒、不给完整性催促(题面铁律)
   removed_scaffolding: 不提供机制说明、不预告陷阱、不教它测什么
 pressure:

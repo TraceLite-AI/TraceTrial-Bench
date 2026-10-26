@@ -5,7 +5,7 @@ from collections import deque
 
 import pytest
 
-from harnessbench.litellm_gateway import (
+from tracetrial_bench.litellm_gateway import (
     build_gateway_config,
     flatten_responses_namespace_tools,
     install_litellm_anthropic_reasoning_stream_compat,
@@ -17,7 +17,7 @@ from harnessbench.litellm_gateway import (
     restore_namespace_on_stream_events,
     sanitize_chat_completion_messages,
 )
-from harnessbench.model_registry import ModelRuntimeSpec
+from tracetrial_bench.model_registry import ModelRuntimeSpec
 
 
 def _runtime_model(*, disable_web_search: bool = False) -> ModelRuntimeSpec:

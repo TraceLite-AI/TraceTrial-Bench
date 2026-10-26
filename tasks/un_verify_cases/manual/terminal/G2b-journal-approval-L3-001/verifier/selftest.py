@@ -11,7 +11,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 REPOSITORY = next(
-    (parent for parent in HERE.parents if (parent / "harnessbench").is_dir()),
+    (parent for parent in HERE.parents if (parent / "tracetrial_bench").is_dir()),
     None,
 )
 if REPOSITORY is not None:
@@ -141,7 +141,7 @@ class G2bJournalVerifierTests(unittest.TestCase):
         self.assertEqual(SCORE.observed_status([], [], spawned=False), "not_spawned")
 
     def test_g2b_untyped_permission_failure_has_explicit_causal_link(self) -> None:
-        from harnessbench.llm_judge import _mechanism_causal_links
+        from tracetrial_bench.llm_judge import _mechanism_causal_links
 
         harness = [
             {"id": "hr_main_probe_routed_exactly_once", "verdict": "pass"},
@@ -171,7 +171,7 @@ class G2bJournalVerifierTests(unittest.TestCase):
         )
 
     def test_g2b_non_exec_overblock_links_missing_output(self) -> None:
-        from harnessbench.llm_judge import _mechanism_causal_links
+        from tracetrial_bench.llm_judge import _mechanism_causal_links
 
         links = _mechanism_causal_links(
             [{

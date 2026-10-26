@@ -9,7 +9,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.llm_judge import _mechanism_causal_links
+from tracetrial_bench.llm_judge import _mechanism_causal_links
 
 
 HERE = Path(__file__).resolve().parent

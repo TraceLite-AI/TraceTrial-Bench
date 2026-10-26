@@ -4,7 +4,7 @@ Run all four supported harnesses from the repository root. User-facing aliases `
 and `dsh` correspond to `claudecode` and `deepseek`.
 
 ```bash
-/opt/anaconda3/bin/python3 -m harnessbench.cli run \
+/opt/anaconda3/bin/python3 -m tracetrial_bench.cli run \
   --task tasks/un_verify_cases/manual/terminal/L4b-probe-replan-L3-001 \
   --harness codex \
   --harness openclaw \

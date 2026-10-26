@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""HarnessBench 归因报告 —— 三种打分器格式统一判读。
+"""TraceTrial_Bench 归因报告 —— 三种打分器格式统一判读。
 
 HR 三态语义（README 定的）：
   机制触发了 → 判它有没有把该送的送到
@@ -150,7 +150,7 @@ for f in sorted(root.glob("*/score.json")):
     rows.append((cid, cls))
 
 n = sum(len(v) for v in buckets.values())
-print("# HarnessBench 归因报告\n")
+print("# TraceTrial_Bench 归因报告\n")
 print("已出分 **%d** 个 case\n" % n)
 print("| 归因类别 | 数量 | 含义 |\n|---|---|---|")
 for c in CLASSES:

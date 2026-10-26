@@ -1,1 +1,1 @@
-{"id":"harnessbench-t1b","name":"HarnessBench T1b","description":"Duplicate tool-name registration probe","activation":{"onStartup":true},"contracts":{"tools":["hb_duplicate_name_probe"]},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}
+{"id":"harnessbench-t1b","name":"TraceTrial_Bench T1b","description":"Duplicate tool-name registration probe","activation":{"onStartup":true},"contracts":{"tools":["hb_duplicate_name_probe"]},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

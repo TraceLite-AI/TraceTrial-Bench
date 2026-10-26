@@ -152,7 +152,7 @@
 | 16 | `terminal-O1a-relayerrors-L3-001` |  |  |  |  |
 | 17 | `terminal-T1d-shardnaming-L3-001` |  |  |  |  |
 
-# Harness-Benchmark
+# TraceTrial_Bench
 
 ## 评分机制
 
@@ -183,7 +183,7 @@ Total_score   = Harness_score + Agent_score
 
 历史/基础设施目录：
 
-- `harnessbench/`：CLI、批量运行、Docker、本机 runner、三类评分、结果与报告。
+- `tracetrial_bench/`：CLI、批量运行、Docker、本机 runner、三类评分、结果与报告。
 - `harness_tracer/`：harness 适配器和规范化 trace。
 - `docker/harnessbench/`：OpenClaw、Hermes、Codex、Claude Code 和 DeepSeek Harness 运行镜像定义。
 - `cases/`：早期挑选的 10 道展示题（全量以 `suite/` 为准）。
@@ -204,7 +204,7 @@ daemon 和对应 harness 镜像。
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -e .
-.venv/bin/harnessbench --help
+.venv/bin/tracetrial_bench --help
 ```
 
 ## 模型配置
@@ -265,7 +265,7 @@ usage；清单带有来源、模型可见性和完整性标记，评分器不得
 一次性构建全部 harness 镜像：
 
 ```bash
-.venv/bin/harnessbench image build \
+.venv/bin/tracetrial_bench image build \
   --harness openclaw \
   --harness hermes \
   --harness codex \
@@ -280,7 +280,7 @@ usage；清单带有来源、模型可见性和完整性标记，评分器不得
 重新执行同一命令；runner 会按 Dockerfile 和容器运行时代码的内容哈希生成新镜像，
 并在运行产物的 `image.lock.json` 中记录实际 image ID。
 
-任务声明了专用 Dockerfile 时，runner 会优先选择本机最新的、版本和 HarnessBench
+任务声明了专用 Dockerfile 时，runner 会优先选择本机最新的、版本和 TraceTrial_Bench
 标签匹配的 harness 镜像，以它的本地 tag 作为 `BASE_IMAGE` 构建任务镜像，并在构建
 日志中记录对应的完整 image ID。本机没有兼容镜像时，才回退到任务 Dockerfile 自身
 声明的基础镜像。
@@ -291,13 +291,13 @@ usage；清单带有来源、模型可见性和完整性标记，评分器不得
 
 ```bash
 .venv/bin/python -m compileall -q \
-  harnessbench harness_tracer test_task/C1a-academic-L3-001
-.venv/bin/harnessbench run --help
+  tracetrial_bench harness_tracer test_task/C1a-academic-L3-001
+.venv/bin/tracetrial_bench run --help
 ```
 
 ## 对话输入模式
 
-默认 `harnessbench run` runner 支持三种普通任务输入模式：
+默认 `tracetrial_bench run` runner 支持三种普通任务输入模式：
 
 - `single_turn`：缺省模式，只发送 `prompt.md`；
 - `multi_turn` / `fixed_turns`：依次发送任务根目录 `turns.json` 中的所有输入；
@@ -323,7 +323,7 @@ usage；清单带有来源、模型可见性和完整性标记，评分器不得
 只运行使用：
 
 ```bash
-.venv/bin/harnessbench run \
+.venv/bin/tracetrial_bench run \
   --smoke \
   --harness openclaw \
   --model deepseek \
@@ -336,7 +336,7 @@ usage；清单带有来源、模型可见性和完整性标记，评分器不得
 命令输出对应运行目录中的 `result.json` 路径。之后可对该目录原地评分：
 
 ```bash
-.venv/bin/harnessbench run \
+.venv/bin/tracetrial_bench run \
   --mode docker \
   --evaluation-mode score-only \
   --run-dir outputs/runs/<run-directory> \
@@ -368,7 +368,7 @@ verifier/simulator 执行目录，因此不能绕过源文件哈希。规则或�
 运行并立即评分使用：
 
 ```bash
-.venv/bin/harnessbench run \
+.venv/bin/tracetrial_bench run \
   --smoke \
   --harness openclaw \
   --model deepseek \
@@ -399,7 +399,7 @@ verifier/LLM Judge，并在 `result.json` 中保存 `status: "skipped"` 及脱�
 抢救内容仍不包含 prompt、模型输出或鉴权头，并可用于识别其中已经发生的 429。
 
 ```bash
-.venv/bin/harnessbench run \
+.venv/bin/tracetrial_bench run \
   --task tasks/new_cases/<task-id> \
   --harness codex \
   --model deepseek \
@@ -413,9 +413,9 @@ verifier/LLM Judge，并在 `result.json` 中保存 `status: "skipped"` 及脱�
 CLI 探活。需要快速检查参数时使用：
 
 ```bash
-.venv/bin/harnessbench run --help
-.venv/bin/harnessbench image build --help
-.venv/bin/harnessbench report --help
+.venv/bin/tracetrial_bench run --help
+.venv/bin/tracetrial_bench image build --help
+.venv/bin/tracetrial_bench report --help
 ```
 
 ## 结果
@@ -479,5 +479,5 @@ DeepSeek Harness 的官方 SDK notifications 与原生 session events 会映射�
 可以为已有运行生成离线 HTML 报告：
 
 ```bash
-.venv/bin/harnessbench report outputs/runs/<run-directory>
+.venv/bin/tracetrial_bench report outputs/runs/<run-directory>
 ```

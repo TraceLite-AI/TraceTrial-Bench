@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from harnessbench.llm_judge import _mechanism_causal_links
+from tracetrial_bench.llm_judge import _mechanism_causal_links
 
 
 class LayeredCausalLinkTests(unittest.TestCase):

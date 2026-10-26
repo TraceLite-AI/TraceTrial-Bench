@@ -11,16 +11,16 @@ import time
 import unittest
 from pathlib import Path
 
-from harnessbench.business_simulator import (
+from tracetrial_bench.business_simulator import (
     BUSINESS_ENDPOINT_ENV,
     BusinessSimulatorRuntime,
     probe_business_endpoint,
 )
-from harnessbench.container_worker import materialize_harness_state
-from harnessbench.model_registry import ModelRuntimeSpec
-from harnessbench.score_config import load_score_sheet
-from harnessbench.task_resolver import resolve_task
-from harnessbench.workspace import prepare_run_dir
+from tracetrial_bench.container_worker import materialize_harness_state
+from tracetrial_bench.model_registry import ModelRuntimeSpec
+from tracetrial_bench.score_config import load_score_sheet
+from tracetrial_bench.task_resolver import resolve_task
+from tracetrial_bench.workspace import prepare_run_dir
 
 
 ROOT = Path(__file__).resolve().parents[1]

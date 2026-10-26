@@ -1,6 +1,6 @@
 export default {
   id: "harnessbench-t1c",
-  name: "HarnessBench T1c",
+  name: "TraceTrial_Bench T1c",
   description: "Reserved native tool-name registration probe",
   register(api) {
     api.registerTool({

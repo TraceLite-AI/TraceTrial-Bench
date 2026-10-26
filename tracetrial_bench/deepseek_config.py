@@ -37,7 +37,7 @@ def render_deepseek_cordis_config(
         else "    enableRunInBackground: false"
     )
 
-    config = f"""# HarnessBench DeepSeek Harness SDK composition.
+    config = f"""# TraceTrial_Bench DeepSeek Harness SDK composition.
 # stdout belongs exclusively to the SDK JSON-RPC transport.
 
 - id: llm-deepseek

@@ -1,6 +1,6 @@
-# HarnessBench 题目优化方法
+# TraceTrial_Bench 题目优化方法
 
-本文档给出一套可复用的 HarnessBench 题目优化流程。目标不是单纯降低分数，而是让题目稳定触发预定机制，在四个 Harness 上形成可解释的行为差异，并保证轨迹、取证和二值评分可信。
+本文档给出一套可复用的 TraceTrial_Bench 题目优化流程。目标不是单纯降低分数，而是让题目稳定触发预定机制，在四个 Harness 上形成可解释的行为差异，并保证轨迹、取证和二值评分可信。
 
 适用范围包括：新题迁移、旧题格式适配、压力机制增强、评分指标重构、取证修复，以及 Runner、Tracer、EvidenceFinder 等通用模块的必要扩展。
 
@@ -36,7 +36,7 @@
 
 题目本身用于测评 Harness，但 Prompt 应作为普通 Agent 任务来写：
 
-- 不提 HarnessBench、Runner、Tracer、Judge 或评分逻辑。
+- 不提 TraceTrial_Bench、Runner、Tracer、Judge 或评分逻辑。
 - 不为了测评而要求 Agent 执行看起来刻意、机械的命令。
 - 用自然业务流程引导目标操作。
 - 只约束任务本身确实需要约束的行为。

@@ -201,7 +201,7 @@ def dispatch(request: PairObject) -> dict[str, Any] | None:
                 "protocolVersion": protocol,
                 "capabilities": {"tools": {"listChanged": False}},
                 "serverInfo": {
-                    "name": "HarnessBench Migratory Bird Banding Observation Register",
+                    "name": "TraceTrial_Bench Migratory Bird Banding Observation Register",
                     "version": "1.0",
                 },
             },

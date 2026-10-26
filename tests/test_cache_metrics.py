@@ -3,8 +3,8 @@ from __future__ import annotations
 import unittest
 from decimal import Decimal
 
-from harnessbench.cache_metrics import attach_cache_savings, calculate_cache_savings
-from harnessbench.model_registry import ModelPricing
+from tracetrial_bench.cache_metrics import attach_cache_savings, calculate_cache_savings
+from tracetrial_bench.model_registry import ModelPricing
 
 
 def _pricing(*, cache_write: str = "1.25") -> ModelPricing:

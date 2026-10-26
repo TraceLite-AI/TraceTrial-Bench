@@ -11,8 +11,8 @@ import time
 import unittest
 from pathlib import Path
 
-from harnessbench.container_images import WORKER_SOURCE_PATHS
-from harnessbench.openclaw_gateway import (
+from tracetrial_bench.container_images import WORKER_SOURCE_PATHS
+from tracetrial_bench.openclaw_gateway import (
     _APPROVAL_RESPONDER_SCRIPT,
     OpenClawGateway,
 )

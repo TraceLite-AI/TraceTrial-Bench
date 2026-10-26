@@ -18,87 +18,87 @@ from typing import Any
 from harness_tracer.runner import RunConfig as TraceRunConfig
 from harness_tracer.runner import TraceRunner
 
-from harnessbench.business_simulator import (
+from tracetrial_bench.business_simulator import (
     BusinessSimulatorRuntime,
     BusinessSimulatorStartupError,
     persist_business_simulator_evidence,
     write_simulator_infrastructure_trace,
 )
-from harnessbench.ccswitch import resolve_provider
-from harnessbench.container_environment import resolve_transport_environment
-from harnessbench.container_runtime import (
+from tracetrial_bench.ccswitch import resolve_provider
+from tracetrial_bench.container_environment import resolve_transport_environment
+from tracetrial_bench.container_runtime import (
     ContainerLimits,
     ContainerRunRequest,
     ContainerRuntimeError,
     DockerHarnessRuntime,
     load_salvaged_provider_request_evidence,
 )
-from harnessbench.conversation_runner import (
+from tracetrial_bench.conversation_runner import (
     ConversationRunConfig,
     ConversationSimulator,
     ConversationTraceRunner,
 )
-from harnessbench.execution_capabilities import (
+from tracetrial_bench.execution_capabilities import (
     adapter_extra_args as execution_adapter_extra_args,
     persist_execution_probe_evidence,
     require_capabilities,
 )
-from harnessbench.security_capabilities import (
+from tracetrial_bench.security_capabilities import (
     ManagedPathGuard,
     adapter_extra_args as security_adapter_extra_args,
     persist_security_probe_evidence,
     require_capabilities as require_security_capabilities,
 )
-from harnessbench.harness_isolation import (
+from tracetrial_bench.harness_isolation import (
     _parse_yaml_subset,
     persist_harness_isolation_manifest,
     prepare_harness_isolation,
 )
-from harnessbench.llm_judge import (
+from tracetrial_bench.llm_judge import (
     JudgeRequester,
     JudgeRuntime,
 )
-from harnessbench.models import bind_model, normalize_harness_name
-from harnessbench.native_instructions import install_native_instructions
-from harnessbench.model_registry import (
+from tracetrial_bench.models import bind_model, normalize_harness_name
+from tracetrial_bench.native_instructions import install_native_instructions
+from tracetrial_bench.model_registry import (
     SUPPORTED_CONTAINER_HARNESSES,
     ContainerBuildConfig,
     ModelRegistry,
     ModelRuntimeSpec,
     default_model_registry_path,
 )
-from harnessbench.protocol_runner import ProtocolRunConfig, ProtocolRunner
-from harnessbench.rate_limit_policy import apply_rate_limit_skip
-from harnessbench.result import (
+from tracetrial_bench.protocol_runner import ProtocolRunConfig, ProtocolRunner
+from tracetrial_bench.rate_limit_policy import apply_rate_limit_skip
+from tracetrial_bench.result import (
     pending_evaluation,
     update_scored_result,
     update_scoring_error_result,
     write_result,
 )
-from harnessbench.runner_policy import (
+from tracetrial_bench.runner_policy import (
     apply_evaluation_policy,
     load_simulator_manifest,
     persist_runner_policy,
     resolve_harness_invocation,
 )
-from harnessbench.scoring import (
+from tracetrial_bench.scoring import (
     commit_scoring_artifacts,
     create_scoring_stage,
     discard_scoring_stage,
     rebase_scoring_outcome,
     score_layout,
 )
-from harnessbench.step_metrics import attach_step_count
-from harnessbench.task_resolver import read_fixed_turns, resolve_task
-from harnessbench.timing_metrics import attach_timing_metrics
-from harnessbench.token_cost import attach_token_cost
-from harnessbench.task_tool_mcp import (
+from tracetrial_bench.step_metrics import attach_step_count
+from tracetrial_bench.task_resolver import read_fixed_turns, resolve_task
+from tracetrial_bench.timing_metrics import attach_timing_metrics
+from tracetrial_bench.token_cost import attach_token_cost
+from tracetrial_bench.task_tool_mcp import (
     BRIDGE_RELATIVE_PATH,
     task_tool_environment,
 )
-from harnessbench.trace_report import generate_trace_report, write_report_error
-from harnessbench.types import EvaluationResult, HarnessRunSpec, TaskSpec
-from harnessbench.workspace import (
+from tracetrial_bench.trace_report import generate_trace_report, write_report_error
+from tracetrial_bench.types import EvaluationResult, HarnessRunSpec, TaskSpec
+from tracetrial_bench.workspace import (
     load_persisted_baseline,
     persist_scoring_inputs,
     prepare_scoring_layout,
@@ -1965,7 +1965,7 @@ def _ensure_current_harness_base_image(
 ):
     """Resolve the exact base image built from the current worker sources."""
 
-    from harnessbench.container_images import HarnessImageManager
+    from tracetrial_bench.container_images import HarnessImageManager
 
     return HarnessImageManager().ensure(
         harness,

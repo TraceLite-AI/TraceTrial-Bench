@@ -1,4 +1,4 @@
-"""HarnessBench benchmark runner."""
+"""TraceTrial_Bench benchmark runner."""
 
 __all__ = ["__version__"]
 

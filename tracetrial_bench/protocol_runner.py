@@ -12,15 +12,15 @@ from harness_tracer.summary import build_summary, write_last_message, write_summ
 from harness_tracer.timeutils import utc_now_iso
 from harness_tracer.writer import EventWriter
 
-from harnessbench.codex_app_server import (
+from tracetrial_bench.codex_app_server import (
     CodexAppServerUnsupported,
     CodexDelegatedRolesDriver,
     CodexFreshSessionsDriver,
     CodexStagedContextDriver,
     CodexStagedContextResult,
 )
-from harnessbench.types import TaskSpec
-from harnessbench.workspace import RunLayout
+from tracetrial_bench.types import TaskSpec
+from tracetrial_bench.workspace import RunLayout
 
 
 class UnsupportedConversationProtocol(ValueError):

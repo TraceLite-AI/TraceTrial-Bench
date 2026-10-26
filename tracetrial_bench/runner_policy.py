@@ -6,7 +6,7 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Mapping
 
-from harnessbench.types import EvaluationResult, TaskSpec
+from tracetrial_bench.types import EvaluationResult, TaskSpec
 
 
 RUNNER_POLICY_SCHEMA = "harnessbench_runner_policy_v4"

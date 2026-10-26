@@ -9,12 +9,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
-from harnessbench.task_mechanism_chains import CHAINS as _TASK_CHAINS
-from harnessbench.attribution import CausalLink, DeviceHealth, LayerVerdicts, classify
-from harnessbench.evidence_finder import EvidenceFinder
-from harnessbench.score_config import ScoreItem, ScoreSheet, load_score_sheet
-from harnessbench.types import EvaluationResult, TaskSpec
-from harnessbench.workspace import RunLayout
+from tracetrial_bench.task_mechanism_chains import CHAINS as _TASK_CHAINS
+from tracetrial_bench.attribution import CausalLink, DeviceHealth, LayerVerdicts, classify
+from tracetrial_bench.evidence_finder import EvidenceFinder
+from tracetrial_bench.score_config import ScoreItem, ScoreSheet, load_score_sheet
+from tracetrial_bench.types import EvaluationResult, TaskSpec
+from tracetrial_bench.workspace import RunLayout
 
 
 @dataclass(frozen=True)
@@ -600,7 +600,7 @@ def _request_judge(runtime: JudgeRuntime, prompt: str) -> str:
         headers={
             "Authorization": f"Bearer {runtime.api_key}",
             "Content-Type": "application/json",
-            "User-Agent": "HarnessBench-LLM-Judge/2",
+            "User-Agent": "TraceTrial_Bench-LLM-Judge/2",
         },
         method="POST",
     )
@@ -689,7 +689,7 @@ def _mechanism_causal_links(
     """Emit only task-explicit mechanism chains, never correlations.
 
     ``task_id`` 用于取逐题链。逐题链是人逐条读完两端判据全文后手写的
-    (见 task_mechanism_chains.py 与 ~/Downloads/HarnessBench-机制链设计.md),
+    (见 task_mechanism_chains.py 与 ~/Downloads/TraceTrial_Bench-机制链设计.md),
     通用链退居兜底 —— 通用链是一对多的, 说不清是哪个交付项被哪次调用害的。
     """
 

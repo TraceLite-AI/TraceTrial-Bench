@@ -9,7 +9,7 @@
 用法：
 
 ```bash
-python3 -m harnessbench.cli run --task-manifest tasks/lean85.manifest \
+python3 -m tracetrial_bench.cli run --task-manifest tasks/lean85.manifest \
   --harness codex --model <alias> --mode docker --evaluation-mode run-only \
   --concurrency 6 --output-dir ~/hb-runs/<name>
 ```

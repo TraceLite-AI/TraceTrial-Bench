@@ -7,10 +7,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.business_simulator import BusinessSimulatorRuntime
-from harnessbench.task_resolver import resolve_task
-from harnessbench.task_tool_mcp import BRIDGE_RELATIVE_PATH, task_tool_environment
-from harnessbench.workspace import prepare_run_dir
+from tracetrial_bench.business_simulator import BusinessSimulatorRuntime
+from tracetrial_bench.task_resolver import resolve_task
+from tracetrial_bench.task_tool_mcp import BRIDGE_RELATIVE_PATH, task_tool_environment
+from tracetrial_bench.workspace import prepare_run_dir
 
 
 ROOT = Path(__file__).resolve().parents[1]

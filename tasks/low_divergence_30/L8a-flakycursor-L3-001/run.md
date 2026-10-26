@@ -6,7 +6,7 @@ workspace, model, and budget to every Harness; `cc` and `dsh` are saved under th
 canonical names `claudecode` and `deepseek`.
 
 ```bash
-.venv/bin/harnessbench run \
+.venv/bin/tracetrial_bench run \
   --task tasks/un_verify_cases/manual/coding/L8a-flakycursor-L3-001 \
   --harness codex --harness openclaw --harness dsh \
   --model deepseek --reasoning-intensity high --timeout 2400 \
@@ -14,7 +14,7 @@ canonical names `claudecode` and `deepseek`.
   --model-registry ./model.toml --judge-model deepseek \
   --output-dir outputs/l8a-flakycursor-formal --concurrency 3
 
-.venv/bin/harnessbench run \
+.venv/bin/tracetrial_bench run \
   --task tasks/un_verify_cases/manual/coding/L8a-flakycursor-L3-001 \
   --harness cc --model deepseek --reasoning-intensity high --timeout 2400 \
   --mode docker --docker-auth model-registry --evaluation-mode run-and-score \

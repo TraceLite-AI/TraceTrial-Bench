@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from harnessbench.types import EvaluationResult, HarnessRunSpec, ModelBinding, TaskSpec
+from tracetrial_bench.types import EvaluationResult, HarnessRunSpec, ModelBinding, TaskSpec
 
 
 def pending_evaluation(run_dir: Path) -> EvaluationResult:

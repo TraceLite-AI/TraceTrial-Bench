@@ -3,7 +3,7 @@
 **跑新模型请用这一套**：`tasks/lean81.manifest`。
 
 ```bash
-python3 -m harnessbench.cli run --task-manifest tasks/lean81.manifest \
+python3 -m tracetrial_bench.cli run --task-manifest tasks/lean81.manifest \
   --harness codex --model <alias> --mode docker --evaluation-mode run-only \
   --concurrency 4 --output-dir ~/hb-runs/<name>
 ```

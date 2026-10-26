@@ -7,15 +7,15 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Iterator, Mapping
 
-from harnessbench.evaluator import run_verifier
-from harnessbench.llm_judge import JudgeRequester, JudgeRuntime, run_layered_judge
-from harnessbench.runner_policy import (
+from tracetrial_bench.evaluator import run_verifier
+from tracetrial_bench.llm_judge import JudgeRequester, JudgeRuntime, run_layered_judge
+from tracetrial_bench.runner_policy import (
     apply_evaluation_policy,
     load_simulator_manifest,
     persist_runner_policy,
 )
-from harnessbench.types import EvaluationResult, TaskSpec
-from harnessbench.workspace import RunLayout
+from tracetrial_bench.types import EvaluationResult, TaskSpec
+from tracetrial_bench.workspace import RunLayout
 
 
 @dataclass(frozen=True)

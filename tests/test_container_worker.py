@@ -6,18 +6,18 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.container_worker import (
+from tracetrial_bench.container_worker import (
     _read_request,
     materialize_harness_state,
     resolve_harness_extra_args,
 )
-from harnessbench.model_registry import INTERNAL_API_KEY_ENV, ModelRuntimeSpec
-from harnessbench.litellm_gateway import (
+from tracetrial_bench.model_registry import INTERNAL_API_KEY_ENV, ModelRuntimeSpec
+from tracetrial_bench.litellm_gateway import (
     OutputSecurityError,
     assert_output_has_no_secrets,
     redact_output_secrets,
 )
-from harnessbench.task_tool_mcp import BRIDGE_RELATIVE_PATH
+from tracetrial_bench.task_tool_mcp import BRIDGE_RELATIVE_PATH
 from harness_tracer.writer import EventWriter
 
 

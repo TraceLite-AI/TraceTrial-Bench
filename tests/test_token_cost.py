@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from harnessbench.token_cost import calculate_token_cost
+from tracetrial_bench.token_cost import calculate_token_cost
 
 
 class TokenCostTests(unittest.TestCase):

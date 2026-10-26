@@ -4,10 +4,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench import container_runtime
-from harnessbench.model_registry import ModelRuntimeSpec
-from harnessbench.runner import _container_limits_for_task
-from harnessbench.task_resolver import _container_resources, resolve_task
+from tracetrial_bench import container_runtime
+from tracetrial_bench.model_registry import ModelRuntimeSpec
+from tracetrial_bench.runner import _container_limits_for_task
+from tracetrial_bench.task_resolver import _container_resources, resolve_task
 
 
 ROOT = Path(__file__).resolve().parents[1]

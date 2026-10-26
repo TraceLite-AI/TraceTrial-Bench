@@ -32,7 +32,7 @@
 （harness 缺陷仍由两轴的 `harness_defect_count` 单独记录，不会被抹掉）。
 
 剩下 20 道要逐条读判据全文后手写 —— 不能照摘要写，也不能外包给模型。
-写法见 `~/Downloads/HarnessBench-机制链设计.md`：逐条 AR 判据问三问
+写法见 `~/Downloads/TraceTrial_Bench-机制链设计.md`：逐条 AR 判据问三问
 （锚在客观真值还是模型可见面 / 哪条 HR 会污染那条通路 / 能否逐事件走通）。
 
 ## 题目清单

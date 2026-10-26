@@ -67,7 +67,7 @@ class DeepSeekAdapter:
     ) -> AdapterResult:
         """Compatibility entry point for a one-shot JSON SDK wrapper.
 
-        Docker runs use :class:`harnessbench.deepseek_runner.DeepSeekTraceRunner`
+        Docker runs use :class:`tracetrial_bench.deepseek_runner.DeepSeekTraceRunner`
         so one SDK runtime survives every conversation turn.  This method keeps
         the adapter independently testable and accepts the same result object on
         stdout when a caller supplies its own wrapper executable.

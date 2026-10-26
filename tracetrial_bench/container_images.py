@@ -12,8 +12,8 @@ from pathlib import Path
 from typing import Callable, Mapping
 from urllib.parse import urlsplit, urlunsplit
 
-from harnessbench.container_runtime import ContainerRuntimeError, HarnessImage
-from harnessbench.model_registry import (
+from tracetrial_bench.container_runtime import ContainerRuntimeError, HarnessImage
+from tracetrial_bench.model_registry import (
     SUPPORTED_CONTAINER_HARNESSES,
     ContainerBuildConfig,
 )
@@ -220,7 +220,7 @@ class HarnessImageManager:
             context = Path(tmp)
             shutil.copy2(dockerfile_source, context / "Dockerfile")
             _copy_worker_source(
-                self.repository_root / "harnessbench", context / "harnessbench"
+                self.repository_root / "tracetrial_bench", context / "tracetrial_bench"
             )
             _copy_source_tree(
                 self.repository_root / "harness_tracer", context / "harness_tracer"
@@ -305,8 +305,8 @@ def compute_image_context_sha256(
         ),
         *(
             (
-                repository / "harnessbench" / relative,
-                Path("harnessbench") / relative,
+                repository / "tracetrial_bench" / relative,
+                Path("tracetrial_bench") / relative,
             )
             for relative in WORKER_SOURCE_PATHS
         ),

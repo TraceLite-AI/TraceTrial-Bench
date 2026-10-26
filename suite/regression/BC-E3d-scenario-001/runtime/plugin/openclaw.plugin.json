@@ -1,1 +1,1 @@
-{"id":"harnessbench-e3d","name":"HarnessBench E3d","description":"Observe timeout error propagation","activation":{"onStartup":true},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}
+{"id":"harnessbench-e3d","name":"TraceTrial_Bench E3d","description":"Observe timeout error propagation","activation":{"onStartup":true},"configSchema":{"type":"object","properties":{},"additionalProperties":false}}

@@ -135,7 +135,7 @@ def call(prompt, max_tokens=4000, temperature=0.0, retries=8):
     raise RuntimeError("judge 调用失败: %s" % last)
 
 
-JUDGE_TMPL = """你是 HarnessBench 的评审官。任务：**区分模型问题与 harness 问题**。
+JUDGE_TMPL = """你是 TraceTrial_Bench 的评审官。任务：**区分模型问题与 harness 问题**。
 
 下面给你一份证据包和一组评审条目。逐条判定。
 

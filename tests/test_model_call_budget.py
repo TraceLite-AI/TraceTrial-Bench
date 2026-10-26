@@ -8,7 +8,7 @@ from urllib.request import ProxyHandler, Request, build_opener
 
 import pytest
 
-from harnessbench.model_call_budget import (
+from tracetrial_bench.model_call_budget import (
     MODEL_CALL_BUDGET_SCHEMA,
     ModelCallBudgetProxy,
     _terminal_response_payload,

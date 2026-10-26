@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""HarnessBench 主表（run 级 + 判据级并列）+ 每个字段的算法。
+"""TraceTrial_Bench 主表（run 级 + 判据级并列）+ 每个字段的算法。
 
 用法：
     python3 main_table2.py          主表 + 字段定义

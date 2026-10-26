@@ -38,14 +38,14 @@ RUN apt-get update \
 
 ARG HARNESSBENCH_CONTEXT_SHA256
 
-COPY harnessbench /opt/harnessbench-src/harnessbench
+COPY tracetrial_bench /opt/harnessbench-src/tracetrial_bench
 COPY harness_tracer /opt/harnessbench-src/harness_tracer
 
 ENV PYTHONPATH=/opt/harnessbench-src \
     LANG=C.UTF-8 \
     LC_ALL=C.UTF-8
 
-RUN python3 -c "import harnessbench.container_worker"
+RUN python3 -c "import tracetrial_bench.container_worker"
 
 LABEL org.harnessbench.harness="openclaw" \
       org.harnessbench.harness.version="2026.6.9" \

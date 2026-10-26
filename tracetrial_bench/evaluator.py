@@ -7,8 +7,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from harnessbench.types import EvaluationResult, TaskSpec
-from harnessbench.workspace import RunLayout
+from tracetrial_bench.types import EvaluationResult, TaskSpec
+from tracetrial_bench.workspace import RunLayout
 
 
 def run_verifier(

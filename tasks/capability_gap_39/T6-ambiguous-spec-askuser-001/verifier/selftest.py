@@ -344,8 +344,8 @@ def simulator_tests() -> None:
 
 
 def assert_healthy_plain_text_evidence(workspace: Path, run_dir: Path) -> None:
-    from harnessbench.evidence_finder import EvidenceFinder
-    from harnessbench.score_config import load_score_sheet
+    from tracetrial_bench.evidence_finder import EvidenceFinder
+    from tracetrial_bench.score_config import load_score_sheet
 
     events_path = run_dir / "artifacts" / "trace" / "run-selftest" / "events.json"
     sheet = load_score_sheet(CASE / "verifier" / "harness_score.yaml", expected_layer="harness")

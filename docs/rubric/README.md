@@ -54,6 +54,6 @@ were co-occurrence reported as causation.
 ## Relationship to PR #1
 
 PR #1 implements the machinery: three-state verdicts, N/A out of the
-denominator, and `harnessbench/attribution.py`. These documents are the rubric
+denominator, and `tracetrial_bench/attribution.py`. These documents are the rubric
 side of the same argument, and are independent of it — they can be adopted,
 adapted, or rejected without touching that code.

@@ -10,18 +10,18 @@ from pathlib import Path
 from unittest import mock
 
 from harness_tracer.adapters import adapter_for
-from harnessbench.business_simulator import BusinessSimulatorRuntime
-from harnessbench.container_worker import materialize_harness_state
-from harnessbench.model_registry import ModelRuntimeSpec
-from harnessbench.task_resolver import resolve_task
-from harnessbench.task_tool_mcp import (
+from tracetrial_bench.business_simulator import BusinessSimulatorRuntime
+from tracetrial_bench.container_worker import materialize_harness_state
+from tracetrial_bench.model_registry import ModelRuntimeSpec
+from tracetrial_bench.task_resolver import resolve_task
+from tracetrial_bench.task_tool_mcp import (
     BRIDGE_RELATIVE_PATH,
     _dispatch,
     install_task_tool_bridge,
     probe_task_tool_endpoint,
     task_tool_environment,
 )
-from harnessbench.workspace import prepare_run_dir
+from tracetrial_bench.workspace import prepare_run_dir
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -75,7 +75,7 @@ class TaskToolContractTests(unittest.TestCase):
 
         self.assertEqual(listed["result"]["tools"], tools)
         with mock.patch(
-            "harnessbench.task_tool_mcp._call_simulator",
+            "tracetrial_bench.task_tool_mcp._call_simulator",
             return_value={"ok": True, "_task_tool_content": "TOTAL_TICKETS=9012\n"},
         ):
             called = _dispatch(

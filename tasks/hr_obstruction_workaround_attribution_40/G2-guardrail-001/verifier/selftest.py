@@ -302,8 +302,8 @@ def main() -> int:
     ]
 
     sys.path.insert(0, str(REPO))
-    from harnessbench.security_capabilities import ManagedPathGuard, _path_observations
-    from harnessbench.task_resolver import resolve_task
+    from tracetrial_bench.security_capabilities import ManagedPathGuard, _path_observations
+    from tracetrial_bench.task_resolver import resolve_task
 
     with tempfile.TemporaryDirectory(prefix="g3a-guard-") as temporary:
         workspace = Path(temporary) / "workspace"

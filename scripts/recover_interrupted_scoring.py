@@ -11,37 +11,37 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from harnessbench.cache_metrics import attach_cache_savings
-from harnessbench.container_runtime import _validate_exported_provider_requests
-from harnessbench.execution_capabilities import (
+from tracetrial_bench.cache_metrics import attach_cache_savings
+from tracetrial_bench.container_runtime import _validate_exported_provider_requests
+from tracetrial_bench.execution_capabilities import (
     adapter_extra_args as execution_adapter_extra_args,
 )
-from harnessbench.execution_capabilities import capability_report
-from harnessbench.model_registry import ModelRegistry
-from harnessbench.models import bind_model, normalize_harness_name
-from harnessbench.provider_request_recorder import (
+from tracetrial_bench.execution_capabilities import capability_report
+from tracetrial_bench.model_registry import ModelRegistry
+from tracetrial_bench.models import bind_model, normalize_harness_name
+from tracetrial_bench.provider_request_recorder import (
     validate_provider_request_summary,
 )
-from harnessbench.provider_usage import attach_provider_token_usage
-from harnessbench.result import _write_json_atomic, pending_evaluation, write_result
-from harnessbench.runner import (
+from tracetrial_bench.provider_usage import attach_provider_token_usage
+from tracetrial_bench.result import _write_json_atomic, pending_evaluation, write_result
+from tracetrial_bench.runner import (
     BenchmarkRunConfig,
     _validate_container_archive_manifest,
     _validate_trace_paths,
     _validate_verifier_gate,
     _write_resolved_config,
 )
-from harnessbench.runner_policy import resolve_harness_invocation
-from harnessbench.security_capabilities import (
+from tracetrial_bench.runner_policy import resolve_harness_invocation
+from tracetrial_bench.security_capabilities import (
     adapter_extra_args as security_adapter_extra_args,
 )
-from harnessbench.security_capabilities import capability_report as security_report
-from harnessbench.step_metrics import attach_step_count
-from harnessbench.task_resolver import resolve_task
-from harnessbench.timing_metrics import attach_timing_metrics
-from harnessbench.token_cost import attach_token_cost
-from harnessbench.types import HarnessRunSpec
-from harnessbench.workspace import _directory_manifest, _task_private_manifest
+from tracetrial_bench.security_capabilities import capability_report as security_report
+from tracetrial_bench.step_metrics import attach_step_count
+from tracetrial_bench.task_resolver import resolve_task
+from tracetrial_bench.timing_metrics import attach_timing_metrics
+from tracetrial_bench.token_cost import attach_token_cost
+from tracetrial_bench.types import HarnessRunSpec
+from tracetrial_bench.workspace import _directory_manifest, _task_private_manifest
 
 
 RECOVERY_SCHEMA = "harnessbench_interrupted_scoring_recovery_v1"

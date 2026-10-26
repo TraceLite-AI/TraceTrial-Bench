@@ -3,7 +3,7 @@ from __future__ import annotations
 import subprocess
 from dataclasses import dataclass
 
-from harnessbench.types import ModelBinding
+from tracetrial_bench.types import ModelBinding
 
 
 @dataclass(frozen=True)

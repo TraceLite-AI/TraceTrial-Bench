@@ -194,7 +194,7 @@ def dispatch(request: dict[str, Any]) -> dict[str, Any] | None:
                 "protocolVersion": protocol,
                 "capabilities": {"tools": {"listChanged": False}},
                 "serverInfo": {
-                    "name": "HarnessBench Duplicate Registration Registry",
+                    "name": "TraceTrial_Bench Duplicate Registration Registry",
                     "version": "2.0",
                 },
             },

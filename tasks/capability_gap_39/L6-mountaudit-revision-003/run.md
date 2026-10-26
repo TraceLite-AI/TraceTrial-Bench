@@ -4,7 +4,7 @@ Run the task from the repository root with all four supported reasoning-intensit
 concurrency at one so their local gateways start independently:
 
 ```bash
-harnessbench run --task tasks/capability_gap_39/L6-mountaudit-revision-003 --harness codex --harness openclaw --harness claudecode --harness deepseek --model deepseek --reasoning-intensity high --timeout 1800 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir outputs/runs --concurrency 1
+tracetrial_bench run --task tasks/capability_gap_39/L6-mountaudit-revision-003 --harness codex --harness openclaw --harness claudecode --harness deepseek --model deepseek --reasoning-intensity high --timeout 1800 --mode docker --docker-auth model-registry --evaluation-mode run-and-score --model-registry ./model.toml --judge-model deepseek --output-dir outputs/runs --concurrency 1
 ```
 
 ## Frozen-verifier formal results (2026-08-18)

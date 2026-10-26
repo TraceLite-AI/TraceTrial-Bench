@@ -4,9 +4,9 @@
 
 - `codex`：解析 `codex exec --json` 的 JSONL 事件流。
 - `claude` / `claudecode`：解析 Claude Code `stream-json`，恢复 thinking、回复文本、工具调用/结果和 token usage。
-- `openclaw`：本地模式运行 `openclaw agent --local --json`；HarnessBench Docker 模式由 worker 托管 loopback Gateway，并运行 gateway-backed `openclaw agent --json`，使子 agent 完成后能唤醒已 `sessions_yield` 的父 session。两种模式都会在 CLI JSON 不含完整轨迹时回退读取 session JSONL，恢复工具调用过程。
+- `openclaw`：本地模式运行 `openclaw agent --local --json`；TraceTrial_Bench Docker 模式由 worker 托管 loopback Gateway，并运行 gateway-backed `openclaw agent --json`，使子 agent 完成后能唤醒已 `sessions_yield` 的父 session。两种模式都会在 CLI JSON 不含完整轨迹时回退读取 session JSONL，恢复工具调用过程。
 - `hermes` / `hermes-agent`：运行 `hermes chat`，从 runner 捕获但不持久化的 quiet stderr 严格绑定唯一 session ID，再调用原生、强制脱敏的 session trace export，恢复消息与工具轨迹。
-- `deepseek` / `deepseek-harness` / `dsh`：HarnessBench Docker 模式通过官方 SDK 与持久化 JSON-RPC runtime 获取 notifications，恢复模型输入、thinking、回复、工具调用/结果、token usage、上下文压缩、子 agent 和策略事件，并归档原生通知流。
+- `deepseek` / `deepseek-harness` / `dsh`：TraceTrial_Bench Docker 模式通过官方 SDK 与持久化 JSON-RPC runtime 获取 notifications，恢复模型输入、thinking、回复、工具调用/结果、token usage、上下文压缩、子 agent 和策略事件，并归档原生通知流。
 - `fake`：测试用假 harness。
 - `opencode`、`nanobot`：当前按通用进程包装，主要保存 raw stdout/stderr。
 
@@ -16,7 +16,7 @@
 - 如果要运行 Codex：本机需要能执行 `codex`
 - 如果要运行 Claude Code：本机需要能执行 `claude`
 - 如果要运行 OpenClaw：本机需要能执行 `openclaw`，并且 OpenClaw 的模型 provider/API key 已配置好
-- DeepSeek Harness 正式运行由 HarnessBench Docker worker 托管，不走通用的本机单进程 runner
+- DeepSeek Harness 正式运行由 TraceTrial_Bench Docker worker 托管，不走通用的本机单进程 runner
 
 在当前仓库里无需安装也可以直接运行：
 

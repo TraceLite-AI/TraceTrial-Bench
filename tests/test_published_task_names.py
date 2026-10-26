@@ -6,11 +6,11 @@ import re
 import unittest
 from pathlib import Path
 
-from harnessbench.batch import resolve_task_inputs
-from harnessbench.score_config import load_score_sheet
-from harnessbench.task_mechanism_chains import CHAINS, NO_CHAIN
-from harnessbench.task_names import TASK_ID_RENAMES
-from harnessbench.task_resolver import resolve_task
+from tracetrial_bench.batch import resolve_task_inputs
+from tracetrial_bench.score_config import load_score_sheet
+from tracetrial_bench.task_mechanism_chains import CHAINS, NO_CHAIN
+from tracetrial_bench.task_names import TASK_ID_RENAMES
+from tracetrial_bench.task_resolver import resolve_task
 
 
 ROOT = Path(__file__).resolve().parents[1]

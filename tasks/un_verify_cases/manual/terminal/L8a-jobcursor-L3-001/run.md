@@ -8,7 +8,7 @@ aliases `cc` and `dsh` are stored under the canonical names `claudecode` and
 ```bash
 python3 tasks/un_verify_cases/manual/terminal/L8a-jobcursor-L3-001/verifier/selftest.py
 
-harnessbench run \
+tracetrial_bench run \
   --task tasks/un_verify_cases/manual/terminal/L8a-jobcursor-L3-001 \
   --harness codex --harness openclaw --harness cc --harness dsh \
   --model deepseek --reasoning-intensity high --timeout 2400 \

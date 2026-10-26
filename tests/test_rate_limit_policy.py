@@ -8,7 +8,7 @@ from harness_tracer.provider_requests import (
     PROVIDER_REQUEST_EVIDENCE_VERSION,
     extract_structured_tool_inventory,
 )
-from harnessbench.rate_limit_policy import (
+from tracetrial_bench.rate_limit_policy import (
     apply_rate_limit_skip,
     detect_provider_rate_limit,
 )

@@ -43,7 +43,7 @@ RUN apt-get update \
 
 ARG HARNESSBENCH_CONTEXT_SHA256
 
-COPY harnessbench /opt/harnessbench-src/harnessbench
+COPY tracetrial_bench /opt/harnessbench-src/tracetrial_bench
 COPY harness_tracer /opt/harnessbench-src/harness_tracer
 
 ENV PATH="/opt/litellm/bin:${PATH}" \
@@ -52,7 +52,7 @@ ENV PATH="/opt/litellm/bin:${PATH}" \
     LC_ALL=C.UTF-8 \
     PYTHONUNBUFFERED=1
 
-RUN python3 -c "import harnessbench.container_worker"
+RUN python3 -c "import tracetrial_bench.container_worker"
 
 LABEL org.harnessbench.harness="codex" \
       org.harnessbench.harness.version="0.145.0" \

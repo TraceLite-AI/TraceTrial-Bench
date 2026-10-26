@@ -12,7 +12,7 @@ function workspaceFromCommand(command, scriptName) {
 
 export default {
   id: "harnessbench-e4b",
-  name: "HarnessBench E4b",
+  name: "TraceTrial_Bench E4b",
   description: "Records nonzero-exit propagation to after_tool_call.",
   register(api) {
     api.on("after_tool_call", (event) => {

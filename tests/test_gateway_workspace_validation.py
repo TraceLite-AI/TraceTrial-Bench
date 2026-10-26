@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.workspace import validate_workspace_for_host_verifier
+from tracetrial_bench.workspace import validate_workspace_for_host_verifier
 
 
 class GatewayWorkspaceValidationTests(unittest.TestCase):

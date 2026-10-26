@@ -6,6 +6,7 @@
 
 Code and tasks for *Trial by Trace: Benchmarking AI Agent Harnesses for Reliability and Failure Attribution*
 
+[![Paper](https://img.shields.io/badge/arXiv-2610.32285-b31b1b?style=flat-square)](https://arxiv.org/abs/2610.32285)
 [![Report](https://img.shields.io/badge/Read_the_Report-0f766e?style=flat-square)](https://tracelite.ai/trial-by-trace.html)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-1e3a5f?style=flat-square)](https://tracelite.ai/leaderboard.html)
 [![Hugging Face](https://img.shields.io/badge/Hugging_Face-Space-facc15?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/spaces/TraceLite-AI/Trial-by-Trace)
@@ -23,14 +24,9 @@ Code and tasks for *Trial by Trace: Benchmarking AI Agent Harnesses for Reliabil
   <a href="#citation">Citation</a>
 </p>
 
-<table>
-  <tr>
-    <td align="center" width="25%"><strong>95</strong><br/>Tasks</td>
-    <td align="center" width="25%"><strong>40</strong><br/>Mechanism nodes</td>
-    <td align="center" width="25%"><strong>7</strong><br/>Reliability dimensions</td>
-    <td align="center" width="25%"><strong>3,420</strong><br/>Paper runs</td>
-  </tr>
-</table>
+<p align="center">
+  <img src="docs/assets/tracetrial-stats-en.svg" alt="95 tasks, 40 mechanism nodes, 7 reliability dimensions, and 3,420 paper runs" width="880" />
+</p>
 
 ## Overview
 
@@ -107,17 +103,17 @@ Edit `model.toml` with your provider endpoint, model identifier and API key. The
 ### 2. Build a harness and run one task
 
 ```bash
-.venv/bin/harnessbench image build --harness openclaw \
+.venv/bin/tracetrial_bench image build --harness openclaw \
   --model-registry ./model.toml --output-dir outputs/image-builds
 
-.venv/bin/harnessbench run --smoke --harness openclaw --model deepseek \
+.venv/bin/tracetrial_bench run --smoke --harness openclaw --model deepseek \
   --mode docker --model-registry ./model.toml --output-dir outputs/runs
 ```
 
 ### 3. Run the paper benchmark
 
 ```bash
-.venv/bin/harnessbench run --task-manifest tasks/lean95.manifest \
+.venv/bin/tracetrial_bench run --task-manifest tasks/lean95.manifest \
   --harness openclaw --model deepseek --judge-model deepseek \
   --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
 ```
@@ -125,7 +121,7 @@ Edit `model.toml` with your provider endpoint, model identifier and API key. The
 ### 4. Inspect the report
 
 ```bash
-.venv/bin/harnessbench report outputs/runs/<run-directory>
+.venv/bin/tracetrial_bench report outputs/runs/<run-directory>
 ```
 
 | Output | Contents |
@@ -159,7 +155,7 @@ Task IDs follow `<node>-<description>-<NNN>`, for example `C1-escalation-export-
 | Path | Purpose |
 | :--- | :--- |
 | [`tasks/`](tasks/) | Benchmark tasks and published manifests |
-| [`harnessbench/`](harnessbench/) | CLI, Docker runner, scoring, attribution and reports |
+| [`tracetrial_bench/`](tracetrial_bench/) | CLI, Docker runner, scoring, attribution and reports |
 | [`harness_tracer/`](harness_tracer/) | Harness adapters and normalized traces |
 | [`verifier/`](verifier/) | Evidence layer (`trace_ir`) and API traffic capture |
 | [`docker/`](docker/) | Pinned harness images |

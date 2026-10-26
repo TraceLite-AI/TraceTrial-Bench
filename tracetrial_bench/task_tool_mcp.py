@@ -317,7 +317,7 @@ def _dispatch(
             {
                 "protocolVersion": protocol_version,
                 "capabilities": {"tools": {"listChanged": False}},
-                "serverInfo": {"name": "HarnessBench Task Tools", "version": "1.0"},
+                "serverInfo": {"name": "TraceTrial_Bench Task Tools", "version": "1.0"},
             },
         )
     if method in {"notifications/initialized", "notifications/cancelled"}:
@@ -371,7 +371,7 @@ def main() -> int:
     try:
         tools, indexed = _load_configuration()
     except Exception as exc:
-        print(f"HarnessBench task tool startup failed: {exc}", file=sys.stderr)
+        print(f"TraceTrial_Bench task tool startup failed: {exc}", file=sys.stderr)
         return 2
     for line in sys.stdin.buffer:
         if not line.strip():

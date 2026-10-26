@@ -12,7 +12,7 @@ function workspaceFromCommand(command, scriptName) {
 
 export default {
   id: "harnessbench-e3d",
-  name: "HarnessBench E3d",
+  name: "TraceTrial_Bench E3d",
   description: "Records the error surface delivered to after_tool_call.",
   register(api) {
     api.on("after_tool_call", (event) => {

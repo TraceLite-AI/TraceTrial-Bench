@@ -13,13 +13,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT))
 
-from harnessbench.business_simulator import (
+from tracetrial_bench.business_simulator import (
     BusinessSimulatorRuntime,
     persist_business_simulator_evidence,
 )
-from harnessbench.execution_capabilities import capability_report
-from harnessbench.task_resolver import read_fixed_turns, resolve_task
-from harnessbench.workspace import prepare_run_dir
+from tracetrial_bench.execution_capabilities import capability_report
+from tracetrial_bench.task_resolver import read_fixed_turns, resolve_task
+from tracetrial_bench.workspace import prepare_run_dir
 
 
 CASE = Path(__file__).resolve().parent.parent

@@ -3,7 +3,7 @@
 `lean95.manifest` 包含命名对照表中的全部 95 道题，沿用 `lean96.manifest` 的相对顺序，排除 `T1b-hostrecord-duplicate-001`。每个节点内从 001 连续编号。清单条目相对于清单所在的 `tasks/` 目录解析。
 
 ```bash
-python -m harnessbench.cli run --task-manifest tasks/lean95.manifest \
+python -m tracetrial_bench.cli run --task-manifest tasks/lean95.manifest \
   --harness openclaw --model deepseek --judge-model deepseek \
   --mode docker --model-registry ./model.toml --output-dir outputs/runs
 ```

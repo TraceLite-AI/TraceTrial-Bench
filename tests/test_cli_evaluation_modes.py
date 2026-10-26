@@ -9,7 +9,7 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-from harnessbench.cli import _run, _validate_run_options, build_parser
+from tracetrial_bench.cli import _run, _validate_run_options, build_parser
 
 
 class EvaluationModeParserTests(unittest.TestCase):
@@ -112,8 +112,8 @@ class EvaluationModeDispatchTests(unittest.TestCase):
             }
 
             with (
-                patch("harnessbench.cli.ModelRegistry.load", return_value=registry),
-                patch("harnessbench.cli.BenchmarkRunner", return_value=runner),
+                patch("tracetrial_bench.cli.ModelRegistry.load", return_value=registry),
+                patch("tracetrial_bench.cli.BenchmarkRunner", return_value=runner),
                 redirect_stdout(io.StringIO()),
             ):
                 exit_code = _run(args)
@@ -153,8 +153,8 @@ class EvaluationModeDispatchTests(unittest.TestCase):
             }
 
             with (
-                patch("harnessbench.cli.ModelRegistry.load", return_value=registry),
-                patch("harnessbench.cli.BenchmarkRunner", return_value=runner),
+                patch("tracetrial_bench.cli.ModelRegistry.load", return_value=registry),
+                patch("tracetrial_bench.cli.BenchmarkRunner", return_value=runner),
                 redirect_stdout(io.StringIO()),
             ):
                 exit_code = _run(args)
@@ -196,8 +196,8 @@ class EvaluationModeDispatchTests(unittest.TestCase):
             try:
                 os.chdir(root)
                 with (
-                    patch("harnessbench.cli.ModelRegistry.load", return_value=registry),
-                    patch("harnessbench.cli.BenchmarkRunner", return_value=runner),
+                    patch("tracetrial_bench.cli.ModelRegistry.load", return_value=registry),
+                    patch("tracetrial_bench.cli.BenchmarkRunner", return_value=runner),
                     redirect_stdout(io.StringIO()),
                 ):
                     exit_code = _run(args)
@@ -236,7 +236,7 @@ class EvaluationModeDispatchTests(unittest.TestCase):
             stdout = io.StringIO()
 
             with (
-                patch("harnessbench.cli.BenchmarkRunner", return_value=runner),
+                patch("tracetrial_bench.cli.BenchmarkRunner", return_value=runner),
                 redirect_stdout(stdout),
             ):
                 exit_code = _run(args)
@@ -286,7 +286,7 @@ class EvaluationModeDispatchTests(unittest.TestCase):
             stdout = io.StringIO()
 
             with (
-                patch("harnessbench.cli.BenchmarkRunner", return_value=runner),
+                patch("tracetrial_bench.cli.BenchmarkRunner", return_value=runner),
                 redirect_stdout(stdout),
             ):
                 exit_code = _run(args)

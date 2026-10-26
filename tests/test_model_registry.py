@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harnessbench.model_registry import ModelRegistry
+from tracetrial_bench.model_registry import ModelRegistry
 
 
 class ModelRegistryTests(unittest.TestCase):
