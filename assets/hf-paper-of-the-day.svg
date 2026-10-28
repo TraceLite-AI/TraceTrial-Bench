@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96" viewBox="0 0 360 96" role="img" aria-labelledby="title desc">
+  <title id="title">TraceTrial-Bench: #2 Paper of the Day on Hugging Face, October 27, 2026</title>
+  <desc id="desc">Gold laurel wreath celebrating the second-place daily ranking of Trial by Trace.</desc>
+  <!-- Project-made commemorative badge. Verified on the paper page and daily list:
+       https://huggingface.co/papers/2610.32285
+       https://huggingface.co/papers/date/2026-10-27 -->
+  <rect x="0.5" y="0.5" width="359" height="95" rx="12" fill="#fffbeb" stroke="#e8cd83"/>
+  <defs>
+    <path id="leaf" d="M0 0C-6-2-9-8-5-14C2-12 4-5 0 0Z"/>
+    <g id="branch" fill="#b58422">
+      <path d="M59 81C42 78 29 64 27 47C25 35 29 24 36 16" fill="none" stroke="#b58422" stroke-width="1.4" stroke-linecap="round"/>
+      <use href="#leaf" transform="translate(34 24) rotate(35)"/>
+      <use href="#leaf" transform="translate(29 35) rotate(-24)"/>
+      <use href="#leaf" transform="translate(27 46) rotate(-51)"/>
+      <use href="#leaf" transform="translate(30 58) rotate(-70)"/>
+      <use href="#leaf" transform="translate(37 69) rotate(-88)"/>
+      <use href="#leaf" transform="translate(48 77) rotate(-110)"/>
+      <use href="#leaf" transform="translate(28 38) rotate(58) scale(.83)"/>
+      <use href="#leaf" transform="translate(29 50) rotate(39) scale(.87)"/>
+      <use href="#leaf" transform="translate(34 62) rotate(20) scale(.89)"/>
+      <use href="#leaf" transform="translate(43 72) rotate(-2) scale(.9)"/>
+    </g>
+  </defs>
+  <use href="#branch"/>
+  <use href="#branch" transform="translate(120 0) scale(-1 1)"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="60" y="57" text-anchor="middle" font-size="29" font-weight="700" fill="#805619">#2</text>
+    <text x="127" y="29" font-size="11" font-weight="700" letter-spacing="1.5" fill="#805619">HUGGING FACE</text>
+    <text x="126" y="54" font-size="22" font-weight="700" fill="#302719">Paper of the Day</text>
+    <text x="127" y="76" font-size="12" fill="#786548">October 27, 2026</text>
+  </g>
+</svg>

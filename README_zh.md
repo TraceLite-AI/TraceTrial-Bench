@@ -6,6 +6,10 @@
 
 论文代码与题集 · *Trial by Trace: Benchmarking AI Agent Harnesses for Reliability and Failure Attribution*
 
+<p align="center">
+  <a href="https://huggingface.co/papers/date/2026-10-27"><img src="assets/hf-paper-of-the-day.svg" alt="Hugging Face 每日论文榜第 2 名，2026 年 10 月 27 日" width="360" /></a>
+</p>
+
 [![Paper](https://img.shields.io/badge/arXiv-2610.32285-b31b1b?style=flat-square)](https://arxiv.org/abs/2610.32285)
 [![Report](https://img.shields.io/badge/Read_the_Report-0f766e?style=flat-square)](https://tracelite.ai/trial-by-trace.html)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-1e3a5f?style=flat-square)](https://tracelite.ai/leaderboard.html)
