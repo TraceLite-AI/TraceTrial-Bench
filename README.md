@@ -14,6 +14,7 @@ Code and tasks for *Trial by Trace: Benchmarking AI Agent Harnesses for Reliabil
 [![Report](https://img.shields.io/badge/Read_the_Report-0f766e?style=flat-square)](https://tracelite.ai/trial-by-trace.html)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-1e3a5f?style=flat-square)](https://tracelite.ai/leaderboard.html)
 [![Hugging Face](https://img.shields.io/badge/Hugging_Face-Space-facc15?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/spaces/TraceLite-AI/Trial-by-Trace)
+[![Dataset](https://img.shields.io/badge/Hugging_Face-Dataset-facc15?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/TraceLite-AI/TraceTrial-Bench)
 [![License: MIT](https://img.shields.io/badge/License-MIT-64748b?style=flat-square)](LICENSE)
 
 **English** · [简体中文](README_zh.md)
