@@ -88,6 +88,12 @@ Per-model results and case studies are available in the [technical report](https
 
 </details>
 
+## Community runs
+
+**SophiaLabs:** [Nomos × TraceTrial-Bench](https://github.com/mgantlett/nomos-tracetrial/tree/92f4958dbc3f3fff3905b0e67e427d45aafde8e6) compares stock Claude Code with Claude Code + Nomos on 95 tasks (190 selected runs, one retained per arm per task). The release includes traces, configurations, and scorecards.
+
+We verified the published trace-package checksums and recalculated the headline averages from the scorecards as stored. We did not re-score or rerun the tasks. Two task pairs used different time budgets between arms. Two scorecards record an Agent item score of 2 or 3 where the rubric requires 0 or 1. These community-reported results are not an official leaderboard entry or an independent reproduction.
+
 ## Quick start
 
 **Prerequisites:** Python ≥ 3.11 and Docker. Commands below use a Linux shell; on Windows, use WSL.
