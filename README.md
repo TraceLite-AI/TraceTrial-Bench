@@ -94,6 +94,8 @@ Per-model results and case studies are available in the [technical report](https
 
 We verified the published trace-package checksums and recalculated the headline averages from the scorecards as stored. We did not re-score or rerun the tasks. Two task pairs used different time budgets between arms. Two scorecards record an Agent item score of 2 or 3 where the rubric requires 0 or 1. These community-reported results are not an official leaderboard entry or an independent reproduction.
 
+See SophiaLabs’ [technical report](https://sophialabs.ca/dispatches/tracetrial-bench-paired-harness-audit) for their experimental analysis.
+
 ## Quick start
 
 **Prerequisites:** Python ≥ 3.11 and Docker. Commands below use a Linux shell; on Windows, use WSL.
