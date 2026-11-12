@@ -87,6 +87,26 @@ Claude Code 的 Agent Pass 最高，OpenClaw 的 Harness Macro 最高。四种 h
 
 </details>
 
+## 社区运行结果
+
+**SophiaLabs：**[Nomos × TraceTrial-Bench](https://github.com/mgantlett/nomos-tracetrial/tree/92f4958dbc3f3fff3905b0e67e427d45aafde8e6) 在 95 道题上对比了原版 Claude Code 与 Claude Code + Nomos（共 190 次选定运行，每组每题保留一次）。发布内容包括轨迹、配置与评分表。
+
+我们核对了已发布轨迹包的校验和，并按评分表原样重新计算了主要平均分；没有重新评分，也没有重跑任务。有两组配对任务在两组之间使用了不同的时间预算；有两份评分表的 Agent 单项分记为 2 或 3，而评分规则要求为 0 或 1。这些是社区报告的结果，不是官方排行榜条目，也不是独立复现。
+
+实验分析见 SophiaLabs 的[技术报告](https://sophialabs.ca/dispatches/tracetrial-bench-paired-harness-audit)。
+
+### 提交社区运行结果
+
+用自己的 harness、模型或配置跑过 TraceTrial-Bench？欢迎提交一个 [issue](https://github.com/TraceLite-AI/TraceTrial-Bench/issues/new)，标题写 `Community run: <名称>`，并附上：
+
+- 固定到某个 commit 或 release 的公开链接，内含轨迹、解析后的运行配置和 `combined_score.json` 评分表；
+- 轨迹包的校验和；
+- 所用题集清单（manifest），以及每道题保留了几次运行；
+- 如果是配对对比，请说明两组使用了相同的题目、时间预算和评审模型；
+- 如有文字报告，请附链接。
+
+我们会根据已发布文件做力所能及的核对（例如校验和、根据评分表重算主要平均分），并在此列为社区报告结果。社区结果不是官方排行榜条目，列出也不代表我们已复现。
+
 ## 快速上手
 
 **环境要求**：Python ≥ 3.11 和 Docker。以下命令使用 Linux shell；Windows 用户请在 WSL 中运行。

@@ -96,6 +96,18 @@ We verified the published trace-package checksums and recalculated the headline 
 
 See SophiaLabs’ [technical report](https://sophialabs.ca/dispatches/tracetrial-bench-paired-harness-audit) for their experimental analysis.
 
+### Submit a community run
+
+Ran TraceTrial-Bench with your own harness, model, or configuration? Open an [issue](https://github.com/TraceLite-AI/TraceTrial-Bench/issues/new) titled `Community run: <name>` and include:
+
+- a public link pinned to a commit or release, containing your traces, resolved run configurations, and `combined_score.json` scorecards;
+- checksums for any trace packages;
+- the task manifest you used and how many runs you kept per task;
+- for paired comparisons, confirmation that both arms used the same tasks, time budgets, and judge model;
+- a link to your write-up, if you have one.
+
+We check what the published files allow (for example, package checksums and headline averages recalculated from the scorecards) and list the run here as community-reported. A community run is not an official leaderboard entry, and listing it does not mean we have reproduced it.
+
 ## Quick start
 
 **Prerequisites:** Python ≥ 3.11 and Docker. Commands below use a Linux shell; on Windows, use WSL.
