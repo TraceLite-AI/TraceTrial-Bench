@@ -76,6 +76,7 @@ FORBIDDEN_TOOL_MARKERS = (
     "delegate_task",
     "sessions_spawn",
     "subagents",
+    "subagent",
     "web__run",
     "web_search",
     "search_query",
