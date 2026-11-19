@@ -142,6 +142,8 @@ chmod 600 model.toml
   --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
 ```
 
+DeepSeek Harness 镜像现在安装 dsh 0.2.2-rc.5，并使用其官方 `sdk` profile 运行。论文中的 DeepSeek Harness 结果基于 0.1.0-rc.6；如需复现，请切换到 [`paper-v1`](https://github.com/TraceLite-AI/TraceTrial-Bench/tree/paper-v1) 分支。dsh 0.2 通过 Anthropic Messages API 调用模型，因此需要为它单独配置一个 `base_url` 为 `https://api.deepseek.com/anthropic` 的模型别名（见 `configs/models.example.toml`）。
+
 ### 4. 查看报告
 
 ```bash
