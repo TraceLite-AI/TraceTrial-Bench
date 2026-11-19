@@ -28,6 +28,16 @@ hermes_model = "deepseek-v4-flash"
 # Optional label retained with every calculated result.
 # effective_at = "YYYY-MM-DD"
 
+# DeepSeek Harness 0.2 calls the model through the Anthropic Messages API. Point
+# a separate alias at DeepSeek's Anthropic-compatible endpoint for --harness
+# deepseek and keep the chat-completions alias above for judges:
+# [models.dsh_flash]
+# provider = "deepseek"
+# model = "deepseek-v4-flash"
+# base_url = "https://api.deepseek.com/anthropic"
+# api_mode = "chat_completions"
+# api_key = "replace-with-api-key"
+
 # Add more [models.<alias>] tables to run model matrices. Provider and model
 # identifiers may contain vendor-qualified path segments. Replace all zero prices
 # above with the provider's versioned rates before interpreting monetary savings.

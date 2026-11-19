@@ -150,23 +150,45 @@ async function dispatch(message) {
     if (harness !== undefined) throw new Error('bridge is already initialized')
     const params = message.params
     if (!params || typeof params !== 'object') throw new Error('initialize params are missing')
-    harness = new DeepSeekHarness({
-      launch: {
-        command: params.runtimeCommand,
-        args: params.runtimeArgs,
-        cwd: params.cwd,
-        env: params.env,
-        shutdownTimeoutMs: 3000,
-        disposeEofGraceMs: 6000,
-        disposeGraceMs: 3000,
-      },
-      cwd: params.cwd,
-      provider: params.provider,
-      model: params.model,
-      ...Number.isSafeInteger(params.maxTokens) && params.maxTokens > 0
-        ? { maxTokens: params.maxTokens }
-        : {},
-    })
+    const optionalLimits = Number.isSafeInteger(params.maxTokens) && params.maxTokens > 0
+      ? { maxTokens: params.maxTokens }
+      : {}
+    harness = typeof params.dshBin === 'string'
+      // dsh >= 0.2: the SDK spawns the official `dsh --profile <profile>` runtime.
+      ? new DeepSeekHarness({
+          dshBin: params.dshBin,
+          profile: params.profile,
+          ...Array.isArray(params.patches) && params.patches.length > 0 ? { patches: params.patches } : {},
+          dshHome: params.dshHome,
+          // Concurrent container starts can exceed the SDK's 10 s default.
+          initializeTimeoutMs: 60000,
+          processCwd: params.cwd,
+          env: params.env,
+          shutdownTimeoutMs: 3000,
+          disposeEofGraceMs: 6000,
+          disposeGraceMs: 3000,
+          cwd: params.cwd,
+          provider: params.provider,
+          model: params.model,
+          ...typeof params.reasoningEffort === 'string' ? { reasoningEffort: params.reasoningEffort } : {},
+          ...optionalLimits,
+        })
+      // dsh 0.1: explicit JSON-RPC agent launch with a private Cordis composition.
+      : new DeepSeekHarness({
+          launch: {
+            command: params.runtimeCommand,
+            args: params.runtimeArgs,
+            cwd: params.cwd,
+            env: params.env,
+            shutdownTimeoutMs: 3000,
+            disposeEofGraceMs: 6000,
+            disposeGraceMs: 3000,
+          },
+          cwd: params.cwd,
+          provider: params.provider,
+          model: params.model,
+          ...optionalLimits,
+        })
     // The SDK transport can finish its initialize handshake while sibling
     // Cordis plugins are completing async startup. Start here, rather than on
     // the first prompt, and give local MCP discovery one bounded quiescence

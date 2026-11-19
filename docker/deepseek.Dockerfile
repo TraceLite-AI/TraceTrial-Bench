@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=node:22-slim@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3
 FROM ${BASE_IMAGE}
 
-ARG DEEPSEEK_HARNESS_VERSION=0.1.0-rc.6
+ARG DEEPSEEK_HARNESS_VERSION=0.2.2-rc.5
 ARG DEBIAN_MIRROR
 ARG DEBIAN_SECURITY_MIRROR
 ARG NPM_REGISTRY
@@ -36,15 +36,10 @@ RUN apt-get update \
         --no-audit --no-fund \
         "@deepseek-ai/dsh@${DEEPSEEK_HARNESS_VERSION}" \
         "@deepseek-ai/dsh-sdk-client@${DEEPSEEK_HARNESS_VERSION}" \
-        "@deepseek-ai/dsh-sdk-jsonrpc-demo@${DEEPSEEK_HARNESS_VERSION}" \
-        "@deepseek-ai/dsh-sdk-jsonrpc-server@${DEEPSEEK_HARNESS_VERSION}" \
-        "@deepseek-ai/dsh-agent-spine-demo@${DEEPSEEK_HARNESS_VERSION}" \
-        "@deepseek-ai/dsh-tool-terminal@${DEEPSEEK_HARNESS_VERSION}" \
-        "@deepseek-ai/dsh-mcp-client@${DEEPSEEK_HARNESS_VERSION}" \
     && npm cache clean --force \
     && test -x /opt/deepseek-runtime/node_modules/.bin/dsh \
-    && test -x /opt/deepseek-runtime/node_modules/.bin/dsh-jsonrpc-agent \
-    && node -e "Promise.all([import('/opt/deepseek-runtime/node_modules/@deepseek-ai/dsh-sdk-client/lib/index.js'), import('/opt/deepseek-runtime/node_modules/@deepseek-ai/dsh-tool-terminal/lib/index.js')])"
+    && node -e "import('/opt/deepseek-runtime/node_modules/@deepseek-ai/dsh-sdk-client/lib/index.js').then(m => { if (typeof m.DeepSeekHarness !== 'function') process.exit(1) })" \
+    && /opt/deepseek-runtime/node_modules/.bin/dsh --version
 
 ARG HARNESSBENCH_CONTEXT_SHA256
 
@@ -61,7 +56,7 @@ RUN python3 -c "import tracetrial_bench.container_worker" \
     && node --check /opt/harnessbench-src/tracetrial_bench/deepseek_bridge.mjs
 
 LABEL org.harnessbench.harness="deepseek" \
-      org.harnessbench.harness.version="0.1.0-rc.6" \
+      org.harnessbench.harness.version="0.2.2-rc.5" \
       org.harnessbench.source="https://github.com/deepseek-ai/deepseek-harness" \
       org.harnessbench.context-sha256="${HARNESSBENCH_CONTEXT_SHA256}" \
       org.harnessbench.worker="v1"
