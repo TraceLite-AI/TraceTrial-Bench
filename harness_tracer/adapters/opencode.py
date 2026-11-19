@@ -162,7 +162,7 @@ def _write_tool(writer: EventWriter, part: dict[str, Any], event: dict[str, Any]
         tool_call={
             "tool_call_id": call_id,
             "tool_name": tool_name,
-            "arguments": state.get("input") if isinstance(state.get("input"), dict) else {},
+            "arguments": _with_snake_case_aliases(state.get("input")),
             "title": state.get("title"),
         },
         tool_result=tool_result,
@@ -170,6 +170,24 @@ def _write_tool(writer: EventWriter, part: dict[str, Any], event: dict[str, Any]
         finished_at_ms=times.get("end"),
         raw_event=event,
     )
+
+
+def _with_snake_case_aliases(value: Any) -> dict[str, Any]:
+    """opencode names tool arguments in camelCase (`filePath`, `oldString`).
+
+    Verifiers and other adapters use snake_case (`file_path`), so add a
+    snake_case alias for each camelCase key that has none. The original keys
+    stay, and the untouched call remains in `raw_event`.
+    """
+    if not isinstance(value, dict):
+        return {}
+    result = dict(value)
+    for key, item in value.items():
+        if not isinstance(key, str) or key.lower() == key:
+            continue
+        alias = "".join(f"_{char.lower()}" if char.isupper() else char for char in key).lstrip("_")
+        result.setdefault(alias, item)
+    return result
 
 
 def _write_usage(writer: EventWriter, part: dict[str, Any], event: dict[str, Any], session_id: str | None) -> None:
