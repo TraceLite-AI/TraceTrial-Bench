@@ -439,6 +439,16 @@ def materialize_harness_state(
                 "DSH_CORDIS_CONFIG": str(config_path),
                 "DSH_SNAPSHOT": "1",
                 "DSH_TELEMETRY_DISABLED": "1",
+                # dsh >= 0.2 copies native addons into a temp cache before
+                # loading them; the container mounts /tmp noexec, so load them
+                # in place from the image instead.
+                "NARB_DISABLE_NATIVE_CACHE": "1",
+                # Image-provided dsh profile patches (experiment variants).
+                "HARNESSBENCH_DSH_PATCHES": ":".join(
+                    str(path) for path in sorted(Path("/opt/dsh-patches").glob("*.yml"))
+                )
+                if Path("/opt/dsh-patches").is_dir()
+                else "",
                 "DSH_REASONING_EFFORT": deepseek_reasoning_effort,
                 "DSH_PERMISSION_MODE": (
                     "workspace-write"

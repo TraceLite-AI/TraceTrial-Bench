@@ -46,7 +46,7 @@ DEFAULT_IMAGES = {
         dockerfile="claudecode.Dockerfile",
     ),
     "deepseek": ImageDefinition(
-        reference="harnessbench/deepseek:0.1.0-rc.6",
+        reference="harnessbench/deepseek:0.2.2-rc.5",
         dockerfile="deepseek.Dockerfile",
     ),
 }

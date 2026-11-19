@@ -35,9 +35,9 @@ from harness_tracer.writer import EventWriter
 
 
 DEFAULT_BRIDGE = Path("/opt/harnessbench-src/tracetrial_bench/deepseek_bridge.mjs")
-DEFAULT_RUNTIME = Path(
-    "/opt/deepseek-runtime/node_modules/.bin/dsh-jsonrpc-agent"
-)
+DEFAULT_RUNTIME = Path("/opt/deepseek-runtime/node_modules/.bin/dsh")
+# dsh >= 0.2 ships the SDK runtime as the official `dsh --profile sdk` application.
+DEFAULT_PROFILE = "sdk"
 
 
 class DeepSeekBridgeError(RuntimeError):
@@ -223,8 +223,9 @@ class DeepSeekSdkBridge:
             return
         self._start_process()
         params = {
-            "runtimeCommand": str(self.runtime_path),
-            "runtimeArgs": [self.environment["DSH_CORDIS_CONFIG"]],
+            "dshBin": str(self.runtime_path),
+            "profile": DEFAULT_PROFILE,
+            "dshHome": self.environment["DSH_HOME"],
             "cwd": str(self.cwd),
             "env": self.environment,
             "provider": "deepseek-official",
@@ -232,6 +233,12 @@ class DeepSeekSdkBridge:
         }
         if self.max_output_tokens is not None:
             params["maxTokens"] = self.max_output_tokens
+        reasoning_effort = self.environment.get("DSH_REASONING_EFFORT")
+        if reasoning_effort:
+            params["reasoningEffort"] = reasoning_effort
+        patches = self.environment.get("HARNESSBENCH_DSH_PATCHES", "")
+        if patches:
+            params["patches"] = [path for path in patches.split(":") if path]
         result = self._rpc("initialize", params, deadline=deadline)
         if not isinstance(result, dict) or result.get("initialized") is not True:
             raise DeepSeekBridgeError("DeepSeek SDK bridge initialization failed")
