@@ -72,7 +72,16 @@ HARNESS_CAPABILITIES: dict[str, frozenset[str]] = {
         "native_pushed_child_completion_v1",
     },
     "hermes": _FORMAL_CAPABILITIES,
-    "opencode": _FORMAL_CAPABILITIES,
+    # The opencode adapter does not yet wire task tools (MCP), normalize
+    # compaction boundaries, or export child-session events; opencode's own
+    # `task` tool does delegate natively.
+    "opencode": _FORMAL_CAPABILITIES
+    - {
+        "task_tools_v1",
+        "task_tool_transport_report_v1",
+        "native_context_compaction_observation_v1",
+        "native_child_lifecycle_observation_v1",
+    },
     "claudecode": _FORMAL_CAPABILITIES
     | {
         "native_async_child_dispatch_v1",
