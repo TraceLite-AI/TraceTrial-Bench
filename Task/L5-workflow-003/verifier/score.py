@@ -21,6 +21,7 @@ DISPATCH_TOOLS = {
     "delegate_task",
     "sessions_spawn",
     "spawn_agent",
+    "subagent",
     "task",
 }
 WAIT_TOOLS = {"sessions_yield", "wait_agent", "wait_threads"}

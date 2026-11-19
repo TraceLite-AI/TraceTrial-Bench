@@ -91,7 +91,11 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def trace_bundle(run_dir: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    roots = sorted((run_dir / "artifacts" / "trace").glob("*"))
+    roots = sorted([
+        *(run_dir / "artifacts" / "trace").glob("*"),
+        # Docker runs archive the harness trace under artifacts/container/trace.
+        *(run_dir / "artifacts" / "container" / "trace").glob("*"),
+    ])
     for root in roots:
         events = load_json(root / "events.json", [])
         summary = load_json(root / "summary.json", {})

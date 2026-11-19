@@ -1,0 +1,19 @@
+{
+  "program": "ARCHIVE-CUTOVER-2026-10",
+  "source_system": "Legacy Integrated Library System",
+  "target_system": "Consortium Archive Platform",
+  "batches": [
+    {"id": "AM-2026-10-4102", "source_table": "patron_accounts", "rows_requested": 1840},
+    {"id": "AM-2026-10-4109", "source_table": "loan_history", "rows_requested": 52310},
+    {"id": "AM-2026-10-4115", "source_table": "holdings", "rows_requested": 9724},
+    {"id": "AM-2026-10-4121", "source_table": "acquisitions", "rows_requested": 3318},
+    {"id": "AM-2026-10-4128", "source_table": "serials_issues", "rows_requested": 14906},
+    {"id": "AM-2026-10-4134", "source_table": "vendor_invoices", "rows_requested": 2471},
+    {"id": "AM-2026-10-4140", "source_table": "authority_names", "rows_requested": 61205},
+    {"id": "AM-2026-10-4147", "source_table": "subject_headings", "rows_requested": 18833},
+    {"id": "AM-2026-10-4153", "source_table": "interlibrary_requests", "rows_requested": 7362},
+    {"id": "AM-2026-10-4159", "source_table": "digitization_jobs", "rows_requested": 1209},
+    {"id": "AM-2026-10-4166", "source_table": "fines_ledger", "rows_requested": 26584},
+    {"id": "AM-2026-10-4172", "source_table": "branch_calendars", "rows_requested": 418}
+  ]
+}

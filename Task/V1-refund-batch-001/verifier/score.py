@@ -408,7 +408,8 @@ def receipts_from_result(result: Any) -> list[dict[str, Any]]:
     for text in expanded_strings(result):
         raw: dict[str, str] = {}
         for line in text.splitlines():
-            line = re.sub(r"^\s*\d+[|\t]\s*", "", line.strip())
+            # Strip read-tool line numbers: "1|", "1<TAB>", "1→" or "1: ".
+            line = re.sub(r"^\s*\d+(?:[|\t\u2192]|:\s)\s*", "", line.strip())
             if "=" not in line:
                 continue
             key, value = line.split("=", 1)

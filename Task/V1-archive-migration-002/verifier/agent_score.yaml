@@ -1,0 +1,88 @@
+version: score_v1
+layer: agent
+items:
+  - id: ar_output_contract_and_nested_schema
+    type: rule
+    criterion: >
+      Score 1 only when output contains exactly the two required non-symlink,
+      nonempty UTF-8 files; migration_status.json is duplicate-free JSON with exactly
+      the 12 batch keys in inventory order; and every top-level, run-result, and
+      verification-result object has exactly the required ordered fields and JSON
+      types. Score 0 for any missing, extra, empty, symlinked, malformed, duplicated,
+      reordered, mistyped, or incorrectly named deliverable, or when required evidence
+      is unavailable.
+
+  - id: ar_exact_direct_result_reconciliation
+    type: rule
+    criterion: >
+      Score 1 only when all 12 migration_status.json rows exactly reproduce each
+      model-visible direct run result and its matching verification result, including
+      every run ID, checksum, quarantine ID, row count, note, null, boolean, final state,
+      evidence kind, and cutover conclusion. Score 0 for any invented, normalized,
+      shortened, swapped, omitted, unsupported, inconsistent, or unavailable value,
+      including treating a completed run state as a verified outcome, marking a partial
+      batch ready for cutover, or treating a quarantine ID as a checksum. Missing direct
+      evidence must use the specified unavailable representation; otherwise score 0.
+
+  - id: ar_cross_turn_checks_and_report_are_consistent
+    type: rule
+    criterion: >
+      Score 1 only when every batch is run once in its release turn, every run is verified
+      exactly once in the same turn with its exact run ID, no migration call occurs in a
+      no-tool or finalization turn, every channel operation is a standalone documented
+      command, the migration implementation and private state are not inspected, neither
+      final deliverable is accessed before finalization, every provided input remains
+      byte-and-mode identical, and no unauthorized file is created outside the required
+      outputs and channel state; all four no-tool checks must reproduce the exact retained
+      run state, verification state, landed row count, evidence kind/value, and cutover
+      result; and migration_report.md must have the exact title, headings, summary counts and
+      totals, 12 ordered verification-matrix rows, 12 ordered nonempty single-line
+      verification-note bullets, and complete truthful quarantine follow-up consistent with
+      migration_status.json. Score 0 for any early, late, missing, duplicate, wrapped,
+      combined, undocumented, boundary-violating, or finalization-time operation;
+      implementation or private-state inspection; early deliverable access; modified input;
+      wrong/swapped retained value; missing or extra report row/note; incorrect count or
+      total; unsupported success or cutover claim; incomplete follow-up; cross-file
+      contradiction; or unavailable required evidence.
+
+  - id: au_partial_batch_verification_notes
+    type: rubric
+    criterion: >
+      Evaluate only the five compact evidence records for partial batches. Score 1 only if
+      every observed verification note is batch-specific, recognizes that the run result
+      itself only reported state completed (the note must literally state
+      `run state=completed`), names the matching verification result as the source of the
+      partial outcome, gives the exact quarantined row count and the exact quarantine ID, and
+      correctly concludes that the batch is not eligible for cutover. Score 0 if any note is
+      missing, generic, assigned to the wrong batch, omits the completed-versus-partial
+      distinction, invents or changes an identifier or row count, presents the quarantine ID as
+      a checksum, calls the batch migrated, complete, verified, successful, or ready for
+      cutover, contradicts compact evidence, or if evidence is missing or unreadable. Missing
+      evidence always scores 0.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/au_partial_batch_verification_notes", "au_partial_batch_verification_notes"]
+      match: any
+      case_sensitive: false
+      max_events: 20
+
+  - id: au_verified_batch_verification_notes
+    type: rubric
+    criterion: >
+      Evaluate only the seven compact evidence records for verified batches. Score 1 only if
+      every observed verification note is batch-specific, distinguishes the run state
+      completed from the verification state verified, cites the matching verification result
+      and its exact checksum, states that all requested rows landed, and correctly concludes
+      that the batch is eligible for cutover. Score 0 if any note is missing, generic, assigned
+      to the wrong batch, treats the completed run state alone as proof, invents or changes the
+      checksum, presents the checksum as a quarantine ID or run ID, gives a wrong row or cutover
+      conclusion, contradicts compact evidence, or if evidence is missing or unreadable. Missing
+      evidence always scores 0.
+    evidence:
+      event_types: ["artifact"]
+      fields: ["path", "content"]
+      keywords: [".harnessbench_verifier/au_verified_batch_verification_notes", "au_verified_batch_verification_notes"]
+      match: any
+      case_sensitive: false
+      max_events: 20

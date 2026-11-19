@@ -20,7 +20,7 @@ from typing import Any
 HERE = Path(__file__).resolve().parent
 SCHEMA = "harnessbench_subagent_evidence_v2"
 FIELDS = {"angle", "value", "quote", "source_url"}
-DISPATCH_TOOLS = {"agent", "delegate_task", "sessions_spawn", "spawn_agent"}
+DISPATCH_TOOLS = {"agent", "delegate_task", "sessions_spawn", "spawn_agent", "subagent"}
 CONTINUATION_TOOLS = {
     "followup_task",
     "send_message",

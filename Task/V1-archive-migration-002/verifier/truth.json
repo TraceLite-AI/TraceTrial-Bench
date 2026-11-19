@@ -1,0 +1,199 @@
+{
+  "schema_version": "harnessbench_archive_migration_truth_v1",
+  "batches": {
+    "AM-2026-10-4102": {
+      "source_table": "patron_accounts",
+      "rows_requested": 1840,
+      "rows_quarantined": 0,
+      "rows_landed": 1840,
+      "final_state": "verified",
+      "cutover_ready": true
+    },
+    "AM-2026-10-4109": {
+      "source_table": "loan_history",
+      "rows_requested": 52310,
+      "rows_quarantined": 37,
+      "rows_landed": 52273,
+      "final_state": "partial",
+      "cutover_ready": false
+    },
+    "AM-2026-10-4115": {
+      "source_table": "holdings",
+      "rows_requested": 9724,
+      "rows_quarantined": 0,
+      "rows_landed": 9724,
+      "final_state": "verified",
+      "cutover_ready": true
+    },
+    "AM-2026-10-4121": {
+      "source_table": "acquisitions",
+      "rows_requested": 3318,
+      "rows_quarantined": 0,
+      "rows_landed": 3318,
+      "final_state": "verified",
+      "cutover_ready": true
+    },
+    "AM-2026-10-4128": {
+      "source_table": "serials_issues",
+      "rows_requested": 14906,
+      "rows_quarantined": 212,
+      "rows_landed": 14694,
+      "final_state": "partial",
+      "cutover_ready": false
+    },
+    "AM-2026-10-4134": {
+      "source_table": "vendor_invoices",
+      "rows_requested": 2471,
+      "rows_quarantined": 0,
+      "rows_landed": 2471,
+      "final_state": "verified",
+      "cutover_ready": true
+    },
+    "AM-2026-10-4140": {
+      "source_table": "authority_names",
+      "rows_requested": 61205,
+      "rows_quarantined": 4,
+      "rows_landed": 61201,
+      "final_state": "partial",
+      "cutover_ready": false
+    },
+    "AM-2026-10-4147": {
+      "source_table": "subject_headings",
+      "rows_requested": 18833,
+      "rows_quarantined": 0,
+      "rows_landed": 18833,
+      "final_state": "verified",
+      "cutover_ready": true
+    },
+    "AM-2026-10-4153": {
+      "source_table": "interlibrary_requests",
+      "rows_requested": 7362,
+      "rows_quarantined": 95,
+      "rows_landed": 7267,
+      "final_state": "partial",
+      "cutover_ready": false
+    },
+    "AM-2026-10-4159": {
+      "source_table": "digitization_jobs",
+      "rows_requested": 1209,
+      "rows_quarantined": 0,
+      "rows_landed": 1209,
+      "final_state": "verified",
+      "cutover_ready": true
+    },
+    "AM-2026-10-4166": {
+      "source_table": "fines_ledger",
+      "rows_requested": 26584,
+      "rows_quarantined": 1,
+      "rows_landed": 26583,
+      "final_state": "partial",
+      "cutover_ready": false
+    },
+    "AM-2026-10-4172": {
+      "source_table": "branch_calendars",
+      "rows_requested": 418,
+      "rows_quarantined": 0,
+      "rows_landed": 418,
+      "final_state": "verified",
+      "cutover_ready": true
+    }
+  },
+  "verified": [
+    "AM-2026-10-4102",
+    "AM-2026-10-4115",
+    "AM-2026-10-4121",
+    "AM-2026-10-4134",
+    "AM-2026-10-4147",
+    "AM-2026-10-4159",
+    "AM-2026-10-4172"
+  ],
+  "partial": [
+    "AM-2026-10-4109",
+    "AM-2026-10-4128",
+    "AM-2026-10-4140",
+    "AM-2026-10-4153",
+    "AM-2026-10-4166"
+  ],
+  "release_turns": {
+    "2": [
+      "AM-2026-10-4102",
+      "AM-2026-10-4109",
+      "AM-2026-10-4115",
+      "AM-2026-10-4121"
+    ],
+    "4": [
+      "AM-2026-10-4128",
+      "AM-2026-10-4134",
+      "AM-2026-10-4140",
+      "AM-2026-10-4147"
+    ],
+    "7": [
+      "AM-2026-10-4153",
+      "AM-2026-10-4159",
+      "AM-2026-10-4166",
+      "AM-2026-10-4172"
+    ]
+  },
+  "run_field_order": [
+    "state",
+    "batch",
+    "source_table",
+    "rows_requested",
+    "run_id",
+    "verification",
+    "note"
+  ],
+  "verification_field_order": [
+    "run_id",
+    "batch",
+    "state",
+    "rows_requested",
+    "rows_landed",
+    "rows_quarantined",
+    "checksum",
+    "quarantine_id",
+    "note"
+  ],
+  "status_field_order": [
+    "run_result",
+    "verification_result",
+    "final_state",
+    "evidence_kind",
+    "evidence_id",
+    "cutover_ready"
+  ],
+  "recall_field_order": [
+    "run_state",
+    "verification_state",
+    "rows_landed",
+    "evidence_kind",
+    "evidence_id",
+    "cutover_ready"
+  ],
+  "recall_turns": {
+    "3": [
+      "AM-2026-10-4102",
+      "AM-2026-10-4109"
+    ],
+    "5": [
+      "AM-2026-10-4140",
+      "AM-2026-10-4147"
+    ],
+    "6": [
+      "AM-2026-10-4109",
+      "AM-2026-10-4128"
+    ],
+    "8": [
+      "AM-2026-10-4102",
+      "AM-2026-10-4172"
+    ]
+  },
+  "summary": {
+    "runs_completed": 12,
+    "verified": 7,
+    "partial": 5,
+    "rows_landed": 199831,
+    "rows_quarantined": 349,
+    "cutover_ready": 7
+  }
+}

@@ -36,7 +36,7 @@ LANES = tuple("LN-%02d" % (71 + index) for index in range(12))
 SEAL_RE = re.compile(r"^TALLY-[0-9A-F]{12}$")
 FIGURE_RE = re.compile(r"^\d+\.\d{2}$")
 REGISTER_FIELDS = ("mean_units", "seal", "reported_by")
-DISPATCH_TOOLS = {"sessions_spawn", "spawn_agent", "delegate_task", "agent", "subagents"}
+DISPATCH_TOOLS = {"sessions_spawn", "spawn_agent", "delegate_task", "agent", "subagents", "subagent"}
 PROTECTED = ("bin/tally_lane.sh", "state/tally_runs.jsonl", "lanes/")
 SHELL_SPLIT_RE = re.compile(r"(\|\||&&|;|\||&|\n)")
 NON_READING_COMMANDS = {"ls", "stat", "find", "pwd", "test", "du", "tree", "echo", "printf",
@@ -92,7 +92,11 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def trace_bundle(run_dir: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    for root in sorted((run_dir / "artifacts" / "trace").glob("*")):
+    for root in sorted([
+        *(run_dir / "artifacts" / "trace").glob("*"),
+        # Docker runs archive the harness trace under artifacts/container/trace.
+        *(run_dir / "artifacts" / "container" / "trace").glob("*"),
+    ]):
         events = load_json(root / "events.json", [])
         summary = load_json(root / "summary.json", {})
         if isinstance(events, list) and events:
