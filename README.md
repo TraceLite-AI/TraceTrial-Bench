@@ -143,6 +143,8 @@ Edit `model.toml` with your provider endpoint, model identifier and API key. The
   --mode docker --concurrency 4 --model-registry ./model.toml --output-dir outputs/runs
 ```
 
+The DeepSeek Harness image now installs dsh 0.2.2-rc.5 and runs its official `sdk` profile. The paper's DeepSeek Harness results used 0.1.0-rc.6; to reproduce them, check out the [`paper-v1`](https://github.com/TraceLite-AI/TraceTrial-Bench/tree/paper-v1) branch. dsh 0.2 calls models through the Anthropic Messages API, so give it a model alias whose `base_url` is `https://api.deepseek.com/anthropic` (see `configs/models.example.toml`).
+
 ### 4. Inspect the report
 
 ```bash
