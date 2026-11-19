@@ -64,11 +64,21 @@ def load_json_object_without_duplicates(path: Path) -> tuple[dict[str, Any] | No
     return payload, "valid JSON object"
 
 
+def _duplicate_content_blocks(parent: dict, key: object) -> bool:
+    """True for a `content_blocks` copy of text the result already has in `content`."""
+    return key == "content_blocks" and isinstance(parent.get("content"), str) and bool(parent.get("content"))
+
+
 def text_leaves(value: Any) -> list[str]:
     if isinstance(value, str):
         return [value]
     if isinstance(value, dict):
-        return [item for child in value.values() for item in text_leaves(child)]
+        return [
+            item
+            for key, child in value.items()
+            if not _duplicate_content_blocks(value, key)
+            for item in text_leaves(child)
+        ]
     if isinstance(value, list):
         return [item for child in value for item in text_leaves(child)]
     return [] if value is None else [str(value)]
