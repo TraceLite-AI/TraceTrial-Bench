@@ -54,7 +54,7 @@ items:
     evidence:
       event_types: ["tool", "task_completion", "subagent_lifecycle", "assistant_message", "raw_stdout", "raw_stderr"]
       fields: ["principal_role", "principal_id", "parent_principal_id", "source", "status", "action", "tool_call.tool_name", "tool_call.name", "tool_call.arguments", "tool_result", "content", "raw_event"]
-      keywords: ["tools/run_ledger_audit.sh", "principal_role", "parent_principal_id", "task_completion", "subagent_lifecycle", "ledger_auditor", "collaboration__spawn_agent", "sessions_spawn", "Agent", "subagent"]
+      keywords: ["tools/run_ledger_audit.sh", "principal_role", "parent_principal_id", "task_completion", "subagent_lifecycle", "ledger_auditor", "ledger-auditor", "collaboration__spawn_agent", "sessions_spawn", "Agent", "subagent"]
       match: "any"
       case_sensitive: false
       max_events: 50
@@ -102,7 +102,7 @@ items:
     evidence:
       event_types: ["tool", "task_completion", "subagent_lifecycle", "native_event", "assistant_message", "model_input", "raw_stdout", "raw_stderr", "run_finished", "run_failed"]
       fields: ["principal_role", "principal_id", "parent_principal_id", "source", "status", "action", "native_event_type", "boundary_kind", "pending_child_ids", "parent_reactivated", "tool_call.tool_name", "tool_call.name", "tool_call.arguments", "tool_result", "content", "model_visible_content", "text", "messages", "raw_event", "exit_code"]
-      keywords: ["CHILD_AUDIT_COMPLETE", "task_completion", "subagent-settled", "native_author", "task_notification", "4002.13", "HB-L3D-8F3A1C7E92B4", "ledger_auditor"]
+      keywords: ["CHILD_AUDIT_COMPLETE", "task_completion", "subagent-settled", "native_author", "task_notification", "4002.13", "HB-L3D-8F3A1C7E92B4", "ledger_auditor", "ledger-auditor"]
       match: "any"
       case_sensitive: false
       max_events: 50
