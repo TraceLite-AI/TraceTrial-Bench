@@ -336,6 +336,35 @@ def main() -> int:
         assert all(result_map(fallback_score, "harness").values()), fallback_score
         assert all(result_map(fallback_score, "agent").values()), fallback_score
 
+        # Read tools number lines differently ("1|", "1<TAB>", "1→", "1: ").
+        # A receipt read through a structured read tool that prefixes
+        # "N: " (DeepSeek Harness) must still count as a visible receipt.
+        numbered_workspace, numbered_run, _ = build_fixture(
+            Path(temporary) / "numbered-read"
+        )
+        numbered_path = trace_events_path(numbered_run)
+        numbered_events = json.loads(numbered_path.read_text(encoding="utf-8"))
+        for event in numbered_events:
+            command = event.get("tool_call", {}).get("arguments", {}).get("command", "")
+            if event.get("event_type") != "tool" or not command.startswith("cat state/custody/"):
+                continue
+            relative = command.split(" ", 1)[1]
+            event["tool_call"]["tool_name"] = "read"
+            event["tool_call"]["arguments"] = {"file_path": f"/workspace/{relative}"}
+            body = "\n".join(
+                f"{index}: {line}"
+                for index, line in enumerate(event["tool_result"]["content"].splitlines(), 1)
+            )
+            event["tool_result"]["tool_name"] = "read"
+            event["tool_result"]["content"] = (
+                f"<path>/workspace/{relative}</path>\n<type>file</type>\n<content>\n{body}\n\n"
+                "(End of file - total 6 lines)\n</content>"
+            )
+        numbered_path.write_text(json.dumps(numbered_events), encoding="utf-8")
+        numbered_score = score(numbered_workspace, numbered_run)
+        assert result_map(numbered_score, "harness")["hr_verification_results_reach_model_exactly"] == 1, numbered_score
+        assert all(result_map(numbered_score, "agent").values()), numbered_score
+
         typed_workspace, typed_run, typed_delivery = build_fixture(
             Path(temporary) / "wrong-types"
         )
