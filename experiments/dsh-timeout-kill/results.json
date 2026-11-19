@@ -1,0 +1,549 @@
+{
+ "harness": "DeepSeek Harness 0.2.2-rc.5 (dsh --profile sdk)",
+ "model": "deepseek-flash (DeepSeek-V4.1-Flash)",
+ "judge": "deepseek-flash",
+ "date": "2026-11-19",
+ "repeats": 3,
+ "runs": [
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E3-firmware-timeout-001",
+   "score": 50.71,
+   "harness_items_passed": 3,
+   "harness_items": 10,
+   "agent_items_passed": 5,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E3-longrun-timeout-002",
+   "score": 41.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 1,
+   "agent_items": 5
+  },
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E3-pipeline-timeout-003",
+   "score": 55.0,
+   "harness_items_passed": 6,
+   "harness_items": 10,
+   "agent_items_passed": 4,
+   "agent_items": 8
+  },
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E3-pollhandoff-005",
+   "score": 92.86,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E3-restore-latency-004",
+   "score": 80.16,
+   "harness_items_passed": 8,
+   "harness_items": 9,
+   "agent_items_passed": 5,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E3-windowcut-006",
+   "score": 92.86,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E6-reindex-timeout-channel-001",
+   "score": 37.5,
+   "harness_items_passed": 2,
+   "harness_items": 8,
+   "agent_items_passed": 2,
+   "agent_items": 4
+  },
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E6-suite-timeout-channel-002",
+   "score": 37.5,
+   "harness_items_passed": 2,
+   "harness_items": 8,
+   "agent_items_passed": 2,
+   "agent_items": 4
+  },
+  {
+   "arm": "default",
+   "repeat": 1,
+   "task": "E6-timeout-error-channel-003",
+   "score": 33.33,
+   "harness_items_passed": 1,
+   "harness_items": 6,
+   "agent_items_passed": 2,
+   "agent_items": 4
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E3-firmware-timeout-001",
+   "score": 50.71,
+   "harness_items_passed": 3,
+   "harness_items": 10,
+   "agent_items_passed": 5,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E3-longrun-timeout-002",
+   "score": 41.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 1,
+   "agent_items": 5
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E3-pipeline-timeout-003",
+   "score": 43.75,
+   "harness_items_passed": 5,
+   "harness_items": 10,
+   "agent_items_passed": 3,
+   "agent_items": 8
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E3-pollhandoff-005",
+   "score": 85.71,
+   "harness_items_passed": 5,
+   "harness_items": 7,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E3-restore-latency-004",
+   "score": 80.16,
+   "harness_items_passed": 8,
+   "harness_items": 9,
+   "agent_items_passed": 5,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E3-windowcut-006",
+   "score": 85.71,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 6,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E6-reindex-timeout-channel-001",
+   "score": 37.5,
+   "harness_items_passed": 2,
+   "harness_items": 8,
+   "agent_items_passed": 2,
+   "agent_items": 4
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E6-suite-timeout-channel-002",
+   "score": 56.25,
+   "harness_items_passed": 3,
+   "harness_items": 8,
+   "agent_items_passed": 3,
+   "agent_items": 4
+  },
+  {
+   "arm": "default",
+   "repeat": 2,
+   "task": "E6-timeout-error-channel-003",
+   "score": 33.33,
+   "harness_items_passed": 1,
+   "harness_items": 6,
+   "agent_items_passed": 2,
+   "agent_items": 4
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E3-firmware-timeout-001",
+   "score": 50.71,
+   "harness_items_passed": 3,
+   "harness_items": 10,
+   "agent_items_passed": 5,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E3-longrun-timeout-002",
+   "score": 28.75,
+   "harness_items_passed": 3,
+   "harness_items": 8,
+   "agent_items_passed": 1,
+   "agent_items": 5
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E3-pipeline-timeout-003",
+   "score": 50.0,
+   "harness_items_passed": 5,
+   "harness_items": 10,
+   "agent_items_passed": 4,
+   "agent_items": 8
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E3-pollhandoff-005",
+   "score": 92.86,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E3-restore-latency-004",
+   "score": 87.3,
+   "harness_items_passed": 8,
+   "harness_items": 9,
+   "agent_items_passed": 6,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E3-windowcut-006",
+   "score": 92.86,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E6-reindex-timeout-channel-001",
+   "score": 68.75,
+   "harness_items_passed": 3,
+   "harness_items": 8,
+   "agent_items_passed": 4,
+   "agent_items": 4
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E6-suite-timeout-channel-002",
+   "score": 68.75,
+   "harness_items_passed": 3,
+   "harness_items": 8,
+   "agent_items_passed": 4,
+   "agent_items": 4
+  },
+  {
+   "arm": "default",
+   "repeat": 3,
+   "task": "E6-timeout-error-channel-003",
+   "score": 25.0,
+   "harness_items_passed": 0,
+   "harness_items": 6,
+   "agent_items_passed": 2,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E3-firmware-timeout-001",
+   "score": 70.71,
+   "harness_items_passed": 7,
+   "harness_items": 10,
+   "agent_items_passed": 5,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E3-longrun-timeout-002",
+   "score": 67.5,
+   "harness_items_passed": 6,
+   "harness_items": 8,
+   "agent_items_passed": 3,
+   "agent_items": 5
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E3-pipeline-timeout-003",
+   "score": 77.5,
+   "harness_items_passed": 8,
+   "harness_items": 10,
+   "agent_items_passed": 6,
+   "agent_items": 8
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E3-pollhandoff-005",
+   "score": 85.71,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 6,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E3-restore-latency-004",
+   "score": 94.44,
+   "harness_items_passed": 8,
+   "harness_items": 9,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E3-windowcut-006",
+   "score": 85.71,
+   "harness_items_passed": 5,
+   "harness_items": 7,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E6-reindex-timeout-channel-001",
+   "score": 81.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 4,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E6-suite-timeout-channel-002",
+   "score": 81.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 4,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 1,
+   "task": "E6-timeout-error-channel-003",
+   "score": 79.17,
+   "harness_items_passed": 5,
+   "harness_items": 6,
+   "agent_items_passed": 3,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E3-firmware-timeout-001",
+   "score": 70.71,
+   "harness_items_passed": 7,
+   "harness_items": 10,
+   "agent_items_passed": 5,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E3-longrun-timeout-002",
+   "score": 67.5,
+   "harness_items_passed": 6,
+   "harness_items": 8,
+   "agent_items_passed": 3,
+   "agent_items": 5
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E3-pipeline-timeout-003",
+   "score": 66.25,
+   "harness_items_passed": 7,
+   "harness_items": 10,
+   "agent_items_passed": 5,
+   "agent_items": 8
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E3-pollhandoff-005",
+   "score": 92.86,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E3-restore-latency-004",
+   "score": 87.3,
+   "harness_items_passed": 8,
+   "harness_items": 9,
+   "agent_items_passed": 6,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E3-windowcut-006",
+   "score": 85.71,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 6,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E6-reindex-timeout-channel-001",
+   "score": 81.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 4,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E6-suite-timeout-channel-002",
+   "score": 81.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 4,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 2,
+   "task": "E6-timeout-error-channel-003",
+   "score": 79.17,
+   "harness_items_passed": 5,
+   "harness_items": 6,
+   "agent_items_passed": 3,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E3-firmware-timeout-001",
+   "score": 77.86,
+   "harness_items_passed": 7,
+   "harness_items": 10,
+   "agent_items_passed": 6,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E3-longrun-timeout-002",
+   "score": 61.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 3,
+   "agent_items": 5
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E3-pipeline-timeout-003",
+   "score": 40.0,
+   "harness_items_passed": 3,
+   "harness_items": 10,
+   "agent_items_passed": 4,
+   "agent_items": 8
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E3-pollhandoff-005",
+   "score": 85.71,
+   "harness_items_passed": 5,
+   "harness_items": 7,
+   "agent_items_passed": 7,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E3-restore-latency-004",
+   "score": 87.3,
+   "harness_items_passed": 8,
+   "harness_items": 9,
+   "agent_items_passed": 6,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E3-windowcut-006",
+   "score": 85.71,
+   "harness_items_passed": 6,
+   "harness_items": 7,
+   "agent_items_passed": 6,
+   "agent_items": 7
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E6-reindex-timeout-channel-001",
+   "score": 81.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 4,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E6-suite-timeout-channel-002",
+   "score": 81.25,
+   "harness_items_passed": 5,
+   "harness_items": 8,
+   "agent_items_passed": 4,
+   "agent_items": 4
+  },
+  {
+   "arm": "kill_on_timeout",
+   "repeat": 3,
+   "task": "E6-timeout-error-channel-003",
+   "score": 79.17,
+   "harness_items_passed": 5,
+   "harness_items": 6,
+   "agent_items_passed": 3,
+   "agent_items": 4
+  }
+ ]
+}

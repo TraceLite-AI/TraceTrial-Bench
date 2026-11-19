@@ -1,0 +1,5 @@
+# Experiment: kill a foreground bash command when its timeout expires instead
+# of promoting it to a background job.
+- id: tool-bash
+  config:
+    promoteOnTimeout: false
