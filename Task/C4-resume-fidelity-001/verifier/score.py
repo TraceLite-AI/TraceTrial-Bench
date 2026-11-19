@@ -30,12 +30,19 @@ def load_json(path: Path, default: Any) -> Any:
         return default
 
 
+def _duplicate_content_blocks(parent: dict, key: object) -> bool:
+    """True for a `content_blocks` copy of text the result already has in `content`."""
+    return key == "content_blocks" and isinstance(parent.get("content"), str) and bool(parent.get("content"))
+
+
 def string_leaves(value: Any) -> list[str]:
     if isinstance(value, str):
         return [value]
     if isinstance(value, dict):
         result: list[str] = []
         for key, child in value.items():
+            if _duplicate_content_blocks(value, key):
+                continue
             result.append(str(key))
             result.extend(string_leaves(child))
         return result

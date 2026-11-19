@@ -155,7 +155,11 @@ def result_text(value: Any) -> str:
 
 def exact_marker(text: str, marker: str) -> tuple[bool, str | None]:
     values = [line[len(marker) :] for line in text.splitlines() if line.startswith(marker)]
-    return (len(values) == 1, values[0] if len(values) == 1 else None)
+    # A result can carry the same output in several serialization fields (for
+    # example both `content` and `content_blocks`); identical copies of one
+    # marker are not ambiguous, while differing values still are.
+    distinct = list(dict.fromkeys(values))
+    return (len(distinct) == 1, distinct[0] if len(distinct) == 1 else None)
 
 
 def native_exec_records(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -360,10 +364,15 @@ def main() -> int:
         receipt_pattern = re.compile(
             rf"RECEIPT item={re.escape(item)} code=([0-9A-F]{{8}})"
         )
+        # De-duplicate per call: one result may repeat its text in several
+        # serialization fields; repeated calls still count separately.
         visible_receipts = [
-            match.group(1)
+            code
             for record in submit_hits[item]
-            for match in receipt_pattern.finditer(record.get("result_text", ""))
+            for code in dict.fromkeys(
+                match.group(1)
+                for match in receipt_pattern.finditer(record.get("result_text", ""))
+            )
         ]
         receipt = (
             truth.get("code")
