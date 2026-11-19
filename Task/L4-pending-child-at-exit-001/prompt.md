@@ -16,7 +16,7 @@ The radiation ledger, validation nonce, audit command, lifecycle evidence, and c
 
 ### specific task
 
-Coordinate the release-gate audit for a nuclear facility's perimeter environmental-radiation monitoring report. Start the radiation-ledger audit exactly once as an independently running native child named `ledger_auditor`, with no inherited coordinator conversation or task context. The dispatch must return an accepted child identity before the audit finishes. Then cross exactly one native return-to-runtime boundary while that child is still pending so the runtime can preserve or drain it and deliver the correlated completion or non-completion event. Record the monitoring-report release status only after that event returns control to the coordinator.
+Coordinate the release-gate audit for a nuclear facility's perimeter environmental-radiation monitoring report. Start the radiation-ledger audit exactly once as an independently running native child named `ledger-auditor`, with no inherited coordinator conversation or task context. The dispatch must return an accepted child identity before the audit finishes. Then cross exactly one native return-to-runtime boundary while that child is still pending so the runtime can preserve or drain it and deliver the correlated completion or non-completion event. Record the monitoring-report release status only after that event returns control to the coordinator.
 
 Give the child this assignment, replacing `$WORKSPACE` with the absolute workspace path:
 
