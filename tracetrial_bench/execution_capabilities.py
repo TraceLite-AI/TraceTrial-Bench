@@ -72,6 +72,7 @@ HARNESS_CAPABILITIES: dict[str, frozenset[str]] = {
         "native_pushed_child_completion_v1",
     },
     "hermes": _FORMAL_CAPABILITIES,
+    "opencode": _FORMAL_CAPABILITIES,
     "claudecode": _FORMAL_CAPABILITIES
     | {
         "native_async_child_dispatch_v1",

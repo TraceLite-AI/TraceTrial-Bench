@@ -375,6 +375,66 @@ def materialize_harness_state(
             }
         )
         return base_environment
+    if model.harness == "opencode":
+        provider_base_url = model.base_url
+        provider_key_env = INTERNAL_API_KEY_ENV
+        if budget_enabled:
+            provider_base_url, _ = _require_gateway_connection(
+                gateway_base_url,
+                gateway_token,
+                expected_port=MODEL_CALL_BUDGET_PORT,
+            )
+            provider_base_url += _provider_base_path(model.base_url)
+            provider_key_env = GATEWAY_TOKEN_ENV
+            base_environment[GATEWAY_TOKEN_ENV] = _require_gateway_token(
+                gateway_token
+            )
+        elif provider_request_capture:
+            provider_base_url = _require_local_gateway_url(
+                gateway_base_url,
+                expected_port=PROVIDER_REQUEST_RECORDER_PORT,
+            )
+            provider_base_url += _provider_base_path(model.base_url)
+        base_environment[INTERNAL_API_KEY_ENV] = model.api_key
+        home = state_root / "opencode-home"
+        xdg = state_root / "opencode-xdg"
+        home.mkdir(mode=0o700)
+        for name in ("config/opencode", "data", "state", "cache"):
+            (xdg / name).mkdir(mode=0o700, parents=True)
+        # One OpenAI-compatible provider pointed at the run's model route.
+        # Sharing, auto-update and the models.dev catalog are off so a run
+        # depends only on this file and the workspace.
+        payload = {
+            "$schema": "https://opencode.ai/config.json",
+            "autoupdate": False,
+            "share": "disabled",
+            "model": f"harnessbench/{model.harness_model}",
+            "small_model": f"harnessbench/{model.harness_model}",
+            "provider": {
+                "harnessbench": {
+                    "npm": "@ai-sdk/openai-compatible",
+                    "name": "TraceTrial-Bench",
+                    "options": {
+                        "baseURL": provider_base_url,
+                        "apiKey": "{env:" + provider_key_env + "}",
+                    },
+                    "models": {model.harness_model: {"name": model.harness_model}},
+                }
+            },
+        }
+        _write_private_json(xdg / "config/opencode/opencode.json", payload)
+        base_environment.update(
+            {
+                "HOME": str(home),
+                "XDG_CONFIG_HOME": str(xdg / "config"),
+                "XDG_DATA_HOME": str(xdg / "data"),
+                "XDG_STATE_HOME": str(xdg / "state"),
+                "XDG_CACHE_HOME": str(xdg / "cache"),
+                "OPENCODE_DISABLE_AUTOUPDATE": "1",
+                "OPENCODE_DISABLE_MODELS_FETCH": "1",
+            }
+        )
+        return add_loopback_no_proxy(base_environment)
     if model.harness == "deepseek":
         provider_base_url = model.base_url
         provider_api_key = model.api_key
