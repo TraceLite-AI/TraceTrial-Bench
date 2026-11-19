@@ -1,0 +1,61 @@
+ARG BASE_IMAGE=node:22-slim@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3
+FROM ${BASE_IMAGE}
+
+ARG OPENCODE_VERSION=1.19.6
+ARG DEBIAN_MIRROR
+ARG DEBIAN_SECURITY_MIRROR
+ARG NPM_REGISTRY
+
+# The slim base has no CA bundle; Debian signatures protect this HTTP bootstrap.
+RUN if [ -n "${DEBIAN_MIRROR}" ] || [ -n "${DEBIAN_SECURITY_MIRROR}" ]; then \
+        test -n "${DEBIAN_MIRROR}" \
+        && test -n "${DEBIAN_SECURITY_MIRROR}" \
+        && debian_bootstrap_mirror="http://${DEBIAN_MIRROR#*://}" \
+        && security_bootstrap_mirror="http://${DEBIAN_SECURITY_MIRROR#*://}" \
+        && sed -i \
+            -e "s|http://deb.debian.org/debian-security|${security_bootstrap_mirror}|g" \
+            -e "s|https://deb.debian.org/debian-security|${security_bootstrap_mirror}|g" \
+            -e "s|http://deb.debian.org/debian|${debian_bootstrap_mirror}|g" \
+            -e "s|https://deb.debian.org/debian|${debian_bootstrap_mirror}|g" \
+            /etc/apt/sources.list.d/debian.sources \
+        && apt-get update \
+        && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates \
+        && rm -rf /var/lib/apt/lists/* \
+        && sed -i \
+            -e "s|${security_bootstrap_mirror}|${DEBIAN_SECURITY_MIRROR}|g" \
+            -e "s|${debian_bootstrap_mirror}|${DEBIAN_MIRROR}|g" \
+            /etc/apt/sources.list.d/debian.sources; \
+    fi
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        bash bubblewrap build-essential ca-certificates curl git jq python3 ripgrep \
+    && rm -rf /var/lib/apt/lists/* \
+    && npm install --global \
+        --registry "${NPM_REGISTRY:-https://registry.npmjs.org}" \
+        --no-audit --no-fund \
+        "opencode-ai@${OPENCODE_VERSION}" \
+    && npm cache clean --force \
+    && opencode --version
+
+ARG HARNESSBENCH_CONTEXT_SHA256
+
+COPY tracetrial_bench /opt/harnessbench-src/tracetrial_bench
+COPY harness_tracer /opt/harnessbench-src/harness_tracer
+
+ENV PYTHONPATH=/opt/harnessbench-src \
+    LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    PYTHONUNBUFFERED=1
+
+RUN python3 -c "import tracetrial_bench.container_worker" \
+    && python3 -c "from harness_tracer.adapters import adapter_for; adapter_for('opencode')"
+
+LABEL org.harnessbench.harness="opencode" \
+      org.harnessbench.harness.version="1.19.6" \
+      org.harnessbench.source="https://github.com/sst/opencode" \
+      org.harnessbench.context-sha256="${HARNESSBENCH_CONTEXT_SHA256}" \
+      org.harnessbench.worker="v1"
+
+WORKDIR /workspace
+CMD ["sleep", "infinity"]

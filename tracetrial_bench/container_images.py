@@ -49,6 +49,10 @@ DEFAULT_IMAGES = {
         reference="harnessbench/deepseek:0.2.2-rc.5",
         dockerfile="deepseek.Dockerfile",
     ),
+    "opencode": ImageDefinition(
+        reference="harnessbench/opencode:1.19.6",
+        dockerfile="opencode.Dockerfile",
+    ),
 }
 
 if set(DEFAULT_IMAGES) != set(SUPPORTED_CONTAINER_HARNESSES):
