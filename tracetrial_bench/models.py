@@ -51,6 +51,13 @@ DEFAULT_BINDINGS: dict[str, BindingRule] = {
         allowed_providers=None,
         validation="not_validated",
     ),
+    "openhands": BindingRule(
+        mode="cli_arg",
+        flag="--model",
+        value_style="canonical",
+        allowed_providers=None,
+        validation="not_validated",
+    ),
     "deepseek": BindingRule(
         mode="sdk_handshake",
         flag=None,
@@ -126,6 +133,8 @@ def normalize_harness_name(harness: str) -> str:
         return "hermes"
     if normalized in {"deepseek-harness", "dsh"}:
         return "deepseek"
+    if normalized in {"openhands-ai", "all-hands"}:
+        return "openhands"
     return normalized
 
 

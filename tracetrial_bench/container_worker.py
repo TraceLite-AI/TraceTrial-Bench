@@ -632,6 +632,59 @@ def materialize_harness_state(
             }
         )
         return add_loopback_no_proxy(base_environment)
+    if model.harness == "openhands":
+        provider_base_url = model.base_url
+        provider_api_key = model.api_key
+        if budget_enabled:
+            provider_base_url, provider_api_key = _require_gateway_connection(
+                gateway_base_url,
+                gateway_token,
+                expected_port=MODEL_CALL_BUDGET_PORT,
+            )
+            provider_base_url += _provider_base_path(model.base_url)
+        elif provider_request_capture:
+            provider_base_url = _require_local_gateway_url(
+                gateway_base_url,
+                expected_port=PROVIDER_REQUEST_RECORDER_PORT,
+            )
+            provider_base_url += _provider_base_path(model.base_url)
+            provider_api_key = "harnessbench-provider-recorder"
+        base_environment[INTERNAL_API_KEY_ENV] = model.api_key
+        harness_state = state_root / "openhands"
+        home = state_root / "openhands-home"
+        harness_state.mkdir(mode=0o700)
+        home.mkdir(mode=0o700)
+        if task_tools_enabled:
+            _write_private_json(
+                harness_state / "mcp.json",
+                {
+                    "mcpServers": {
+                        TASK_TOOL_SERVER_NAME: {
+                            "command": sys.executable,
+                            "args": [str(task_tool_bridge)],
+                            "env": task_tool_subprocess_env,
+                        }
+                    }
+                },
+            )
+        llm_model = (
+            model.harness_model
+            if "/" in model.harness_model
+            else f"openai/{model.harness_model}"
+        )
+        base_environment.update(
+            {
+                "HOME": str(home),
+                "OPENHANDS_PERSISTENCE_DIR": str(harness_state),
+                "OPENHANDS_CONVERSATIONS_DIR": str(harness_state / "conversations"),
+                "OPENHANDS_WORK_DIR": str(workspace),
+                "OPENHANDS_SUPPRESS_BANNER": "1",
+                "LLM_MODEL": llm_model,
+                "LLM_BASE_URL": provider_base_url,
+                "LLM_API_KEY": provider_api_key,
+            }
+        )
+        return add_loopback_no_proxy(base_environment)
     raise ValueError(f"unsupported container harness: {model.harness}")
 
 

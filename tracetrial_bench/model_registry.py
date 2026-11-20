@@ -27,7 +27,7 @@ _PRICING_KEYS = frozenset(
     }
 )
 SUPPORTED_CONTAINER_HARNESSES = frozenset(
-    {"openclaw", "hermes", "codex", "claudecode", "deepseek", "opencode"}
+    {"openclaw", "hermes", "codex", "claudecode", "deepseek", "openhands", "opencode"}
 )
 _SUPPORTED_API_MODES = frozenset({"chat_completions"})
 INTERNAL_API_KEY_ENV = "HARNESSBENCH_MODEL_API_KEY"

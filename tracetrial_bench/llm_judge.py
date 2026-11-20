@@ -594,6 +594,12 @@ def _request_judge(runtime: JudgeRuntime, prompt: str) -> str:
         raise ValueError(f"unsupported judge API mode: {runtime.api_mode}")
     if not runtime.base_url or not runtime.api_key or not runtime.model:
         raise ValueError("judge API configuration is incomplete")
+    if len(prompt) > 1_800_000:
+        prompt = (
+            prompt[:900_000]
+            + "\n...[middle evidence omitted to fit judge model context window]...\n"
+            + prompt[-900_000:]
+        )
     request = urllib.request.Request(
         runtime.base_url.rstrip("/") + "/chat/completions",
         data=json.dumps(_judge_request_payload(runtime, prompt)).encode("utf-8"),

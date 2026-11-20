@@ -49,6 +49,10 @@ DEFAULT_IMAGES = {
         reference="harnessbench/deepseek:0.2.2-rc.5",
         dockerfile="deepseek.Dockerfile",
     ),
+    "openhands": ImageDefinition(
+        reference="harnessbench/openhands:1.16.0",
+        dockerfile="openhands.Dockerfile",
+    ),
     "opencode": ImageDefinition(
         reference="harnessbench/opencode:1.19.6",
         dockerfile="opencode.Dockerfile",
@@ -82,6 +86,7 @@ _MIRROR_SENSITIVE_DOCKERFILES = frozenset(
         "codex.Dockerfile",
         "claudecode.Dockerfile",
         "deepseek.Dockerfile",
+        "openhands.Dockerfile",
     }
 )
 
@@ -223,6 +228,23 @@ class HarnessImageManager:
         ) as tmp:
             context = Path(tmp)
             shutil.copy2(dockerfile_source, context / "Dockerfile")
+            vendor_sdk_dst = context / "vendor-sdk"
+            vendor_sdk_dst.mkdir(exist_ok=True)
+            if definition.dockerfile == "openhands.Dockerfile":
+                sdk_override = os.environ.get("HARNESSBENCH_OPENHANDS_SDK_DIR", "").strip()
+                if sdk_override:
+                    sdk_root = Path(sdk_override).resolve()
+                    for pkg_name in ("openhands-sdk", "openhands-tools"):
+                        src_pkg = sdk_root / pkg_name
+                        if not src_pkg.is_dir():
+                            raise FileNotFoundError(
+                                f"HARNESSBENCH_OPENHANDS_SDK_DIR missing {pkg_name} at {src_pkg}"
+                            )
+                        shutil.copytree(
+                            src_pkg,
+                            vendor_sdk_dst / pkg_name,
+                            ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".pytest_cache", "*.egg-info"),
+                        )
             _copy_worker_source(
                 self.repository_root / "tracetrial_bench", context / "tracetrial_bench"
             )
@@ -342,6 +364,10 @@ def compute_image_context_sha256(
         digest.update(b"\0")
         digest.update(payload)
         digest.update(b"\0")
+    if definition.dockerfile == "openhands.Dockerfile":
+        sdk_override = os.environ.get("HARNESSBENCH_OPENHANDS_SDK_DIR", "").strip()
+        if sdk_override:
+            digest.update(f"openhands_sdk_dir:{Path(sdk_override).resolve()}\0".encode("utf-8"))
     if definition.dockerfile in _MIRROR_SENSITIVE_DOCKERFILES:
         config_payload = json.dumps(
             (build_config or ContainerBuildConfig()).hash_payload(),

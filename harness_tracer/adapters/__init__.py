@@ -8,6 +8,7 @@ from harness_tracer.adapters.generic import GenericProcessAdapter
 from harness_tracer.adapters.hermes import HermesAdapter
 from harness_tracer.adapters.openclaw import OpenClawAdapter
 from harness_tracer.adapters.opencode import OpenCodeAdapter
+from harness_tracer.adapters.openhands import OpenHandsAdapter
 
 
 def adapter_for(name: str) -> HarnessAdapter:
@@ -22,6 +23,8 @@ def adapter_for(name: str) -> HarnessAdapter:
         return HermesAdapter()
     if normalized in {"claude", "claudecode"}:
         return ClaudeCodeAdapter(normalized)
+    if normalized in {"openhands", "openhands-ai", "all-hands"}:
+        return OpenHandsAdapter()
     if normalized == "opencode":
         return OpenCodeAdapter()
     if normalized in {"fake", "nanobot"}:
@@ -39,5 +42,6 @@ __all__ = [
     "HarnessAdapter",
     "OpenClawAdapter",
     "OpenCodeAdapter",
+    "OpenHandsAdapter",
     "adapter_for",
 ]

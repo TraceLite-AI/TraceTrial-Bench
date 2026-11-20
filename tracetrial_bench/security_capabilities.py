@@ -37,6 +37,7 @@ HARNESS_CAPABILITIES: dict[str, frozenset[str]] = {
     "hermes": _FORMAL_CAPABILITIES,
     "claudecode": _FORMAL_CAPABILITIES,
     "deepseek": _FORMAL_CAPABILITIES,
+    "openhands": _FORMAL_CAPABILITIES,
 }
 
 _EXEC_TOOLS = {"exec", "shell", "bash", "terminal", "command_execution", "run_command", "run"}

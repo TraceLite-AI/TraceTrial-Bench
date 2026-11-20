@@ -88,6 +88,7 @@ class TraceRunner:
                 "claudecode",
                 "codex",
                 "openclaw",
+                "openhands",
             }:
                 writer.write(
                     "run_started",
@@ -155,6 +156,10 @@ class TraceRunner:
                 )
             if config.replace_environment and config.harness.lower() == "codex":
                 consume_kwargs["allowed_state_dir"] = process_env.get("CODEX_HOME")
+            if config.replace_environment and config.harness.lower() == "openhands":
+                consume_kwargs["allowed_state_dir"] = process_env.get(
+                    "OPENHANDS_PERSISTENCE_DIR"
+                )
             if config.harness.lower() in {"hermes", "hermes-agent"}:
                 consume_kwargs.update(
                     {

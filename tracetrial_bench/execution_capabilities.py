@@ -94,6 +94,12 @@ HARNESS_CAPABILITIES: dict[str, frozenset[str]] = {
         "native_child_return_boundary_v1",
         "native_pushed_child_completion_v1",
     },
+    "openhands": _FORMAL_CAPABILITIES
+    | {
+        "native_async_child_dispatch_v1",
+        "native_child_return_boundary_v1",
+        "native_pushed_child_completion_v1",
+    },
 }
 
 
