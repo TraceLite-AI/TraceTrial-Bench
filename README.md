@@ -24,6 +24,7 @@ Code and tasks for *Trial by Trace: Benchmarking AI Agent Harnesses for Reliabil
 <p align="center">
   <a href="#overview">Overview</a> ·
   <a href="#results">Results</a> ·
+  <a href="#ecosystem-impact">Ecosystem impact</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="#benchmark">Benchmark</a> ·
   <a href="#citation">Citation</a>
@@ -85,6 +86,45 @@ Claude Code has the highest Agent Pass rate; OpenClaw has the highest Harness Ma
 - **Overall:** mean of Agent Score and Harness Macro.
 
 Per-model results and case studies are available in the [technical report](https://tracelite.ai/trial-by-trace.html) and on the [leaderboard](https://tracelite.ai/leaderboard.html).
+
+</details>
+
+## Ecosystem impact
+
+Beyond scoring existing releases, TraceTrial-Bench's mechanism probes (`C`, `E`, `G`, `L`, `O`, `T`) are used to audit production open-source agent harnesses. To date, mechanism-guided testing has surfaced **17 real-world defects and runtime gaps** across **[OpenHands SDK](https://github.com/OpenHands/software-agent-sdk)**, **[OpenCode](https://github.com/anomalyco/opencode)** and **[Aider](https://github.com/Aider-AI/aider)**, backed by **14 upstream pull requests** and independent maintainer reproductions — including five issues codified into OpenHands's official `verify-sdk` and `verify-agent-server` regression suites ([`095af36`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)).
+
+### Controlled harness interventions (same model, patched harness)
+
+Holding the model, task container and rubric fixed while patching only the implicated harness mechanism isolates the causal effect of harness engineering on end-to-end scores:
+
+| Target harness | Node / Task | Harness defect or gap addressed | Upstream reference | Score delta (Before → After) |
+| :--- | :--- | :--- | :--- | :--- |
+| **OpenCode** | `E9` (`E9-ptyrepl-002`) | Native stateful `pty` session tool with `EOF` (`Ctrl+D`) and pattern wait | [#65017](https://github.com/anomalyco/opencode/issues/65017) · [`interactive-pty-tool`](https://github.com/TraceLite-AI/opencode/tree/interactive-pty-tool) | Overall **37.5 → 62.5** (`+25.0`; 6/6 PTY checks `0 → 1`) |
+| **OpenCode** | `L4` / `O` / `C2` | Missing background `<subagent>` / `<shell>` inbox delivery and compaction events in `run --format json` | [#64851](https://github.com/anomalyco/opencode/issues/64851) · [PR #64852](https://github.com/anomalyco/opencode/pull/64852) | Overall **45.0 → 60.0** (`+15.0`; Harness **20.0 → 35.0**) |
+| **OpenHands SDK** | `T3` (`T3-reserved-tool-name-001`) | Single-server MCP tool colliding with built-in `terminal` raises `Duplicate tool names found` on startup | [#6992](https://github.com/OpenHands/software-agent-sdk/issues/6992) · [PR #6988](https://github.com/OpenHands/software-agent-sdk/pull/6988) | Overall **0.0 → 33.3** (Harness **0.0 → 42.9**) |
+| **Aider** | `G` / `E1` (`E1-drainexit-001`) | Non-interactive `--yes-shell-commands` execution and shell output reflection in `--message` mode | [PR #6002](https://github.com/Aider-AI/aider/pull/6002) | Overall **25.0 → 37.5** (Harness **14.3 → 28.6**) |
+
+<details>
+<summary><strong>Full upstream bug and feature tracker (14 PRs across OpenHands, OpenCode and Aider)</strong></summary>
+
+<br>
+
+| Harness | Node | Issue & upstream triage | Pull request | Defect / capability summary |
+| :--- | :--- | :--- | :--- | :--- |
+| **OpenHands SDK** | `G2` × `L` | [#6999](https://github.com/OpenHands/software-agent-sdk/issues/6999) (`priority:high`, `ready-for-dev`, reproduced in [`S11/task_fail_closed`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)) | [PR #7001](https://github.com/OpenHands/software-agent-sdk/pull/7001) | Sub-agents fail open on `WAITING_FOR_CONFIRMATION` when `confirmation_handler=None` and drop parent `security_analyzer` |
+| **OpenHands SDK** | `G4` × `C2` × `L` | [#7002](https://github.com/OpenHands/software-agent-sdk/issues/7002) (`priority:medium`, `ready-for-dev`) | [PR #7003](https://github.com/OpenHands/software-agent-sdk/pull/7003) | `SecretRegistry.update_secrets()` leaves unexported and rotated secret values unmasked across parent/sub-agent observations |
+| **OpenHands SDK** | `L` | [#6990](https://github.com/OpenHands/software-agent-sdk/issues/6990) (`priority:medium`, `ready-for-dev`, reproduced in [`S11/task_resume_session`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)) | [PR #6986](https://github.com/OpenHands/software-agent-sdk/pull/6986) | Persisted sub-agent task index and original `subagent_type` are lost when reopening a parent conversation |
+| **OpenHands SDK** | `O` × `L` | [#3907](https://github.com/OpenHands/software-agent-sdk/issues/3907) (`priority:medium`, `ready-for-dev`) | [PR #6997](https://github.com/OpenHands/software-agent-sdk/pull/6997) | Real-time forwarding of sub-agent events with `parent_tool_use_id` attribution |
+| **OpenHands SDK** | `C2` | [#6995](https://github.com/OpenHands/software-agent-sdk/issues/6995) (`priority:medium`, `ready-for-dev`) | [PR #6998](https://github.com/OpenHands/software-agent-sdk/pull/6998) | Entity-anchor-preserving context condensation (`<preserved_facts>`) and compression telemetry |
+| **OpenHands SDK** | `E2` | [#6991](https://github.com/OpenHands/software-agent-sdk/issues/6991) (`priority:low`, `ready-for-dev`, reproduced in [`S14/terminal_flags`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)) | [PR #6987](https://github.com/OpenHands/software-agent-sdk/pull/6987) | `TerminalObservation.timeout` remains `False` on both hard-timeout and no-change-timeout branches |
+| **OpenHands SDK** | `T3` | [#6992](https://github.com/OpenHands/software-agent-sdk/issues/6992) (`priority:low`, `ready-for-dev`, reproduced in [`S09/conversation`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)) | [PR #6988](https://github.com/OpenHands/software-agent-sdk/pull/6988) | Namespace colliding single-server MCP tools as `<server>_<tool>` instead of aborting initialization |
+| **OpenHands SDK** | `T7` | [#6993](https://github.com/OpenHands/software-agent-sdk/issues/6993) (`priority:low`, `ready-for-dev`, reproduced in [`S09/conversation`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)) | [PR #6989](https://github.com/OpenHands/software-agent-sdk/pull/6989) | Preserve MCP `EmbeddedResource` text and `structuredContent`-only payloads in `MCPToolObservation` |
+| **OpenHands SDK** | `E3` / `E6` | [#7017](https://github.com/OpenHands/software-agent-sdk/issues/7017) (`priority:low`, `ready-for-dev`) | [PR #7025](https://github.com/OpenHands/software-agent-sdk/pull/7025) | Opt-in `hard_timeout` foreground process-group reaping (`SIGINT → SIGTERM → SIGKILL`) and error signaling |
+| **OpenHands SDK** | `C1` | [#6994](https://github.com/OpenHands/software-agent-sdk/issues/6994) (`priority:low`) | [PR #7024](https://github.com/OpenHands/software-agent-sdk/pull/7024) | Machine-readable `TruncationMetadata` with line-range accounting and secret-masked spillover persistence |
+| **OpenCode** | `T7` | [#64837](https://github.com/anomalyco/opencode/issues/64837) (`type/bug`, `status/repro-simulated`) | [PR #64838](https://github.com/anomalyco/opencode/pull/64838) | Direct MCP tools drop `structuredContent`, structured errors and textual `EmbeddedResource` metadata |
+| **OpenCode** | `G2` × `L` | [#64840](https://github.com/anomalyco/opencode/issues/64840) (`type/bug`, `status/repro-simulated`) | [PR #64841](https://github.com/anomalyco/opencode/pull/64841) | `SubagentTool` ignores `session.permissions` and fails to cascade parent permission updates across descendants |
+| **OpenCode** | `L4` / `O` / `C2` | [#64851](https://github.com/anomalyco/opencode/issues/64851) (`type/feature`, `area/cli`) | [PR #64852](https://github.com/anomalyco/opencode/pull/64852) | Stream and reconcile synthetic background notifications and compaction completions in `opencode run --format json` |
+| **Aider** | `G` / `E1` | [#6003](https://github.com/Aider-AI/aider/issues/6003) (related headless telemetry RFC) | [PR #6002](https://github.com/Aider-AI/aider/pull/6002) | Headless `--yes-shell-commands` execution and shell output reflection in `--message` runs |
 
 </details>
 

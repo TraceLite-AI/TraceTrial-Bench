@@ -23,6 +23,7 @@
 <p align="center">
   <a href="#项目概览">项目概览</a> ·
   <a href="#主要结果">主要结果</a> ·
+  <a href="#开源生态实证">开源生态实证</a> ·
   <a href="#快速上手">快速上手</a> ·
   <a href="#评测题集">评测题集</a> ·
   <a href="#引用">引用</a>
@@ -84,6 +85,45 @@ Claude Code 的 Agent Pass 最高，OpenClaw 的 Harness Macro 最高。四种 h
 - **Overall：**Agent Score 与 Harness Macro 的平均。
 
 分模型结果和案例分析见[技术报告](https://tracelite.ai/trial-by-trace.html)与[排行榜](https://tracelite.ai/leaderboard.html)。
+
+</details>
+
+## 开源生态实证
+
+除评测已有发行版外，TraceTrial-Bench 的机制节点（`C`、`E`、`G`、`L`、`O`、`T`）还被用于对主流开源 Agent 框架开展系统性缺陷审计。截至目前，基于评测机制挖掘已在 **[OpenHands SDK](https://github.com/OpenHands/software-agent-sdk)**、**[OpenCode](https://github.com/anomalyco/opencode)** 与 **[Aider](https://github.com/Aider-AI/aider)** 中定位 **17 处真实可靠性缺陷与运行时短板**，提交 **14 个上游修复与特性 PR** 并获上游维护者独立复现确认——其中 5 项缺陷已被 OpenHands 核心维护者正式编入官方 `verify-sdk` 与 `verify-agent-server` 回归验收套件（[`095af36`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)）。
+
+### 控制变量因果验证（同一模型，仅修补 Harness）
+
+保持底层模型、评测容器与评分判据不变，仅对定位到的 Harness 机制缺陷打上最小修复补丁，可直接分离出 Harness 可靠性对端到端任务表现的因果增益：
+
+| 目标框架 | 机制节点 / 题目 | 修复的 Harness 缺陷或能力缺口 | 上游链接 | 实测得分变化（修复前 → 修复后） |
+| :--- | :--- | :--- | :--- | :--- |
+| **OpenCode** | `E9` (`E9-ptyrepl-002`) | 原生交互式 `pty` 会话工具（支持 `EOF` / `Ctrl+D` 与输出模式等待） | [#65017](https://github.com/anomalyco/opencode/issues/65017) · [`interactive-pty-tool`](https://github.com/TraceLite-AI/opencode/tree/interactive-pty-tool) | Overall **37.5 → 62.5**（`+25.0`；6/6 项 PTY 判据由 `0 → 1`） |
+| **OpenCode** | `L4` / `O` / `C2` | `run --format json` 漏打后台 `<subagent>` / `<shell>` 完成通知与压缩事件 | [#64851](https://github.com/anomalyco/opencode/issues/64851) · [PR #64852](https://github.com/anomalyco/opencode/pull/64852) | Overall **45.0 → 60.0**（`+15.0`；Harness **20.0 → 35.0**） |
+| **OpenHands SDK** | `T3` (`T3-reserved-tool-name-001`) | 单 MCP Server 工具与内置 `terminal` 重名时直接抛异常中断会话初始化 | [#6992](https://github.com/OpenHands/software-agent-sdk/issues/6992) · [PR #6988](https://github.com/OpenHands/software-agent-sdk/pull/6988) | Overall **0.0 → 33.3**（Harness **0.0 → 42.9**） |
+| **Aider** | `G` / `E1` (`E1-drainexit-001`) | `--message` 非交互模式下支持 `--yes-shell-commands` 并向模型回传命令输出 | [PR #6002](https://github.com/Aider-AI/aider/pull/6002) | Overall **25.0 → 37.5**（Harness **14.3 → 28.6**） |
+
+<details>
+<summary><strong>展开查看全部 14 个上游修复与特性 PR 清单（OpenHands / OpenCode / Aider）</strong></summary>
+
+<br>
+
+| 目标框架 | 节点 | 关联议题与官方定级 | Pull Request | 缺陷与修复摘要 |
+| :--- | :--- | :--- | :--- | :--- |
+| **OpenHands SDK** | `G2` × `L` | [#6999](https://github.com/OpenHands/software-agent-sdk/issues/6999)（`priority:high`、`ready-for-dev`，已纳入官方 [`S11/task_fail_closed`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)） | [PR #7001](https://github.com/OpenHands/software-agent-sdk/pull/7001) | 修复子智能体在无 `confirmation_handler` 时对 `WAITING_FOR_CONFIRMATION` 动作静默放行（fail-open）及漏传 `security_analyzer` 的安全漏洞 |
+| **OpenHands SDK** | `G4` × `C2` × `L` | [#7002](https://github.com/OpenHands/software-agent-sdk/issues/7002)（`priority:medium`、`ready-for-dev`） | [PR #7003](https://github.com/OpenHands/software-agent-sdk/pull/7003) | 修复 `SecretRegistry.update_secrets()` 新密钥及轮换后旧密钥脱敏失效与父子智能体脱敏同步问题 |
+| **OpenHands SDK** | `L` | [#6990](https://github.com/OpenHands/software-agent-sdk/issues/6990)（`priority:medium`、`ready-for-dev`，已纳入官方 [`S11/task_resume_session`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)） | [PR #6986](https://github.com/OpenHands/software-agent-sdk/pull/6986) | 持久化子智能体任务索引与原始 `subagent_type`，修复父会话重开后无法恢复子智能体的问题 |
+| **OpenHands SDK** | `O` × `L` | [#3907](https://github.com/OpenHands/software-agent-sdk/issues/3907)（`priority:medium`、`ready-for-dev`） | [PR #6997](https://github.com/OpenHands/software-agent-sdk/pull/6997) | 支持携带 `parent_tool_use_id` 将子智能体内部事件实时转发至父级事件流 |
+| **OpenHands SDK** | `C2` | [#6995](https://github.com/OpenHands/software-agent-sdk/issues/6995)（`priority:medium`、`ready-for-dev`） | [PR #6998](https://github.com/OpenHands/software-agent-sdk/pull/6998) | `<preserved_facts>` 实体锚点保留压缩提示词与多轮上下文压缩度量 |
+| **OpenHands SDK** | `E2` | [#6991](https://github.com/OpenHands/software-agent-sdk/issues/6991)（`priority:low`、`ready-for-dev`，已纳入官方 [`S14/terminal_flags`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)） | [PR #6987](https://github.com/OpenHands/software-agent-sdk/pull/6987) | 修复硬超时与无输出超时分支漏设 `TerminalObservation.timeout=True` 的问题 |
+| **OpenHands SDK** | `T3` | [#6992](https://github.com/OpenHands/software-agent-sdk/issues/6992)（`priority:low`、`ready-for-dev`，已纳入官方 [`S09/conversation`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)） | [PR #6988](https://github.com/OpenHands/software-agent-sdk/pull/6988) | 单 MCP Server 工具与内置工具重名时自动降级为 `<server>_<tool>` 前缀隔离 |
+| **OpenHands SDK** | `T7` | [#6993](https://github.com/OpenHands/software-agent-sdk/issues/6993)（`priority:low`、`ready-for-dev`，已纳入官方 [`S09/conversation`](https://github.com/OpenHands/software-agent-sdk/commit/095af36ad87aee6b375cc5e87ac18d57787fec62)） | [PR #6989](https://github.com/OpenHands/software-agent-sdk/pull/6989) | 在 `MCPToolObservation` 中完整保留 `EmbeddedResource` 文本与纯 `structuredContent` 载荷 |
+| **OpenHands SDK** | `E3` / `E6` | [#7017](https://github.com/OpenHands/software-agent-sdk/issues/7017)（`priority:low`、`ready-for-dev`） | [PR #7025](https://github.com/OpenHands/software-agent-sdk/pull/7025) | 为 `TerminalAction` 新增可选 `hard_timeout` 前台作业进程组阶梯收割与错误标记 |
+| **OpenHands SDK** | `C1` | [#6994](https://github.com/OpenHands/software-agent-sdk/issues/6994)（`priority:low`） | [PR #7024](https://github.com/OpenHands/software-agent-sdk/pull/7024) | 结构化输出截断元数据 `TruncationMetadata`（精确字符/行号区间与持久化脱敏落盘） |
+| **OpenCode** | `T7` | [#64837](https://github.com/anomalyco/opencode/issues/64837)（`type/bug`、`status/repro-simulated`） | [PR #64838](https://github.com/anomalyco/opencode/pull/64838) | 修复直连 MCP 工具丢弃 `structuredContent`、结构化错误与文本资源元数据的问题 |
+| **OpenCode** | `G2` × `L` | [#64840](https://github.com/anomalyco/opencode/issues/64840)（`type/bug`、`status/repro-simulated`） | [PR #64841](https://github.com/anomalyco/opencode/pull/64841) | 修复 `SubagentTool` 忽略会话级权限及父会话权限变更未向后代会话级联同步的问题 |
+| **OpenCode** | `L4` / `O` / `C2` | [#64851](https://github.com/anomalyco/opencode/issues/64851)（`type/feature`、`area/cli`） | [PR #64852](https://github.com/anomalyco/opencode/pull/64852) | 支持 `opencode run --format json` 实时流式输出与对账补齐后台通知及压缩事件 |
+| **Aider** | `G` / `E1` | [#6003](https://github.com/Aider-AI/aider/issues/6003)（关联遥测提案） | [PR #6002](https://github.com/Aider-AI/aider/pull/6002) | 支持 `--yes-shell-commands` 非交互执行并在 `--message` 模式下将输出回传模型 |
 
 </details>
 
