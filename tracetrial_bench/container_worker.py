@@ -667,11 +667,12 @@ def materialize_harness_state(
                     }
                 },
             )
-        llm_model = (
-            model.harness_model
-            if "/" in model.harness_model
-            else f"openai/{model.harness_model}"
-        )
+        if model.provider == "litellm_proxy" and not model.harness_model.startswith("litellm_proxy/"):
+            llm_model = f"litellm_proxy/{model.harness_model}"
+        elif "/" in model.harness_model:
+            llm_model = model.harness_model
+        else:
+            llm_model = f"openai/{model.harness_model}"
         base_environment.update(
             {
                 "HOME": str(home),
